@@ -1,0 +1,6 @@
+@RoomBi_Server_HostAddress = http://localhost:5209
+
+GET {{RoomBi_Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
