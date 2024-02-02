@@ -26,6 +26,9 @@ namespace RoomBi.DAL.EF
                 Languages.Add(new Language { Name = "Українська" });
                 Countries.Add(new Country { Name = "Україна", CountryCode = "+380" });
                 Countries.Add(new Country { Name = "Велика Британія", CountryCode = "+44" });
+                Countries.Add(new Country { Name = "Румунія", CountryCode = "+40" });
+                Countries.Add(new Country { Name = "Німеччина", CountryCode = "+49" });
+                Countries.Add(new Country { Name = "Італія", CountryCode = "+39" });
 
                 Locations.Add(new Location { Name = "На пляжі" }); //OnBeach
                 Locations.Add(new Location { Name = "Арктика" }); // Arctic
@@ -462,6 +465,741 @@ namespace RoomBi.DAL.EF
                     SportId = 4,
                     CountryId = 2,
                 });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Мінібудинок",
+                    Address = "Німеччина,  Schöneck/Vogtland",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 3,
+                    Bedrooms = 3,
+                    Bathrooms = 1,
+                    Beds = 3,
+                    PricePerNight = 123.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 31,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 4,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Мінібудинок",
+                    Address = "Німеччина,  Mittelstrimmig",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 3,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 2,
+                    PricePerNight = 99.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 31,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 4,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Транспортний контейнер",
+                    Address = "Німеччина,  Mettmann",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 2,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 1,
+                    PricePerNight = 92.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 31,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 4,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Мінібудинок",
+                    Address = "Німеччина,  Schöneck/Vogtland",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 3,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 3,
+                    PricePerNight = 138.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 31,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 4,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Мінібудинок",
+                    Address = "Німеччина,  Reisbach",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 2,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 1,
+                    PricePerNight = 93.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 31,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 4,
+                });
+                 RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Мінібудинок",
+                    Address = "Німеччина,  Welzow",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 2,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 1,
+                    PricePerNight = 66.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 31,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 4,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Будинок на дереві",
+                    Address = "Румунія,  Porumbacu de Jos",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 4,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 1,
+                    PricePerNight = 166.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 7,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 3,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Будинок на дереві",
+                    Address = "Румунія,  Moisei",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 4,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 2,
+                    PricePerNight = 87.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 7,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 3,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Будинок на дереві",
+                    Address = "Румунія,  Peșteana",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 2,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 2,
+                    PricePerNight = 87.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 7,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 3,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Будинок на дереві",
+                    Address = "Румунія,  Râșnov",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 2,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 1,
+                    PricePerNight = 77.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 7,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 3,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Будинок на дереві",
+                    Address = "Румунія,  Șelari",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 2,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 1,
+                    PricePerNight = 45.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 7,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 3,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Квартира з видом на море та терасою",
+                    Address = "Італія,  Ravello",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 4,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 3,
+                    PricePerNight = 185.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 13,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 5,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Трулло",
+                    Address = "Італія,  Cisternino",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 16,
+                    Bedrooms = 10,
+                    Bathrooms = 5,
+                    Beds = 11,
+                    PricePerNight = 396.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 13,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 5,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Антральний лофт",
+                    Address = "Італія,  Salerno",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 2,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 1,
+                    PricePerNight = 140.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 13,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 5,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Сассі Матери",
+                    Address = "Італія,  Матера",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 4,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 1,
+                    PricePerNight = 183.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 13,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 5,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Білий дім у центрі",
+                    Address = "Італія,  Ostuni",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 3,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 2,
+                    PricePerNight = 31.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 13,
+                    LocationId = 7,
+                    SportId = 4,
+                    CountryId = 5,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Бутик Dominic",
+                    Address = "Румунія,  Cloașterf",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 4,
+                    Bedrooms = 2,
+                    Bathrooms = 1,
+                    Beds = 4,
+                    PricePerNight = 70.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 13,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 3,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Cabana Colt Verde 2",
+                    Address = "Румунія,  Slăvuța",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 4,
+                    Bedrooms = 2,
+                    Bathrooms = 1,
+                    Beds = 2,
+                    PricePerNight = 72.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 13,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 3,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "AdyBeca - Forest Nook",
+                    Address = "Румунія,  Șuncuiuș",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 5,
+                    Bedrooms = 2,
+                    Bathrooms = 1,
+                    Beds = 3,
+                    PricePerNight = 169.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 13,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 3,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Трансильванська ферма",
+                    Address = "Румунія,  Aluniș",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 4,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 2,
+                    PricePerNight = 128.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 13,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 3,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Сучасний зруб з каміном і сауною",
+                    Address = "Румунія,  Dealu Negru",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 4,
+                    Bedrooms = 2,
+                    Bathrooms = 1,
+                    Beds = 2,
+                    PricePerNight = 138.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 13,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 3,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Дерев 'яний будинок",
+                    Address = "Румунія,  Bulzeștii de Sus",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 2,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 1,
+                    PricePerNight = 60.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 13,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 3,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Замок Ґалбіно",
+                    Address = "Італія,  Anghiari",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 16,
+                    Bedrooms = 10,
+                    Bathrooms = 9,
+                    Beds = 15,
+                    PricePerNight = 587.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 15,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 5,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Середньовічний замок",
+                    Address = "Італія,  Вітторіо-Венето",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 8,
+                    Bedrooms = 4,
+                    Bathrooms = 4,
+                    Beds = 4,
+                    PricePerNight = 498.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 15,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 5,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Середньовічний замок",
+                    Address = "Італія,  Gualdo Cattaneo",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 16,
+                    Bedrooms = 2,
+                    Bathrooms = 2,
+                    Beds = 4,
+                    PricePerNight = 2365.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 15,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 5,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Дімора - приголомшливий старовинний замок",
+                    Address = "Італія,  Monselice",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 6,
+                    Bedrooms = 3,
+                    Bathrooms = 3,
+                    Beds = 6,
+                    PricePerNight = 282.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 15,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 5,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Абатство Сан-Джусто",
+                    Address = "Італія,  Tuscania",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 16,
+                    Bedrooms = 16,
+                    Bathrooms = 11,
+                    Beds = 22,
+                    PricePerNight = 2707.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 15,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 5,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Torre Trasita",
+                    Address = "Італія,  Positano",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 6,
+                    Bedrooms = 3,
+                    Bathrooms = 3,
+                    Beds = 3,
+                    PricePerNight = 2093.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 15,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 5,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Вежа замку",
+                    Address = "Італія,  Roncade",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 2,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 1,
+                    PricePerNight = 162.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 15,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 5,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Pathfinder",
+                    Address = "Румунія,  Moacșa",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 3,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 5,
+                    PricePerNight = 37.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 12,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 3,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Затишний будинок-фургон",
+                    Address = "Румунія,  Urlați",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 2,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 1,
+                    PricePerNight = 44.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 12,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 3,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "ферма Habitat",
+                    Address = "Італія,  Сорренто",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 4,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 3,
+                    PricePerNight = 87.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 12,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 5,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Літл-Парадайс",
+                    Address = "Італія,  Granieri",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 3,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 2,
+                    PricePerNight = 38.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 12,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 5,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Караваном",
+                    Address = "Італія,  Альгеро",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 3,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 2,
+                    PricePerNight = 32.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 12,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 5,
+                });
+                RentalApartments.Add(new RentalApartment
+                {
+
+                    Title = "Флоріан - вогнище!",
+                    Address = "Італія,  Lacona",
+                    IngMap = "51.509865",
+                    LatMap = "-0.118092",
+                    NumberOfGuests = 2,
+                    Bedrooms = 1,
+                    Bathrooms = 1,
+                    Beds = 1,
+                    PricePerNight = 50.0,
+                    ObjectState = "Вільний",
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 1,
+                    TypeApartment = "Ціле помешкання",
+                    HouseId = 12,
+                    LocationId = 7,
+                    SportId = 2,
+                    CountryId = 5,
+                });
                 SaveChanges();
 
 
@@ -608,6 +1346,380 @@ namespace RoomBi.DAL.EF
                     TotalPrice = 300.0,
                     PaymentStatus = false
                 });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 11,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(3),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 11,
+                    CheckInDate = DateTime.Now.AddDays(10),
+                    CheckOutDate = DateTime.Now.AddDays(22),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 12,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(5),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 12,
+                    CheckInDate = DateTime.Now.AddDays(13),
+                    CheckOutDate = DateTime.Now.AddDays(19),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 13,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(9),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 14,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(7),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 15,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(4),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 15,
+                    CheckInDate = DateTime.Now.AddDays(9),
+                    CheckOutDate = DateTime.Now.AddDays(13),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 16,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(5),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 17,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(22),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 18,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(2),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 19,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(12),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 20,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(15),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 21,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(9),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 22,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(18),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 23,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(6),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 24,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(3),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 25,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(13),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 26,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(21),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 27,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(6),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 28,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(23),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 29,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(11),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 30,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(3),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 31,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(14),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 32,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(9),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 32,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(2),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 33,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(31),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 34,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(5),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 35,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(7),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 36,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(9),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 37,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(4),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 38,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(15),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 39,
+                    CheckInDate = DateTime.Now.AddDays(11),
+                    CheckOutDate = DateTime.Now.AddDays(23),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 40,
+                    CheckInDate = DateTime.Now.AddDays(2),
+                    CheckOutDate = DateTime.Now.AddDays(4),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 41,
+                    CheckInDate = DateTime.Now.AddDays(5),
+                    CheckOutDate = DateTime.Now.AddDays(8),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 42,
+                    CheckInDate = DateTime.Now.AddDays(10),
+                    CheckOutDate = DateTime.Now.AddDays(32),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 43,
+                    CheckInDate = DateTime.Now.AddDays(1),
+                    CheckOutDate = DateTime.Now.AddDays(10),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 44,
+                    CheckInDate = DateTime.Now.AddDays(9),
+                    CheckOutDate = DateTime.Now.AddDays(12),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                }); Bookings.Add(new Booking
+                {
+                    OwnerId = 2,
+                    ApartmentId = 45,
+                    CheckInDate = DateTime.Now.AddDays(5),
+                    CheckOutDate = DateTime.Now.AddDays(15),
+                    NumberOfGuests = 3,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                
                 Wishlists.Add(new Wishlist
                 {
                     UserId = 1,
@@ -1010,6 +2122,996 @@ namespace RoomBi.DAL.EF
                     PictureName = "Foto5",
                     PictureUrl = "105.jpg",
                     RentalApartmentId = 10
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "111.webp",
+                    RentalApartmentId = 11
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "112.webp",
+                    RentalApartmentId = 11
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "113.webp",
+                    RentalApartmentId = 11
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "114.webp",
+                    RentalApartmentId = 11
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "115.webp",
+                    RentalApartmentId = 11
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "121.webp",
+                    RentalApartmentId = 12
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "122.webp",
+                    RentalApartmentId = 12
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "123.webp",
+                    RentalApartmentId = 12
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "124.webp",
+                    RentalApartmentId = 12
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "125.webp",
+                    RentalApartmentId = 12
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "131.webp",
+                    RentalApartmentId = 13
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "132.webp",
+                    RentalApartmentId = 13
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "133.webp",
+                    RentalApartmentId = 13
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "134.webp",
+                    RentalApartmentId = 13
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "135.webp",
+                    RentalApartmentId = 13
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "141.webp",
+                    RentalApartmentId = 14
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "142.webp",
+                    RentalApartmentId = 14
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "143.webp",
+                    RentalApartmentId = 14
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "144.webp",
+                    RentalApartmentId = 14
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "145.webp",
+                    RentalApartmentId = 14
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "151.webp",
+                    RentalApartmentId = 15
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "152.webp",
+                    RentalApartmentId = 15
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "153.webp",
+                    RentalApartmentId = 15
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "154.webp",
+                    RentalApartmentId = 15
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "155.webp",
+                    RentalApartmentId = 15
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "161.webp",
+                    RentalApartmentId = 16
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "162.webp",
+                    RentalApartmentId = 16
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "163.webp",
+                    RentalApartmentId = 16
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "164.webp",
+                    RentalApartmentId = 16
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "165.webp",
+                    RentalApartmentId = 16
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "171.webp",
+                    RentalApartmentId = 17
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "172.webp",
+                    RentalApartmentId = 17
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "173.webp",
+                    RentalApartmentId = 17
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "174.webp",
+                    RentalApartmentId = 17
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "175.webp",
+                    RentalApartmentId = 17
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "181.webp",
+                    RentalApartmentId = 18
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "182.webp",
+                    RentalApartmentId = 18
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "183.webp",
+                    RentalApartmentId = 18
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "184.webp",
+                    RentalApartmentId = 18
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "185.webp",
+                    RentalApartmentId = 18
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "191.webp",
+                    RentalApartmentId = 19
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "192.webp",
+                    RentalApartmentId = 19
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "193.webp",
+                    RentalApartmentId = 19
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "194.webp",
+                    RentalApartmentId = 19
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "195.webp",
+                    RentalApartmentId = 19
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "201.webp",
+                    RentalApartmentId = 20
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "202.webp",
+                    RentalApartmentId = 20
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "203.webp",
+                    RentalApartmentId = 20
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "204.webp",
+                    RentalApartmentId = 20
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "205.webp",
+                    RentalApartmentId = 20
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "211.webp",
+                    RentalApartmentId = 21
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "212.webp",
+                    RentalApartmentId = 21
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "213.webp",
+                    RentalApartmentId = 21
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "214.webp",
+                    RentalApartmentId = 21
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "215.webp",
+                    RentalApartmentId = 21
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "221.webp",
+                    RentalApartmentId = 22
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "222.webp",
+                    RentalApartmentId = 22
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "223.webp",
+                    RentalApartmentId = 22
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "224.webp",
+                    RentalApartmentId = 22
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "225.webp",
+                    RentalApartmentId = 22
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "231.webp",
+                    RentalApartmentId = 23
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "232.webp",
+                    RentalApartmentId = 23
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "233.webp",
+                    RentalApartmentId = 23
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "234.webp",
+                    RentalApartmentId = 23
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "235.webp",
+                    RentalApartmentId = 23
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "241.webp",
+                    RentalApartmentId = 24
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "242.webp",
+                    RentalApartmentId = 24
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "243.webp",
+                    RentalApartmentId = 24
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "244.webp",
+                    RentalApartmentId = 24
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "245.webp",
+                    RentalApartmentId = 24
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "251.webp",
+                    RentalApartmentId = 25
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "252.webp",
+                    RentalApartmentId = 25
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "253.webp",
+                    RentalApartmentId = 25
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "254.webp",
+                    RentalApartmentId = 25
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "255.webp",
+                    RentalApartmentId = 25
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "261.webp",
+                    RentalApartmentId = 26
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "262.webp",
+                    RentalApartmentId = 26
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "263.webp",
+                    RentalApartmentId = 26
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "264.webp",
+                    RentalApartmentId = 26
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "265.webp",
+                    RentalApartmentId = 26
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "271.webp",
+                    RentalApartmentId = 27
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "272.webp",
+                    RentalApartmentId = 27
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "273.webp",
+                    RentalApartmentId = 27
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "274.webp",
+                    RentalApartmentId = 27
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "275.webp",
+                    RentalApartmentId = 27
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "281.webp",
+                    RentalApartmentId = 28
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "282.webp",
+                    RentalApartmentId = 28
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "283.webp",
+                    RentalApartmentId = 28
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "284.webp",
+                    RentalApartmentId = 28
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "285.webp",
+                    RentalApartmentId = 28
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "291.webp",
+                    RentalApartmentId = 29
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "292.webp",
+                    RentalApartmentId = 29
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "293.webp",
+                    RentalApartmentId = 29
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "294.webp",
+                    RentalApartmentId = 29
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "295.webp",
+                    RentalApartmentId = 29
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "301.webp",
+                    RentalApartmentId = 30
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "302.webp",
+                    RentalApartmentId = 30
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "303.webp",
+                    RentalApartmentId = 30
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "304.webp",
+                    RentalApartmentId = 30
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "305.webp",
+                    RentalApartmentId = 30
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "311.webp",
+                    RentalApartmentId = 31
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "312.webp",
+                    RentalApartmentId = 31
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "313.webp",
+                    RentalApartmentId = 31
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "314.webp",
+                    RentalApartmentId = 31
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "315.webp",
+                    RentalApartmentId = 31
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "321.webp",
+                    RentalApartmentId = 32
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "322.webp",
+                    RentalApartmentId = 32
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "323.webp",
+                    RentalApartmentId = 32
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "334.webp",
+                    RentalApartmentId = 33
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "345.webp",
+                    RentalApartmentId = 34
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "351.webp",
+                    RentalApartmentId = 35
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "352.webp",
+                    RentalApartmentId = 35
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "353.webp",
+                    RentalApartmentId = 35
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "354.webp",
+                    RentalApartmentId = 35
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "355.webp",
+                    RentalApartmentId = 35
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "361.webp",
+                    RentalApartmentId = 36
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "362.webp",
+                    RentalApartmentId = 36
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "363.webp",
+                    RentalApartmentId = 36
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "364.webp",
+                    RentalApartmentId = 36
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "365.webp",
+                    RentalApartmentId = 36
+                });
+                Pictures.Add(new Picture
+                  {
+                      PictureName = "Foto1",
+                      PictureUrl = "371.webp",
+                      RentalApartmentId = 37
+                  });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "372.webp",
+                    RentalApartmentId = 37
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "373.webp",
+                    RentalApartmentId = 37
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "374.webp",
+                    RentalApartmentId = 37
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "375.webp",
+                    RentalApartmentId = 37
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "381.webp",
+                    RentalApartmentId = 38
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "382.webp",
+                    RentalApartmentId = 38
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "383.webp",
+                    RentalApartmentId = 38
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "384.webp",
+                    RentalApartmentId = 38
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "385.webp",
+                    RentalApartmentId = 38
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "391.webp",
+                    RentalApartmentId = 39
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "392.webp",
+                    RentalApartmentId = 39
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "393.webp",
+                    RentalApartmentId = 39
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "394.webp",
+                    RentalApartmentId = 39
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "395.webp",
+                    RentalApartmentId = 39
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "401.webp",
+                    RentalApartmentId = 40
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "402.webp",
+                    RentalApartmentId = 40
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "403.webp",
+                    RentalApartmentId = 40
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "404.webp",
+                    RentalApartmentId = 40
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "405.webp",
+                    RentalApartmentId = 40
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "411.webp",
+                    RentalApartmentId = 41
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "412.webp",
+                    RentalApartmentId = 41
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "413.webp",
+                    RentalApartmentId = 41
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "414.webp",
+                    RentalApartmentId = 41
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "415.webp",
+                    RentalApartmentId = 41
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "421.webp",
+                    RentalApartmentId = 42
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "422.webp",
+                    RentalApartmentId = 42
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "423.webp",
+                    RentalApartmentId = 42
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "424.webp",
+                    RentalApartmentId = 42
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "425.webp",
+                    RentalApartmentId = 42
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "431.webp",
+                    RentalApartmentId = 43
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "432.webp",
+                    RentalApartmentId = 43
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "433.webp",
+                    RentalApartmentId = 43
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "434.webp",
+                    RentalApartmentId = 43
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "435.webp",
+                    RentalApartmentId = 43
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "441.webp",
+                    RentalApartmentId = 44
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "442.webp",
+                    RentalApartmentId = 44
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "443.webp",
+                    RentalApartmentId = 44
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "444.webp",
+                    RentalApartmentId = 44
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "445.webp",
+                    RentalApartmentId = 44
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto1",
+                    PictureUrl = "451.webp",
+                    RentalApartmentId = 45
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto2",
+                    PictureUrl = "452.webp",
+                    RentalApartmentId = 45
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "453.webp",
+                    RentalApartmentId = 45
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto4",
+                    PictureUrl = "454.webp",
+                    RentalApartmentId = 45
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto5",
+                    PictureUrl = "455.webp",
+                    RentalApartmentId = 45
                 });
                 SaveChanges();
             }
