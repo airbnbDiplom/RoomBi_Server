@@ -45,7 +45,7 @@ namespace RoomBi.DAL.Repositories
         }
         public async Task Update(RentalApartment item)
         {
-             context.RentalApartments.Update(item);
+              context.RentalApartments.Update(item);
         }
         public async Task Delete(int id)
         {
