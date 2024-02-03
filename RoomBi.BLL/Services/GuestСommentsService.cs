@@ -8,16 +8,16 @@ using RoomBi.BLL.DTO;
 namespace RoomBi.BLL.Services
 {
 
-    public class GuestСommentsService : IServiceOfAll<GuestCommentsDTO>
+    public class GuestСommentsService(IUnitOfWork uow) : IServiceOfAll<GuestCommentsForRentalItemDTO>
     {
-        IUnitOfWork Database { get; set; }
-
-        public GuestСommentsService(IUnitOfWork uow)
+        public async Task<IEnumerable<GuestCommentsForRentalItemDTO>> GetAll()
         {
-            Database = uow;
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<GuestComments, GuestCommentsForRentalItemDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<GuestComments>, IEnumerable<GuestCommentsForRentalItemDTO>>(await Database.GuestComments.GetAll());
         }
+        IUnitOfWork Database { get; set; } = uow;
 
-        public async Task Create(GuestCommentsDTO guestСommentsDTO)
+        public async Task Create(GuestCommentsForRentalItemDTO guestСommentsDTO)
         {
             var guestСomments = new GuestComments
             {
@@ -31,7 +31,7 @@ namespace RoomBi.BLL.Services
             await Database.Save();
         }
 
-        public async Task Update(GuestCommentsDTO guestСommentsDTO)
+        public async Task Update(GuestCommentsForRentalItemDTO guestСommentsDTO)
         {
             var guestСomments = new GuestComments
             {
@@ -51,12 +51,12 @@ namespace RoomBi.BLL.Services
             await Database.Save();
         }
 
-        public async Task<GuestCommentsDTO> Get(int id)
+        public async Task<GuestCommentsForRentalItemDTO> Get(int id)
         {
             var guestСomments = await Database.GuestComments.Get(id);
             if (guestСomments == null)
                 throw new ValidationException("Wrong guestСomments!", "");
-            return new GuestCommentsDTO
+            return new GuestCommentsForRentalItemDTO
             {
                 Id = guestСomments.Id,
                 UserId = guestСomments.GuestIdUser,
@@ -66,11 +66,7 @@ namespace RoomBi.BLL.Services
             };
         }
 
-        public async Task<IEnumerable<GuestCommentsDTO>> GetAll()
-        {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<GuestComments, GuestCommentsDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<GuestComments>, IEnumerable<GuestCommentsDTO>>(await Database.GuestComments.GetAll());
-        }
+      
 
     }
 }

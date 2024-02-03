@@ -5,7 +5,7 @@ using RoomBi.DAL.Entities;
 
 namespace RoomBi.BLL.DTO
 {
-    public class RentalApartmentDTO
+    public class RentalApartmentDTO// для передачи одного элемента
     {
         public int Id { get; set; }
         public string? Title { get; set; }
@@ -27,7 +27,6 @@ namespace RoomBi.BLL.DTO
         public string? House { get; set; }
         public string? Sport { get; set; }
         public string? Country { get; set; }
-        public int OfferedAmenitiesId { get; set; }
         public OfferedAmenities? OfferedAmenities { get; set; }
         public ICollection<Booking>? Booking { get; set; }
         public ICollection<GuestComments>? GuestComments { get; set; }
