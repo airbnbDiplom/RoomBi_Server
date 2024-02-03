@@ -10,12 +10,13 @@ namespace RoomBi.DAL
         {
             this.CommentsAboutGuests = new HashSet<CommentsAboutGuest>();
             this.Chat = new HashSet<Chat>();
-            this.GuestСomments = new HashSet<GuestСomments>();
+            this.GuestСomments = new HashSet<GuestComments>();
+            this.Users = new HashSet<User>();
         }
         public ICollection<CommentsAboutGuest> CommentsAboutGuests { get; set; }
         public ICollection<Chat> Chat { get; set; }
-        public ICollection<GuestСomments> GuestСomments { get; set; }
-
+        public ICollection<GuestComments> GuestСomments { get; set; }
+        public ICollection<User> Users { get; set; }
 
 
         public int Id { get; set; }

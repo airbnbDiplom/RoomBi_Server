@@ -13,7 +13,7 @@ namespace RoomBi.DAL.Repositories
     {
         private RBContext db = context;
         private LanguageRepository languageRepository;
-        private GuestСommentsRepository guestСommentsRepository;
+        private GuestCommentsRepository guestCommentsRepository;
         private GuestPaymentMethodRepository guestPaymentMethodRepository;
         private EmergencyContactPersonRepository emergencyContactPersonRepository;
         private ChatRepository chatRepository;
@@ -146,13 +146,13 @@ namespace RoomBi.DAL.Repositories
                 return countryRepository;
             }
         }
-        public IRepositoryOfAll<GuestСomments> GuestСomments
+        public IRepositoryOfAll<GuestComments> GuestComments
         {
             get
             {
-                if (guestСommentsRepository == null)
-                    guestСommentsRepository = new GuestСommentsRepository(db);
-                return guestСommentsRepository;
+                if (guestCommentsRepository == null)
+                    guestCommentsRepository = new GuestCommentsRepository(db);
+                return guestCommentsRepository;
             }
         }
         public IRepositoryOfAll<Language> Languages

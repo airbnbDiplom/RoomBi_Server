@@ -8,7 +8,7 @@ using RoomBi.BLL.DTO;
 namespace RoomBi.BLL.Services
 {
 
-    public class GuestСommentsService : IServiceOfAll<GuestСommentsDTO>
+    public class GuestСommentsService : IServiceOfAll<GuestCommentsDTO>
     {
         IUnitOfWork Database { get; set; }
 
@@ -17,9 +17,9 @@ namespace RoomBi.BLL.Services
             Database = uow;
         }
 
-        public async Task Create(GuestСommentsDTO guestСommentsDTO)
+        public async Task Create(GuestCommentsDTO guestСommentsDTO)
         {
-            var guestСomments = new GuestСomments
+            var guestСomments = new GuestComments
             {
                 Id = guestСommentsDTO.Id,
                 GuestIdUser = guestСommentsDTO.UserId,
@@ -27,13 +27,13 @@ namespace RoomBi.BLL.Services
                 Comment = guestСommentsDTO.Comment,
                 Rating = guestСommentsDTO.Rating
             };
-            await Database.GuestСomments.Create(guestСomments);
+            await Database.GuestComments.Create(guestСomments);
             await Database.Save();
         }
 
-        public async Task Update(GuestСommentsDTO guestСommentsDTO)
+        public async Task Update(GuestCommentsDTO guestСommentsDTO)
         {
-            var guestСomments = new GuestСomments
+            var guestСomments = new GuestComments
             {
                 Id = guestСommentsDTO.Id,
                 GuestIdUser = guestСommentsDTO.UserId,
@@ -41,22 +41,22 @@ namespace RoomBi.BLL.Services
                 Comment = guestСommentsDTO.Comment,
                 Rating = guestСommentsDTO.Rating
             };
-            await Database.GuestСomments.Update(guestСomments);
+            await Database.GuestComments.Update(guestСomments);
             await Database.Save();
         }
 
         public async Task Delete(int id)
         {
-            await Database.GuestСomments.Delete(id);
+            await Database.GuestComments.Delete(id);
             await Database.Save();
         }
 
-        public async Task<GuestСommentsDTO> Get(int id)
+        public async Task<GuestCommentsDTO> Get(int id)
         {
-            var guestСomments = await Database.GuestСomments.Get(id);
+            var guestСomments = await Database.GuestComments.Get(id);
             if (guestСomments == null)
                 throw new ValidationException("Wrong guestСomments!", "");
-            return new GuestСommentsDTO
+            return new GuestCommentsDTO
             {
                 Id = guestСomments.Id,
                 UserId = guestСomments.GuestIdUser,
@@ -66,10 +66,10 @@ namespace RoomBi.BLL.Services
             };
         }
 
-        public async Task<IEnumerable<GuestСommentsDTO>> GetAll()
+        public async Task<IEnumerable<GuestCommentsDTO>> GetAll()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<GuestСomments, GuestСommentsDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<GuestСomments>, IEnumerable<GuestСommentsDTO>>(await Database.GuestСomments.GetAll());
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<GuestComments, GuestCommentsDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<GuestComments>, IEnumerable<GuestCommentsDTO>>(await Database.GuestComments.GetAll());
         }
 
     }

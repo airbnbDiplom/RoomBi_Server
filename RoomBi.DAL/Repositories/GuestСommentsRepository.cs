@@ -8,31 +8,31 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class GuestСommentsRepository(RBContext context) : IRepositoryOfAll<GuestСomments>
+    public class GuestCommentsRepository(RBContext context) : IRepositoryOfAll<GuestComments>
     {
         private readonly RBContext context = context;
 
-        public async Task<IEnumerable<GuestСomments>> GetAll()
+        public async Task<IEnumerable<GuestComments>> GetAll()
         {
             return await context.GuestСomments.ToListAsync();
         }
-        public async Task<GuestСomments> Get(int id)
+        public async Task<GuestComments> Get(int id)
         {
 
             return await context.GuestСomments.FirstOrDefaultAsync(m => m.Id == id);
             //return await context.GuestСomments.FindAsync(id);
         }
-        public async Task Create(GuestСomments item)
+        public async Task Create(GuestComments item)
         {
             await context.GuestСomments.AddAsync(item);
         }
-        public async Task Update(GuestСomments item)
+        public async Task Update(GuestComments item)
         {
             context.GuestСomments.Update(item);
         }
         public async Task Delete(int id)
         {
-            GuestСomments? item = await context.GuestСomments.FindAsync(id);
+            GuestComments? item = await context.GuestСomments.FindAsync(id);
             if (item != null)
                 context.GuestСomments.Remove(item);
         }

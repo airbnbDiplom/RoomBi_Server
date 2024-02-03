@@ -1,6 +1,6 @@
 ﻿namespace RoomBi.DAL
 {
-    public class GuestСomments
+    public class GuestComments
     {
         public int Id { get; set; }
         public int GuestIdUser { get; set; }

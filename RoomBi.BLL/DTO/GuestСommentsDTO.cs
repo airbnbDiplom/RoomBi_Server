@@ -2,7 +2,7 @@
 
 namespace RoomBi.BLL.DTO
 {
-    public class GuestСommentsDTO
+    public class GuestCommentsDTO
     {
         public int Id { get; set; }
         public int UserId { get; set; }

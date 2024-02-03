@@ -7,13 +7,13 @@ namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GuestСommentsController(IServiceOfAll<GuestСommentsDTO> guestСommentsService) : ControllerBase
+    public class GuestСommentsController(IServiceOfAll<GuestCommentsDTO> guestCommentsService) : ControllerBase
     {
         // GET: api/guestСomments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GuestСommentsDTO>>> GetGuestСomments()
+        public async Task<ActionResult<IEnumerable<GuestCommentsDTO>>> GetGuestComments()
         {
-            var guestСomments = await guestСommentsService.GetAll();
+            var guestСomments = await guestCommentsService.GetAll();
             if (guestСomments == null || !guestСomments.Any())
             {
                 return NotFound();
@@ -23,9 +23,9 @@ namespace RoomBi_Server.Controllers
 
         // GET: api/guestСomments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<GuestСommentsDTO>> GetGuestСomments(int id)
+        public async Task<ActionResult<GuestCommentsDTO>> GetGuestComments(int id)
         {
-            var guestСomments = await guestСommentsService.Get(id);
+            var guestСomments = await guestCommentsService.Get(id);
             if (guestСomments == null)
             {
                 return NotFound();
@@ -35,30 +35,30 @@ namespace RoomBi_Server.Controllers
 
         // PUT: api/guestСomments/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGuestСomments(int id, GuestСommentsDTO guestСomments)
+        public async Task<IActionResult> PutGuestСomments(int id, GuestCommentsDTO guestСomments)
         {
             if (id != guestСomments.Id)
             {
                 return BadRequest();
             }
-            await guestСommentsService.Update(guestСomments);
+            await guestCommentsService.Update(guestСomments);
             return NoContent();
         }
 
         // POST: api/guestСomments
         [HttpPost]
-        public async Task<ActionResult<GuestСommentsDTO>> PostGuestСomments(GuestСommentsDTO guestСomments)
+        public async Task<ActionResult<GuestCommentsDTO>> PostGuestСomments(GuestCommentsDTO guestСomments)
         {
-            await guestСommentsService.Create(guestСomments);
+            await guestCommentsService.Create(guestСomments);
             //return CreatedAtAction("GetGuestСomments", new { id = guestСomments.Id }, guestСomments);
-            return CreatedAtAction(nameof(GetGuestСomments), new { id = guestСomments.Id }, guestСomments);
+            return CreatedAtAction(nameof(GetGuestComments), new { id = guestСomments.Id }, guestСomments);
         }
 
         // DELETE: api/guestСomments/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGuestСomments(int id)
         {
-            await guestСommentsService.Delete(id);
+            await guestCommentsService.Delete(id);
             return NoContent();
         }
     }

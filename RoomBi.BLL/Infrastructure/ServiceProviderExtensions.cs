@@ -25,7 +25,7 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceOfAll<BookingDTO>, BookingService>();
             services.AddScoped<IServiceOfAll<EmergencyContactPersonDTO>, EmergencyContactPersonService>();
             services.AddScoped<IServiceOfAll<GuestPaymentMethodDTO>, GuestPaymentMethodService>();
-            services.AddScoped<IServiceOfAll<GuestСommentsDTO>, GuestСommentsService>();
+            services.AddScoped<IServiceOfAll<GuestCommentsDTO>, GuestСommentsService>();
             services.AddScoped<IServiceOfAll<OfferedAmenitiesDTO>, OfferedAmenitiesService>();
             services.AddScoped<IServiceOfAll<PictureDTO>, PictureService>();
             services.AddScoped<IServiceOfAll<ProfileDTO>, ProfileService>();

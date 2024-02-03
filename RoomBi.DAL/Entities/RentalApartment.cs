@@ -9,14 +9,14 @@ namespace RoomBi.DAL
         public RentalApartment()
         {
             this.Booking = new HashSet<Booking>();
-            this.GuestComments = new HashSet<GuestСomments>();
+            this.GuestComments = new HashSet<GuestComments>();
             this.Pictures = new HashSet<Picture>();
             this.Chats = new HashSet<Chat>();
 
         }
 
         public ICollection<Booking> Booking { get; set; }
-        public ICollection<GuestСomments> GuestComments { get; set; }
+        public ICollection<GuestComments> GuestComments { get; set; }
         public ICollection<Picture> Pictures { get; set; }
         public ICollection<Chat> Chats { get; set; }
 
@@ -48,7 +48,8 @@ namespace RoomBi.DAL
         public Sport? Sport { get; set; }
         public int CountryId { get; set; }
         public Country? Country { get; set; }
-
+        public int UserId { get; set; }
+        public User? User { get; set; }
 
     }
 }

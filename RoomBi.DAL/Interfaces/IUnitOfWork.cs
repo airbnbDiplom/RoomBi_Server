@@ -11,7 +11,7 @@ namespace RoomBi.DAL.Interfaces
     public interface IUnitOfWork
     {
         IRepositoryOfAll<Language> Languages { get; }
-        IRepositoryOfAll<GuestСomments> GuestСomments{ get; }
+        IRepositoryOfAll<GuestComments> GuestComments{ get; }
         IRepositoryOfAll<GuestPaymentMethod> GuestPaymentMethod { get; }
         IRepositoryOfAll<EmergencyContactPerson> EmergencyContactPerson { get; }
         IRepositoryOfAll<Chat> Chat { get; }

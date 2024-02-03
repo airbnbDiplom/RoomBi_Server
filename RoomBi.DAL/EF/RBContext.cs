@@ -82,33 +82,112 @@ namespace RoomBi.DAL.EF
                 SaveChanges();
                 Users.Add(new User
                 {
-                    Name = "Дмитро Золкин",
-                    Password = "password123",
-                    Email = "dimzolkin@example.com",
-                    Address = "Київ,вул.Миру 42",
+                    Name = "Jane Smith",
+                    Password = "123",
+                    Email = "jane.smith@example.com",
+                    Address = "456 Oak St",
+                    PhoneNumber = "+987654321",
+                    LanguageId = 1,
+                    CountryId = 1,
+                    DateOfBirth = new DateTime(1985, 8, 22),
+                    AirbnbRegistrationYear = new DateTime(2018, 6, 5),
+                    ProfilePicture = "avatar1.jpg",
+                    CurrentStatus = true,
+                    UserStatus = true
+                });
+
+                Users.Add(new User
+                {
+                    Name = "John Doe",
+                    Password = "123",
+                    Email = "john.doe@example.com",
+                    Address = "123 Main St",
                     PhoneNumber = "+123456789",
                     LanguageId = 2,
                     CountryId = 2,
                     DateOfBirth = new DateTime(1990, 5, 15),
                     AirbnbRegistrationYear = new DateTime(2015, 3, 10),
-                    ProfilePicture = "profile.jpg",
-
-                    CurrentStatus = false,
-                    UserStatus = false
+                    ProfilePicture = "avatar2.jpg",
+                    CurrentStatus = true,
+                    UserStatus = true
                 });
+
                 Users.Add(new User
                 {
-
-                    Name = "Jane Smith",
-                    Password = "strongpassword456",
-                    Email = "jane.smith@example.com",
-                    Address = "456 Oak St",
+                    Name = "Alice Johnson",
+                    Password = "123",
+                    Email = "alice.johnson@example.com",
+                    Address = "789 Elm St",
                     PhoneNumber = "+987654321",
+                    LanguageId = 2,
+                    CountryId = 3,
+                    DateOfBirth = new DateTime(1988, 11, 8),
+                    AirbnbRegistrationYear = new DateTime(2016, 2, 22),
+                    ProfilePicture = "avatar3.jpg",
+                    CurrentStatus = true,
+                    UserStatus = true
+                });
+
+                Users.Add(new User
+                {
+                    Name = "Bob Williams",
+                    Password = "123",
+                    Email = "bob.williams@example.com",
+                    Address = "567 Pine St",
+                    PhoneNumber = "+345678901",
+                    LanguageId = 2,
+                    CountryId = 4,
+                    DateOfBirth = new DateTime(1995, 4, 20),
+                    AirbnbRegistrationYear = new DateTime(2019, 7, 15),
+                    ProfilePicture = "avatar4.jpg",
+                    CurrentStatus = true,
+                    UserStatus = true
+                });
+
+                Users.Add(new User
+                {
+                    Name = "Eva Brown",
+                    Password = "123",
+                    Email = "eva.brown@example.com",
+                    Address = "321 Cedar St",
+                    PhoneNumber = "+789012345",
+                    LanguageId = 2,
+                    CountryId = 5,
+                    DateOfBirth = new DateTime(1982, 9, 18),
+                    AirbnbRegistrationYear = new DateTime(2017, 11, 30),
+                    ProfilePicture = "avatar5.jpg",
+                    CurrentStatus = true,
+                    UserStatus = true
+                });
+
+                Users.Add(new User
+                {
+                    Name = "Michael Green",
+                    Password = "123",
+                    Email = "michael.green@example.com",
+                    Address = "876 Maple St",
+                    PhoneNumber = "+234567890",
                     LanguageId = 1,
+                    CountryId = 1,
+                    DateOfBirth = new DateTime(1993, 6, 25),
+                    AirbnbRegistrationYear = new DateTime(2020, 4, 12),
+                    ProfilePicture = "avatar6.jpg",
+                    CurrentStatus = true,
+                    UserStatus = true
+                });
+
+                Users.Add(new User
+                {
+                    Name = "Sophia White",
+                    Password = "123",
+                    Email = "sophia.white@example.com",
+                    Address = "654 Birch St",
+                    PhoneNumber = "+456789012",
+                    LanguageId = 2,
                     CountryId = 2,
-                    DateOfBirth = new DateTime(1985, 8, 22),
-                    AirbnbRegistrationYear = new DateTime(2018, 6, 5),
-                    ProfilePicture = "avatar.jpg",
+                    DateOfBirth = new DateTime(1987, 3, 12),
+                    AirbnbRegistrationYear = new DateTime(2014, 8, 8),
+                    ProfilePicture = "avatar7.jpg",
                     CurrentStatus = true,
                     UserStatus = true
                 });
@@ -255,7 +334,7 @@ namespace RoomBi.DAL.EF
 
                 RentalApartments.Add(new RentalApartment
                 {
-                    Title = "The Cromwell Collection",
+                    UserId = 1, Title =  "The Cromwell Collection",
                     Address = "Лондон, Кенсингтон и Челси, 23 Old Brompton Road",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -276,7 +355,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Tulse Hill Luxury Cosy Rooms",
+                    UserId = 2, Title =  "Tulse Hill Luxury Cosy Rooms",
                     Address = "Лондон, Ламбет, 18 Northstead Road, SW2 3JW ",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -297,7 +376,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Camden House",
+                    UserId = 3, Title =  "Camden House",
                     Address = "Лондон, Rousden Street, Камден, NW1 0ST",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -318,7 +397,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "The Beaufort",
+                    UserId = 4, Title =  "The Beaufort",
                     Address = "Лондон, 33 Beaufort Gardens, Кенсингтон и Челси, SW3 1PP",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -339,7 +418,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "D8 House",
+                    UserId = 5, Title =  "D8 House",
                     Address = "Лондон, 124 Bethnal Green Road, Тауэр-Хэмлетс, E2 6DG",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -360,7 +439,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Fashionable Brick Lane",
+                    UserId = 6, Title =  "Fashionable Brick Lane",
                     Address = "Лондон, Brick Lane, Тауэр-Хэмлетс",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -382,7 +461,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Flat 17",
+                    UserId = 7, Title =  "Flat 17",
                     Address = "Лондон, 88-90 Elden House, Кенсингтон и Челси, SW3 3E",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -403,7 +482,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Avari Apartments",
+                    UserId = 1, Title =  "Avari Apartments",
                     Address = "Лондон, 17 Winchester Street, Вестминстер, SW1V 4PA",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -426,7 +505,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Stunning duplex with terrace",
+                    UserId = 2, Title =  "Stunning duplex with terrace",
                     Address = "Лондон, 135 York Way 3 Salamander Court, N7 9LG,",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -447,7 +526,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Paddington by CAPITAL",
+                    UserId = 3, Title =  "Paddington by CAPITAL",
                     Address = "Лондон,  9 Devonshire Terrace, Вестминстер, W2 3DN,",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -468,7 +547,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Мінібудинок",
+                    UserId = 4, Title =  "Мінібудинок",
                     Address = "Німеччина,  Schöneck/Vogtland",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -489,7 +568,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Мінібудинок",
+                    UserId = 5, Title =  "Мінібудинок",
                     Address = "Німеччина,  Mittelstrimmig",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -510,7 +589,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Транспортний контейнер",
+                    UserId = 6, Title =  "Транспортний контейнер",
                     Address = "Німеччина,  Mettmann",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -531,7 +610,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Мінібудинок",
+                    UserId = 7, Title =  "Мінібудинок",
                     Address = "Німеччина,  Schöneck/Vogtland",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -552,7 +631,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Мінібудинок",
+                    UserId = 1, Title =  "Мінібудинок",
                     Address = "Німеччина,  Reisbach",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -573,7 +652,7 @@ namespace RoomBi.DAL.EF
                  RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Мінібудинок",
+                    UserId = 2, Title =  "Мінібудинок",
                     Address = "Німеччина,  Welzow",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -594,7 +673,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Будинок на дереві",
+                    UserId = 3, Title =  "Будинок на дереві",
                     Address = "Румунія,  Porumbacu de Jos",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -615,7 +694,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Будинок на дереві",
+                    UserId = 4, Title =  "Будинок на дереві",
                     Address = "Румунія,  Moisei",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -636,7 +715,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Будинок на дереві",
+                    UserId = 5, Title =  "Будинок на дереві",
                     Address = "Румунія,  Peșteana",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -657,7 +736,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Будинок на дереві",
+                    UserId = 6, Title =  "Будинок на дереві",
                     Address = "Румунія,  Râșnov",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -678,7 +757,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Будинок на дереві",
+                    UserId = 7, Title =  "Будинок на дереві",
                     Address = "Румунія,  Șelari",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -699,7 +778,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Квартира з видом на море та терасою",
+                    UserId = 1, Title =  "Квартира з видом на море та терасою",
                     Address = "Італія,  Ravello",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -720,7 +799,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Трулло",
+                    UserId = 2, Title =  "Трулло",
                     Address = "Італія,  Cisternino",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -741,7 +820,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Антральний лофт",
+                    UserId = 3, Title =  "Антральний лофт",
                     Address = "Італія,  Salerno",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -762,7 +841,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Сассі Матери",
+                    UserId = 4, Title =  "Сассі Матери",
                     Address = "Італія,  Матера",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -783,7 +862,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Білий дім у центрі",
+                    UserId = 5, Title =  "Білий дім у центрі",
                     Address = "Італія,  Ostuni",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -804,7 +883,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Бутик Dominic",
+                    UserId = 6, Title =  "Бутик Dominic",
                     Address = "Румунія,  Cloașterf",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -825,7 +904,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Cabana Colt Verde 2",
+                    UserId = 7, Title =  "Cabana Colt Verde 2",
                     Address = "Румунія,  Slăvuța",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -846,7 +925,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "AdyBeca - Forest Nook",
+                    UserId = 1, Title =  "AdyBeca - Forest Nook",
                     Address = "Румунія,  Șuncuiuș",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -867,7 +946,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Трансильванська ферма",
+                    UserId = 2, Title =  "Трансильванська ферма",
                     Address = "Румунія,  Aluniș",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -888,7 +967,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Сучасний зруб з каміном і сауною",
+                    UserId = 3, Title =  "Сучасний зруб з каміном і сауною",
                     Address = "Румунія,  Dealu Negru",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -909,7 +988,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Дерев 'яний будинок",
+                    UserId = 4, Title =  "Дерев 'яний будинок",
                     Address = "Румунія,  Bulzeștii de Sus",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -930,7 +1009,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Замок Ґалбіно",
+                    UserId = 5, Title =  "Замок Ґалбіно",
                     Address = "Італія,  Anghiari",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -951,7 +1030,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Середньовічний замок",
+                    UserId = 6, Title =  "Середньовічний замок",
                     Address = "Італія,  Вітторіо-Венето",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -972,7 +1051,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Середньовічний замок",
+                    UserId = 7, Title =  "Середньовічний замок",
                     Address = "Італія,  Gualdo Cattaneo",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -993,7 +1072,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Дімора - приголомшливий старовинний замок",
+                    UserId = 1, Title =  "Дімора - приголомшливий старовинний замок",
                     Address = "Італія,  Monselice",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -1014,7 +1093,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Абатство Сан-Джусто",
+                    UserId = 2, Title =  "Абатство Сан-Джусто",
                     Address = "Італія,  Tuscania",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -1035,7 +1114,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Torre Trasita",
+                    UserId = 3, Title =  "Torre Trasita",
                     Address = "Італія,  Positano",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -1056,7 +1135,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Вежа замку",
+                    UserId = 4, Title =  "Вежа замку",
                     Address = "Італія,  Roncade",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -1077,7 +1156,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Pathfinder",
+                    UserId = 5, Title =  "Pathfinder",
                     Address = "Румунія,  Moacșa",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -1098,7 +1177,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Затишний будинок-фургон",
+                    UserId = 6, Title =  "Затишний будинок-фургон",
                     Address = "Румунія,  Urlați",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -1119,7 +1198,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "ферма Habitat",
+                    UserId = 7, Title =  "ферма Habitat",
                     Address = "Італія,  Сорренто",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -1140,7 +1219,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Літл-Парадайс",
+                    UserId = 1, Title =  "Літл-Парадайс",
                     Address = "Італія,  Granieri",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -1161,7 +1240,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Караваном",
+                    UserId = 2, Title =  "Караваном",
                     Address = "Італія,  Альгеро",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -1182,7 +1261,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    Title = "Флоріан - вогнище!",
+                    UserId = 3, Title =  "Флоріан - вогнище!",
                     Address = "Італія,  Lacona",
                     IngMap = "51.509865",
                     LatMap = "-0.118092",
@@ -1746,7 +1825,7 @@ namespace RoomBi.DAL.EF
                     GuestIdUser = 2
                 });
 
-                GuestСomments.Add(new GuestСomments
+                GuestСomments.Add(new GuestComments
                 {
                     GuestIdUser = 1,
                     ApartmentId = 1,
@@ -1755,7 +1834,7 @@ namespace RoomBi.DAL.EF
                     Rating = 4.5
                 });
 
-                GuestСomments.Add(new GuestСomments
+                GuestСomments.Add(new GuestComments
                 {
                     GuestIdUser = 2,
                     ApartmentId = 1,
@@ -1764,7 +1843,7 @@ namespace RoomBi.DAL.EF
                     Rating = 5.0
                 });
 
-                GuestСomments.Add(new GuestСomments
+                GuestСomments.Add(new GuestComments
                 {
                     GuestIdUser = 2,
                     ApartmentId = 1,
@@ -3129,7 +3208,7 @@ namespace RoomBi.DAL.EF
         public DbSet<Chat> Chats { get; set; }
 
         public DbSet<Booking> Bookings { get; set; }
-        public DbSet<GuestСomments> GuestСomments { get; set; }
+        public DbSet<GuestComments> GuestСomments { get; set; }
         public DbSet<OfferedAmenities> OfferedAmenities { get; set; }
         public DbSet<Picture> Pictures { get; set; }
 
