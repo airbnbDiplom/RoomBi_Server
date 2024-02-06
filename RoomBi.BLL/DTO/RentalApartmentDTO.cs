@@ -29,7 +29,7 @@ namespace RoomBi.BLL.DTO
         public string? Country { get; set; }
         public OfferedAmenities? OfferedAmenities { get; set; }
         public ICollection<Booking>? Booking { get; set; }
-        public ICollection<GuestComments>? GuestComments { get; set; }
+        public ICollection<GuestCommentsForRentalItemDTO>? GuestComments { get; set; }
         public ICollection<Picture>? Pictures { get; set; }
         public ICollection<Chat>? Chats { get; set; }
     }

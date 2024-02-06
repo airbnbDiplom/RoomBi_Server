@@ -16,7 +16,7 @@ namespace RoomBi_Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GuestCommentsForRentalItemDTO>>> GetGuestComments()
         {
-            var guestСomments = await serviseForComments.GetAllForRentalItem(2) ;
+            var guestСomments = await serviseForComments.GetAllForRentalItem(1) ;
 
             if (guestСomments == null || !guestСomments.Any())
             {

@@ -10,11 +10,17 @@ using System;
 
 namespace RoomBi.BLL.Services
 {
-
-    public class RentalApartmentService(IUnitOfWork uow)
-        : IServiceOfAll<RentalApartmentDTO>, IServiceForStartPage<RentalApartmentDTOForStartPage>
+    public class RentalApartmentService : IServiceOfAll<RentalApartmentDTO>, 
+        IServiceForStartPage<RentalApartmentDTOForStartPage>
     {
-        IUnitOfWork Database { get; set; } = uow;
+        private readonly IUnitOfWork Database;
+        private readonly GuestСommentsService guestСommentsService;
+
+        public RentalApartmentService(IUnitOfWork uow, GuestСommentsService guestService)
+        {
+            Database = uow;
+            guestСommentsService = guestService;
+        }  
         public async Task Create(RentalApartmentDTO rentalApartmentDTO)
         {
             var rentalApartment = new RentalApartment
@@ -78,6 +84,7 @@ namespace RoomBi.BLL.Services
             House house = await Database.House.Get(rentalApartment.HouseId);
             Country country = await Database.Country.Get(rentalApartment.CountryId);
             OfferedAmenities offeredAmenities = await Database.OfferedAmenities.Get(rentalApartment.OfferedAmenitiesId);
+            var guestCommentsForRentalItemDTO = await guestСommentsService.GetAllForRentalItem(id);
             return new RentalApartmentDTO
             {
                 Id = rentalApartment.Id,
@@ -101,7 +108,7 @@ namespace RoomBi.BLL.Services
 
                 OfferedAmenities = offeredAmenities,
                 Booking = null,
-                GuestComments = null,
+                GuestComments = (ICollection<GuestCommentsForRentalItemDTO>)guestCommentsForRentalItemDTO,
                 Pictures = null,
                 Chats = null
 
