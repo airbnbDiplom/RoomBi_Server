@@ -264,6 +264,8 @@ namespace RoomBi.DAL.EF
                     IdUser = 1
                 });
                 SaveChanges();
+                #endregion 
+                #region RentalApartments
                 OfferedAmenities.Add(new OfferedAmenities
                 {
                     WiFi = true,
