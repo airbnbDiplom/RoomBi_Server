@@ -5,6 +5,7 @@ using RoomBi.BLL.Infrastructure;
 using RoomBi.BLL.Interfaces;
 using RoomBi.BLL.DTO;
 using RoomBi.DAL.Entities;
+using System;
 
 
 namespace RoomBi.BLL.Services
@@ -30,7 +31,7 @@ namespace RoomBi.BLL.Services
                 PricePerNight = rentalApartmentDTO.PricePerNight,
                 ObjectRating = rentalApartmentDTO.ObjectRating,
                 ObjectState = rentalApartmentDTO.ObjectState,
-                OfferedAmenitiesId = rentalApartmentDTO.OfferedAmenitiesId,
+                //OfferedAmenitiesId = rentalApartmentDTO.OfferedAmenitiesId,
                 TypeApartment = rentalApartmentDTO.TypeApartment,
                 //PropertyTypeId = rentalApartmentDTO.PropertyTypeId,
                 //CountryId = rentalApartmentDTO.CountryId
@@ -54,7 +55,7 @@ namespace RoomBi.BLL.Services
                 PricePerNight = rentalApartmentDTO.PricePerNight,
                 ObjectRating = rentalApartmentDTO.ObjectRating,
                 ObjectState = rentalApartmentDTO.ObjectState,
-                OfferedAmenitiesId = rentalApartmentDTO.OfferedAmenitiesId,
+                //OfferedAmenitiesId = rentalApartmentDTO.OfferedAmenitiesId,
                 TypeApartment = rentalApartmentDTO.TypeApartment,
                 //PropertyTypeId = rentalApartmentDTO.PropertyTypeId,
                 //CountryId = rentalApartmentDTO.CountryId
@@ -76,6 +77,7 @@ namespace RoomBi.BLL.Services
             Sport sport = await Database.Sport.Get(rentalApartment.SportId);
             House house = await Database.House.Get(rentalApartment.HouseId);
             Country country = await Database.Country.Get(rentalApartment.CountryId);
+            OfferedAmenities offeredAmenities = await Database.OfferedAmenities.Get(rentalApartment.OfferedAmenitiesId);
             return new RentalApartmentDTO
             {
                 Id = rentalApartment.Id,
@@ -90,12 +92,22 @@ namespace RoomBi.BLL.Services
                 PricePerNight = rentalApartment.PricePerNight,
                 ObjectRating = rentalApartment.ObjectRating,
                 ObjectState = rentalApartment.ObjectState,
-                OfferedAmenitiesId = rentalApartment.OfferedAmenitiesId,
                 TypeApartment = rentalApartment.TypeApartment,
+
                 Location = location.Name,
                 Sport = sport.Name,
                 House = house.Name,
-                Country = country.Name
+                Country = country.Name,
+
+                OfferedAmenities = offeredAmenities,
+                Booking = null,
+                GuestComments = null,
+                Pictures = null,
+                Chats = null
+
+
+
+
             };
         }
         public async Task<IEnumerable<RentalApartmentDTO>> GetAll()

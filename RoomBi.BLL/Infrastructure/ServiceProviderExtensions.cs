@@ -37,6 +37,7 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceOfAll<WishlistDTO>, WishlistService>();
             services.AddScoped<IServiceOfAll<CommentsAboutGuestDTO>, CommentsAboutGuestService>();
             services.AddScoped<IServiceForStartPage<RentalApartmentDTOForStartPage>, RentalApartmentService>();
+            services.AddScoped<IServiseForComments<GuestCommentsForRentalItemDTO>, GuestСommentsService>();
                                                                     
 
         }

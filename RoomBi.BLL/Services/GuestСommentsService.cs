@@ -8,8 +8,25 @@ using RoomBi.BLL.DTO;
 namespace RoomBi.BLL.Services
 {
 
-    public class GuestСommentsService(IUnitOfWork uow) : IServiceOfAll<GuestCommentsForRentalItemDTO>
+    public class GuestСommentsService(IUnitOfWork uow) : IServiceOfAll<GuestCommentsForRentalItemDTO>, IServiseForComments<GuestCommentsForRentalItemDTO>
     {
+        public async Task<IEnumerable<GuestCommentsForRentalItemDTO>> GetAllForRentalItem(int?  apartmentId)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<GuestComments, GuestCommentsForRentalItemDTO>()).CreateMapper();
+
+            var allGuestComments = await Database.GuestComments.GetAll();
+
+            if (apartmentId.HasValue)
+            {
+                var filteredComments = allGuestComments
+                    .Where(comment => comment.ApartmentId == apartmentId.Value)
+                    .ToList();
+
+                return mapper.Map<IEnumerable<GuestComments>, IEnumerable<GuestCommentsForRentalItemDTO>>(filteredComments);
+            }
+            var guestCommentsForRentalItemDTO = mapper.Map<IEnumerable<GuestComments>, IEnumerable<GuestCommentsForRentalItemDTO>>(allGuestComments);
+            return mapper.Map<IEnumerable<GuestComments>, IEnumerable<GuestCommentsForRentalItemDTO>>(allGuestComments);
+        }
         public async Task<IEnumerable<GuestCommentsForRentalItemDTO>> GetAll()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<GuestComments, GuestCommentsForRentalItemDTO>()).CreateMapper();
@@ -22,8 +39,8 @@ namespace RoomBi.BLL.Services
             var guestСomments = new GuestComments
             {
                 Id = guestСommentsDTO.Id,
-                GuestIdUser = guestСommentsDTO.UserId,
-                ApartmentId = guestСommentsDTO.ApartmentId,
+                //GuestIdUser = guestСommentsDTO.UserId,
+                //ApartmentId = guestСommentsDTO.ApartmentId,
                 Comment = guestСommentsDTO.Comment,
                 Rating = guestСommentsDTO.Rating
             };
@@ -36,8 +53,8 @@ namespace RoomBi.BLL.Services
             var guestСomments = new GuestComments
             {
                 Id = guestСommentsDTO.Id,
-                GuestIdUser = guestСommentsDTO.UserId,
-                ApartmentId = guestСommentsDTO.ApartmentId,
+                //GuestIdUser = guestСommentsDTO.UserId,
+                //ApartmentId = guestСommentsDTO.ApartmentId,
                 Comment = guestСommentsDTO.Comment,
                 Rating = guestСommentsDTO.Rating
             };
@@ -59,14 +76,13 @@ namespace RoomBi.BLL.Services
             return new GuestCommentsForRentalItemDTO
             {
                 Id = guestСomments.Id,
-                UserId = guestСomments.GuestIdUser,
-                ApartmentId = guestСomments.ApartmentId,
+                //UserId = guestСomments.GuestIdUser,
+                //ApartmentId = guestСomments.ApartmentId,
                 Comment = guestСomments.Comment,
                 Rating = guestСomments.Rating
             };
         }
 
-      
-
+       
     }
 }

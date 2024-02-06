@@ -7,13 +7,17 @@ namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GuestСommentsController(IServiceOfAll<GuestCommentsDTO> guestCommentsService) : ControllerBase
+    public class GuestСommentsController(IServiceOfAll<GuestCommentsForRentalItemDTO> guestCommentsService,
+        IServiseForComments<GuestCommentsForRentalItemDTO> serviseForComments) : ControllerBase
     {
+   
+
         // GET: api/guestСomments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GuestCommentsDTO>>> GetGuestComments()
+        public async Task<ActionResult<IEnumerable<GuestCommentsForRentalItemDTO>>> GetGuestComments()
         {
-            var guestСomments = await guestCommentsService.GetAll();
+            var guestСomments = await serviseForComments.GetAllForRentalItem(2) ;
+
             if (guestСomments == null || !guestСomments.Any())
             {
                 return NotFound();
@@ -23,7 +27,7 @@ namespace RoomBi_Server.Controllers
 
         // GET: api/guestСomments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<GuestCommentsDTO>> GetGuestComments(int id)
+        public async Task<ActionResult<GuestCommentsForRentalItemDTO>> GetGuestComments(int id)
         {
             var guestСomments = await guestCommentsService.Get(id);
             if (guestСomments == null)
@@ -35,7 +39,7 @@ namespace RoomBi_Server.Controllers
 
         // PUT: api/guestСomments/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGuestСomments(int id, GuestCommentsDTO guestСomments)
+        public async Task<IActionResult> PutGuestСomments(int id, GuestCommentsForRentalItemDTO guestСomments)
         {
             if (id != guestСomments.Id)
             {
@@ -47,7 +51,7 @@ namespace RoomBi_Server.Controllers
 
         // POST: api/guestСomments
         [HttpPost]
-        public async Task<ActionResult<GuestCommentsDTO>> PostGuestСomments(GuestCommentsDTO guestСomments)
+        public async Task<ActionResult<GuestCommentsForRentalItemDTO>> PostGuestСomments(GuestCommentsForRentalItemDTO guestСomments)
         {
             await guestCommentsService.Create(guestСomments);
             //return CreatedAtAction("GetGuestСomments", new { id = guestСomments.Id }, guestСomments);
