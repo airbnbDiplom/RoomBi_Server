@@ -1,4 +1,5 @@
 ﻿using RoomBi.DAL;
+using RoomBi.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,9 @@ namespace RoomBi.BLL.DTO
         public ICollection<Picture>? Pictures { get; set; }
         public string? IngMap { get; set; }
         public string? LatMap { get; set; }
+
+        public string? Location { get; set; }// арктика || null
+        public string? House { get; set; }// квартира || null
+        public string? Sport { get; set; }// серфинг || null
     }
 }

@@ -185,6 +185,12 @@ namespace RoomBi.BLL.Services
             {
                 rentalApartmentList[i].Country += ", " + rentalApartmentListOld[i].Address;
                 rentalApartmentList[i].BookingFree = FormatDate(rentalApartmentListOld[i]);
+                Location location = await Database.Location.Get(rentalApartmentListOld[i].LocationId);
+                rentalApartmentList[i].Location = location.Name;
+                House house = await Database.House.Get(rentalApartmentListOld[i].HouseId);
+                rentalApartmentList[i].House = house.Name;
+                Sport sport = await Database.Sport.Get(rentalApartmentListOld[i].SportId);
+                rentalApartmentList[i].Sport = sport.Name;
             }
             return rentalApartmentList;
         }
