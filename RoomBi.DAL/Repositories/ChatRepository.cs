@@ -11,7 +11,12 @@ namespace RoomBi.DAL.Repositories
     public class ChatRepository(RBContext context) : IRepositoryOfAll<Chat>
     {
         private readonly RBContext context = context;
-
+        public IEnumerable<Chat> GetChatsByApartmentId(int apartmentId)// коллекция для определенной квартиры
+        {
+            return context.Chats
+                .Where(chat => chat.RentalApartmentId == apartmentId)
+                .ToList();
+        }
         public async Task<IEnumerable<Chat>> GetAll()
         {
             return await context.Chats.ToListAsync();

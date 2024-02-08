@@ -35,9 +35,31 @@ namespace RoomBi.DAL.Repositories
         }
         public async Task<RentalApartment> Get(int id)
         {
+            var bookingsRepository = new BookingRepository(context);
+            var booking = bookingsRepository.GetBookingsByApartmentId(id);
 
-            return await context.RentalApartments.FirstOrDefaultAsync(m => m.Id == id);
-            //return await context.RentalApartments.FindAsync(id);
+            var pictureRepository = new PictureRepository(context);
+            var pictures = pictureRepository.GetPicturesByApartmentId(id);
+
+            var chatRepository = new ChatRepository(context);
+            var chats = chatRepository.GetChatsByApartmentId(id); 
+
+            var guestCommentsRepository = new GuestCommentsRepository(context);
+            var guestComments = guestCommentsRepository.GetGuestCommentsByApartmentId(id);
+
+            var rentalApartment = await context.RentalApartments.Include(r => r.Pictures)
+                                                                .Include(r => r.Booking)
+                                                                .Include(r => r.Chats)
+                                                                .Include(r => r.GuestComments)
+                                                                .FirstOrDefaultAsync(m => m.Id == id);
+            if (rentalApartment != null)
+            {
+                rentalApartment.Pictures = (ICollection<Picture>)pictures;
+                rentalApartment.Booking = (ICollection<Booking>)booking;
+                rentalApartment.Chats = (ICollection<Chat>)chats;
+                rentalApartment.GuestComments = (ICollection<GuestComments>)guestComments;
+            }
+            return rentalApartment;
         }
         public async Task Create(RentalApartment item)
         {

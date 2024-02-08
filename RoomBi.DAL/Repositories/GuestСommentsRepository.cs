@@ -11,7 +11,12 @@ namespace RoomBi.DAL.Repositories
     public class GuestCommentsRepository(RBContext context) : IRepositoryOfAll<GuestComments>
     {
         private readonly RBContext context = context;
-
+        public IEnumerable<GuestComments> GetGuestCommentsByApartmentId(int apartmentId)// коллекция для определенной квартиры
+        {
+            return context.GuestСomments
+                .Where(guestComment => guestComment.ApartmentId == apartmentId)
+                .ToList();
+        }
         public async Task<IEnumerable<GuestComments>> GetAll()
         {
             return await context.GuestСomments.ToListAsync();

@@ -6,18 +6,10 @@ namespace RoomBi.BLL.DTO
 {
     public class UserDTO
     {
-        //public User()
-        //{
-        //    //this.CommentsAboutGuests = new HashSet<СommentsAboutGuest>();
-        //    //this.Guest = new HashSet<Chat>();
-        //    //this.GuestСomments = new HashSet<GuestСomments>();
-        //}
-        //public ICollection<СommentsAboutGuest> CommentsAboutGuests { get; set; }
-        //public ICollection<Chat> Guest { get; set; }
-        //public ICollection<GuestСomments> GuestСomments { get; set; }
-
-
-
+        //public ICollection<Booking>? Booking { get; set; }// этому не надо
+        //public ICollection<GuestComments>? GuestComments { get; set; }
+        //public ICollection<Picture>? Pictures { get; set; }
+        //public ICollection<Chat>? Chats { get; set; }
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Password { get; set; }

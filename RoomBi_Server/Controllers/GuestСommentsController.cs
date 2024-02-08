@@ -7,8 +7,7 @@ namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GuestСommentsController(IServiceOfAll<GuestCommentsForRentalItemDTO> guestCommentsService,
-        IServiseForComments<GuestCommentsForRentalItemDTO> serviseForComments) : ControllerBase
+    public class GuestСommentsController(IServiceOfAll<GuestCommentsForRentalItemDTO> guestCommentsService) : ControllerBase
     {
    
 
@@ -16,7 +15,7 @@ namespace RoomBi_Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GuestCommentsForRentalItemDTO>>> GetGuestComments()
         {
-            var guestСomments = await serviseForComments.GetAllForRentalItem(1) ;
+            var guestСomments = await guestCommentsService.GetAll() ;
 
             if (guestСomments == null || !guestСomments.Any())
             {
