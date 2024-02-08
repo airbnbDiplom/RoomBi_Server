@@ -1029,7 +1029,7 @@ namespace RoomBi.DAL.EF
                     Title = "Дерев 'яний будинок",
                     Address = "Bulzeștii de Sus",
                     IngMap = "40.85044565200878",
-                    LatMap = "14.967675529918731м",
+                    LatMap = "14.967675529918731",
                     NumberOfGuests = 2,
                     Bedrooms = 1,
                     Bathrooms = 1,
