@@ -7,6 +7,7 @@ using RoomBi.BLL.DTO;
 using RoomBi.DAL.Entities;
 using System;
 using System.Globalization;
+using System.Collections.Generic;
 
 
 namespace RoomBi.BLL.Services
@@ -84,6 +85,7 @@ namespace RoomBi.BLL.Services
             OfferedAmenities offeredAmenities = await Database.OfferedAmenities.Get(rentalApartment.OfferedAmenitiesId);
             User user = await Database.User.Get(rentalApartment.UserId);
             Language language = await Database.Languages.Get(user.LanguageId);
+            ICollection<GuestCommentsForRentalItemDTO> guestCommentsMapper = await GuestCommentsMapper(rentalApartment.GuestComments);
             return new RentalApartmentDTO
             {
                 Id = rentalApartment.Id,
@@ -108,14 +110,39 @@ namespace RoomBi.BLL.Services
                 House = house.Name,
                 Country = country.Name,
                 OfferedAmenities = offeredAmenities,
-                GuestComments = rentalApartment.GuestComments,
+                GuestComments = guestCommentsMapper,
                 Pictures = rentalApartment.Pictures,
-                Chats = rentalApartment.Chats,
-                Booking = rentalApartment.Booking
-
-
-
+                Booking = BookingMapper(rentalApartment.Booking)
             };
+        }
+        static public ICollection<BookingForApartmentPageDTO> BookingMapper(IEnumerable<Booking> rentalApartment)
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Booking, BookingForApartmentPageDTO>();
+            }).CreateMapper();
+            return (ICollection<BookingForApartmentPageDTO>)mapper.Map<IEnumerable<Booking>, IEnumerable<BookingForApartmentPageDTO>>(rentalApartment);
+        }
+        public async Task<ICollection<GuestCommentsForRentalItemDTO>> GuestCommentsMapper(IEnumerable<GuestComments> rentalApartment)
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<GuestComments, GuestCommentsForRentalItemDTO>()
+                     .ForMember(dest => dest.UserName, opt => opt.Ignore()) 
+                     .ForMember(dest => dest.UserCountry, opt => opt.Ignore())
+                     .ForMember(dest => dest.UserAvatar, opt => opt.Ignore());
+            }).CreateMapper();
+
+            ICollection<GuestCommentsForRentalItemDTO> guestCommentsMapper = (ICollection<GuestCommentsForRentalItemDTO>)mapper.Map<IEnumerable<GuestComments>, IEnumerable<GuestCommentsForRentalItemDTO>>(rentalApartment);
+            foreach (var comment in guestCommentsMapper)
+            {
+                User user = await Database.User.Get(comment.GuestIdUser);
+                comment.UserName = user.Name;
+                comment.UserAvatar = user.ProfilePicture;
+                Country country = await Database.Country.Get(user.CountryId);
+                comment.UserCountry = country.Name;
+            }
+            return guestCommentsMapper;
         }
         static public string FormatAirbnbRegistration(DateTime? AirbnbRegistrationYear)
         {
@@ -140,9 +167,6 @@ namespace RoomBi.BLL.Services
             }).CreateMapper();
             return mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentDTO>>(rentalApartments);
         }
-
-
-
 
         public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllForStartPage()
         {

@@ -32,9 +32,8 @@ namespace RoomBi.BLL.DTO
         public string? AirbnbRegistrationYear { get; set; }
         public string? MasterLanguage { get; set; }
         public string? Avatar { get; set; }
-        public ICollection<Booking>? Booking { get; set; }
-        public ICollection<GuestComments>? GuestComments { get; set; }
+        public ICollection<BookingForApartmentPageDTO>? Booking { get; set; }
+        public ICollection<GuestCommentsForRentalItemDTO>? GuestComments { get; set; }
         public ICollection<Picture>? Pictures { get; set; }
-        public ICollection<Chat>? Chats { get; set; }
     }
 }
