@@ -5,19 +5,19 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using MySqlConnector;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using RoomBi.BLL.Services;
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+//var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddCors(options =>
-{
-    //options.AddDefaultPolicy(
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("http://localhost:3000",
-                                              "https://room-bi.vercel.app");
-                      });
-});
+//builder.Services.AddCors(options =>
+//{
+//    //options.AddDefaultPolicy(
+//    options.AddPolicy(name: MyAllowSpecificOrigins,
+//                      policy =>
+//                      {
+//                          policy.WithOrigins("http://localhost:3000",
+//                                              "https://room-bi.vercel.app");
+//                      });
+//});
 MySqlConnection connection = new(builder.Configuration.GetConnectionString("DefaultConnection"));//DefaultConnection- назва рядка підключення в файлі azuresettings.json 
 
 builder.Services.AddDbContext<RBContext>(options => options.UseMySql(connection, ServerVersion.AutoDetect(connection),
@@ -26,7 +26,7 @@ serverOptions => serverOptions
 .SchemaBehavior(MySqlSchemaBehavior.Ignore, (schema, table) => $"{schema}_{table}")));
 
 
-//builder.Services.AddCors(); // добавляем сервисы CORS
+builder.Services.AddCors(); // добавляем сервисы CORS
 
 
 builder.Services.AddCustomServices();
@@ -55,10 +55,12 @@ app.UseAuthorization();
 //.AllowAnyHeader()
 //.AllowAnyMethod()
 //.AllowCredentials());
-
+app.UseCors(builder => builder.WithOrigins("http://localhost:3000", "https://room-bi.vercel.app")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod());
 
 //app.UseCors();
-app.UseCors(MyAllowSpecificOrigins);
+//app.UseCors(MyAllowSpecificOrigins);
 app.MapControllers();
 
 app.Run();

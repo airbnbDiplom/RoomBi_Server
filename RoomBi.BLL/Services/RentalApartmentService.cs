@@ -13,7 +13,8 @@ using System.Collections.Generic;
 namespace RoomBi.BLL.Services
 {
     public class RentalApartmentService : IServiceOfAll<RentalApartmentDTO>,
-        IServiceForStartPage<RentalApartmentDTOForStartPage>
+        IServiceForStartPage<RentalApartmentDTOForStartPage>,
+        IServiceForMap<RentalApartmentForMap>
     {
         private readonly IUnitOfWork Database;
         public RentalApartmentService(IUnitOfWork uow)
@@ -167,7 +168,16 @@ namespace RoomBi.BLL.Services
             }).CreateMapper();
             return mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentDTO>>(rentalApartments);
         }
+        public async Task<IEnumerable<RentalApartmentForMap>> GetAllForMap(string map)
+        {
+            var rentalApartments = await Database.RentalApartment.GetAll();
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<RentalApartment, RentalApartmentForMap>();
 
+            }).CreateMapper();
+            return mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentForMap>>(rentalApartments);
+        }
         public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllForStartPage()
         {
             var rentalApartments = await Database.RentalApartment.GetAll();
@@ -227,5 +237,6 @@ namespace RoomBi.BLL.Services
             return formattedDate;
         }
 
+       
     }
 }

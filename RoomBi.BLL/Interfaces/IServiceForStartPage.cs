@@ -10,4 +10,8 @@ namespace RoomBi.BLL.Interfaces
     {
         Task<IEnumerable<T>> GetAllForStartPage();
     }
+    public interface IServiceForMap<T>
+    {
+        Task<IEnumerable<T>> GetAllForMap(string map);
+    }
 }

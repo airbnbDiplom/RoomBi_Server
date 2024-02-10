@@ -7,8 +7,12 @@ namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RentalApartmentController(IServiceOfAll<RentalApartmentDTO> rentalApartmentService, IServiceForStartPage<RentalApartmentDTOForStartPage> serviceForStartPage) : ControllerBase
+    public class RentalApartmentController(IServiceOfAll<RentalApartmentDTO> rentalApartmentService, 
+        IServiceForStartPage<RentalApartmentDTOForStartPage> serviceForStartPage,
+        IServiceForMap<RentalApartmentForMap> serviceForMap) : ControllerBase
     {
+     
+
         // GET: api/rentalApartments
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RentalApartmentDTOForStartPage>>> GetRentalApartments()
@@ -20,7 +24,17 @@ namespace RoomBi_Server.Controllers
             }
             return Ok(rentalApartments);
         }
-
+        // GET: api/rentalApartments/map
+        [HttpGet("map/{map}")]
+        public async Task<ActionResult<IEnumerable<RentalApartmentForMap>>> GetRentalApartments(string map)
+        {
+            var rentalApartments = await serviceForMap.GetAllForMap(map);
+            if (rentalApartments == null || !rentalApartments.Any())
+            {
+                return NotFound();
+            }
+            return Ok(rentalApartments);
+        }
         // GET: api/rentalApartments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<RentalApartmentDTO>> GetRentalApartment(int id)
