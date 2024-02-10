@@ -22,7 +22,9 @@ namespace RoomBi.BLL.DTO
        
         public bool CurrentStatus { get; set; } //bool
         public bool UserStatus { get; set; }//bool
-
+/// <summary>
+/// token refToken 
+/// </summary>
 
         public int LanguageId { get; set; }
         public int CountryId { get; set; }

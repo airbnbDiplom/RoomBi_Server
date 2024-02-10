@@ -5,19 +5,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using MySqlConnector;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using RoomBi.BLL.Services;
-//var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Services.AddCors(options =>
-//{
-//    //options.AddDefaultPolicy(
-//    options.AddPolicy(name: MyAllowSpecificOrigins,
-//                      policy =>
-//                      {
-//                          policy.WithOrigins("http://localhost:3000",
-//                                              "https://room-bi.vercel.app");
-//                      });
-//});
+
 MySqlConnection connection = new(builder.Configuration.GetConnectionString("DefaultConnection"));//DefaultConnection- назва рядка підключення в файлі azuresettings.json 
 
 builder.Services.AddDbContext<RBContext>(options => options.UseMySql(connection, ServerVersion.AutoDetect(connection),
@@ -30,6 +24,38 @@ builder.Services.AddCors(); // добавляем сервисы CORS
 
 
 builder.Services.AddCustomServices();
+
+
+builder.Configuration.AddJsonFile("appsettings.json", false);
+var secretKey = builder.Configuration.GetSection("Jwt:Secret").Value;
+var issuer = builder.Configuration.GetSection("Jwt:Issuer").Value;
+var audience = builder.Configuration.GetSection("Jwt:Audience").Value;
+var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+
+builder.Services.AddAuthentication(opt => {
+    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidIssuer = issuer,
+        ValidateAudience = false,
+        ValidAudience = audience,
+        ValidateLifetime = true,
+        IssuerSigningKey = signingKey,
+        ValidateIssuerSigningKey = true,
+        ClockSkew = TimeSpan.Zero
+
+
+    };
+});
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddControllers();
 
 
