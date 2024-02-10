@@ -35,6 +35,7 @@ namespace RoomBi_Server.Controllers
             }
             return Ok(rentalApartments);
         }
+
         // GET: api/rentalApartments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<RentalApartmentDTO>> GetRentalApartment(int id)
