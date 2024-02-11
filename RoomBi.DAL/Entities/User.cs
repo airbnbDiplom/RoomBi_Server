@@ -28,6 +28,9 @@ namespace RoomBi.DAL
         public DateTime? DateOfBirth { get; set; }
         public DateTime? AirbnbRegistrationYear { get; set; }
         public string? ProfilePicture { get; set; }
+        public string? Token { get; set; }
+        public string? RefreshToken { get; set; }
+        public string? Hash { get; set; }
        
         public bool CurrentStatus { get; set; } //bool
         public bool UserStatus { get; set; }//bool

@@ -4,6 +4,7 @@ using RoomBi.DAL;
 using RoomBi.BLL.Infrastructure;
 using RoomBi.BLL.Interfaces;
 using RoomBi.BLL.DTO;
+using Newtonsoft.Json.Linq;
 
 namespace RoomBi.BLL.Services
 {
@@ -31,6 +32,9 @@ namespace RoomBi.BLL.Services
                 AirbnbRegistrationYear = userDTO.AirbnbRegistrationYear,
                 ProfilePicture = userDTO.ProfilePicture,
                 CurrentStatus = userDTO.CurrentStatus,
+                Token = userDTO.Token,
+                RefreshToken = userDTO.RefreshToken,
+                Hash = userDTO.Hash,
                 UserStatus = userDTO.UserStatus,
                 LanguageId = userDTO.LanguageId,
                 CountryId = userDTO.CountryId
@@ -52,6 +56,9 @@ namespace RoomBi.BLL.Services
                 DateOfBirth = userDTO.DateOfBirth,
                 AirbnbRegistrationYear = userDTO.AirbnbRegistrationYear,
                 ProfilePicture = userDTO.ProfilePicture,
+                Token = userDTO.Token,
+                RefreshToken = userDTO.RefreshToken,
+                Hash = userDTO.Hash,
                 CurrentStatus = userDTO.CurrentStatus,
                 UserStatus = userDTO.UserStatus,
                 LanguageId = userDTO.LanguageId,
@@ -83,6 +90,9 @@ namespace RoomBi.BLL.Services
                 DateOfBirth = user.DateOfBirth,
                 AirbnbRegistrationYear = user.AirbnbRegistrationYear,
                 ProfilePicture = user.ProfilePicture,
+                Token = user.Token,
+                RefreshToken = user.RefreshToken,
+                Hash = user.Hash,
                 CurrentStatus = user.CurrentStatus,
                 UserStatus = user.UserStatus,
                 LanguageId = user.LanguageId,

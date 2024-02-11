@@ -29,11 +29,12 @@ namespace RoomBi.BLL.DTO
         // Створення JWT
         public string GetToken(string email, string firstName)
         {
-            List<Claim> claims = new List<Claim>();           // Створення списку клеймів для JWT
-
-            claims.Add(new Claim("Email", email));            // Додавання клейму "Email" з переданим значенням електронної пошти
-            claims.Add(new Claim("FirstName", firstName));    // Додавання довільного клейму "level" зі значенням "123"
-            claims.Add(new Claim(ClaimTypes.Role, "Admin"));  // Додавання ролі "Admin" як клейму
+            List<Claim> claims =
+            [
+                new Claim("Email", email),            // Додавання клейму "Email" з переданим значенням електронної пошти
+                new Claim("FirstName", firstName),    // Додавання довільного клейму "level" зі значенням "123"
+                new Claim(ClaimTypes.Role, "Admin"),  // Додавання ролі "Admin" як клейму
+            ];           // Створення списку клеймів для JWT
 
             // Створення симетричного ключа для підпису JWT на основі секретного ключа
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.Secret));
