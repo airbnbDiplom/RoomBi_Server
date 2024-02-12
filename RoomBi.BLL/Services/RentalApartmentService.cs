@@ -107,6 +107,22 @@ namespace RoomBi.BLL.Services
                 Chats = rentalApartment.Chats
             };
         }
+        public async Task<RentalApartmentForMap> GetCard(int id)
+        {
+            var rentalApartment = await Database.RentalApartment.Get(id);
+            if (rentalApartment == null)
+                throw new ValidationException("Wrong rentalApartment!", "");
+            return new RentalApartmentForMap
+            {
+                Id = rentalApartment.Id,
+                IngMap = rentalApartment.IngMap,
+                LatMap = rentalApartment.LatMap,
+                PricePerNight = rentalApartment.PricePerNight,
+                Location = rentalApartment.Location?.Name,
+                Sport = rentalApartment.Sport?.Name,
+                House = rentalApartment.House?.Name,
+            };
+        }
         public async Task<IEnumerable<RentalApartmentDTO>> GetAll()
         {
             var rentalApartments = await Database.RentalApartment.GetAll();
@@ -199,6 +215,6 @@ namespace RoomBi.BLL.Services
             return formattedDate;
         }
 
-       
+     
     }
 }

@@ -13,5 +13,6 @@ namespace RoomBi.BLL.Interfaces
     public interface IServiceForMap<T>
     {
         Task<IEnumerable<T>> GetAllForMap(string map);
+        Task<T> GetCard(int id);
     }
 }

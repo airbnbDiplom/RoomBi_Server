@@ -47,6 +47,17 @@ namespace RoomBi_Server.Controllers
             }
             return rentalApartment;
         }
+        // POST: api/rentalApartments/{id}
+        [HttpPost("{id}")]
+        public async Task<ActionResult<RentalApartmentForMap>> CreateRentalApartment(int id)
+        {
+            var rentalApartment = await serviceForMap.GetCard(id);
+            if (rentalApartment == null)
+            {
+                return NotFound();
+            }
+            return rentalApartment;
+        }
 
         // PUT: api/rentalApartments/5
         [HttpPut("{id}")]
