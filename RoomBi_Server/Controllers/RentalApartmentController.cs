@@ -48,10 +48,10 @@ namespace RoomBi_Server.Controllers
             return rentalApartment;
         }
         // POST: api/rentalApartments/{id}
-        [HttpPost("{id}")]
-        public async Task<ActionResult<RentalApartmentForMap>> CreateRentalApartment(int id)
+        [HttpPost("card/{id}")]
+        public async Task<ActionResult<RentalApartmentDTOForStartPage>> CardRentalApartment(int id)
         {
-            var rentalApartment = await serviceForMap.GetCard(id);
+            var rentalApartment = await serviceForStartPage.GetCard(id);
             if (rentalApartment == null)
             {
                 return NotFound();

@@ -107,20 +107,25 @@ namespace RoomBi.BLL.Services
                 Chats = rentalApartment.Chats
             };
         }
-        public async Task<RentalApartmentForMap> GetCard(int id)
+        public async Task<RentalApartmentDTOForStartPage> GetCard(int id)
         {
             var rentalApartment = await Database.RentalApartment.Get(id);
             if (rentalApartment == null)
                 throw new ValidationException("Wrong rentalApartment!", "");
-            return new RentalApartmentForMap
+            return new RentalApartmentDTOForStartPage
             {
                 Id = rentalApartment.Id,
+                Title = rentalApartment.Title,
                 IngMap = rentalApartment.IngMap,
                 LatMap = rentalApartment.LatMap,
                 PricePerNight = rentalApartment.PricePerNight,
+                ObjectRating = rentalApartment.ObjectRating,
                 Location = rentalApartment.Location?.Name,
                 Sport = rentalApartment.Sport?.Name,
                 House = rentalApartment.House?.Name,
+                Country = rentalApartment.Country?.Name,
+                Pictures = rentalApartment.Pictures,
+                BookingFree = null
             };
         }
         public async Task<IEnumerable<RentalApartmentDTO>> GetAll()
