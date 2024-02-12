@@ -17,9 +17,9 @@ namespace RoomBi.DAL.Repositories
             
             var temp = await context.RentalApartments
            .Include(ra => ra.Country)
-           //.Include(ra => ra.Location)
-           //.Include(ra => ra.House)
-           //.Include(ra => ra.Sport)
+           .Include(ra => ra.Location)
+           .Include(ra => ra.House)
+           .Include(ra => ra.Sport)
            //.Include(ra => ra.OfferedAmenities)
            .ToListAsync();
             var bookingRepository = new BookingRepository(context);

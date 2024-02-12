@@ -13,15 +13,11 @@ using System.Diagnostics.Metrics;
 
 namespace RoomBi.BLL.Services
 {
-    public class RentalApartmentService : IServiceOfAll<RentalApartmentDTO>,
+    public class RentalApartmentService(IUnitOfWork uow) : IServiceOfAll<RentalApartmentDTO>,
         IServiceForStartPage<RentalApartmentDTOForStartPage>,
         IServiceForMap<RentalApartmentForMap>
     {
-        private readonly IUnitOfWork Database;
-        public RentalApartmentService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        private readonly IUnitOfWork Database = uow;
         public async Task Create(RentalApartmentDTO rentalApartmentDTO)
         {
             var rentalApartment = new RentalApartment
@@ -144,22 +140,13 @@ namespace RoomBi.BLL.Services
             var rentalApartments = await Database.RentalApartment.GetAll();
             var mapper = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<RentalApartment, RentalApartmentForMap>();
+                cfg.CreateMap<RentalApartment, RentalApartmentForMap>()
+                .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Location.Name))
+                .ForMember(dest => dest.House, opt => opt.MapFrom(src => src.House.Name))
+                .ForMember(dest => dest.Sport, opt => opt.MapFrom(src => src.Sport.Name));
 
             }).CreateMapper();
-            var temp = mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentForMap>>(rentalApartments);
-            List<RentalApartment> apartments = new (rentalApartments);
-            List<RentalApartmentForMap> rentalApartmentList = new(temp);
-            for (int i = 0; i < rentalApartmentList.Count; i++)
-            {
-                Location location = await Database.Location.Get(apartments[i].LocationId);
-                rentalApartmentList[i].Location = location.Name;
-                House house = await Database.House.Get(apartments[i].HouseId);
-                rentalApartmentList[i].House = house.Name;
-                Sport sport = await Database.Sport.Get(apartments[i].SportId);
-                rentalApartmentList[i].Sport = sport.Name;
-            }
-            return rentalApartmentList;
+            return mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentForMap>>(rentalApartments);
         }
         public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllForStartPage()
         {
@@ -168,7 +155,10 @@ namespace RoomBi.BLL.Services
             var mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<RentalApartment, RentalApartmentDTOForStartPage>()
-                    .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name));
+                    .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name))
+                    .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Location.Name))
+                    .ForMember(dest => dest.House, opt => opt.MapFrom(src => src.House.Name))
+                    .ForMember(dest => dest.Sport, opt => opt.MapFrom(src => src.Sport.Name));
             }).CreateMapper();
 
             var temp = mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentDTOForStartPage>>(rentalApartments);
@@ -178,12 +168,6 @@ namespace RoomBi.BLL.Services
             {
                 rentalApartmentList[i].Country += ", " + rentalApartmentListOld[i].Address;
                 rentalApartmentList[i].BookingFree = FormatDate(rentalApartmentListOld[i]);
-                Location location = await Database.Location.Get(rentalApartmentListOld[i].LocationId);
-                rentalApartmentList[i].Location = location.Name;
-                House house = await Database.House.Get(rentalApartmentListOld[i].HouseId);
-                rentalApartmentList[i].House = house.Name;
-                Sport sport = await Database.Sport.Get(rentalApartmentListOld[i].SportId);
-                rentalApartmentList[i].Sport = sport.Name;
             }
             return rentalApartmentList;
         }
@@ -219,7 +203,5 @@ namespace RoomBi.BLL.Services
             Console.WriteLine("formattedDate = " + formattedDate);
             return formattedDate;
         }
-
-     
     }
 }
