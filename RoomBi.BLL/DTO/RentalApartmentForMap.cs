@@ -19,8 +19,8 @@ namespace RoomBi.BLL.DTO
         public string? IngMap { get; set; }
         public string? LatMap { get; set; }
 
-        //public string? Location { get; set; }// арктика || null
-        //public string? House { get; set; }// квартира || null
-        //public string? Sport { get; set; }// серфинг || null
+        public string? Location { get; set; }// арктика || null
+        public string? House { get; set; }// квартира || null
+        public string? Sport { get; set; }// серфинг || null
     }
 }

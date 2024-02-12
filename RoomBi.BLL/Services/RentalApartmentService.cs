@@ -8,6 +8,7 @@ using RoomBi.DAL.Entities;
 using System;
 using System.Globalization;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 
 
 namespace RoomBi.BLL.Services
@@ -79,14 +80,6 @@ namespace RoomBi.BLL.Services
             var rentalApartment = await Database.RentalApartment.Get(id);
             if (rentalApartment == null)
                 throw new ValidationException("Wrong rentalApartment!", "");
-            Location location = await Database.Location.Get(rentalApartment.LocationId);
-            Sport sport = await Database.Sport.Get(rentalApartment.SportId);
-            House house = await Database.House.Get(rentalApartment.HouseId);
-            Country country = await Database.Country.Get(rentalApartment.CountryId);
-            OfferedAmenities offeredAmenities = await Database.OfferedAmenities.Get(rentalApartment.OfferedAmenitiesId);
-            User user = await Database.User.Get(rentalApartment.UserId);
-            Language language = await Database.Languages.Get(user.LanguageId);
-            ICollection<GuestCommentsForRentalItemDTO> guestCommentsMapper = await GuestCommentsMapper(rentalApartment.GuestComments);
             return new RentalApartmentDTO
             {
                 Id = rentalApartment.Id,
@@ -102,60 +95,17 @@ namespace RoomBi.BLL.Services
                 ObjectRating = rentalApartment.ObjectRating,
                 ObjectState = rentalApartment.ObjectState,
                 TypeApartment = rentalApartment.TypeApartment,
-                MasterName = user.Name,
-                AirbnbRegistrationYear = FormatAirbnbRegistration(user.AirbnbRegistrationYear ), 
-                MasterLanguage = language.Name,
-                Avatar = user.ProfilePicture,
-                Location = location.Name,
-                Sport = sport.Name,
-                House = house.Name,
-                Country = country.Name,
-                OfferedAmenities = offeredAmenities,
-                GuestComments = guestCommentsMapper,
+                User = rentalApartment.User,
+                Location = rentalApartment.Location?.Name,
+                Sport = rentalApartment.Sport?.Name,
+                House = rentalApartment.House?.Name,
+                Country = rentalApartment.Country?.Name,
+                OfferedAmenities = rentalApartment.OfferedAmenities,
+                GuestComments = rentalApartment.GuestComments,
                 Pictures = rentalApartment.Pictures,
-                Booking = BookingMapper(rentalApartment.Booking)
+                Booking = rentalApartment.Booking,
+                Chats = rentalApartment.Chats
             };
-        }
-        static public ICollection<BookingForApartmentPageDTO> BookingMapper(IEnumerable<Booking> rentalApartment)
-        {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Booking, BookingForApartmentPageDTO>();
-            }).CreateMapper();
-            return (ICollection<BookingForApartmentPageDTO>)mapper.Map<IEnumerable<Booking>, IEnumerable<BookingForApartmentPageDTO>>(rentalApartment);
-        }
-        public async Task<ICollection<GuestCommentsForRentalItemDTO>> GuestCommentsMapper(IEnumerable<GuestComments> rentalApartment)
-        {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<GuestComments, GuestCommentsForRentalItemDTO>()
-                     .ForMember(dest => dest.UserName, opt => opt.Ignore()) 
-                     .ForMember(dest => dest.UserCountry, opt => opt.Ignore())
-                     .ForMember(dest => dest.UserAvatar, opt => opt.Ignore());
-            }).CreateMapper();
-
-            ICollection<GuestCommentsForRentalItemDTO> guestCommentsMapper = (ICollection<GuestCommentsForRentalItemDTO>)mapper.Map<IEnumerable<GuestComments>, IEnumerable<GuestCommentsForRentalItemDTO>>(rentalApartment);
-            foreach (var comment in guestCommentsMapper)
-            {
-                User user = await Database.User.Get(comment.GuestIdUser);
-                comment.UserName = user.Name;
-                comment.UserAvatar = user.ProfilePicture;
-                Country country = await Database.Country.Get(user.CountryId);
-                comment.UserCountry = country.Name;
-            }
-            return guestCommentsMapper;
-        }
-        static public string FormatAirbnbRegistration(DateTime? AirbnbRegistrationYear)
-        {
-            if (AirbnbRegistrationYear.HasValue)
-            {
-                CultureInfo culture = new CultureInfo("uk-UA");
-                return "Вступ до спільноти: " + AirbnbRegistrationYear.Value.ToString("MMMM yyyy", culture) + " р";
-            }
-            else
-            {
-                return "Вступ до спільноти: невідомо";
-            }
         }
         public async Task<IEnumerable<RentalApartmentDTO>> GetAll()
         {
@@ -176,7 +126,19 @@ namespace RoomBi.BLL.Services
                 cfg.CreateMap<RentalApartment, RentalApartmentForMap>();
 
             }).CreateMapper();
-            return mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentForMap>>(rentalApartments);
+            var temp = mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentForMap>>(rentalApartments);
+            List<RentalApartment> apartments = new (rentalApartments);
+            List<RentalApartmentForMap> rentalApartmentList = new(temp);
+            for (int i = 0; i < rentalApartmentList.Count; i++)
+            {
+                Location location = await Database.Location.Get(apartments[i].LocationId);
+                rentalApartmentList[i].Location = location.Name;
+                House house = await Database.House.Get(apartments[i].HouseId);
+                rentalApartmentList[i].House = house.Name;
+                Sport sport = await Database.Sport.Get(apartments[i].SportId);
+                rentalApartmentList[i].Sport = sport.Name;
+            }
+            return rentalApartmentList;
         }
         public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllForStartPage()
         {

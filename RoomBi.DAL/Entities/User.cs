@@ -1,7 +1,5 @@
 ﻿
 
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace RoomBi.DAL
 {
     public class User
@@ -17,8 +15,6 @@ namespace RoomBi.DAL
         public ICollection<Chat> Chat { get; set; }
         public ICollection<GuestComments> GuestСomments { get; set; }
         public ICollection<User> Users { get; set; }
-
-
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Password { get; set; }
@@ -28,14 +24,10 @@ namespace RoomBi.DAL
         public DateTime? DateOfBirth { get; set; }
         public DateTime? AirbnbRegistrationYear { get; set; }
         public string? ProfilePicture { get; set; }
-        public string? Token { get; set; }
         public string? RefreshToken { get; set; }
         public string? Hash { get; set; }
-       
         public bool CurrentStatus { get; set; } //bool
         public bool UserStatus { get; set; }//bool
-
-
         public int LanguageId { get; set; }
         public int CountryId { get; set; }
         public Country? Country { get; set; }

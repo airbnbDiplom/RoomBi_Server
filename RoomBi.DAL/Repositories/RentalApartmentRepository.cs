@@ -42,15 +42,21 @@ namespace RoomBi.DAL.Repositories
             var pictures = pictureRepository.GetPicturesByApartmentId(id);
 
             var chatRepository = new ChatRepository(context);
-            var chats = chatRepository.GetChatsByApartmentId(id); 
+            var chats = chatRepository.GetChatsByApartmentId(id);
 
             var guestCommentsRepository = new GuestCommentsRepository(context);
             var guestComments = guestCommentsRepository.GetGuestCommentsByApartmentId(id);
 
-            var rentalApartment = await context.RentalApartments.Include(r => r.Pictures)
-                                                                .Include(r => r.Booking)
-                                                                .Include(r => r.Chats)
-                                                                .Include(r => r.GuestComments)
+            var rentalApartment = await context.RentalApartments/*.Include(r => r.Pictures)*/
+                                                                //.Include(r => r.Booking)
+                                                                //.Include(r => r.Chats)
+                                                                //.Include(r => r.GuestComments)
+                                                                .Include(r => r.Location)
+                                                                .Include(r => r.House)
+                                                                .Include(r => r.Sport)
+                                                                .Include(r => r.Country)
+                                                                .Include(r => r.User)
+                                                                .Include(r => r.OfferedAmenities)
                                                                 .FirstOrDefaultAsync(m => m.Id == id);
             if (rentalApartment != null)
             {
