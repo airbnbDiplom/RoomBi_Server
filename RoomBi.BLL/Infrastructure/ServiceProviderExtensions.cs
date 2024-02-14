@@ -1,11 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Jose;
+using Microsoft.Extensions.DependencyInjection;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
 using RoomBi.BLL.Services;
 using RoomBi.DAL.EF;
 using RoomBi.DAL.Interfaces;
 using RoomBi.DAL.Repositories;
-using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,7 +40,6 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceForStartPage<RentalApartmentDTOForStartPage>, RentalApartmentService>();
             services.AddScoped<IServiceForMap<RentalApartmentForMap>, RentalApartmentService>();
             services.AddScoped<IServiceOfUser<UserDTO>, UserService>();
-
 
 
 

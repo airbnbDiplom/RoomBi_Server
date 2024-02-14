@@ -8,6 +8,8 @@ using RoomBi.BLL.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using RoomBi.BLL.DTO;
+using RoomBi_Server.Token;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,7 +28,7 @@ builder.Services.AddDbContext<RBContext>(options =>
 
 builder.Services.AddCors(); // добавляем сервисы CORS
 
-
+builder.Services.AddScoped<IJwtToken, JwtTokenService>();
 builder.Services.AddCustomServices();
 
 
@@ -57,14 +59,14 @@ builder.Services.AddAuthentication(opt => {
 
     };
 });
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddControllers();
+ 
 
-
-
-builder.Services.AddEndpointsApiExplorer();
+ 
+ 
 builder.Services.AddSwaggerGen();
 
 

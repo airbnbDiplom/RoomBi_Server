@@ -1,19 +1,20 @@
 ﻿
+using RoomBi.BLL.DTO;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
-namespace RoomBi.BLL.DTO
+namespace RoomBi_Server.Token
 {
     public interface IJwtToken
     {
         // Створення JWT
-        public string GetToken(string email,string firstName);
+        public string GetToken(UserDTO user);
 
         //оновлення токену  
         public ClaimsPrincipal GetPrincipalFromExpiredToken(string? token);
 
         //отримати пошту з токену
-        public string getMailFromToken(ClaimsPrincipal principal);
+        public string GetMailFromToken(ClaimsPrincipal principal);
 
         // Створення GenerateRefreshToken
         public string GenerateRefreshToken();

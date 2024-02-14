@@ -6,10 +6,6 @@ namespace RoomBi.BLL.DTO
 {
     public class UserDTO
     {
-        //public ICollection<Booking>? Booking { get; set; }// этому не надо
-        //public ICollection<GuestComments>? GuestComments { get; set; }
-        //public ICollection<Picture>? Pictures { get; set; }
-        //public ICollection<Chat>? Chats { get; set; }
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Password { get; set; }
@@ -22,15 +18,13 @@ namespace RoomBi.BLL.DTO
        
         public bool CurrentStatus { get; set; } //bool
         public bool UserStatus { get; set; }//bool
+
+
         public string? Token { get; set; }
         public string? RefreshToken { get; set; }
         public string? Hash { get; set; }
+        public string? Language { get; set; }
+        public string? Country { get; set; }
 
-
-        public int LanguageId { get; set; }
-        public int CountryId { get; set; }
-       // public Country? Country { get; set; }
-       // public Language? Language { get; set; }
-       
     }
 }

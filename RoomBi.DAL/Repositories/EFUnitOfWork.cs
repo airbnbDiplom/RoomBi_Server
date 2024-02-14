@@ -58,9 +58,6 @@ namespace RoomBi.DAL.Repositories
         private SportRepository _sportRepository;
         public IRepositoryOfAll<Sport> Sport => _sportRepository ??= new SportRepository(_context);
 
-       
-
-
         private UserRepository _userRepository;
         public IRepositoryOfAll<User> User => _userRepository ??= new UserRepository(_context);
 
@@ -69,8 +66,6 @@ namespace RoomBi.DAL.Repositories
 
         private WishlistRepository _wishlistRepository;
         public IRepositoryOfAll<Wishlist> Wishlist => _wishlistRepository ??= new WishlistRepository(_context);
-
-      
 
         private RentalApartmentRepository _rentalApartmentRepository;
         public IRepositoryOfAll<RentalApartment> RentalApartment => _rentalApartmentRepository ??= new RentalApartmentRepository(_context/*, _bookingRepository, _pictureRepository*/);

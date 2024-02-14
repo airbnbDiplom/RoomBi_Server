@@ -10,5 +10,6 @@ namespace RoomBi.BLL.Interfaces
     public interface IServiceOfUser<T>
     {
         Task<T> GetByEmailAndPassword(string email, string password);
+        Task<T> RegisterByEmailAndPassword(string email, string password);
     }
 }

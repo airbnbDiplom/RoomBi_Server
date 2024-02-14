@@ -1,13 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using RoomBi.BLL.DTO;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace RoomBi.BLL.DTO
+namespace RoomBi_Server.Token
 {
-    public class JwtTokenService: IJwtToken
+    public class JwtTokenService : IJwtToken
     {
         private readonly IConfiguration _configuration;
         String Secret;
@@ -18,23 +19,27 @@ namespace RoomBi.BLL.DTO
 
         public JwtTokenService(IConfiguration configuration)
         {
-            _configuration= configuration;
+            _configuration = configuration;
             var gmailConfig = _configuration.GetSection("Jwt");          // Отримання конфігурації JWT з файлу налаштувань
             this.Secret = gmailConfig.GetValue<String>("Secret")!;       // Отримання секретного ключа для підпису JWT
             this.Issuer = gmailConfig.GetValue<String>("Issuer")!;       // Отримання власника JWT
             this.Audience = gmailConfig.GetValue<String>("Audience")!;   // Отримання аудиторії JWT
             this.Expire = gmailConfig.GetValue<int>("Expire");           // Отримання часу життя JWT у хвилинах
         }
-     
-        // Створення JWT
-        public string GetToken(string email, string firstName)
+
+        public string GetToken(UserDTO user)
         {
-            List<Claim> claims =
-            [
-                new Claim("Email", email),            // Додавання клейму "Email" з переданим значенням електронної пошти
-                new Claim("FirstName", firstName),    // Додавання довільного клейму "level" зі значенням "123"
-                new Claim(ClaimTypes.Role, "Admin"),  // Додавання ролі "Admin" як клейму
-            ];           // Створення списку клеймів для JWT
+            
+            var claims = new List<Claim>
+             {
+                new("Id", user.Id.ToString()),
+                user.Name != null ? new Claim("Name", user.Name) : new Claim("Name", ""),
+                user.Email != null ? new Claim("Email", user.Email) : new Claim("Email", ""),
+                new("ProfilePicture", user.ProfilePicture ?? ""),
+                user.Language != null ? new Claim("Language", user.Language) : new Claim("Language", ""),
+                user.Country != null ? new Claim("Country", user.Country) : new Claim("Country", "")
+            };
+
 
             // Створення симетричного ключа для підпису JWT на основі секретного ключа
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.Secret));
@@ -79,7 +84,7 @@ namespace RoomBi.BLL.DTO
         }
 
         //отримати пошту з токену
-        public string getMailFromToken(ClaimsPrincipal principal)
+        public string GetMailFromToken(ClaimsPrincipal principal)
         {
             string email = "";
             var claims = principal.Claims;
@@ -87,7 +92,11 @@ namespace RoomBi.BLL.DTO
             foreach (var claim in claims)
             {
                 if (claim.Type == "Email")
+                {
                     email = claim.Value;
+                    return email;
+                }
+                   
             }
             return email;
         }
@@ -118,5 +127,6 @@ namespace RoomBi.BLL.DTO
             return token;  // Повертаємо створений JWT токен.
         }
 
+       
     }
 }

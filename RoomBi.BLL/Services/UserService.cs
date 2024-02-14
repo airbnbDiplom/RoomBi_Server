@@ -11,14 +11,10 @@ using Microsoft.EntityFrameworkCore;
 namespace RoomBi.BLL.Services
 {
 
-    public class UserService : IServiceOfAll<UserDTO>, IServiceOfUser<UserDTO>
-    { 
-        IUnitOfWork Database { get; set; }
+    public class UserService(IUnitOfWork uow) : IServiceOfAll<UserDTO>, IServiceOfUser<UserDTO>
+    {
+        IUnitOfWork Database { get; set; } = uow;
 
-        public UserService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
         public async Task Create(UserDTO userDTO)
         {
 
@@ -82,17 +78,17 @@ namespace RoomBi.BLL.Services
                 Hash = userDTO.Hash,
                 CurrentStatus = userDTO.CurrentStatus,
                 UserStatus = userDTO.UserStatus,
-                LanguageId = userDTO.LanguageId,
-                CountryId = userDTO.CountryId
+                //LanguageId = userDTO.LanguageId,
+                //CountryId = userDTO.CountryId
             };
-            await Database.User.Update(user);
-            await Database.Save();
+            //await Database.User.Update(user);
+            //await Database.Save();
         }
 
         public async Task Delete(int id)
         {
             await Database.User.Delete(id);
-            await Database.Save();
+            //await Database.Save();
         }
 
         public async Task<UserDTO> Get(int id)
@@ -115,8 +111,8 @@ namespace RoomBi.BLL.Services
                 Hash = user.Hash,
                 CurrentStatus = user.CurrentStatus,
                 UserStatus = user.UserStatus,
-                LanguageId = user.LanguageId,
-                CountryId = user.CountryId
+                //LanguageId = user.LanguageId,
+                //CountryId = user.CountryId
             };
         }
 
@@ -156,8 +152,72 @@ namespace RoomBi.BLL.Services
                 Hash = user.Hash,
                 CurrentStatus = user.CurrentStatus,
                 UserStatus = user.UserStatus,
-                LanguageId = user.LanguageId,
-                CountryId = user.CountryId
+                //LanguageId = user.LanguageId,
+                //CountryId = user.CountryId
+            };
+
+            return userDto;
+        }
+
+        public async Task<UserDTO> RegisterByEmailAndPassword(string email, string password)
+        {
+            var existingUsers = await Database.User.GetAll();
+            var existingUser = existingUsers.FirstOrDefault(u => u.Email == email);
+
+            if (existingUser != null)
+            {
+                if (existingUser.IsGoogleServiceUsed)
+                {
+                    throw new Exception("Користувач з таким email вже існує і він використовував сервіс Google для входу");
+                }
+                else
+                {
+                    throw new Exception("Користувач з таким email вже існує");
+                }
+            }
+            var user = new User();
+            if (password == "google")
+            {
+                user.Password = password;
+                user.Email = email;
+                user.IsGoogleServiceUsed = true;
+            }
+            else
+            {
+                // Generate a salt
+                byte[] salt;
+                new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+
+                // Generate the hashed password
+                var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+                byte[] hash = pbkdf2.GetBytes(20);
+
+                // Convert the byte array to a string
+                string savedPasswordHash = Convert.ToBase64String(hash);
+                user.Password = savedPasswordHash;
+                user.Salt = Convert.ToBase64String(salt);// Save the salt
+                user.Email = email;
+                user.IsGoogleServiceUsed = false;
+            }
+            //await Database.User.Create(user);
+            //await Database.Save();
+            var userDto = new UserDTO
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Password = user.Password,
+                Email = user.Email,
+                Address = user.Address,
+                PhoneNumber = user.PhoneNumber,
+                DateOfBirth = user.DateOfBirth,
+                AirbnbRegistrationYear = user.AirbnbRegistrationYear,
+                ProfilePicture = user.ProfilePicture,
+                RefreshToken = user.RefreshToken,
+                Hash = user.Hash,
+                CurrentStatus = user.CurrentStatus,
+                UserStatus = user.UserStatus,
+                //LanguageId = user.LanguageId,
+                //CountryId = user.CountryId
             };
 
             return userDto;
