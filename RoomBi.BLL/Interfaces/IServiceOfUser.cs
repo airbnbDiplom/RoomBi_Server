@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace RoomBi.BLL.Interfaces
 {
-    public interface IServiceOfUser
+    public interface IServiceOfUser<T>
     {
-        Task<UserDTO> GetByEmailAndPassword(string email, string password);
+        Task<T> GetByEmailAndPassword(string email, string password);
     }
 }

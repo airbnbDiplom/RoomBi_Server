@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace RoomBi.BLL.Services
 {
 
-    public class UserService : IServiceOfAll<UserDTO>, IServiceOfUser
+    public class UserService : IServiceOfAll<UserDTO>, IServiceOfUser<UserDTO>
     { 
         IUnitOfWork Database { get; set; }
 
@@ -125,6 +125,8 @@ namespace RoomBi.BLL.Services
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(await Database.User.GetAll());
         }
+
+       
 
         public async Task<UserDTO> GetByEmailAndPassword(string email, string password)
         {

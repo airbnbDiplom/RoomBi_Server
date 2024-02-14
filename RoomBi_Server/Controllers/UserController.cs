@@ -7,7 +7,7 @@ namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController(IServiceOfAll<UserDTO> userService) : ControllerBase
+    public class UserController(IServiceOfAll<UserDTO> userService, IServiceOfUser<UserDTO> serviceOfUser) : ControllerBase
     {
         // GET: api/users
         [HttpGet]
@@ -58,7 +58,7 @@ namespace RoomBi_Server.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(string email, string password)
         {
-            var user = await userService.GetByEmailAndPassword(email, password);
+            var user = await serviceOfUser.GetByEmailAndPassword(email, password);
             if (user == null)
             {
                 return NotFound();
