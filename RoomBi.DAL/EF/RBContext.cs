@@ -364,19 +364,18 @@ namespace RoomBi.DAL.EF
                 });
                 RentalApartments.Add(new RentalApartment
                 {
-
-                    UserId = 2,
+                    UserId = 1,
                     Title = "Tulse Hill Luxury Cosy Rooms",
                     Address = "Лондон, Ламбет, 18 Northstead Road, SW2 3JW ",
                     IngMap = "51.51806759859402",
                     LatMap = "-0.2347715452732212",
-                    NumberOfGuests = 2,
-                    Bedrooms = 1,
+                    NumberOfGuests = 4,
+                    Bedrooms = 2,
                     Bathrooms = 2,
-                    Beds = 1,
+                    Beds = 3,
                     PricePerNight = 110.0,
                     ObjectState = "Вільний",
-                    ObjectRating = 4.7,
+                    ObjectRating = 4.9,
                     OfferedAmenitiesId = 1,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 11,
@@ -384,6 +383,7 @@ namespace RoomBi.DAL.EF
                     SportId = 4,
                     CountryId = 2,
                 });
+       
                 RentalApartments.Add(new RentalApartment
                 {
 

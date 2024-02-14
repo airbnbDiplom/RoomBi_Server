@@ -15,9 +15,9 @@ namespace RoomBi_Server.Controllers
 
         // GET: api/rentalApartments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RentalApartmentDTOForStartPage>>> GetRentalApartments()
+        public async Task<ActionResult<IEnumerable<RentalApartmentDTOForStartPage>>> GetRentalApartments(int page = 1, int pageSize = 24)
         {
-            var rentalApartments = await serviceForStartPage.GetAllForStartPage();
+            var rentalApartments = await serviceForStartPage.GetAllForStartPage(page, pageSize);
             if (rentalApartments == null || !rentalApartments.Any())
             {
                 return NotFound();

@@ -61,10 +61,20 @@ namespace RoomBi.DAL.Repositories
             get
             {
                 if (rentalApartmentRepository == null)
-                    rentalApartmentRepository = new RentalApartmentRepository(db);
+                    rentalApartmentRepository = new RentalApartmentRepository(db/*, bookingRepository, pictureRepository*/);
                 return rentalApartmentRepository;
             }
         }
+        public IRepositoryGet24<RentalApartment> Apartment24
+        {
+            get
+            {
+                if (rentalApartmentRepository == null)
+                    rentalApartmentRepository = new RentalApartmentRepository(db/*, bookingRepository, pictureRepository*/);
+                return rentalApartmentRepository;
+            }
+        }
+ 
         public IRepositoryOfAll<Sport> Sport
         {
             get
@@ -182,6 +192,9 @@ namespace RoomBi.DAL.Repositories
                 return guestPaymentMethodRepository;
             }
         }
+
+    
+
         public async Task Save()
         {
             await db.SaveChangesAsync();

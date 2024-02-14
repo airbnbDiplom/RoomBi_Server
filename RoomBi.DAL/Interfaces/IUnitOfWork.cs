@@ -24,6 +24,7 @@ namespace RoomBi.DAL.Interfaces
         IRepositoryOfAll<Location> Location { get; }
         IRepositoryOfAll<Sport> Sport { get; }
         IRepositoryOfAll<RentalApartment> RentalApartment { get; }
+        IRepositoryGet24<RentalApartment> Apartment24 { get; }
         IRepositoryOfAll<User> User { get; }
         IRepositoryOfAll<CommentsAboutGuest> CommentsAboutGuest { get; }
         IRepositoryOfAll<Wishlist> Wishlist { get; }

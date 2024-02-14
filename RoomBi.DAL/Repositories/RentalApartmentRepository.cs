@@ -9,9 +9,13 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class RentalApartmentRepository(RBContext context) : IRepositoryOfAll<RentalApartment>
+    public class RentalApartmentRepository(RBContext context/*, BookingRepository bookingRepository, PictureRepository pictureRepository*/) 
+        : IRepositoryOfAll<RentalApartment>, IRepositoryGet24<RentalApartment>
     {
         private readonly RBContext context = context;
+        //private readonly BookingRepository bookingRepository = bookingRepository;
+        //private readonly PictureRepository pictureRepository = pictureRepository;
+
         public async Task<IEnumerable<RentalApartment>> GetAll()
         {
             
@@ -80,6 +84,35 @@ namespace RoomBi.DAL.Repositories
             RentalApartment? item = await context.RentalApartments.FindAsync(id);
             if (item != null)
                 context.RentalApartments.Remove(item);
+        }
+
+        public async Task<IEnumerable<RentalApartment>> Get24(int page, int pageSize)
+        {
+            var temp = await context.RentalApartments
+          .Include(ra => ra.Country)
+          .Include(ra => ra.Location)
+          .Include(ra => ra.House)
+          .Include(ra => ra.Sport)
+          .Skip((page - 1) * pageSize)
+          .Take(pageSize)
+          .ToListAsync();
+            var bookingRepository = new BookingRepository(context);
+            var pictureRepository = new PictureRepository(context);
+            for (int i = 0; i < temp.Count; i++)
+            {
+                var bookings = bookingRepository.GetBookingsByApartmentId(i + 1);
+                temp[i].Booking = (ICollection<Booking>)bookings;
+                var pictures = pictureRepository.GetPicturesByApartmentId(i + 1);
+                temp[i].Booking = (ICollection<Booking>)bookings;
+            }
+            //foreach (var apartment in temp)
+            //{
+            //    var bookings = bookingRepository.GetBookingsByApartmentId(apartment.Id);
+            //    apartment.Booking = bookings.ToList();
+            //    var pictures = pictureRepository.GetPicturesByApartmentId(apartment.Id);
+            //    apartment.Pictures = pictures.ToList();
+            //}
+            return temp;
         }
     }
 }

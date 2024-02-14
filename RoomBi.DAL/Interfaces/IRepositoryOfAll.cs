@@ -14,4 +14,8 @@ namespace RoomBi.DAL.Repositories
         Task Update(T item);
         Task Delete(int id);
     }
+    public interface IRepositoryGet24<T> where T : class
+    {
+        Task<IEnumerable<T>> Get24(int page, int pageSize);
+    }
 }

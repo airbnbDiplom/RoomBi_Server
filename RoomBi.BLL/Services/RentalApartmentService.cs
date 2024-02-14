@@ -9,6 +9,7 @@ using System;
 using System.Globalization;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using RoomBi.DAL.Repositories;
 
 
 namespace RoomBi.BLL.Services
@@ -148,9 +149,9 @@ namespace RoomBi.BLL.Services
             }).CreateMapper();
             return mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentForMap>>(rentalApartments);
         }
-        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllForStartPage()
+        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllForStartPage(int page, int pageSize)
         {
-            var rentalApartments = await Database.RentalApartment.GetAll();
+            var rentalApartments = await Database.Apartment24.Get24(page, pageSize);//&&
             List<RentalApartment> rentalApartmentListOld = new(rentalApartments);
             var mapper = new MapperConfiguration(cfg =>
             {
@@ -203,5 +204,7 @@ namespace RoomBi.BLL.Services
             Console.WriteLine("formattedDate = " + formattedDate);
             return formattedDate;
         }
+
+
     }
 }
