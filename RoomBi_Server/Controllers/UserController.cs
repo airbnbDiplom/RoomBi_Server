@@ -47,10 +47,23 @@ namespace RoomBi_Server.Controllers
 
         // POST: api/users
         [HttpPost]
-        public async Task<ActionResult<UserDTO>> PostUser(UserDTO user)
+        public async Task<ActionResult<UserDTO>> RegisterUser(string email, string password)
         {
+            var user = new UserDTO { Email = email, Password = password };
             await userService.Create(user);
             return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+        }
+
+        // POST: api/users/login
+        [HttpPost("login")]
+        public async Task<ActionResult<UserDTO>> Login(string email, string password)
+        {
+            var user = await userService.GetByEmailAndPassword(email, password);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
         }
 
         // DELETE: api/users/5

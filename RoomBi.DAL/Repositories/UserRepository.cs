@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class UserRepository(RBContext context) : IRepositoryOfAll<User>
+    public class UserRepository(RBContext context) : IRepositoryOfAll<User>, IRepositoryUser
     {
         private readonly RBContext context = context;
 
@@ -22,6 +22,13 @@ namespace RoomBi.DAL.Repositories
             return await context.Users.FirstOrDefaultAsync(m => m.Id == id);
             //return await context.Users.FindAsync(id);
         }
+
+        public async Task<User> GetEmail(string email)
+        {
+
+            return await context.Users.FirstOrDefaultAsync(m => m.Email == email);
+        }
+
         public async Task Create(User item)
         {
             await context.Users.AddAsync(item);

@@ -1,5 +1,7 @@
 ﻿
 
+using System.Globalization;
+
 namespace RoomBi.DAL
 {
     public class User
@@ -28,8 +30,11 @@ namespace RoomBi.DAL
         public string? Hash { get; set; }
         public bool CurrentStatus { get; set; } //bool
         public bool UserStatus { get; set; }//bool
-        public int LanguageId { get; set; }
-        public int CountryId { get; set; }
+        public int LanguageId { get; set; } = 1;
+        public int CountryId { get; set; } = 1;
+        public string? Salt { get; set; }
+
+        public bool IsGoogleServiceUsed { get; set; }
         public Country? Country { get; set; }
         public Language? Language { get; set; }
        
