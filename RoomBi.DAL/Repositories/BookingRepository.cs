@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class BookingRepository(RBContext context) : IRepositoryOfAll<Booking>
+    public class BookingRepository(RBContext context) : IRepositoryOfAll<Booking>, IRepositoryForApartment<Booking>
     {
         private readonly RBContext context = context;
-        public IEnumerable<Booking> GetBookingsByApartmentId(int apartmentId)// коллекция для определенной квартиры
+        public async Task<IEnumerable<Booking>> ByApartmentId(int apartmentId)
         {
-            return context.Bookings
-            .Where(booking => booking.ApartmentId == apartmentId)
-            .OrderBy(booking => booking.CheckInDate)
-            .ToList();
+            return await context.Bookings
+                .Where(booking => booking.ApartmentId == apartmentId)
+                .OrderBy(booking => booking.CheckInDate)
+                .ToListAsync();
         }
         public async Task<IEnumerable<Booking>> GetAll()
         {
@@ -41,6 +41,11 @@ namespace RoomBi.DAL.Repositories
             Booking? item = await context.Bookings.FindAsync(id);
             if (item != null)
                 context.Bookings.Remove(item);
+        }
+
+        internal Task GetBookingsByApartmentIdAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

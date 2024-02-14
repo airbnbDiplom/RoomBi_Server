@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using RoomBi.DAL.Repositories;
+using System.Net;
 
 
 namespace RoomBi.BLL.Services
@@ -151,59 +152,89 @@ namespace RoomBi.BLL.Services
         }
         public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllForStartPage(int page, int pageSize)
         {
-            var rentalApartments = await Database.Apartment24.Get24(page, pageSize);//&&
-            List<RentalApartment> rentalApartmentListOld = new(rentalApartments);
-            var mapper = new MapperConfiguration(cfg =>
+            if (page == 1) 
             {
-                cfg.CreateMap<RentalApartment, RentalApartmentDTOForStartPage>()
-                    .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name))
-                    .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Location.Name))
-                    .ForMember(dest => dest.House, opt => opt.MapFrom(src => src.House.Name))
-                    .ForMember(dest => dest.Sport, opt => opt.MapFrom(src => src.Sport.Name));
-            }).CreateMapper();
+                var rentalApartments = await Database.Apartment24.Get24(page, pageSize);
+                List<RentalApartmentDTOForStartPage> rentalApartmentList = [];
+                foreach (var apartment in rentalApartments)
+                {
+                    var rentalApartmentDto = new RentalApartmentDTOForStartPage
+                    {
+                        Title = apartment.Title,
+                        IngMap = apartment.IngMap,
+                        LatMap = apartment.LatMap,  
+                        PricePerNight = apartment.PricePerNight, 
+                        ObjectRating = apartment.ObjectRating,
+                        Country = apartment.Country?.Name,
+                        Location = apartment.Location?.Name,
+                        House = apartment.House?.Name,
+                        Sport = apartment.Sport?.Name,
+                        Pictures = apartment.Pictures,
+                        
+                    };
+                    rentalApartmentDto.Country += ", " + apartment.Address;
+                    rentalApartmentDto.BookingFree = FormatDate(apartment);
 
-            var temp = mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentDTOForStartPage>>(rentalApartments);
-            List<RentalApartmentDTOForStartPage> rentalApartmentList = new(temp);
-
-            for (int i = 0; i < rentalApartmentList.Count; i++)
-            {
-                rentalApartmentList[i].Country += ", " + rentalApartmentListOld[i].Address;
-                rentalApartmentList[i].BookingFree = FormatDate(rentalApartmentListOld[i]);
+                    rentalApartmentList.Add(rentalApartmentDto);
+                }
+                return rentalApartmentList;
             }
-            return rentalApartmentList;
+            else
+            {
+                var rentalApartments = await Database.RentalApartment.GetAll();
+                List<RentalApartmentDTOForStartPage> rentalApartmentList = [];
+                foreach (var apartment in rentalApartments)
+                {
+                    var rentalApartmentDto = new RentalApartmentDTOForStartPage
+                    {
+                        Title = apartment.Title,
+                        IngMap = apartment.IngMap,
+                        LatMap = apartment.LatMap,
+                        PricePerNight = apartment.PricePerNight,
+                        ObjectRating = apartment.ObjectRating,
+                        Country = apartment.Country?.Name,
+                        Location = apartment.Location?.Name,
+                        House = apartment.House?.Name,
+                        Sport = apartment.Sport?.Name,
+                        Pictures = apartment.Pictures,
+
+                    };
+                    rentalApartmentDto.Country += ", " + apartment.Address;
+                    rentalApartmentDto.BookingFree = FormatDate(apartment);
+
+                    rentalApartmentList.Add(rentalApartmentDto);
+                }
+
+                return rentalApartmentList;
+            }
         }
         public static string FormatDate(RentalApartment rentalApartment)
         {
-            List<Booking> booking = (List<Booking>)rentalApartment.Booking;
-            DateTime lastCheckOutDate = DateTime.MinValue;
-            for (int i = 0; i < booking.Count; i++)
+            if (rentalApartment.Booking == null || rentalApartment.Booking.Count == 0)
             {
-                DateTime currentCheckOutDate = booking[i].CheckOutDate;
-                Console.WriteLine("currentCheckOutDate = " + currentCheckOutDate);
-                if (i < booking.Count - 1)
-                {
-                    DateTime nextCheckInDate = booking[i + 1].CheckInDate;
-                    Console.WriteLine("nextCheckInDate = " + nextCheckInDate);
-                    TimeSpan difference = nextCheckInDate - currentCheckOutDate;
-                    Console.WriteLine("difference = " + difference);
-                    if (difference.Days >= 5)
-                    {
-                        lastCheckOutDate = currentCheckOutDate;
-                        Console.WriteLine("ans = " + currentCheckOutDate);
-                    }
-                }
-                else if (lastCheckOutDate == DateTime.MinValue)
-                {
-                    lastCheckOutDate = currentCheckOutDate;
-                }
-
+                return string.Empty;
             }
+
+            var bookings = rentalApartment.Booking.OrderBy(b => b.CheckOutDate).ToList();
+            DateTime lastCheckOutDate = bookings.First().CheckOutDate;
+
+            foreach (var booking in bookings.Skip(1))
+            {
+                DateTime nextCheckInDate = booking.CheckInDate;
+                TimeSpan difference = nextCheckInDate - lastCheckOutDate;
+                if (difference.Days >= 5)
+                {
+                    lastCheckOutDate = booking.CheckOutDate;
+                }
+            }
+
             DateTime newDate = lastCheckOutDate.AddDays(5);
-            string formattedDate = lastCheckOutDate.ToString("dd", new System.Globalization.CultureInfo("uk-UA")) + "-" +
-            newDate.ToString("dd MMM", new System.Globalization.CultureInfo("uk-UA"));
-            Console.WriteLine("formattedDate = " + formattedDate);
+            string formattedDate = lastCheckOutDate.ToString("dd MMM", new System.Globalization.CultureInfo("uk-UA")) +
+                                    " - " +
+                                    newDate.ToString("dd MMM", new System.Globalization.CultureInfo("uk-UA"));
             return formattedDate;
         }
+
 
 
     }

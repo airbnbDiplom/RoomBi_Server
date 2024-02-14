@@ -9,195 +9,82 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class EFUnitOfWork(RBContext context) : IUnitOfWork
-    {
-        private RBContext db = context;
-        private LanguageRepository languageRepository;
-        private GuestCommentsRepository guestCommentsRepository;
-        private GuestPaymentMethodRepository guestPaymentMethodRepository;
-        private EmergencyContactPersonRepository emergencyContactPersonRepository;
-        private ChatRepository chatRepository;
-        private CountryRepository countryRepository;
-        private BookingRepository bookingRepository;
-        private OfferedAmenitiesRepository offeredAmenitiesRepository;
-        private PictureRepository pictureRepository;
-        private ProfileRepository profileRepository;
-        private LocationRepository  locationRepository;
-        private HouseRepository houseRepository;
-        private SportRepository sportRepository;
-        private RentalApartmentRepository rentalApartmentRepository;
-        private UserRepository userRepository;
-        private CommentsAboutGuestRepository commentsAboutGuestRepository;
-        private WishlistRepository wishlistRepository;
-        public IRepositoryOfAll<Wishlist> Wishlist
-        {
-            get
-            {
-                if (wishlistRepository == null)
-                    wishlistRepository = new WishlistRepository(db);
-                return wishlistRepository;
-            }
-        }
-        public IRepositoryOfAll<CommentsAboutGuest> CommentsAboutGuest
-        {
-            get
-            {
-                if (commentsAboutGuestRepository == null)
-                    commentsAboutGuestRepository = new CommentsAboutGuestRepository(db);
-                return commentsAboutGuestRepository;
-            }
-        }
-        public IRepositoryOfAll<User> User
-        {
-            get
-            {
-                if (userRepository == null)
-                    userRepository = new UserRepository(db);
-                return userRepository;
-            }
-        }
-        public IRepositoryOfAll<RentalApartment> RentalApartment
-        {
-            get
-            {
-                if (rentalApartmentRepository == null)
-                    rentalApartmentRepository = new RentalApartmentRepository(db/*, bookingRepository, pictureRepository*/);
-                return rentalApartmentRepository;
-            }
-        }
-        public IRepositoryGet24<RentalApartment> Apartment24
-        {
-            get
-            {
-                if (rentalApartmentRepository == null)
-                    rentalApartmentRepository = new RentalApartmentRepository(db/*, bookingRepository, pictureRepository*/);
-                return rentalApartmentRepository;
-            }
-        }
- 
-        public IRepositoryOfAll<Sport> Sport
-        {
-            get
-            {
-                if (sportRepository == null)
-                    sportRepository = new SportRepository(db);
-                return sportRepository;
-            }
-        }
-        public IRepositoryOfAll<House> House
-        {
-            get
-            {
-                if (houseRepository == null)
-                    houseRepository = new HouseRepository(db);
-                return houseRepository;
-            }
-        }
-        public IRepositoryOfAll<Location> Location
-        {
-            get
-            {
-                if (locationRepository == null)
-                    locationRepository = new LocationRepository(db);
-                return locationRepository;
-            }
-        }
-        public IRepositoryOfAll<Profile> Profile
-        {
-            get
-            {
-                if (profileRepository == null)
-                    profileRepository = new ProfileRepository(db);
-                return profileRepository;
-            }
-        }
-        public IRepositoryOfAll<Picture> Picture
-        {
-            get
-            {
-                if (pictureRepository == null)
-                    pictureRepository = new PictureRepository(db);
-                return pictureRepository;
-            }
-        }
-        public IRepositoryOfAll<OfferedAmenities> OfferedAmenities
-        {
-            get
-            {
-                if (offeredAmenitiesRepository == null)
-                    offeredAmenitiesRepository = new OfferedAmenitiesRepository(db);
-                return offeredAmenitiesRepository;
-            }
-        }
-        public IRepositoryOfAll<Chat> Chat
-        {
-            get
-            {
-                if (chatRepository == null)
-                    chatRepository = new ChatRepository(db);
-                return chatRepository;
-            }
-        }
-        public IRepositoryOfAll<Booking> Booking
-        {
-            get
-            {
-                if (bookingRepository == null)
-                    bookingRepository = new BookingRepository(db);
-                return bookingRepository;
-            }
-        }
-        public IRepositoryOfAll<Country> Country
-        {
-            get
-            {
-                if (countryRepository == null)
-                    countryRepository = new CountryRepository(db);
-                return countryRepository;
-            }
-        }
-        public IRepositoryOfAll<GuestComments> GuestComments
-        {
-            get
-            {
-                if (guestCommentsRepository == null)
-                    guestCommentsRepository = new GuestCommentsRepository(db);
-                return guestCommentsRepository;
-            }
-        }
-        public IRepositoryOfAll<Language> Languages
-        {
-            get
-            {
-                if (languageRepository == null)
-                    languageRepository = new LanguageRepository(db);
-                return languageRepository;
-            }
-        }
-        public IRepositoryOfAll<EmergencyContactPerson> EmergencyContactPerson
-        {
-            get
-            {
-                if (emergencyContactPersonRepository == null)
-                    emergencyContactPersonRepository = new EmergencyContactPersonRepository(db);
-                return emergencyContactPersonRepository;
-            }
-        }
-        public IRepositoryOfAll<GuestPaymentMethod> GuestPaymentMethod
-        {
-            get
-            {
-                if (guestPaymentMethodRepository == null)
-                    guestPaymentMethodRepository = new GuestPaymentMethodRepository(db);
-                return guestPaymentMethodRepository;
-            }
-        }
 
+    public class EFUnitOfWork : IUnitOfWork
+    {
+        private readonly RBContext _context;
+
+        public EFUnitOfWork(RBContext context)
+        {
+            _context = context;
+        }
     
+        private LanguageRepository _languageRepository;
+        public IRepositoryOfAll<Language> Languages => _languageRepository ??= new LanguageRepository(_context);
+
+        private GuestCommentsRepository _guestCommentsRepository;
+        public IRepositoryOfAll<GuestComments> GuestComments => _guestCommentsRepository ??= new GuestCommentsRepository(_context);
+
+        private GuestPaymentMethodRepository _guestPaymentMethodRepository;
+        public IRepositoryOfAll<GuestPaymentMethod> GuestPaymentMethod => _guestPaymentMethodRepository ??= new GuestPaymentMethodRepository(_context);
+
+        private EmergencyContactPersonRepository _emergencyContactPersonRepository;
+        public IRepositoryOfAll<EmergencyContactPerson> EmergencyContactPerson => _emergencyContactPersonRepository ??= new EmergencyContactPersonRepository(_context);
+
+        private ChatRepository _chatRepository;
+        public IRepositoryOfAll<Chat> Chat => _chatRepository ??= new ChatRepository(_context);
+
+        private CountryRepository _countryRepository;
+        public IRepositoryOfAll<Country> Country => _countryRepository ??= new CountryRepository(_context);
+
+        private BookingRepository _bookingRepository;
+        public IRepositoryOfAll<Booking> Booking => _bookingRepository ??= new BookingRepository(_context);
+
+        private OfferedAmenitiesRepository _offeredAmenitiesRepository;
+        public IRepositoryOfAll<OfferedAmenities> OfferedAmenities => _offeredAmenitiesRepository ??= new OfferedAmenitiesRepository(_context);
+
+        private PictureRepository _pictureRepository;
+        public IRepositoryOfAll<Picture> Picture => _pictureRepository ??= new PictureRepository(_context);
+
+        private ProfileRepository _profileRepository;
+        public IRepositoryOfAll<Profile> Profile => _profileRepository ??= new ProfileRepository(_context);
+
+        private LocationRepository _locationRepository;
+        public IRepositoryOfAll<Location> Location => _locationRepository ??= new LocationRepository(_context);
+
+        private HouseRepository _houseRepository;
+        public IRepositoryOfAll<House> House => _houseRepository ??= new HouseRepository(_context);
+
+        private SportRepository _sportRepository;
+        public IRepositoryOfAll<Sport> Sport => _sportRepository ??= new SportRepository(_context);
+
+       
+
+
+        private UserRepository _userRepository;
+        public IRepositoryOfAll<User> User => _userRepository ??= new UserRepository(_context);
+
+        private CommentsAboutGuestRepository _commentsAboutGuestRepository;
+        public IRepositoryOfAll<CommentsAboutGuest> CommentsAboutGuest => _commentsAboutGuestRepository ??= new CommentsAboutGuestRepository(_context);
+
+        private WishlistRepository _wishlistRepository;
+        public IRepositoryOfAll<Wishlist> Wishlist => _wishlistRepository ??= new WishlistRepository(_context);
+
+      
+
+        private RentalApartmentRepository _rentalApartmentRepository;
+        public IRepositoryOfAll<RentalApartment> RentalApartment => _rentalApartmentRepository ??= new RentalApartmentRepository(_context/*, _bookingRepository, _pictureRepository*/);
+        
+
+        private RentalApartmentRepository _apartment24Repository;
+        public IRepositoryGet24<RentalApartment> Apartment24 => _apartment24Repository ??= new RentalApartmentRepository(_context/*, _bookingRepository, _pictureRepository*/);
+
+      
 
         public async Task Save()
         {
-            await db.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
+
     }
 }

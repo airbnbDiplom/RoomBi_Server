@@ -18,4 +18,8 @@ namespace RoomBi.DAL.Repositories
     {
         Task<IEnumerable<T>> Get24(int page, int pageSize);
     }
+    public interface IRepositoryForApartment<T> where T : class
+    {
+        Task<IEnumerable<T>> ByApartmentId(int apartmentId);
+    }
 }

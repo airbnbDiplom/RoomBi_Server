@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
+using System.Diagnostics;
 
 namespace RoomBi_Server.Controllers
 {
@@ -17,12 +18,34 @@ namespace RoomBi_Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RentalApartmentDTOForStartPage>>> GetRentalApartments(int page = 1, int pageSize = 24)
         {
-            var rentalApartments = await serviceForStartPage.GetAllForStartPage(page, pageSize);
-            if (rentalApartments == null || !rentalApartments.Any())
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            if (page == 2)
             {
-                return NotFound();
+                var rentalApartments = await serviceForStartPage.GetAllForStartPage(page, pageSize);
+                if (rentalApartments == null || !rentalApartments.Any())
+                {
+                    return NotFound();
+                }
+                stopwatch.Stop();
+                TimeSpan elapsedTime = stopwatch.Elapsed;
+                Console.WriteLine("Время выполнения: " + elapsedTime);
+                return Ok(rentalApartments);
             }
-            return Ok(rentalApartments);
+            else 
+            {
+              var rentalApartments = await serviceForStartPage.GetAllForStartPage(page, pageSize);
+                if (rentalApartments == null || !rentalApartments.Any())
+                {
+                    return NotFound();
+                }
+                stopwatch.Stop();
+                TimeSpan elapsedTime = stopwatch.Elapsed;
+                Console.WriteLine("Время выполнения: " + elapsedTime);
+                return Ok(rentalApartments);
+            }
+            
+
         }
         // GET: api/rentalApartments/map
         [HttpGet("map/{map}")]

@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class PictureRepository(RBContext context): IRepositoryOfAll<Picture>
+    public class PictureRepository(RBContext context) : IRepositoryOfAll<Picture>, IRepositoryForApartment<Picture>
     {
         private readonly RBContext context = context;
-        public IEnumerable<Picture> GetPicturesByApartmentId(int apartmentId)// коллекция для определенной квартиры
+        public async Task<IEnumerable<Picture>> ByApartmentId(int apartmentId)// коллекция для определенной квартиры
         {
-            return context.Pictures
+            return await context.Pictures
                 .Where(picture => picture.RentalApartmentId == apartmentId)
-                .ToList();
+                .ToListAsync();
         }
         public async Task<IEnumerable<Picture>> GetAll()
         {
@@ -41,6 +41,8 @@ namespace RoomBi.DAL.Repositories
             if (item != null)
                 context.Pictures.Remove(item);
         }
+
+
     }
 }
 

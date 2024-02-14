@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
 using RoomBi.DAL.EF;
 using RoomBi.DAL.Interfaces;
 using System;
@@ -9,41 +10,28 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class RentalApartmentRepository(RBContext context/*, BookingRepository bookingRepository, PictureRepository pictureRepository*/) 
+    public class RentalApartmentRepository
         : IRepositoryOfAll<RentalApartment>, IRepositoryGet24<RentalApartment>
     {
-        private readonly RBContext context = context;
-        //private readonly BookingRepository bookingRepository = bookingRepository;
-        //private readonly PictureRepository pictureRepository = pictureRepository;
+        private readonly RBContext context;
+        //private readonly BookingRepository bookingRepository;
+        //private readonly PictureRepository pictureRepository;
 
-        public async Task<IEnumerable<RentalApartment>> GetAll()
+        public RentalApartmentRepository(RBContext context/*, BookingRepository bookingRepository, PictureRepository pictureRepository*/)
         {
-            
-            var temp = await context.RentalApartments
-           .Include(ra => ra.Country)
-           .Include(ra => ra.Location)
-           .Include(ra => ra.House)
-           .Include(ra => ra.Sport)
-           //.Include(ra => ra.OfferedAmenities)
-           .ToListAsync();
-            var bookingRepository = new BookingRepository(context);
-            var pictureRepository = new PictureRepository(context);
-            for (int i = 0; i < temp.Count; i++)
-            {
-                var bookings = bookingRepository.GetBookingsByApartmentId(i + 1);
-                temp[i].Booking = (ICollection<Booking>)bookings;
-                var pictures = pictureRepository.GetPicturesByApartmentId(i + 1);
-                temp[i].Booking = (ICollection<Booking>)bookings;
-            }
-            return temp;
+            this.context = context;
+            //this.bookingRepository = bookingRepository;
+            //this.pictureRepository = pictureRepository;
         }
+
+       
         public async Task<RentalApartment> Get(int id)
         {
             var bookingsRepository = new BookingRepository(context);
-            var booking = bookingsRepository.GetBookingsByApartmentId(id);
+            var booking = bookingsRepository.ByApartmentId(id);
 
             var pictureRepository = new PictureRepository(context);
-            var pictures = pictureRepository.GetPicturesByApartmentId(id);
+            var pictures = pictureRepository.ByApartmentId(id);
 
             var chatRepository = new ChatRepository(context);
             var chats = chatRepository.GetChatsByApartmentId(id);
@@ -85,35 +73,56 @@ namespace RoomBi.DAL.Repositories
             if (item != null)
                 context.RentalApartments.Remove(item);
         }
-
         public async Task<IEnumerable<RentalApartment>> Get24(int page, int pageSize)
         {
             var temp = await context.RentalApartments
-          .Include(ra => ra.Country)
-          .Include(ra => ra.Location)
-          .Include(ra => ra.House)
-          .Include(ra => ra.Sport)
-          .Skip((page - 1) * pageSize)
-          .Take(pageSize)
-          .ToListAsync();
+                .Include(ra => ra.Country)
+                .Include(ra => ra.Location)
+                .Include(ra => ra.House)
+                .Include(ra => ra.Sport)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
             var bookingRepository = new BookingRepository(context);
             var pictureRepository = new PictureRepository(context);
             for (int i = 0; i < temp.Count; i++)
             {
-                var bookings = bookingRepository.GetBookingsByApartmentId(i + 1);
-                temp[i].Booking = (ICollection<Booking>)bookings;
-                var pictures = pictureRepository.GetPicturesByApartmentId(i + 1);
-                temp[i].Booking = (ICollection<Booking>)bookings;
+                var apartment = temp[i];
+                var bookings = await bookingRepository.ByApartmentId(apartment.Id);
+                var pictures = await pictureRepository.ByApartmentId(apartment.Id);
+
+                apartment.Booking = bookings.ToList();
+                apartment.Pictures = pictures.ToList();
             }
-            //foreach (var apartment in temp)
-            //{
-            //    var bookings = bookingRepository.GetBookingsByApartmentId(apartment.Id);
-            //    apartment.Booking = bookings.ToList();
-            //    var pictures = pictureRepository.GetPicturesByApartmentId(apartment.Id);
-            //    apartment.Pictures = pictures.ToList();
-            //}
+
             return temp;
         }
+        public async Task<IEnumerable<RentalApartment>> GetAll()
+        {
+
+            var temp = await context.RentalApartments
+                 .Include(ra => ra.Country)
+                 .Include(ra => ra.Location)
+                 .Include(ra => ra.House)
+                 .Include(ra => ra.Sport)
+                 .ToListAsync();
+            var bookingRepository = new BookingRepository(context);
+            var pictureRepository = new PictureRepository(context);
+            for (int i = 0; i < temp.Count; i++)
+            {
+                var apartment = temp[i];
+                var bookings = await bookingRepository.ByApartmentId(apartment.Id);
+                var pictures = await pictureRepository.ByApartmentId(apartment.Id);
+
+                apartment.Booking = bookings.ToList();
+                apartment.Pictures = pictures.ToList();
+            }
+
+            return temp;
+        }
+
     }
+  
 }
+
 

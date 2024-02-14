@@ -3432,6 +3432,10 @@ namespace RoomBi.DAL.EF
                 #endregion
             }
         }
+
+        public RBContext()
+        {
+        }
         #region DbSet
         public DbSet<Language> Languages { get; set; }
         public DbSet<House> Houses { get; set; }
