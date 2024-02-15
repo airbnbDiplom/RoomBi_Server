@@ -1898,7 +1898,7 @@ namespace RoomBi.DAL.EF
                 });
                 #endregion  
                 #region GuestСomments
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 1,
                     ApartmentId = 1,
@@ -1906,7 +1906,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-1),
                     Rating = 4.5
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 2,
                     ApartmentId = 1,
@@ -1914,7 +1914,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-3),
                     Rating = 5.0
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 3,
                     ApartmentId = 1,
@@ -1922,7 +1922,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-5),
                     Rating = 4.8
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 1,
                     ApartmentId = 2,
@@ -1930,7 +1930,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-16),
                     Rating = 3.2
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 2,
                     ApartmentId = 2,
@@ -1938,7 +1938,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-17),
                     Rating = 3.0
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 3,
                     ApartmentId = 3,
@@ -1946,7 +1946,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-18),
                     Rating = 4.9
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 4,
                     ApartmentId = 4,
@@ -1954,7 +1954,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-19),
                     Rating = 2.5
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 5,
                     ApartmentId = 4,
@@ -1962,7 +1962,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-20),
                     Rating = 3.7
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 3,
                     ApartmentId = 5,
@@ -1970,7 +1970,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-11),
                     Rating = 4.8
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 4,
                     ApartmentId = 6,
@@ -1978,7 +1978,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-12),
                     Rating = 2.0
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 5,
                     ApartmentId = 7,
@@ -1986,7 +1986,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-13),
                     Rating = 4.9
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 6,
                     ApartmentId = 7,
@@ -1994,7 +1994,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-14),
                     Rating = 3.5
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 7,
                     ApartmentId = 8,
@@ -2002,7 +2002,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-15),
                     Rating = 4.7
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 6,
                     ApartmentId = 9,
@@ -2010,7 +2010,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-7),
                     Rating = 4.2
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 7,
                     ApartmentId = 6,
@@ -2018,7 +2018,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-8),
                     Rating = 3.8
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 1,
                     ApartmentId = 9,
@@ -2026,7 +2026,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-6),
                     Rating = 4.6
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 2,
                     ApartmentId = 10,
@@ -2034,7 +2034,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-9),
                     Rating = 4.0
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 3,
                     ApartmentId = 10,
@@ -2042,7 +2042,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-10),
                     Rating = 4.9
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 1,
                     ApartmentId = 11,
@@ -2050,7 +2050,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-1),
                     Rating = 4.5
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 2,
                     ApartmentId = 11,
@@ -2058,7 +2058,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-3),
                     Rating = 5.0
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 3,
                     ApartmentId = 12,
@@ -2066,7 +2066,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-2),
                     Rating = 4.8
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 4,
                     ApartmentId = 12,
@@ -2074,7 +2074,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddDays(-4),
                     Rating = 4.7
                 });
-                GuestСomments.Add(new GuestComments
+                GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 5,
                     ApartmentId = 11,
@@ -3449,7 +3449,7 @@ namespace RoomBi.DAL.EF
         public DbSet<CommentsAboutGuest> CommentsAboutGuests { get; set; }
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-        public DbSet<GuestComments> GuestСomments { get; set; }
+        public DbSet<GuestComments> GuestComments { get; set; }
         public DbSet<OfferedAmenities> OfferedAmenities { get; set; }
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<RentalApartment> RentalApartments { get; set; }

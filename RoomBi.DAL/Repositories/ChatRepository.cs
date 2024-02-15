@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class ChatRepository(RBContext context) : IRepositoryOfAll<Chat>
+    public class ChatRepository(RBContext context) : IRepositoryOfAll<Chat>, IRepositoryForApartment<Chat>
     {
         private readonly RBContext context = context;
-        public IEnumerable<Chat> GetChatsByApartmentId(int apartmentId)// коллекция для определенной квартиры
+        public async Task<IEnumerable<Chat>> ByApartmentId(int apartmentId)// коллекция для определенной квартиры
         {
-            return context.Chats
-                .Where(chat => chat.RentalApartmentId == apartmentId)
-                .ToList();
+                 return await context.Chats
+                    .Where(chat => chat.RentalApartmentId == apartmentId)
+                    .ToListAsync();
         }
         public async Task<IEnumerable<Chat>> GetAll()
         {

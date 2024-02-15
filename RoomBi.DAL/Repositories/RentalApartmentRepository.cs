@@ -27,17 +27,13 @@ namespace RoomBi.DAL.Repositories
        
         public async Task<RentalApartment> Get(int id)
         {
-            var bookingsRepository = new BookingRepository(context);
-            var booking = bookingsRepository.ByApartmentId(id);
+           
 
-            var pictureRepository = new PictureRepository(context);
-            var pictures = pictureRepository.ByApartmentId(id);
+           
 
-            var chatRepository = new ChatRepository(context);
-            var chats = chatRepository.GetChatsByApartmentId(id);
+           
 
-            var guestCommentsRepository = new GuestCommentsRepository(context);
-            var guestComments = guestCommentsRepository.GetGuestCommentsByApartmentId(id);
+          
 
             var rentalApartment = await context.RentalApartments/*.Include(r => r.Pictures)*/
                                                                 //.Include(r => r.Booking)
@@ -50,12 +46,16 @@ namespace RoomBi.DAL.Repositories
                                                                 .Include(r => r.User)
                                                                 .Include(r => r.OfferedAmenities)
                                                                 .FirstOrDefaultAsync(m => m.Id == id);
+            var bookingRepository = new BookingRepository(context);
+            var pictureRepository = new PictureRepository(context);
+            var chatRepository = new ChatRepository(context);
+            var guestCommentsRepository = new GuestCommentsRepository(context);
             if (rentalApartment != null)
             {
-                rentalApartment.Pictures = (ICollection<Picture>)pictures;
-                rentalApartment.Booking = (ICollection<Booking>)booking;
-                rentalApartment.Chats = (ICollection<Chat>)chats;
-                rentalApartment.GuestComments = (ICollection<GuestComments>)guestComments;
+                rentalApartment.Pictures = (ICollection<Picture>)await pictureRepository.ByApartmentId(id);
+                rentalApartment.Booking = (ICollection<Booking>)await bookingRepository.ByApartmentId(id);
+                rentalApartment.Chats = (ICollection<Chat>)await chatRepository.ByApartmentId(id);
+                rentalApartment.GuestComments = (ICollection<GuestComments>)await guestCommentsRepository.ByApartmentId(id);
             }
             return rentalApartment;
         }

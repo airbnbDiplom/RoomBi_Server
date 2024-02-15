@@ -8,38 +8,39 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class GuestCommentsRepository(RBContext context) : IRepositoryOfAll<GuestComments>
+    public class GuestCommentsRepository(RBContext context) : IRepositoryOfAll<GuestComments>, IRepositoryForApartment<GuestComments>
     {
         private readonly RBContext context = context;
-        public IEnumerable<GuestComments> GetGuestCommentsByApartmentId(int apartmentId)// коллекция для определенной квартиры
+        public async Task<IEnumerable<GuestComments>> ByApartmentId(int apartmentId)// коллекция для определенной квартиры
         {
-            return context.GuestСomments
-                .Where(guestComment => guestComment.ApartmentId == apartmentId)
-                .ToList();
+            return await context.GuestComments
+                    .Where(guestComment => guestComment.ApartmentId == apartmentId)
+                    .ToListAsync();
+
         }
         public async Task<IEnumerable<GuestComments>> GetAll()
         {
-            return await context.GuestСomments.ToListAsync();
+            return await context.GuestComments.ToListAsync();
         }
         public async Task<GuestComments> Get(int id)
         {
 
-            return await context.GuestСomments.FirstOrDefaultAsync(m => m.Id == id);
+            return await context.GuestComments.FirstOrDefaultAsync(m => m.Id == id);
             //return await context.GuestСomments.FindAsync(id);
         }
         public async Task Create(GuestComments item)
         {
-            await context.GuestСomments.AddAsync(item);
+            await context.GuestComments.AddAsync(item);
         }
         public async Task Update(GuestComments item)
         {
-            context.GuestСomments.Update(item);
+            context.GuestComments.Update(item);
         }
         public async Task Delete(int id)
         {
-            GuestComments? item = await context.GuestСomments.FindAsync(id);
+            GuestComments? item = await context.GuestComments.FindAsync(id);
             if (item != null)
-                context.GuestСomments.Remove(item);
+                context.GuestComments.Remove(item);
         }
     }
 }

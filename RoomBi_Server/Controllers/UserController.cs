@@ -19,9 +19,12 @@ namespace RoomBi_Server.Controllers
         // POST: api/users
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> RegisterUser(string email, string password)
-        {
+        {// один метод
             var user = await serviceOfUser.RegisterByEmailAndPassword(email, password);
-
+            if (user == null)
+            {
+                return NotFound();
+            }
             var token = jwtTokenService.GetToken(user);
             var refreshToken = jwtTokenService.GenerateRefreshToken();
             user.RefreshToken = refreshToken;
@@ -63,8 +66,8 @@ namespace RoomBi_Server.Controllers
             var email = jwtTokenService.GetMailFromToken(principal);
 
            
-            UserDTO user = new UserDTO(); // Вместо этого аписать проверку, существует ли пользователь с указанным email
-            user.Email = email;
+            UserDTO user = new UserDTO();user.Email = email; // Вместо этого аписать проверку, существует ли пользователь с указанным email
+            
             //if (user == null)
             //{
             //    return BadRequest("Invalid token");
