@@ -160,6 +160,7 @@ namespace RoomBi.BLL.Services
                 {
                     var rentalApartmentDto = new RentalApartmentDTOForStartPage
                     {
+                        Id = apartment.Id,
                         Title = apartment.Title,
                         IngMap = apartment.IngMap,
                         LatMap = apartment.LatMap,  

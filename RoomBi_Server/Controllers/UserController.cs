@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
 using RoomBi_Server.Token;
-
+ 
 namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
@@ -18,9 +18,10 @@ namespace RoomBi_Server.Controllers
 
         // POST: api/users
         [HttpPost("register")]
-        public async Task<ActionResult<UserDTO>> RegisterUser(string email, string password)
+        public async Task<ActionResult<UserDTO>> RegisterUser([FromBody] RequestUser request)
         {// один метод
-            var user = await serviceOfUser.RegisterByEmailAndPassword(email, password);
+
+            var user = await serviceOfUser.RegisterByEmailAndPassword(request.Email, request.Password);
             if (user == null)
             {
                 return NotFound();
@@ -53,8 +54,11 @@ namespace RoomBi_Server.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
+            var token = HttpContext.Request.Headers.Authorization;
+
             await userService.Delete(id);
-            return NoContent();
+          
+            return Ok(token);
         }
 
 
