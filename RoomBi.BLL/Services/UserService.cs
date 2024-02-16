@@ -63,7 +63,7 @@ namespace RoomBi.BLL.Services
 
         public async Task Update(UserDTO userDTO)
         {
-            var language = await Database.LanguageGetName.GetByName(userDTO.Name);
+            var language = await Database.LanguageGetName.GetByName(userDTO.Language);
             var contry = await Database.CountryGetName.GetByName(userDTO.Country);
             var user = new User
             {
@@ -95,9 +95,12 @@ namespace RoomBi.BLL.Services
 
         public async Task<UserDTO> Get(int id)
         {
+           
             var user = await Database.User.Get(id);
             if (user == null)
                 throw new ValidationException("Wrong user!", "");
+            var language = await Database.Languages.Get(user.LanguageId);
+            var contry = await Database.Country.Get(user.CountryId);
             return new UserDTO
             {
                 Id = user.Id,
@@ -113,8 +116,8 @@ namespace RoomBi.BLL.Services
                 Hash = user.Hash,
                 CurrentStatus = user.CurrentStatus,
                 UserStatus = user.UserStatus,
-                Language = user.Language.Name,
-                Country = user.Country.Name
+                Language = language.Name,
+                Country = contry.Name
             };
         }
 
@@ -131,7 +134,8 @@ namespace RoomBi.BLL.Services
             {
                 return null;
             }
-
+            var language = await Database.Languages.Get(user.LanguageId);
+            var contry = await Database.Country.Get(user.CountryId);
             var userDto = new UserDTO
             {
                 Id = user.Id,
@@ -147,8 +151,8 @@ namespace RoomBi.BLL.Services
                 Hash = user.Hash,
                 CurrentStatus = user.CurrentStatus,
                 UserStatus = user.UserStatus,
-                Language = user.Language?.Name,
-                Country = user.Country?.Name
+                Language = language.Name,
+                Country = contry.Name
             };
 
             return userDto;
@@ -164,11 +168,20 @@ namespace RoomBi.BLL.Services
                     throw new Exception("Користувач був зареєстрований через сервіси Google.");
             }
             var users = await Database.User.GetAll();
-            var user = users.FirstOrDefault(u => u.Email == email && u.Password == password);
-            if (user == null)
+
+            var user = users.FirstOrDefault(u => u.Email == email);
+            // && u.Password == password
+                var saltBytes = Convert.FromBase64String(user.Salt);
+                var pbkdf2 = new Rfc2898DeriveBytes(password, saltBytes, 10000);
+                byte[] hash = pbkdf2.GetBytes(20);
+            string inputPasswordHash = Convert.ToBase64String(hash);
+
+            if (user.Password != inputPasswordHash)
             {
                 throw new Exception("Користувач з таким email або password не існує");
             }
+            var language = await Database.Languages.Get(user.LanguageId);
+            var contry = await Database.Country.Get(user.CountryId);
             var userDto = new UserDTO
             {
                 Id = user.Id,
@@ -184,8 +197,8 @@ namespace RoomBi.BLL.Services
                 Hash = user.Hash,
                 CurrentStatus = user.CurrentStatus,
                 UserStatus = user.UserStatus,
-                Language = user.Language.Name,
-                Country = user.Country.Name
+                Language = language.Name,
+                Country = contry.Name
             };
 
             return userDto;
@@ -233,6 +246,8 @@ namespace RoomBi.BLL.Services
             }
             await Database.User.Create(user);
             await Database.Save();
+            var language = await Database.Languages.Get(user.LanguageId);
+            var contry = await Database.Country.Get(user.CountryId);
             var userDto = new UserDTO
             {
                 Id = user.Id,
@@ -248,8 +263,8 @@ namespace RoomBi.BLL.Services
                 Hash = user.Hash,
                 CurrentStatus = user.CurrentStatus,
                 UserStatus = user.UserStatus,
-                Language = user.Language.Name,
-                Country = user.Country.Name
+                Language = language.Name,
+                Country = contry.Name
             };
 
             return userDto;

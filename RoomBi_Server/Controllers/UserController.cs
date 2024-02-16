@@ -47,7 +47,7 @@ namespace RoomBi_Server.Controllers
                     var user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
                     if (user == null)
                     {
-                        return NotFound();
+                        return BadRequest("not found");
                     }
                     var token = jwtTokenService.GetToken(user);
                     var refreshToken = jwtTokenService.GenerateRefreshToken();
