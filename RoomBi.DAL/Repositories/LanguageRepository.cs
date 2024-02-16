@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class LanguageRepository(RBContext context) : IRepositoryOfAll<Language>
+    public class LanguageRepository(RBContext context) : IRepositoryOfAll<Language>, IRepositoryLanguage<Language>
     {
         private readonly RBContext context = context;
 
@@ -21,6 +21,10 @@ namespace RoomBi.DAL.Repositories
 
             return await context.Languages.FirstOrDefaultAsync(m => m.Id == id);
             //return await context.Languages.FindAsync(id);
+        }
+        public async Task<Language> GetByName(string name)
+        {
+            return await context.Languages.FirstOrDefaultAsync(c => c.Name == name);
         }
         public async Task Create(Language item)
         {

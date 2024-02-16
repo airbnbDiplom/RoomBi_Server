@@ -40,15 +40,26 @@ namespace RoomBi_Server.Controllers
 
         // POST: api/users/login
         [HttpPost("login")]
-        public async Task<ActionResult<UserDTO>> Login(string email, string password)
+        public async Task<ActionResult<UserDTO>> Login([FromBody] RequestUser request)
         {
-            var user = await serviceOfUser.GetByEmailAndPassword(email, password);
+            var user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
             if (user == null)
             {
                 return NotFound();
             }
-            return user;
-        } // аналогично
+            var token = jwtTokenService.GetToken(user);
+            var refreshToken = jwtTokenService.GenerateRefreshToken();
+            user.RefreshToken = refreshToken;
+            await userService.Update(user);
+            var response = new AuthenticationResponseDTO
+            {
+                Token = token,
+                RefreshToken = refreshToken
+            };
+            return Ok(response);
+        } 
+
+
         [Authorize]
         // DELETE: api/users/5
         [HttpDelete("{id}")]
@@ -69,21 +80,21 @@ namespace RoomBi_Server.Controllers
             var principal = jwtTokenService.GetPrincipalFromExpiredToken(authenticationResponseDTO.Token);
             var email = jwtTokenService.GetMailFromToken(principal);
 
-           
-            UserDTO user = new UserDTO();user.Email = email; // Вместо этого аписать проверку, существует ли пользователь с указанным email
-            
-            //if (user == null)
-            //{
-            //    return BadRequest("Invalid token");
-            //}
-            //if (user.RefreshToken != authenticationResponseDTO.RefreshToken)
-            //{
-            //    return BadRequest("Invalid token");
-            //}
+
+            var user = await serviceOfUser.GetByEmail(email);
+
+            if (user == null)
+            {
+                return BadRequest("Invalid token");
+            }
+            if (user.RefreshToken != authenticationResponseDTO.RefreshToken)
+            {
+                return BadRequest("Invalid token");
+            }
             var newToken = jwtTokenService.GetToken(user); 
             var newRefreshToken = jwtTokenService.GenerateRefreshToken();
-            //user.RefreshToken = newRefreshToken;
-            //await userService.Update(user);
+            user.RefreshToken = newRefreshToken;
+            await userService.Update(user);
 
             var response = new AuthenticationResponseDTO
             {

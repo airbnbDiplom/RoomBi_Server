@@ -63,6 +63,8 @@ namespace RoomBi.BLL.Services
 
         public async Task Update(UserDTO userDTO)
         {
+            var language = await Database.Language.GetByName(userDTO.Language);
+            var contry = await Database.Countries.GetByName(userDTO.Country);
             var user = new User
             {
                 Id = userDTO.Id,
@@ -78,11 +80,11 @@ namespace RoomBi.BLL.Services
                 Hash = userDTO.Hash,
                 CurrentStatus = userDTO.CurrentStatus,
                 UserStatus = userDTO.UserStatus,
-                //LanguageId = userDTO.LanguageId,
-                //CountryId = userDTO.CountryId
+                LanguageId = language.Id,
+                CountryId = contry.Id
             };
-            //await Database.User.Update(user);
-            //await Database.Save();
+            await Database.User.Update(user);
+            await Database.Save();
         }
 
         public async Task Delete(int id)
@@ -111,8 +113,8 @@ namespace RoomBi.BLL.Services
                 Hash = user.Hash,
                 CurrentStatus = user.CurrentStatus,
                 UserStatus = user.UserStatus,
-                //LanguageId = user.LanguageId,
-                //CountryId = user.CountryId
+                Language = user.Language.Name,
+                Country = user.Country.Name
             };
         }
 
@@ -122,7 +124,32 @@ namespace RoomBi.BLL.Services
             return mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(await Database.User.GetAll());
         }
 
-       
+        public async Task<UserDTO> GetByEmail(string email)
+        {
+            var users = await Database.User.GetAll();
+            var user = users.FirstOrDefault(u => u.Email == email);
+
+            var userDto = new UserDTO
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Password = user.Password,
+                Email = user.Email,
+                Address = user.Address,
+                PhoneNumber = user.PhoneNumber,
+                DateOfBirth = user.DateOfBirth,
+                AirbnbRegistrationYear = user.AirbnbRegistrationYear,
+                ProfilePicture = user.ProfilePicture,
+                RefreshToken = user.RefreshToken,
+                Hash = user.Hash,
+                CurrentStatus = user.CurrentStatus,
+                UserStatus = user.UserStatus,
+                Language = user.Language.Name,
+                Country = user.Country.Name
+            };
+
+            return userDto;
+        }
 
         public async Task<UserDTO> GetByEmailAndPassword(string email, string password)
         {
@@ -152,8 +179,8 @@ namespace RoomBi.BLL.Services
                 Hash = user.Hash,
                 CurrentStatus = user.CurrentStatus,
                 UserStatus = user.UserStatus,
-                //LanguageId = user.LanguageId,
-                //CountryId = user.CountryId
+                Language = user.Language.Name,
+                Country = user.Country.Name
             };
 
             return userDto;
@@ -199,8 +226,8 @@ namespace RoomBi.BLL.Services
                 user.Email = email;
                 user.IsGoogleServiceUsed = false;
             }
-            //await Database.User.Create(user);
-            //await Database.Save();
+            await Database.User.Create(user);
+            await Database.Save();
             var userDto = new UserDTO
             {
                 Id = user.Id,
@@ -216,8 +243,8 @@ namespace RoomBi.BLL.Services
                 Hash = user.Hash,
                 CurrentStatus = user.CurrentStatus,
                 UserStatus = user.UserStatus,
-                //LanguageId = user.LanguageId,
-                //CountryId = user.CountryId
+                Language = user.Language.Name,
+                Country = user.Country.Name
             };
 
             return userDto;

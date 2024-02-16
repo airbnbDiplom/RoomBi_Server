@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public interface IRepositoryUser<T> where T : class
+    public interface IRepositoryCountry<T> where T : class
     {
-        Task<T> GetEmail(string email);
+        Task<T> GetByName(string name);
     }
 }

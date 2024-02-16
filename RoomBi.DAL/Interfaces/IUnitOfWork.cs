@@ -11,11 +11,13 @@ namespace RoomBi.DAL.Interfaces
     public interface IUnitOfWork
     {
         IRepositoryOfAll<Language> Languages { get; }
+        IRepositoryLanguage<Language> Language { get; }
         IRepositoryOfAll<GuestComments> GuestComments{ get; }
         IRepositoryOfAll<GuestPaymentMethod> GuestPaymentMethod { get; }
         IRepositoryOfAll<EmergencyContactPerson> EmergencyContactPerson { get; }
         IRepositoryOfAll<Chat> Chat { get; }
         IRepositoryOfAll<Country> Country { get; }
+        IRepositoryCountry<Country> Countries { get; }
         IRepositoryOfAll<Booking> Booking { get; }
         IRepositoryOfAll<OfferedAmenities> OfferedAmenities { get; }
         IRepositoryOfAll<Picture> Picture { get; }
@@ -28,6 +30,7 @@ namespace RoomBi.DAL.Interfaces
         IRepositoryOfAll<User> User { get; }
         IRepositoryOfAll<CommentsAboutGuest> CommentsAboutGuest { get; }
         IRepositoryOfAll<Wishlist> Wishlist { get; }
+
 
         Task Save();
     }

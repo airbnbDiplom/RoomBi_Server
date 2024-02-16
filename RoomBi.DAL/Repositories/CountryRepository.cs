@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class CountryRepository : IRepositoryOfAll<Country>
+    public class CountryRepository : IRepositoryOfAll<Country>, IRepositoryCountry<Country>
     {
         private readonly RBContext context;
         public CountryRepository(RBContext context)
@@ -25,6 +25,11 @@ namespace RoomBi.DAL.Repositories
             return await context.Countries.FirstOrDefaultAsync(m => m.Id == id);
             //return await context.Countrys.FindAsync(id);
         }
+        public async Task<Country> GetByName(string name)
+        {
+            return await _context.Countries.FirstOrDefaultAsync(c => c.Name == name);
+        }
+
         public async Task Create(Country item)
         {
             await context.Countries.AddAsync(item);
@@ -39,5 +44,7 @@ namespace RoomBi.DAL.Repositories
             if (item != null)
                 context.Countries.Remove(item);
         }
+
+
     }
 }
