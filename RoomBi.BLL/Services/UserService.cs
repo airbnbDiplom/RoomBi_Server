@@ -63,8 +63,8 @@ namespace RoomBi.BLL.Services
 
         public async Task Update(UserDTO userDTO)
         {
-            var language = await Database.Language.GetByName(userDTO.Language);
-            var contry = await Database.Countries.GetByName(userDTO.Country);
+            var language = await Database.LanguageGetName.GetByName(userDTO.Name);
+            var contry = await Database.CountryGetName.GetByName(userDTO.Country);
             var user = new User
             {
                 Id = userDTO.Id,
@@ -126,8 +126,11 @@ namespace RoomBi.BLL.Services
 
         public async Task<UserDTO> GetByEmail(string email)
         {
-            var users = await Database.User.GetAll();
-            var user = users.FirstOrDefault(u => u.Email == email);
+            var user = await Database.UserGetEmail.GetEmail(email);
+            if (user == null)
+            {
+                return null;
+            }
 
             var userDto = new UserDTO
             {
@@ -144,8 +147,8 @@ namespace RoomBi.BLL.Services
                 Hash = user.Hash,
                 CurrentStatus = user.CurrentStatus,
                 UserStatus = user.UserStatus,
-                Language = user.Language.Name,
-                Country = user.Country.Name
+                Language = user.Language?.Name,
+                Country = user.Country?.Name
             };
 
             return userDto;

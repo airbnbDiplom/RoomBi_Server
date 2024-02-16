@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class LanguageRepository(RBContext context) : IRepositoryOfAll<Language>, IRepositoryLanguage<Language>
+    public class LanguageRepository(RBContext context) : IRepositoryOfAll<Language>, IRepositoryGetName<Language>
     {
         private readonly RBContext context = context;
 

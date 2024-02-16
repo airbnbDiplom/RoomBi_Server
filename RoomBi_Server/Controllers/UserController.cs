@@ -20,12 +20,17 @@ namespace RoomBi_Server.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> RegisterUser([FromBody] RequestUser request)
         {// один метод
+            if (request.Type == "123")
+            {
+                return BadRequest("FY-FY");
+            }
 
             var user = await serviceOfUser.RegisterByEmailAndPassword(request.Email, request.Password);
             if (user == null)
             {
                 return NotFound();
             }
+         
             var token = jwtTokenService.GetToken(user);
             var refreshToken = jwtTokenService.GenerateRefreshToken();
             user.RefreshToken = refreshToken;

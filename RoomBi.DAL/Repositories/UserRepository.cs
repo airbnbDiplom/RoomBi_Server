@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class UserRepository(RBContext context) : IRepositoryOfAll<User>, IRepositoryUser<User>
+    public class UserRepository(RBContext context) : IRepositoryOfAll<User>, IRepositoryGetEmail<User>
     {
         private readonly RBContext context = context;
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class CountryRepository : IRepositoryOfAll<Country>, IRepositoryCountry<Country>
+    public class CountryRepository : IRepositoryOfAll<Country>, IRepositoryGetName<Country>
     {
         private readonly RBContext context;
         public CountryRepository(RBContext context)
@@ -27,7 +27,7 @@ namespace RoomBi.DAL.Repositories
         }
         public async Task<Country> GetByName(string name)
         {
-            return await _context.Countries.FirstOrDefaultAsync(c => c.Name == name);
+            return await context.Countries.FirstOrDefaultAsync(c => c.Name == name);
         }
 
         public async Task Create(Country item)
