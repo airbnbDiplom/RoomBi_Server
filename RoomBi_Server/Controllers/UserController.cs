@@ -25,16 +25,18 @@ namespace RoomBi_Server.Controllers
                 return BadRequest("FY-FY");
             }
 
-            var user = await serviceOfUser.RegisterByEmailAndPassword(request.Email, request.Password);
-            if (user == null)
-            {
-                return NotFound();
-            }
-         
+            //var user = await serviceOfUser.RegisterByEmailAndPassword(request.Email, request.Password);
+            //if (user == null)
+            //{
+            //    return NotFound();
+            //}
+            UserDTO user = new(); // муляж для Максима
+            user.Password = request.Password;   
+            user.Email = request.Email; 
             var token = jwtTokenService.GetToken(user);
             var refreshToken = jwtTokenService.GenerateRefreshToken();
             user.RefreshToken = refreshToken;
-            await userService.Update(user);
+            //await userService.Update(user);
             var response = new AuthenticationResponseDTO
             {
                 Token = token,
@@ -55,7 +57,7 @@ namespace RoomBi_Server.Controllers
             var token = jwtTokenService.GetToken(user);
             var refreshToken = jwtTokenService.GenerateRefreshToken();
             user.RefreshToken = refreshToken;
-            await userService.Update(user);
+            //await userService.Update(user);
             var response = new AuthenticationResponseDTO
             {
                 Token = token,
@@ -72,7 +74,7 @@ namespace RoomBi_Server.Controllers
         {
             var token = HttpContext.Request.Headers.Authorization;
 
-            await userService.Delete(id);
+            //await userService.Delete(id);
           
             return Ok(token);
         }
@@ -99,7 +101,7 @@ namespace RoomBi_Server.Controllers
             var newToken = jwtTokenService.GetToken(user); 
             var newRefreshToken = jwtTokenService.GenerateRefreshToken();
             user.RefreshToken = newRefreshToken;
-            await userService.Update(user);
+            //await userService.Update(user);
 
             var response = new AuthenticationResponseDTO
             {
