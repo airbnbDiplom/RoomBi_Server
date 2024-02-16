@@ -27,14 +27,6 @@ namespace RoomBi.DAL.Repositories
        
         public async Task<RentalApartment> Get(int id)
         {
-           
-
-           
-
-           
-
-          
-
             var rentalApartment = await context.RentalApartments/*.Include(r => r.Pictures)*/
                                                                 //.Include(r => r.Booking)
                                                                 //.Include(r => r.Chats)
@@ -95,7 +87,7 @@ namespace RoomBi.DAL.Repositories
                 apartment.Pictures = pictures.ToList();
             }
 
-            return temp;
+            return temp.OrderBy(ra => ra.Id); ;
         }
         public async Task<IEnumerable<RentalApartment>> GetAll()
         {
@@ -118,7 +110,7 @@ namespace RoomBi.DAL.Repositories
                 apartment.Pictures = pictures.ToList();
             }
 
-            return temp;
+            return temp.OrderBy(ra => ra.Id);
         }
 
     }
