@@ -156,9 +156,12 @@ namespace RoomBi.BLL.Services
 
         public async Task<UserDTO> GetByEmailAndPassword(string email, string password)
         {
-            if (password == "google")
+            if (password != "google")
             {
-                throw new Exception("Користувач був зареєстрований через сервіси Google.");
+                var existingUsers = await Database.User.GetAll();
+                var existingUser = existingUsers.FirstOrDefault(u => u.Email == email);
+                if (existingUser.Password == "google")
+                    throw new Exception("Користувач був зареєстрований через сервіси Google.");
             }
             var users = await Database.User.GetAll();
             var user = users.FirstOrDefault(u => u.Email == email && u.Password == password);
@@ -166,7 +169,6 @@ namespace RoomBi.BLL.Services
             {
                 throw new Exception("Користувач з таким email або password не існує");
             }
-
             var userDto = new UserDTO
             {
                 Id = user.Id,

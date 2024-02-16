@@ -20,29 +20,55 @@ namespace RoomBi_Server.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> RegisterUser([FromBody] RequestUser request)
         {// один метод
-            if (request.Type == "123")
+            try
             {
-                return BadRequest("FY-FY");
+                if (request.Type == "register")
+                {
+                    var user = await serviceOfUser.RegisterByEmailAndPassword(request.Email, request.Password);
+                    if (user == null)
+                    {
+                        return BadRequest("request failed");
+                    }
+                    user.Password = request.Password;
+                    user.Email = request.Email;
+                    var token = jwtTokenService.GetToken(user);
+                    var refreshToken = jwtTokenService.GenerateRefreshToken();
+                    user.RefreshToken = refreshToken;
+                    await userService.Update(user);
+                    var response = new AuthenticationResponseDTO
+                    {
+                        Token = token,
+                        RefreshToken = refreshToken
+                    };
+                    return Ok(response);
+                }
+                else if (request.Type == "login")
+                {
+                    var user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
+                    if (user == null)
+                    {
+                        return NotFound();
+                    }
+                    var token = jwtTokenService.GetToken(user);
+                    var refreshToken = jwtTokenService.GenerateRefreshToken();
+                    user.RefreshToken = refreshToken;
+                    await userService.Update(user);
+                    var response = new AuthenticationResponseDTO
+                    {
+                        Token = token,
+                        RefreshToken = refreshToken
+                    };
+                    return Ok(response);
+                }
+                else
+                {
+                    return BadRequest("request failed");
+                }
             }
-
-            //var user = await serviceOfUser.RegisterByEmailAndPassword(request.Email, request.Password);
-            //if (user == null)
-            //{
-            //    return NotFound();
-            //}
-            UserDTO user = new(); // муляж для Максима
-            user.Password = request.Password;   
-            user.Email = request.Email; 
-            var token = jwtTokenService.GetToken(user);
-            var refreshToken = jwtTokenService.GenerateRefreshToken();
-            user.RefreshToken = refreshToken;
-            //await userService.Update(user);
-            var response = new AuthenticationResponseDTO
+            catch (Exception ex)
             {
-                Token = token,
-                RefreshToken = refreshToken
-            };
-            return Ok(response);
+                return BadRequest(ex.Message);
+            }
         }
 
         // POST: api/users/login
@@ -64,6 +90,7 @@ namespace RoomBi_Server.Controllers
                 RefreshToken = refreshToken
             };
             return Ok(response);
+
         } 
 
 
