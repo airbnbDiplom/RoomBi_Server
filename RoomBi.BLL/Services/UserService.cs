@@ -86,7 +86,15 @@ namespace RoomBi.BLL.Services
             await Database.User.Update(user);
             await Database.Save();
         }
+        public async Task UpdateRefreshToken(UserDTO userDTO)
+        {
+            User user = await Database.User.Get(userDTO.Id);
 
+            user.RefreshToken = userDTO.RefreshToken;
+
+            await Database.User.Update(user);
+            await Database.Save();
+        }
         public async Task Delete(int id)
         {
             await Database.User.Delete(id);
@@ -160,16 +168,17 @@ namespace RoomBi.BLL.Services
 
         public async Task<UserDTO> GetByEmailAndPassword(string email, string password)
         {
+            var user = await Database.UserGetEmail.GetEmail(email);
             if (password != "google")
             {
-                var existingUsers = await Database.User.GetAll();
-                var existingUser = existingUsers.FirstOrDefault(u => u.Email == email);
-                if (existingUser.Password == "google")
+                //var existingUsers = await Database.User.GetAll();
+                //var existingUser = existingUsers.FirstOrDefault(u => u.Email == email);
+                if (user.Password == "google")
                     throw new Exception("Користувач був зареєстрований через сервіси Google.");
             }
-            var users = await Database.User.GetAll();
+            //var users = await Database.User.GetAll();
 
-            var user = users.FirstOrDefault(u => u.Email == email);
+            //var user = users.FirstOrDefault(u => u.Email == email);
             // && u.Password == password
                 var saltBytes = Convert.FromBase64String(user.Salt);
                 var pbkdf2 = new Rfc2898DeriveBytes(password, saltBytes, 10000);
@@ -180,9 +189,9 @@ namespace RoomBi.BLL.Services
             {
                 throw new Exception("Користувач з таким email або password не існує");
             }
-            var language = await Database.Languages.Get(user.LanguageId);
-            var contry = await Database.Country.Get(user.CountryId);
-            var userDto = new UserDTO
+            //var language = await Database.Languages.Get(user.LanguageId);
+            //var contry = await Database.Country.Get(user.CountryId);
+            return new UserDTO
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -197,11 +206,12 @@ namespace RoomBi.BLL.Services
                 Hash = user.Hash,
                 CurrentStatus = user.CurrentStatus,
                 UserStatus = user.UserStatus,
-                Language = language.Name,
-                Country = contry.Name
+                Language = user.Language?.Name,
+                Country = user.Country?.Name,
+
             };
 
-            return userDto;
+          
         }
 
         public async Task<UserDTO> RegisterByEmailAndPassword(string email, string password)

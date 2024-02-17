@@ -29,12 +29,13 @@ namespace RoomBi_Server.Controllers
                     {
                         return BadRequest("request failed");
                     }
-                    user.Password = request.Password;
-                    user.Email = request.Email;
+                    //user.Password = request.Password;
+                    //user.Email = request.Email;
                     var token = jwtTokenService.GetToken(user);
                     var refreshToken = jwtTokenService.GenerateRefreshToken();
                     user.RefreshToken = refreshToken;
-                    await userService.Update(user);
+                    //await userService.Update(user);
+                    await serviceOfUser.UpdateRefreshToken(user);
                     var response = new AuthenticationResponseDTO
                     {
                         Token = token,
@@ -52,7 +53,8 @@ namespace RoomBi_Server.Controllers
                     var token = jwtTokenService.GetToken(user);
                     var refreshToken = jwtTokenService.GenerateRefreshToken();
                     user.RefreshToken = refreshToken;
-                    await userService.Update(user);
+                    //await userService.Update(user);
+                    await serviceOfUser.UpdateRefreshToken(user);
                     var response = new AuthenticationResponseDTO
                     {
                         Token = token,
