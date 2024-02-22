@@ -102,7 +102,7 @@ namespace RoomBi.BLL.Services
                 GuestComments = rentalApartment.GuestComments,
                 Pictures = rentalApartment.Pictures,
                 Booking = rentalApartment.Booking,
-                Chats = rentalApartment.Chats
+                Chats = rentalApartment.Chats // tr
             };
         }
         public async Task<RentalApartmentDTOForStartPage> GetCard(int id)
