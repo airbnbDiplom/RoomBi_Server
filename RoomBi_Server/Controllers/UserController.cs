@@ -1,4 +1,5 @@
-﻿using Azure.Core;
+﻿using Azure;
+using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,87 +15,65 @@ namespace RoomBi_Server.Controllers
     public class UserController(IServiceOfAll<UserDTO> userService, IServiceOfUser<UserDTO> serviceOfUser,
         IJwtToken jwtTokenService) : ControllerBase
     {
-
-
         // POST: api/users
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> RegisterUser([FromBody] RequestUser request)
-        {// один метод
+        {
             try
             {
-                if (request.Type == "register")
+                switch (request.Type)
                 {
-                    var user = await serviceOfUser.RegisterByEmailAndPassword(request.Email, request.Password);
-                    if (user == null)
-                    {
+                    case "register":
+                        if (await serviceOfUser.GetBoolByEmail(request.Email))
+                        {
+                            return Ok("Ok");
+                        }
+                        else
+                            return Ok("Користувач з таким email існує");
+                    case "login":
+                        var user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
+                        if (user == null)
+                        {
+                            return Ok("Користувач з таким email або password не існує");
+                        }
+                        var token = jwtTokenService.GetToken(user);
+                        var refreshToken = jwtTokenService.GenerateRefreshToken();
+                        user.RefreshToken = refreshToken;
+                        await serviceOfUser.UpdateRefreshToken(user);
+                        var response2 = new AuthenticationResponseDTO
+                        {
+                            Token = token,
+                            RefreshToken = refreshToken
+                        };
+                        return Ok(response2);
+
+                    case "google":
+                        user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
+                        if (user == null)
+                        {
+                            return Ok("Користувач з таким email або password не існує");
+                        }
+                        token = jwtTokenService.GetToken(user);
+                        refreshToken = jwtTokenService.GenerateRefreshToken();
+                        user.RefreshToken = refreshToken;
+                        await serviceOfUser.UpdateRefreshToken(user);
+                        response2 = new AuthenticationResponseDTO
+                        {
+                            Token = token,
+                            RefreshToken = refreshToken
+                        };
+                        return Ok(response2);
+
+                    default:
                         return BadRequest("request failed");
-                    }
-                    //user.Password = request.Password;
-                    //user.Email = request.Email;
-                    var token = jwtTokenService.GetToken(user);
-                    var refreshToken = jwtTokenService.GenerateRefreshToken();
-                    user.RefreshToken = refreshToken;
-                    //await userService.Update(user);
-                    await serviceOfUser.UpdateRefreshToken(user);
-                    var response = new AuthenticationResponseDTO
-                    {
-                        Token = token,
-                        RefreshToken = refreshToken
-                    };
-                    return Ok(response);
                 }
-                else if (request.Type == "login")
-                {
-                    var user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
-                    if (user == null)
-                    {
-                        return BadRequest("not found");
-                    }
-                    var token = jwtTokenService.GetToken(user);
-                    var refreshToken = jwtTokenService.GenerateRefreshToken();
-                    user.RefreshToken = refreshToken;
-                    //await userService.Update(user);
-                    await serviceOfUser.UpdateRefreshToken(user);
-                    var response = new AuthenticationResponseDTO
-                    {
-                        Token = token,
-                        RefreshToken = refreshToken
-                    };
-                    return Ok(response);
-                }
-                else
-                {
-                    return BadRequest("request failed");
-                }
+
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-
-        // POST: api/users/login
-        [HttpPost("login")]
-        public async Task<ActionResult<UserDTO>> Login([FromBody] RequestUser request)
-        {
-            var user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            var token = jwtTokenService.GetToken(user);
-            var refreshToken = jwtTokenService.GenerateRefreshToken();
-            user.RefreshToken = refreshToken;
-            //await userService.Update(user);
-            var response = new AuthenticationResponseDTO
-            {
-                Token = token,
-                RefreshToken = refreshToken
-            };
-            return Ok(response);
-
-        } 
-
 
         [Authorize]
         // DELETE: api/users/5
@@ -108,17 +87,12 @@ namespace RoomBi_Server.Controllers
             return Ok(token);
         }
 
-
-
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken(AuthenticationResponseDTO authenticationResponseDTO)
         {
             var principal = jwtTokenService.GetPrincipalFromExpiredToken(authenticationResponseDTO.Token);
             var email = jwtTokenService.GetMailFromToken(principal);
-
-
-            var user = await serviceOfUser.GetByEmail(email);
-
+            var user = await serviceOfUser.GetUserByEmail(email);
             if (user == null)
             {
                 return BadRequest("Invalid token");
@@ -130,8 +104,7 @@ namespace RoomBi_Server.Controllers
             var newToken = jwtTokenService.GetToken(user); 
             var newRefreshToken = jwtTokenService.GenerateRefreshToken();
             user.RefreshToken = newRefreshToken;
-            //await userService.Update(user);
-
+            await userService.Update(user);
             var response = new AuthenticationResponseDTO
             {
                 Token = newToken,
@@ -192,8 +165,28 @@ namespace RoomBi_Server.Controllers
             return NoContent();
         }
 
-     
+        //POST: api/users/login
+       [HttpPost("login")]
+        public async Task<ActionResult<UserDTO>> Login([FromBody] RequestUser request)
+        {
+            var user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var token = jwtTokenService.GetToken(user);
+            var refreshToken = jwtTokenService.GenerateRefreshToken();
+            user.RefreshToken = refreshToken;
+            //await userService.Update(user);
+            var response = new AuthenticationResponseDTO
+            {
+                Token = token,
+                RefreshToken = refreshToken
+            };
+            return Ok(response);
 
-      
+        }
+
+
     }
 }
