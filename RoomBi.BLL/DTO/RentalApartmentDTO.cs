@@ -25,10 +25,9 @@ namespace RoomBi.BLL.DTO
         public string? Sport { get; set; }
         public string? Country { get; set; }
         public OfferedAmenities? OfferedAmenities { get; set; }
-        public User? User { get; set; }
-        public ICollection<Booking>? Booking { get; set; }
-        public ICollection<GuestComments>? GuestComments { get; set; }
+        public MasterForApartmentPage? Master { get; set; }
+        public ICollection<DateBooking>? DateBooking { get; set; }
+        public ICollection<GuestСommentsDTO>? GuestComments { get; set; }
         public ICollection<Picture>? Pictures { get; set; }
-        public ICollection<Chat>? Chats { get; set; }
     }
 }

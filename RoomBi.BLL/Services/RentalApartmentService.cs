@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using RoomBi.DAL.Repositories;
 using System.Net;
+using System.Collections.ObjectModel;
 
 
 namespace RoomBi.BLL.Services
@@ -78,6 +79,29 @@ namespace RoomBi.BLL.Services
             var rentalApartment = await Database.RentalApartment.Get(id);
             if (rentalApartment == null)
                 throw new ValidationException("Wrong rentalApartment!", "");
+            User user = await Database.User.Get(rentalApartment.UserId);
+            Language language = await Database.Languages.Get(user.LanguageId);
+            Country country = await Database.Country.Get(user.CountryId);
+
+            ICollection<GuestComments> guestCommentsCollection = rentalApartment.GuestComments;
+            ICollection<GuestСommentsDTO> guestCommentsDTOCollection = new List<GuestСommentsDTO>();
+            foreach (var guestComment in guestCommentsCollection)
+            {
+                User user2 = await Database.User.Get(guestComment.GuestIdUser);
+                Country country2 = await Database.Country.Get(user2.CountryId);
+                var guestCommentDTO = new GuestСommentsDTO
+                {
+                    Id = guestComment.Id,
+                    GuestIdUser = guestComment.GuestIdUser,
+                    UserName = user2.Name, 
+                    UserCountry = country2.Name, 
+                    UserAvatar = user2.ProfilePicture, 
+                    Comment = guestComment.Comment,
+                    DateTime = guestComment.DateTime,
+                    Rating = guestComment.Rating
+                };
+                guestCommentsDTOCollection.Add(guestCommentDTO);
+            }
             return new RentalApartmentDTO
             {
                 Id = rentalApartment.Id,
@@ -90,21 +114,58 @@ namespace RoomBi.BLL.Services
                 Bathrooms = rentalApartment.Bathrooms,
                 Beds = rentalApartment.Beds,
                 PricePerNight = rentalApartment.PricePerNight,
+
                 ObjectRating = rentalApartment.ObjectRating,
                 ObjectState = rentalApartment.ObjectState,
                 TypeApartment = rentalApartment.TypeApartment,
-                User = rentalApartment.User,
+
                 Location = rentalApartment.Location?.Name,
                 Sport = rentalApartment.Sport?.Name,
                 House = rentalApartment.House?.Name,
                 Country = rentalApartment.Country?.Name,
+
                 OfferedAmenities = rentalApartment.OfferedAmenities,
-                GuestComments = rentalApartment.GuestComments,
+                Master = MapUserToMaster(user, language, country),
+                GuestComments = guestCommentsDTOCollection,
                 Pictures = rentalApartment.Pictures,
-                Booking = rentalApartment.Booking,
-                Chats = rentalApartment.Chats // tr
+                DateBooking = ConvertBookingsToDates(rentalApartment.Booking),
             };
         }
+        public static List<DateBooking> ConvertBookingsToDates(ICollection<Booking> bookings)
+        {
+            var dateBookings = new List<DateBooking>();
+
+            foreach (var booking in bookings)
+            {
+                var dateBooking = new DateBooking(booking.CheckInDate, booking.CheckOutDate);
+                dateBookings.Add(dateBooking);
+            }
+
+            return dateBookings;
+        }
+        public static MasterForApartmentPage MapUserToMaster(User user, Language language, Country country)
+        {
+            int hostingGuests = 0;
+            if (user.AirbnbRegistrationYear.HasValue)
+            {
+                var yearsHostingGuests = DateTime.Now.Year - user.AirbnbRegistrationYear.Value.Year;
+                hostingGuests = yearsHostingGuests;
+            }
+            return new MasterForApartmentPage()
+            {
+                Id = user.Id,
+                Name = user.Name,
+                DateOfBirth = user.DateOfBirth,
+                ProfilePicture = user.ProfilePicture,
+                CurrentStatus = user.CurrentStatus,
+                Language = language.Name,
+                Country = country.Name,
+                HostingGuests = hostingGuests,
+                JoiningTheCommunity = user.AirbnbRegistrationYear?.Year.ToString()
+
+        };
+        }
+
         public async Task<RentalApartmentDTOForStartPage> GetCard(int id)
         {
             var rentalApartment = await Database.RentalApartment.Get(id);
@@ -113,6 +174,7 @@ namespace RoomBi.BLL.Services
             return new RentalApartmentDTOForStartPage
             {
                 Id = rentalApartment.Id,
+             
                 Title = rentalApartment.Title,
                 IngMap = rentalApartment.IngMap,
                 LatMap = rentalApartment.LatMap,

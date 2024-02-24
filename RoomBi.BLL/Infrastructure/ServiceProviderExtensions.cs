@@ -23,7 +23,7 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceOfAll<LanguageDTO>, LanguageService>();
             services.AddScoped<IServiceOfAll<CountryDTO>, CountryService>();
             services.AddScoped<IServiceOfAll<ChatDTO>, ChatService>();
-            services.AddScoped<IServiceOfAll<BookingDTO>, BookingService>();
+            services.AddScoped<IServiceBooking<DateBooking>, BookingService>();
             services.AddScoped<IServiceOfAll<EmergencyContactPersonDTO>, EmergencyContactPersonService>();
             services.AddScoped<IServiceOfAll<GuestPaymentMethodDTO>, GuestPaymentMethodService>();
             services.AddScoped<IServiceOfAll<GuestCommentsForRentalItemDTO>, GuestСommentsService>();

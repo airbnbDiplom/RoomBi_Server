@@ -31,6 +31,7 @@ namespace RoomBi.DAL.EF
                 Countries.Add(new Country { Name = "Румунія", CountryCode = "+40" });
                 Countries.Add(new Country { Name = "Німеччина", CountryCode = "+49" });
                 Countries.Add(new Country { Name = "Італія", CountryCode = "+39" });
+                Countries.Add(new Country { Name = "Польша", CountryCode = "+48" });
                 #endregion
                 #region Locations
                 Locations.Add(new Location { Name = "На пляжі" }); //OnBeach
@@ -191,6 +192,96 @@ namespace RoomBi.DAL.EF
                     CurrentStatus = true,
                     UserStatus = true
                 });
+                Users.Add(new User
+                {
+                    Name = "Cersei Lannister",
+                    Password = "123",
+                    Email = "cersei@example.com",
+                    Address = "King's Landing",
+                    PhoneNumber = "+4455667788",
+                    DateOfBirth = new DateTime(1977, 12, 10),
+                    AirbnbRegistrationYear = new DateTime(2017, 6, 18),
+                    ProfilePicture = "cersei.jpg",
+                    LanguageId = 2,
+                    CountryId = 2,
+                    CurrentStatus = true,
+                    UserStatus = true,
+                });
+                Users.Add(new User
+                {
+                    Name = "Jon Snow",
+                    Password = "123",
+                    Email = "jon.snow@example.com",
+                    Address = "Castle Black",
+                    PhoneNumber = "+123456789",
+                    ProfilePicture = "jon_snow.jpg",
+                    DateOfBirth = new DateTime(2000, 5, 4),
+                    AirbnbRegistrationYear = new DateTime(2022, 6, 10),
+                    LanguageId = 2,
+                    CountryId = 2,
+                    CurrentStatus = true,
+                    UserStatus = true,
+                });
+                Users.Add(new User
+                {
+                    Name = "Daenerys Targaryen",
+                    Password = "123",
+                    Email = "daenerys@example.com",
+                    Address = "Dragonstone",
+                    PhoneNumber = "+987654321",
+                    ProfilePicture = "daenerys.jpg",
+                    DateOfBirth = new DateTime(2001, 1, 1),
+                    AirbnbRegistrationYear = new DateTime(2017, 3, 10),
+                    LanguageId = 2,
+                    CountryId = 2,
+                    CurrentStatus = true,
+                    UserStatus = true,
+                });
+                Users.Add(new User
+                {
+                    Name = "Arya Stark",
+                    Password = "123",
+                    Email = "arya@example.com",
+                    Address = "Winterfell",
+                    PhoneNumber = "+9988776655",
+                    ProfilePicture = "arya.jpg",
+                    DateOfBirth = new DateTime(1999, 7, 7),
+                    AirbnbRegistrationYear = new DateTime(2018, 7, 7),
+                    LanguageId = 2,
+                    CountryId = 2,
+                    CurrentStatus = true,
+                    UserStatus = true,
+                });
+                Users.Add(new User
+                {
+                    Name = "Sansa Stark",
+                    Password = "123",
+                    Email = "sansa@example.com",
+                    Address = "Winterfell",
+                    PhoneNumber = "+2233445566",
+                    ProfilePicture = "sansa.jpg",
+                    DateOfBirth = new DateTime(1989, 3, 7),
+                    AirbnbRegistrationYear = new DateTime(2008, 3, 7),
+                    LanguageId = 2,
+                    CountryId = 2,
+                    CurrentStatus = true,
+                    UserStatus = true,
+                });
+                Users.Add(new User
+                {
+                    Name = "Jaime Lannister",
+                    Password = "123",
+                    Email = "jaime@example.com",
+                    Address = "Casterly Rock",
+                    PhoneNumber = "+9988776655",
+                    DateOfBirth = new DateTime(1979, 11, 30),
+                    AirbnbRegistrationYear = new DateTime(2004, 7, 12),
+                    ProfilePicture = "jaime.jpg",
+                    LanguageId = 1,
+                    CountryId = 1,
+                    CurrentStatus = true,
+                    UserStatus = true,
+                });
                 SaveChanges();
 
                 #endregion
@@ -283,9 +374,7 @@ namespace RoomBi.DAL.EF
                     PaidParking = false,
                     AirConditioner = true,
                     Workspace = false,
-                    CashRegisterParticular = true, // Касовий апарат 
-                    LargeKitchens = true, // Великі кухні
-                    SpecialFeatures = "Some special features here",
+                    SpecialFeatures = "Розташований на південному березі річки Темзи, зазнав чудової трансформації з промислової зони в процвітаючий і сучасний район. Він швидко набув популярності, ставши одним із найпопулярніших передмість міста. Горизонт тепер урізаний високими висотними будинками, звідки відкривається захоплюючий вид на міський пейзаж і річку.",
                     Pool = true,
                     Jacuzzi = false,
                     InnerYard = true,
@@ -304,7 +393,7 @@ namespace RoomBi.DAL.EF
                     FirstAidKit = true,
                     FireExtinguisher = true,
                     CarbonMonoxideDetector = false,
-                    Description = "Description of the offered amenities."
+                    Description = "Відкрийте для себе цю чудову квартиру-студію в нещодавно відремонтованій будівлі, зручно розташованій між станцією метро Willesden Green і станцією Cricklewood Overground. Студія з легким доступом до центру Лондона має власний вхід і замок, забезпечуючи повну конфіденційність без спільного користування помешканням. Ця студія може похвалитися власною міні-кухнею, душовою кімнатою, безкоштовним Wi-Fi та двоспальним ліжком"
                 });
                 OfferedAmenities.Add(new OfferedAmenities
                 {
@@ -316,9 +405,7 @@ namespace RoomBi.DAL.EF
                     PaidParking = false,
                     AirConditioner = true,
                     Workspace = false,
-                    CashRegisterParticular = true, // Касовий апарат 
-                    LargeKitchens = true, // Великі кухні
-                    SpecialFeatures = "Some special features here",
+                    SpecialFeatures = "Цей апартамент розташований в самому серці міста, в якому завжди пульсує життя. Він ідеально підходить для тих, хто хоче бути посеред усього - від ресторанів та кафе до музеїв та торгових центрів. В цьому помешканні ви знайдете всі необхідні зручності для комфортного перебування. Сучасно обладнані кухні дозволять вам приготувати власні страви, а затишні вітальні створять атмосферу затишку та комфорту. Після насиченого дня ви зможете розслабитися у затишному інтер'єрі своєї спальні та насолодитися тишею центральної локації.",
                     Pool = true,
                     Jacuzzi = false,
                     InnerYard = true,
@@ -337,8 +424,133 @@ namespace RoomBi.DAL.EF
                     FirstAidKit = true,
                     FireExtinguisher = true,
                     CarbonMonoxideDetector = false,
-                    Description = "Description of the offered amenities."
+                    Description = "Ця квартира може похвалитися власною міні-кухнею, душовою кімнатою, безкоштовним Wi-Fi та двоспальним ліжком."
                 });
+                OfferedAmenities.Add(new OfferedAmenities
+                {
+                    WiFi = true,
+                    TV = true,
+                    Kitchen = true,
+                    WashingMachine = true,
+                    FreeParking = true,
+                    PaidParking = false,
+                    AirConditioner = true,
+                    Workspace = false,
+                    SpecialFeatures = "Цей апартамент розташований в самому серці міста, в якому завжди пульсує життя. Він ідеально підходить для тих, хто хоче бути посеред усього - від ресторанів та кафе до музеїв та торгових центрів. В цьому помешканні ви знайдете всі необхідні зручності для комфортного перебування. Сучасно обладнані кухні дозволять вам приготувати власні страви, а затишні вітальні створять атмосферу затишку та комфорту. Після насиченого дня ви зможете розслабитися у затишному інтер'єрі своєї спальні та насолодитися тишею центральної локації.",
+                    Pool = true,
+                    Jacuzzi = false,
+                    InnerYard = true,
+                    BBQArea = false,
+                    OutdoorDiningArea = true,
+                    FirePit = false,
+                    PoolTable = true,
+                    Fireplace = false,
+                    Piano = true,
+                    GymEquipment = false,
+                    LakeAccess = true,
+                    BeachAccess = false,
+                    SkiInOut = true,
+                    OutdoorShower = false,
+                    SmokeDetector = true,
+                    FirstAidKit = true,
+                    FireExtinguisher = true,
+                    CarbonMonoxideDetector = false,
+                    Description = "Ця квартира може похвалитися власною міні-кухнею, душовою кімнатою, безкоштовним Wi-Fi та двоспальним ліжком."
+                });
+                OfferedAmenities.Add(new OfferedAmenities
+                {
+                    WiFi = true,
+                    TV = true,
+                    Kitchen = true,
+                    WashingMachine = true,
+                    FreeParking = true,
+                    PaidParking = false,
+                    AirConditioner = true,
+                    Workspace = false,
+                    SpecialFeatures = "Розташований в самому центрі міста, ці апартаменти стануть ідеальним вибором для тих, хто цінує комфорт та зручність. Він розташований у непосредній близькості від основних туристичних визначних місць, торгових центрів та ресторанів, що робить його ідеальним варіантом для тих, хто хоче насолодитися всіма перевагами міського життя. У цьому помешканні передбачено всі необхідні зручності для комфортного перебування, включаючи сучасно обладнані кухні, просторі вітальні та затишні спальні. Тут ви знайдете все необхідне для того, щоб ваше перебування було незабутнім та зручним.",
+                    Pool = true,
+                    Jacuzzi = false,
+                    InnerYard = true,
+                    BBQArea = false,
+                    OutdoorDiningArea = true,
+                    FirePit = false,
+                    PoolTable = true,
+                    Fireplace = false,
+                    Piano = true,
+                    GymEquipment = false,
+                    LakeAccess = true,
+                    BeachAccess = false,
+                    SkiInOut = true,
+                    OutdoorShower = false,
+                    SmokeDetector = true,
+                    FirstAidKit = true,
+                    FireExtinguisher = true,
+                    CarbonMonoxideDetector = false,
+                    Description = "Ця квартира має власну кухню, простору вітальню та спальню з двоспальним ліжком."
+                });
+                OfferedAmenities.Add(new OfferedAmenities
+                {
+                    WiFi = true,
+                    TV = true,
+                    Kitchen = true,
+                    WashingMachine = true,
+                    FreeParking = true,
+                    PaidParking = false,
+                    AirConditioner = true,
+                    Workspace = false,
+                    SpecialFeatures = "Цей апартамент розташований в тихому та затишному районі міста, що створює ідеальні умови для відпочинку та релаксації після насиченого дня відвідування місцевих визначних місць. Він знаходиться вдалині від шумних вулиць та туристичних масовок, що дозволяє вам насолоджуватися тишею та спокоєм під час вашого перебування. У цьому помешканні ви знайдете.",
+                    Pool = true,
+                    Jacuzzi = false,
+                    InnerYard = true,
+                    BBQArea = false,
+                    OutdoorDiningArea = true,
+                    FirePit = false,
+                    PoolTable = true,
+                    Fireplace = false,
+                    Piano = true,
+                    GymEquipment = false,
+                    LakeAccess = true,
+                    BeachAccess = false,
+                    SkiInOut = true,
+                    OutdoorShower = false,
+                    SmokeDetector = true,
+                    FirstAidKit = true,
+                    FireExtinguisher = true,
+                    CarbonMonoxideDetector = false,
+                    Description = "Цей апартамент має власну кухню та просторий вітальний куточок, де можна відпочити після дня відкриття міста."
+                });
+                OfferedAmenities.Add(new OfferedAmenities
+                {
+                    WiFi = true,
+                    TV = true,
+                    Kitchen = true,
+                    WashingMachine = true,
+                    FreeParking = true,
+                    PaidParking = false,
+                    AirConditioner = true,
+                    Workspace = false,
+                    SpecialFeatures = "Розташований в зручному місці, що недалеко від центру міста, цей апартамент ідеально підходить як для відпочинку, так і для відвідування місцевих визначних місць. Зручна локація дозволить вам легко дістатися до всіх центральних атракцій та популярних визначних місць міста, забезпечуючи неповторне і відмінне враження від вашої подорожі. Після цікавих екскурсій ви зможете повернутися до цього затишного апартаменту, щоб розслабитися та насолодитися спокоєм і комфортом. Зручно обладнані кухні та просторі вітальні створять атмосферу домашнього затишку, а затишні спальні забезпечать вам гарний сон та відновлення сил для нових пригод.",
+                    Pool = true,
+                    Jacuzzi = false,
+                    InnerYard = true,
+                    BBQArea = false,
+                    OutdoorDiningArea = true,
+                    FirePit = false,
+                    PoolTable = true,
+                    Fireplace = false,
+                    Piano = true,
+                    GymEquipment = false,
+                    LakeAccess = true,
+                    BeachAccess = false,
+                    SkiInOut = true,
+                    OutdoorShower = false,
+                    SmokeDetector = true,
+                    FirstAidKit = true,
+                    FireExtinguisher = true,
+                    CarbonMonoxideDetector = false,
+                    Description = "Цей апартамент надає всі зручності для приємного перебування у місті та легкого доступу до всіх місцевих визначних місць."
+                });
+                SaveChanges();
                 #endregion
                 #region RentalApartments
                 RentalApartments.Add(new RentalApartment
@@ -354,17 +566,17 @@ namespace RoomBi.DAL.EF
                     Beds = 3,
                     PricePerNight = 150.0,
                     ObjectState = "Вільний",
-                    ObjectRating = 4.9,
+                    ObjectRating = 5,
                     OfferedAmenitiesId = 1,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 11,
-                    LocationId = 7,
+                    LocationId = 6,
                     SportId = 4,
                     CountryId = 2,
                 });
                 RentalApartments.Add(new RentalApartment
                 {
-                    UserId = 1,
+                    UserId = 2,
                     Title = "Tulse Hill Luxury Cosy Rooms",
                     Address = "Лондон, Ламбет, 18 Northstead Road, SW2 3JW ",
                     IngMap = "51.51806759859402",
@@ -375,15 +587,14 @@ namespace RoomBi.DAL.EF
                     Beds = 3,
                     PricePerNight = 110.0,
                     ObjectState = "Вільний",
-                    ObjectRating = 4.9,
-                    OfferedAmenitiesId = 1,
+                    ObjectRating = 5,
+                    OfferedAmenitiesId = 2,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 11,
                     LocationId = 7,
                     SportId = 4,
                     CountryId = 2,
                 });
-       
                 RentalApartments.Add(new RentalApartment
                 {
 
@@ -399,10 +610,10 @@ namespace RoomBi.DAL.EF
                     PricePerNight = 45.0,
                     ObjectState = "Вільний",
                     ObjectRating = 4.8,
-                    OfferedAmenitiesId = 1,
+                    OfferedAmenitiesId = 3,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 11,
-                    LocationId = 7,
+                    LocationId = 6,
                     SportId = 4,
                     CountryId = 2,
                 });
@@ -420,13 +631,13 @@ namespace RoomBi.DAL.EF
                     Beds = 1,
                     PricePerNight = 200.0,
                     ObjectState = "Вільний",
-                    ObjectRating = 5,
-                    OfferedAmenitiesId = 1,
+                    ObjectRating = 2.7,
+                    OfferedAmenitiesId = 4,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 11,
                     LocationId = 7,
                     SportId = 4,
-                    CountryId = 2,
+                    CountryId = 2
                 });
                 RentalApartments.Add(new RentalApartment
                 {
@@ -442,13 +653,13 @@ namespace RoomBi.DAL.EF
                     Beds = 1,
                     PricePerNight = 65.0,
                     ObjectState = "Вільний",
-                    ObjectRating = 4.7,
-                    OfferedAmenitiesId = 1,
+                    ObjectRating = 4.2,
+                    OfferedAmenitiesId = 5,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 11,
-                    LocationId = 7,
+                    LocationId = 6,
                     SportId = 4,
-                    CountryId = 2,
+                    CountryId = 2
                 });
                 RentalApartments.Add(new RentalApartment
                 {
@@ -464,13 +675,13 @@ namespace RoomBi.DAL.EF
                     Beds = 1,
                     PricePerNight = 99.0,
                     ObjectState = "Вільний",
-                    ObjectRating = 5,
-                    OfferedAmenitiesId = 1,
+                    ObjectRating = 2.7,
+                    OfferedAmenitiesId = 6,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 11,
                     LocationId = 7,
                     SportId = 4,
-                    CountryId = 2,
+                    CountryId = 2
                 });
                 RentalApartments.Add(new RentalApartment
                 {
@@ -490,14 +701,14 @@ namespace RoomBi.DAL.EF
                     OfferedAmenitiesId = 1,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 11,
-                    LocationId = 7,
+                    LocationId = 6,
                     SportId = 4,
-                    CountryId = 2,
+                    CountryId = 2
                 });
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    UserId = 1,
+                    UserId = 8,
                     Title = "Avari Apartments",
                     Address = "Лондон, 17 Winchester Street, Вестминстер, SW1V 4PA",
                     IngMap = "51.539341254721634",
@@ -508,18 +719,18 @@ namespace RoomBi.DAL.EF
                     Beds = 1,
                     PricePerNight = 75.0,
                     ObjectState = "Вільний",
-                    ObjectRating = 5,
-                    OfferedAmenitiesId = 1,
+                    ObjectRating = 4.6,
+                    OfferedAmenitiesId = 3,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 11,
                     LocationId = 7,
                     SportId = 4,
-                    CountryId = 2,
+                    CountryId = 2
                 });
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    UserId = 2,
+                    UserId = 9,
                     Title = "Stunning duplex with terrace",
                     Address = "Лондон, 135 York Way 3 Salamander Court, N7 9LG,",
                     IngMap = "51.55787209292902",
@@ -531,17 +742,17 @@ namespace RoomBi.DAL.EF
                     PricePerNight = 169.0,
                     ObjectState = "Вільний",
                     ObjectRating = 5,
-                    OfferedAmenitiesId = 1,
+                    OfferedAmenitiesId = 4,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 11,
-                    LocationId = 7,
+                    LocationId = 4,
                     SportId = 4,
-                    CountryId = 2,
+                    CountryId = 2
                 });
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    UserId = 3,
+                    UserId = 10,
                     Title = "Paddington by CAPITAL",
                     Address = "Лондон, 9 Devonshire Terrace, Вестминстер, W2 3DN,",
                     IngMap = "51.56382495384703",
@@ -552,18 +763,19 @@ namespace RoomBi.DAL.EF
                     Beds = 1,
                     PricePerNight = 55.0,
                     ObjectState = "Вільний",
-                    ObjectRating = 5,
-                    OfferedAmenitiesId = 1,
+                    ObjectRating = 2.9,
+                    OfferedAmenitiesId = 5,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 11,
                     LocationId = 7,
                     SportId = 4,
-                    CountryId = 2,
+                    CountryId = 2
                 });
+
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    UserId = 4,
+                    UserId = 11,
                     Title = "Мінібудинок",
                     Address = "Schöneck/Vogtland",
                     IngMap = "46.36915761961929",
@@ -574,18 +786,18 @@ namespace RoomBi.DAL.EF
                     Beds = 3,
                     PricePerNight = 123.0,
                     ObjectState = "Вільний",
-                    ObjectRating = 5,
+                    ObjectRating = 4.8,
                     OfferedAmenitiesId = 1,
                     TypeApartment = "Ціле помешкання",
-                    HouseId = 31,
-                    LocationId = 7,
+                    HouseId = 4,
+                    LocationId = 4,
                     SportId = 4,
-                    CountryId = 4,
+                    CountryId = 4
                 });
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    UserId = 5,
+                    UserId = 12,
                     Title = "Мінібудинок",
                     Address = "Mittelstrimmig",
                     IngMap = "45.65700798737041",
@@ -596,18 +808,18 @@ namespace RoomBi.DAL.EF
                     Beds = 2,
                     PricePerNight = 99.0,
                     ObjectState = "Вільний",
-                    ObjectRating = 5,
-                    OfferedAmenitiesId = 1,
+                    ObjectRating = 2.7,
+                    OfferedAmenitiesId = 2,
                     TypeApartment = "Ціле помешкання",
-                    HouseId = 31,
-                    LocationId = 7,
+                    HouseId = 7,
+                    LocationId = 4,
                     SportId = 4,
-                    CountryId = 4,
+                    CountryId = 4
                 });
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    UserId = 6,
+                    UserId = 13,
                     Title = "Транспортний контейнер",
                     Address = "Mettmann",
                     IngMap = "46.50834871574238",
@@ -618,18 +830,18 @@ namespace RoomBi.DAL.EF
                     Beds = 1,
                     PricePerNight = 92.0,
                     ObjectState = "Вільний",
-                    ObjectRating = 5,
-                    OfferedAmenitiesId = 1,
+                    ObjectRating = 4.2,
+                    OfferedAmenitiesId = 3,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 31,
-                    LocationId = 7,
+                    LocationId = 4,
                     SportId = 4,
-                    CountryId = 4,
+                    CountryId = 4
                 });
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    UserId = 7,
+                    UserId = 1,
                     Title = "Мінібудинок",
                     Address = "Schöneck/Vogtland",
                     IngMap = "46.54843392077818",
@@ -640,18 +852,18 @@ namespace RoomBi.DAL.EF
                     Beds = 3,
                     PricePerNight = 138.0,
                     ObjectState = "Вільний",
-                    ObjectRating = 5,
-                    OfferedAmenitiesId = 1,
+                    ObjectRating = 2.7,
+                    OfferedAmenitiesId = 4,
                     TypeApartment = "Ціле помешкання",
-                    HouseId = 31,
-                    LocationId = 7,
+                    HouseId = 4,
+                    LocationId = 4,
                     SportId = 4,
-                    CountryId = 4,
+                    CountryId = 4
                 });
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    UserId = 1,
+                    UserId = 2,
                     Title = "Мінібудинок",
                     Address = "Reisbach",
                     IngMap = "46.92909466061425",
@@ -663,17 +875,17 @@ namespace RoomBi.DAL.EF
                     PricePerNight = 93.0,
                     ObjectState = "Вільний",
                     ObjectRating = 5,
-                    OfferedAmenitiesId = 1,
+                    OfferedAmenitiesId = 5,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 31,
-                    LocationId = 7,
+                    LocationId = 4,
                     SportId = 4,
-                    CountryId = 4,
+                    CountryId = 4
                 });
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    UserId = 2,
+                    UserId = 3,
                     Title = "Мінібудинок",
                     Address = "Welzow",
                     IngMap = "46.94500770415087",
@@ -684,18 +896,19 @@ namespace RoomBi.DAL.EF
                     Beds = 1,
                     PricePerNight = 66.0,
                     ObjectState = "Вільний",
-                    ObjectRating = 5,
+                    ObjectRating = 4.6,
                     OfferedAmenitiesId = 1,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 31,
-                    LocationId = 7,
+                    LocationId = 4,
                     SportId = 4,
-                    CountryId = 4,
+                    CountryId = 4
                 });
+
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    UserId = 3,
+                    UserId = 4,
                     Title = "Будинок на дереві",
                     Address = "Porumbacu de Jos",
                     IngMap = "47.146163668363016",
@@ -706,13 +919,13 @@ namespace RoomBi.DAL.EF
                     Beds = 1,
                     PricePerNight = 166.0,
                     ObjectState = "Вільний",
-                    ObjectRating = 5,
-                    OfferedAmenitiesId = 1,
+                    ObjectRating = 2.7,
+                    OfferedAmenitiesId = 2,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 7,
-                    LocationId = 7,
-                    SportId = 4,
-                    CountryId = 3,
+                    LocationId = 4,
+                    SportId = 3,
+                    CountryId = 3
                 });
                 RentalApartments.Add(new RentalApartment
                 {
@@ -728,13 +941,13 @@ namespace RoomBi.DAL.EF
                     Beds = 2,
                     PricePerNight = 87.0,
                     ObjectState = "Вільний",
-                    ObjectRating = 5,
+                    ObjectRating = 4.2,
                     OfferedAmenitiesId = 1,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 7,
-                    LocationId = 7,
-                    SportId = 4,
-                    CountryId = 3,
+                    LocationId = 4,
+                    SportId = 3,
+                    CountryId = 3
                 });
                 RentalApartments.Add(new RentalApartment
                 {
@@ -754,9 +967,9 @@ namespace RoomBi.DAL.EF
                     OfferedAmenitiesId = 1,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 7,
-                    LocationId = 7,
-                    SportId = 4,
-                    CountryId = 3,
+                    LocationId = 4,
+                    SportId = 3,
+                    CountryId = 3
                 });
                 RentalApartments.Add(new RentalApartment
                 {
@@ -776,9 +989,9 @@ namespace RoomBi.DAL.EF
                     OfferedAmenitiesId = 1,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 7,
-                    LocationId = 7,
-                    SportId = 4,
-                    CountryId = 3,
+                    LocationId = 4,
+                    SportId = 3,
+                    CountryId = 3
                 });
                 RentalApartments.Add(new RentalApartment
                 {
@@ -798,10 +1011,11 @@ namespace RoomBi.DAL.EF
                     OfferedAmenitiesId = 1,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 7,
-                    LocationId = 7,
-                    SportId = 4,
-                    CountryId = 3,
-                });
+                    LocationId = 4,
+                    SportId = 3,
+                    CountryId = 3
+                }); 
+
                 RentalApartments.Add(new RentalApartment
                 {
 
@@ -820,8 +1034,8 @@ namespace RoomBi.DAL.EF
                     OfferedAmenitiesId = 1,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 13,
-                    LocationId = 7,
-                    SportId = 4,
+                    LocationId = 4,
+                    SportId = 5,
                     CountryId = 5,
                 });
                 RentalApartments.Add(new RentalApartment
@@ -842,8 +1056,8 @@ namespace RoomBi.DAL.EF
                     OfferedAmenitiesId = 1,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 13,
-                    LocationId = 7,
-                    SportId = 4,
+                    LocationId = 4,
+                    SportId = 5,
                     CountryId = 5,
                 });
                 RentalApartments.Add(new RentalApartment
@@ -864,8 +1078,8 @@ namespace RoomBi.DAL.EF
                     OfferedAmenitiesId = 1,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 13,
-                    LocationId = 7,
-                    SportId = 4,
+                    LocationId = 4,
+                    SportId = 5,
                     CountryId = 5,
                 });
                 RentalApartments.Add(new RentalApartment
@@ -886,8 +1100,8 @@ namespace RoomBi.DAL.EF
                     OfferedAmenitiesId = 1,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 13,
-                    LocationId = 7,
-                    SportId = 4,
+                    LocationId = 4,
+                    SportId = 5,
                     CountryId = 5,
                 });
                 RentalApartments.Add(new RentalApartment
@@ -908,8 +1122,8 @@ namespace RoomBi.DAL.EF
                     OfferedAmenitiesId = 1,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 13,
-                    LocationId = 7,
-                    SportId = 4,
+                    LocationId = 4,
+                    SportId = 5,
                     CountryId = 5,
                 });
                 RentalApartments.Add(new RentalApartment
@@ -930,10 +1144,12 @@ namespace RoomBi.DAL.EF
                     OfferedAmenitiesId = 1,
                     TypeApartment = "Ціле помешкання",
                     HouseId = 13,
-                    LocationId = 7,
+                    LocationId = 4,
                     SportId = 2,
                     CountryId = 3,
                 });
+
+
                 RentalApartments.Add(new RentalApartment
                 {
 
@@ -1924,164 +2140,356 @@ namespace RoomBi.DAL.EF
                 });
                 GuestComments.Add(new GuestComments
                 {
-                    GuestIdUser = 1,
+                    GuestIdUser = 4,
+                    ApartmentId = 1,
+                    Comment = "Ця квартира перевершила всі мої очікування! Вона виглядає абсолютно чудово, ідеально чиста та затишна. Всі зручності працюють на відмінно. Обов'язково прийду ще!",
+                    DateTime = new DateTime(2024, 02, 10, 15, 28, 06),
+                    Rating = 5
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 5,
+                    ApartmentId = 1,
+                    Comment = "Я надзвичайно задоволений цим помешканням! Все виглядає абсолютно новим та організованим. Господарі дуже привітні та гостинні. Обов'язково порекомендую друзям!",
+                    DateTime = new DateTime(2024, 02, 12, 15, 28, 06),
+                    Rating = 5
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 6,
+                    ApartmentId = 1,
+                    Comment = "Відмінне місце для проживання! Квартира чиста, комфортна та добре обладнана. Розташування ідеальне - зручно до всіх визначних місць. Обов'язково зупинюся тут ще раз!",
+                    DateTime = new DateTime(2024, 02, 14, 15, 28, 06),
+                    Rating = 5
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 7,
+                    ApartmentId = 1,
+                    Comment = "Моє перебування було просто чудове! Квартира чиста, простора та затишна. Всі необхідні зручності на місці. Господарі дуже привітні та готові допомогти. Рекомендую!",
+                    DateTime = new DateTime(2024, 02, 16, 15, 28, 06),
+                    Rating = 5
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 8,
+                    ApartmentId = 1,
+                    Comment = "Враження від перебування просто неймовірні! Квартира простора, затишна та чиста. Розташування прекрасне - поруч з усіма визначними пам'ятками міста. Обов'язково прийду ще!",
+                    DateTime = new DateTime(2024, 02, 18, 15, 28, 06),
+                    Rating = 5
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 11,
+                    ApartmentId = 1,
+                    Comment = "Відмінно!",
+                    DateTime = new DateTime(2024, 02, 21, 15, 28, 06),
+                    Rating = 4.7
+                });
+
+
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 8,
                     ApartmentId = 2,
                     Comment = "Місце було чудовим, але обстановка трохи зіпсована недбалістю власника.",
-                    DateTime = DateTime.Now.AddDays(-16),
+                    DateTime = new DateTime(2024, 02, 06, 15, 28, 06),
                     Rating = 3.2
                 });
                 GuestComments.Add(new GuestComments
                 {
-                    GuestIdUser = 2,
+                    GuestIdUser = 9,
                     ApartmentId = 2,
                     Comment = "Враження були змішані. Квартира була чистою, але більшість речей вже були застарілими та потребували ремонту.",
-                    DateTime = DateTime.Now.AddDays(-17),
-                    Rating = 3.0
+                    DateTime = new DateTime(2024, 02, 05, 15, 28, 06),
+                    Rating = 3
                 });
                 GuestComments.Add(new GuestComments
                 {
-                    GuestIdUser = 3,
+                    GuestIdUser = 2,
+                    ApartmentId = 12,
+                    Comment = "Місце мало потенціал, але потребує покращень. Знайшов деякі проблеми зі сантехнікою. Сподіваюся, що власник виправить їх.",
+                    DateTime = new DateTime(2024, 02, 04, 15, 28, 06),
+                    Rating = 2.5
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 4,
+                    ApartmentId = 2,
+                    Comment = "Не можу сказати, що залишився задоволений. Квартира була не такою, як очікував. Багато шуму з вулиці, а також бруд на підлозі. Можна знайти краще за ціною.",
+                    DateTime = new DateTime(2024, 02, 02, 15, 28, 06),
+                    Rating = 2
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 5,
+                    ApartmentId = 2,
+                    Comment = "Загалом, перебування було середнім. Квартира була досить зручною, але потребувала більшого прибирання. Непоганий варіант за ціною, але не ідеальний.",
+                    DateTime = new DateTime(2024, 01, 31, 15, 28, 06),
+                    Rating = 3
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 6,
+                    ApartmentId = 2,
+                    Comment = "Не зовсім задоволений своїм перебуванням. Квартира була занадто шумна, а також виявились деякі проблеми з опаленням. Не порадив би це місце.",
+                    DateTime = new DateTime(2024, 01, 29, 15, 28, 06),
+                    Rating = 2.8
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 7,
+                    ApartmentId = 2,
+                    Comment = "Місце було прийнятним, але трохи застарілого вигляду. Також, ванна кімната потребує ремонту.",
+                    DateTime = new DateTime(2024, 01, 27, 15, 28, 06),
+                    Rating = 3.5
+                });
+
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 13,
                     ApartmentId = 3,
                     Comment = "Неймовірна квартира з прекрасними видами! Все було на вищому рівні. Дякую за чудовий відпочинок!",
-                    DateTime = DateTime.Now.AddDays(-18),
+                    DateTime = new DateTime(2024, 02, 04, 15, 28, 06),
                     Rating = 4.9
                 });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 12,
+                    ApartmentId = 3,
+                    Comment = "Чудове помешкання з комфортною атмосферою! Все було чисто та охайно. Власник був дуже привітний та відзначив усі мої побажання. Рекомендую!",
+                    DateTime = new DateTime(2024, 02, 02, 15, 28, 06),
+                    Rating = 4.8
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 11,
+                    ApartmentId = 3,
+                    Comment = "Приємна квартира з усім необхідним для комфортного перебування. Місце розташування дуже зручне, багато кафе та ресторанів поруч. Я задоволений своїм відпочинком!",
+                    DateTime = new DateTime(2024, 01, 31, 15, 28, 06),
+                    Rating = 4.2
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 10,
+                    ApartmentId = 3,
+                    Comment = "Дуже приємна квартира з чистим та сучасним дизайном. Всі зручності працюють на відмінно. Місце розташування також дуже зручне. Рекомендую!",
+                    DateTime = new DateTime(2024, 01, 29, 15, 28, 06),
+                    Rating = 4.7
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 9,
+                    ApartmentId = 3,
+                    Comment = "Враження від перебування перевищили мої очікування! Квартира була чистою та затишною, а розташування близько до всіх головних визначних місць. Обов'язково повернусь сюди знову!",
+                    DateTime = new DateTime(2024, 01, 27, 15, 28, 06),
+                    Rating = 4.8
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 8,
+                    ApartmentId = 3,
+                    Comment = "Прекрасна квартира зі стильним інтер'єром та відмінним розташуванням. Все було на вищому рівні, ідеальне місце для відпочинку. Дуже задоволений!",
+                    DateTime = new DateTime(2024, 01, 25, 15, 28, 06),
+                    Rating = 4.9
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 1,
+                    ApartmentId = 3,
+                    Comment = "Відмінно!",
+                    DateTime = new DateTime(2024, 02, 21, 15, 28, 06),
+                    Rating = 4.5
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 5,
+                    ApartmentId = 3,
+                    Comment = "Прекрасне місце!",
+                    DateTime = new DateTime(2024, 02, 17, 15, 28, 06),
+                    Rating = 4.9
+                });
+
                 GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 4,
                     ApartmentId = 4,
                     Comment = "Квартира була дуже шумною та запахло курінням, що не дуже приємно.",
-                    DateTime = DateTime.Now.AddDays(-19),
+                    DateTime = new DateTime(2024, 02, 03, 15, 28, 06),
                     Rating = 2.5
                 });
                 GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 5,
                     ApartmentId = 4,
+                    Comment = "Місце мало потенціал, але потребує покращень. Знайшов деякі проблеми зі сантехнікою. Сподіваюся, що власник виправить їх.",
+                    DateTime = new DateTime(2024, 02, 04, 15, 28, 06),
+                    Rating = 2.5
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 6,
+                    ApartmentId = 4,
+                    Comment = "Не можу сказати, що залишився задоволений. Квартира була не такою, як очікував. Багато шуму з вулиці, а також бруд на підлозі. Можна знайти краще за ціною.",
+                    DateTime = new DateTime(2024, 02, 02, 15, 28, 06),
+                    Rating = 2
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 7,
+                    ApartmentId = 4,
+                    Comment = "Загалом, перебування було середнім. Квартира була досить зручною, але потребувала більшого прибирання. Непоганий варіант за ціною, але не ідеальний.",
+                    DateTime = new DateTime(2024, 01, 31, 15, 28, 06),
+                    Rating = 3
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 8,
+                    ApartmentId = 4,
+                    Comment = "Не зовсім задоволений своїм перебуванням. Квартира була занадто шумна, а також виявились деякі проблеми з опаленням. Не порадив би це місце.",
+                    DateTime = new DateTime(2024, 01, 29, 15, 28, 06),
+                    Rating = 2.8
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 9,
+                    ApartmentId = 4,
+                    Comment = "Місце було прийнятним, але трохи застарілого вигляду. Також, ванна кімната потребує ремонту.",
+                    DateTime = new DateTime(2024, 01, 27, 15, 28, 06),
+                    Rating = 3.5
+                });
+
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 5,
+                    ApartmentId = 5,
                     Comment = "Незважаючи на деякі недоліки, місце було досить зручним та приємним для проживання.",
-                    DateTime = DateTime.Now.AddDays(-20),
+                    DateTime = new DateTime(2024, 02, 02, 15, 28, 06),
                     Rating = 3.7
                 });
                 GuestComments.Add(new GuestComments
                 {
-                    GuestIdUser = 3,
+                    GuestIdUser = 2,
                     ApartmentId = 5,
-                    Comment = "Велике спасибі за чудовий відпочинок! Квартира була дуже зручна та чиста, а вид з вікна просто чарівний!",
-                    DateTime = DateTime.Now.AddDays(-11),
-                    Rating = 4.8
+                    Comment = "Дуже задоволений!",
+                    DateTime = new DateTime(2024, 02, 19, 15, 28, 06),
+                    Rating = 5
                 });
                 GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 4,
-                    ApartmentId = 6,
+                    ApartmentId = 5, 
+                    Comment = "Чудово!",
+                    DateTime = new DateTime(2024, 02, 18, 15, 28, 06),
+                    Rating = 4.7
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 4,
+                    ApartmentId =6,
                     Comment = "Нажаль, не дуже задоволений. Квартира була брудною, інтернет не працював, а крісла були зламані.",
-                    DateTime = DateTime.Now.AddDays(-12),
-                    Rating = 2.0
+                    DateTime = new DateTime(2024, 02, 10, 15, 28, 06),
+                    Rating = 2
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 6,
+                    ApartmentId = 6,
+                    Comment = "Квартира була прийнятною, але трохи застарілого вигляду. Також, ванна кімната потребує ремонту.",
+                    DateTime = new DateTime(2024, 02, 08, 15, 28, 06),
+                    Rating = 3.5
+                });
+
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 9,
+                    ApartmentId = 7,
+                    Comment = "Велике спасибі за чудовий відпочинок! Квартира була дуже зручна та чиста, а вид з вікна просто чарівний!",
+                    DateTime = new DateTime(2024, 02, 11, 15, 28, 06),
+                    Rating = 4.8
                 });
                 GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 5,
                     ApartmentId = 7,
                     Comment = "Вражаюча квартира з прекрасним видом на місто. Чисто та затишно. Обов'язково прийдемо ще!",
-                    DateTime = DateTime.Now.AddDays(-13),
+                    DateTime = new DateTime(2024, 02, 09, 15, 28, 06),
                     Rating = 4.9
                 });
                 GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 6,
                     ApartmentId = 7,
-                    Comment = "Квартира була прийнятною, але трохи застарілого вигляду. Також, ванна кімната потребує ремонту.",
-                    DateTime = DateTime.Now.AddDays(-14),
-                    Rating = 3.5
+                    Comment = "Відмінне місце для проживання! Квартира чиста, комфортна та добре обладнана. Розташування ідеальне - зручно до всіх визначних місць. Обов'язково зупинюся тут ще раз!",
+                    DateTime = new DateTime(2024, 02, 14, 15, 28, 06),
+                    Rating = 5
                 });
                 GuestComments.Add(new GuestComments
                 {
-                    GuestIdUser = 7,
+                    GuestIdUser = 11,
+                    ApartmentId = 7,
+                    Comment = "Моє перебування було просто чудове! Квартира чиста, простора та затишна. Всі необхідні зручності на місці. Господарі дуже привітні та готові допомогти. Рекомендую!",
+                    DateTime = new DateTime(2024, 02, 16, 15, 28, 06),
+                    Rating = 5
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 13,
+                    ApartmentId = 7,
+                    Comment = "Враження від перебування просто неймовірні! Квартира простора, затишна та чиста. Розташування прекрасне - поруч з усіма визначними пам'ятками міста. Обов'язково прийду ще!",
+                    DateTime = new DateTime(2024, 02, 18, 15, 28, 06),
+                    Rating = 5
+                });
+
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 10,
                     ApartmentId = 8,
                     Comment = "Прекрасне розташування та чудова квартира. Чисто, зручно, все працює. Дякую за гарний відпочинок!",
-                    DateTime = DateTime.Now.AddDays(-15),
+                    DateTime = new DateTime(2024, 02, 07, 15, 28, 06),
                     Rating = 4.7
                 });
                 GuestComments.Add(new GuestComments
                 {
                     GuestIdUser = 6,
-                    ApartmentId = 9,
+                    ApartmentId = 8,
                     Comment = "Дуже хороше місце, але трохи шумно вночі.",
-                    DateTime = DateTime.Now.AddDays(-7),
+                    DateTime = new DateTime(2024, 02, 15, 15, 28, 06),
                     Rating = 4.2
                 });
                 GuestComments.Add(new GuestComments
                 {
-                    GuestIdUser = 7,
-                    ApartmentId = 6,
+                    GuestIdUser = 2,
+                    ApartmentId = 8,
                     Comment = "Все було чудово, окрім того, що кондиціонер не працював.",
-                    DateTime = DateTime.Now.AddDays(-8),
+                    DateTime = new DateTime(2024, 02, 14, 15, 28, 06),
                     Rating = 3.8
                 });
                 GuestComments.Add(new GuestComments
                 {
-                    GuestIdUser = 1,
-                    ApartmentId = 9,
+                    GuestIdUser = 9,
+                    ApartmentId = 8,
                     Comment = "Затишно та комфортно. Рекомендую!",
-                    DateTime = DateTime.Now.AddDays(-6),
+                    DateTime = new DateTime(2024, 02, 16, 15, 28, 06),
                     Rating = 4.6
                 });
                 GuestComments.Add(new GuestComments
                 {
-                    GuestIdUser = 2,
-                    ApartmentId = 10,
-                    Comment = "Чисто, але було трохи холодно в кімнаті.",
-                    DateTime = DateTime.Now.AddDays(-9),
-                    Rating = 4.0
-                });
-                GuestComments.Add(new GuestComments
-                {
-                    GuestIdUser = 3,
-                    ApartmentId = 10,
-                    Comment = "Відмінне місце для відпочинку!",
-                    DateTime = DateTime.Now.AddDays(-10),
-                    Rating = 4.9
-                });
-                GuestComments.Add(new GuestComments
-                {
-                    GuestIdUser = 1,
-                    ApartmentId = 11,
-                    Comment = "Відмінно!",
-                    DateTime = DateTime.Now.AddDays(-1),
-                    Rating = 4.5
-                });
-                GuestComments.Add(new GuestComments
-                {
-                    GuestIdUser = 2,
-                    ApartmentId = 11,
-                    Comment = "Дуже задоволений!",
-                    DateTime = DateTime.Now.AddDays(-3),
-                    Rating = 5.0
-                });
-                GuestComments.Add(new GuestComments
-                {
-                    GuestIdUser = 3,
-                    ApartmentId = 12,
-                    Comment = "Супер!",
-                    DateTime = DateTime.Now.AddDays(-2),
-                    Rating = 4.8
-                });
-                GuestComments.Add(new GuestComments
-                {
-                    GuestIdUser = 4,
-                    ApartmentId = 12,
-                    Comment = "Чудово!",
-                    DateTime = DateTime.Now.AddDays(-4),
-                    Rating = 4.7
-                });
-                GuestComments.Add(new GuestComments
-                {
                     GuestIdUser = 5,
-                    ApartmentId = 11,
-                    Comment = "Прекрасне місце!",
-                    DateTime = DateTime.Now.AddDays(-5),
+                    ApartmentId = 8,
+                    Comment = "Чисто, але було трохи холодно в кімнаті.",
+                    DateTime = new DateTime(2024, 02, 13, 15, 28, 06),
+                    Rating = 4
+                });
+                GuestComments.Add(new GuestComments
+                {
+                    GuestIdUser = 3,
+                    ApartmentId = 8,
+                    Comment = "Відмінне місце для відпочинку!",
+                    DateTime = new DateTime(2024, 02, 12, 15, 28, 06),
                     Rating = 4.9
                 });
+
                 SaveChanges();
                 #endregion  
                 #region Chats

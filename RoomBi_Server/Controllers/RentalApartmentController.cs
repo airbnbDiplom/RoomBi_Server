@@ -18,8 +18,6 @@ namespace RoomBi_Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RentalApartmentDTOForStartPage>>> GetRentalApartments(int page = 1, int pageSize = 24)
         {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
             if (page == 2)
             {
                 var rentalApartments = await serviceForStartPage.GetAllForStartPage(page, pageSize);
@@ -27,9 +25,6 @@ namespace RoomBi_Server.Controllers
                 {
                     return NotFound();
                 }
-                stopwatch.Stop();
-                TimeSpan elapsedTime = stopwatch.Elapsed;
-                Console.WriteLine("Время выполнения: " + elapsedTime);
                 return Ok(rentalApartments);
             }
             else 
@@ -39,9 +34,6 @@ namespace RoomBi_Server.Controllers
                 {
                     return NotFound();
                 }
-                stopwatch.Stop();
-                TimeSpan elapsedTime = stopwatch.Elapsed;
-                Console.WriteLine("Время выполнения: " + elapsedTime);
                 return Ok(rentalApartments);
             }
             

@@ -39,7 +39,6 @@ namespace RoomBi.DAL
         public OfferedAmenities? OfferedAmenities { get; set; }
 
         public string TypeApartment { get; set; }// Жилье целиком // Комната // Общая комната
-
         public int LocationId { get; set; }
         public Location? Location { get; set; }
         public int HouseId { get; set; }

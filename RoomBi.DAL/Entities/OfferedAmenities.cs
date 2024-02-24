@@ -13,8 +13,6 @@
         public bool PaidParking { get; set; } // Платная парковка на территории
         public bool AirConditioner { get; set; } // Кондиционер
         public bool Workspace { get; set; } // Рабочая зона
-        public bool CashRegisterParticular { get; set; } // Касовий апарат 
-        public bool LargeKitchens { get; set; } // Великі кухні
 
         // Special features
         public string? SpecialFeatures { get; set; } // Есть ли у вас что-то особенное?
