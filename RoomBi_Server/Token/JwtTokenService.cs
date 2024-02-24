@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using RoomBi.BLL.DTO;
+using RoomBi.DAL;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -81,6 +82,37 @@ namespace RoomBi_Server.Token
 
             // Повертаємо представлення клеймів користувача
             return principal;
+        }
+        public UserDTO GetUserInfoFromToken(string token)
+        {
+            var principal = GetPrincipalFromExpiredToken(token);
+            var userInfo = new UserDTO();
+
+            foreach (var claim in principal.Claims)
+            {
+                switch (claim.Type)
+                {
+                    case "Id":
+                        userInfo.Id = int.Parse(claim.Value);
+                        break;
+                    case "Name":
+                        userInfo.Name = claim.Value;
+                        break;
+                    case "Email":
+                        userInfo.Email = claim.Value;
+                        break;
+                    case "ProfilePicture":
+                        userInfo.ProfilePicture = claim.Value;
+                        break;
+                    case "Country":
+                        userInfo.Country = claim.Value;
+                        break;
+                    case "Language":
+                        userInfo.Language = claim.Value;
+                        break;
+                }
+            }
+            return userInfo;
         }
 
         //отримати пошту з токену

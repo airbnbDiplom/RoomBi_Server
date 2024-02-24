@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
+using RoomBi_Server.Token;
 
 namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WishlistController(IServiceOfAll<WishlistDTO> wishlistService) : ControllerBase
+    public class WishlistController(IServiceOfAll<WishlistDTO> wishlistService, IJwtToken jwtTokenService, IServiceOfUser<UserDTO> serviceOfUser) : ControllerBase
     {
         //// GET: api/wishlists
         //[HttpGet]
@@ -45,13 +47,20 @@ namespace RoomBi_Server.Controllers
         //    return NoContent();
         //}
 
-        //// POST: api/wishlists
-        //[HttpPost]
-        //public async Task<ActionResult<WishlistDTO>> PostWishlist(WishlistDTO wishlist)
-        //{
-        //    await wishlistService.Create(wishlist);
-        //    return CreatedAtAction(nameof(GetWishlist), new { id = wishlist.Id }, wishlist);
-        //}
+        // POST: api/wishlists
+        [Authorize]
+        [HttpPost]
+        public /*async*/ Task<ActionResult<WishlistDTO>> PostWishlist(int id)
+        {
+            var token = HttpContext.Request.Headers.Authorization;
+            var principal = jwtTokenService.GetPrincipalFromExpiredToken(token);
+            //principal.Claims.Id;
+            //var principal = jwtTokenService.GetPrincipalFromExpiredToken(token.);
+            //var email = jwtTokenService.GetMailFromToken(principal);
+            //var user = await serviceOfUser.GetUserByEmail(email);
+            //await wishlistService.Create(wishlist);
+            return null;//CreatedAtAction(nameof(GetWishlist), new { id = wishlist.Id }, wishlist);
+        }
 
         //// DELETE: api/wishlists/5
         //[HttpDelete("{id}")]
