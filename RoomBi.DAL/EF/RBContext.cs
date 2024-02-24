@@ -2560,7 +2560,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "The Cromwell Collection5",
+                    PictureName = "bedroom",
                     PictureUrl = "5.jpg",
                     RentalApartmentId = 1
                 });
@@ -2585,13 +2585,13 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto4",
+                    PictureName = "bedroom",
                     PictureUrl = "24.jpg",
                     RentalApartmentId = 2
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto5",
+                    PictureName = "bedroom",
                     PictureUrl = "25.jpg",
                     RentalApartmentId = 2
                 });
@@ -2599,13 +2599,13 @@ namespace RoomBi.DAL.EF
 
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto1",
+                    PictureName = "bedroom",
                     PictureUrl = "31.jpg",
                     RentalApartmentId = 3
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto2",
+                    PictureName = "bedroom",
                     PictureUrl = "32.jpg",
                     RentalApartmentId = 3
                 });
@@ -2623,7 +2623,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto5",
+                    PictureName = "bedroom",
                     PictureUrl = "35.jpg",
                     RentalApartmentId = 3
                 });
@@ -2636,7 +2636,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto2",
+                    PictureName = "bedroom",
                     PictureUrl = "42.jpg",
                     RentalApartmentId = 4
                 });
@@ -2648,7 +2648,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto4",
+                    PictureName = "bedroom",
                     PictureUrl = "44.jpg",
                     RentalApartmentId = 4
                 });
@@ -2661,7 +2661,7 @@ namespace RoomBi.DAL.EF
 
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto1",
+                    PictureName = "bedroom",
                     PictureUrl = "51.jpg",
                     RentalApartmentId = 5
                 });
@@ -2704,7 +2704,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto3",
+                    PictureName = "bedroom",
                     PictureUrl = "63.jpg",
                     RentalApartmentId = 6
                 });
@@ -2720,6 +2720,7 @@ namespace RoomBi.DAL.EF
                     PictureUrl = "65.jpg",
                     RentalApartmentId = 6
                 });
+
                 Pictures.Add(new Picture
                 {
                     PictureName = "Foto1",
@@ -2740,7 +2741,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto4",
+                    PictureName = "bedroom",
                     PictureUrl = "74.jpg",
                     RentalApartmentId = 7
                 });
@@ -2760,7 +2761,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto2",
+                    PictureName = "bedroom",
                     PictureUrl = "82.jpg",
                     RentalApartmentId = 8
                 });
@@ -2792,7 +2793,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto2",
+                    PictureName = "bedroom",
                     PictureUrl = "92.jpg",
                     RentalApartmentId = 9
                 });
@@ -2822,7 +2823,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto2",
+                    PictureName = "bedroom",
                     PictureUrl = "102.jpg",
                     RentalApartmentId = 10
                 });
@@ -2852,7 +2853,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto2",
+                    PictureName = "bedroom",
                     PictureUrl = "112.webp",
                     RentalApartmentId = 11
                 });
@@ -2900,7 +2901,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto5",
+                    PictureName = "bedroom",
                     PictureUrl = "125.webp",
                     RentalApartmentId = 12
                 });
@@ -2912,19 +2913,19 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto2",
+                    PictureName = "bedroom",
                     PictureUrl = "132.webp",
                     RentalApartmentId = 13
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto3",
+                    PictureName = "bedroom",
                     PictureUrl = "133.webp",
                     RentalApartmentId = 13
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto4",
+                    PictureName = "bedroom",
                     PictureUrl = "134.webp",
                     RentalApartmentId = 13
                 });
@@ -2942,7 +2943,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto2",
+                    PictureName = "bedroom",
                     PictureUrl = "142.webp",
                     RentalApartmentId = 14
                 });
@@ -2972,7 +2973,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto2",
+                    PictureName = "bedroom",
                     PictureUrl = "152.webp",
                     RentalApartmentId = 15
                 });
@@ -3002,7 +3003,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto2",
+                    PictureName = "bedroom",
                     PictureUrl = "162.webp",
                     RentalApartmentId = 16
                 });
@@ -3038,7 +3039,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto3",
+                    PictureName = "bedroom",
                     PictureUrl = "173.webp",
                     RentalApartmentId = 17
                 });
@@ -3080,7 +3081,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto5",
+                    PictureName = "bedroom",
                     PictureUrl = "185.webp",
                     RentalApartmentId = 18
                 });
@@ -3098,7 +3099,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto3",
+                    PictureName = "bedroom",
                     PictureUrl = "193.webp",
                     RentalApartmentId = 19
                 });
@@ -3122,7 +3123,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto2",
+                    PictureName = "bedroom",
                     PictureUrl = "202.webp",
                     RentalApartmentId = 20
                 });
@@ -3170,7 +3171,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto5",
+                    PictureName = "bedroom",
                     PictureUrl = "215.webp",
                     RentalApartmentId = 21
                 });
@@ -3194,7 +3195,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto4",
+                    PictureName = "bedroom",
                     PictureUrl = "224.webp",
                     RentalApartmentId = 22
                 });
@@ -3230,7 +3231,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto5",
+                    PictureName = "bedroom",
                     PictureUrl = "235.webp",
                     RentalApartmentId = 23
                 });
@@ -3248,7 +3249,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto3",
+                    PictureName = "bedroom",
                     PictureUrl = "243.webp",
                     RentalApartmentId = 24
                 });
@@ -3278,19 +3279,19 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto3",
+                    PictureName = "bedroom",
                     PictureUrl = "253.webp",
                     RentalApartmentId = 25
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto4",
+                    PictureName = "bedroom",
                     PictureUrl = "254.webp",
                     RentalApartmentId = 25
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto5",
+                    PictureName = "bedroom",
                     PictureUrl = "255.webp",
                     RentalApartmentId = 25
                 });
@@ -3314,7 +3315,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto4",
+                    PictureName = "bedroom",
                     PictureUrl = "264.webp",
                     RentalApartmentId = 26
                 });
@@ -3332,7 +3333,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto2",
+                    PictureName = "bedroom",
                     PictureUrl = "272.webp",
                     RentalApartmentId = 27
                 });
@@ -3380,7 +3381,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto5",
+                    PictureName = "bedroom",
                     PictureUrl = "285.webp",
                     RentalApartmentId = 28
                 });
@@ -3410,7 +3411,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto5",
+                    PictureName = "bedroom",
                     PictureUrl = "295.webp",
                     RentalApartmentId = 29
                 });
@@ -3428,7 +3429,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto3",
+                    PictureName = "bedroom",
                     PictureUrl = "303.webp",
                     RentalApartmentId = 30
                 });
@@ -3470,10 +3471,11 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto5",
+                    PictureName = "bedroom",
                     PictureUrl = "315.webp",
                     RentalApartmentId = 31
                 });
+
                 Pictures.Add(new Picture
                 {
                     PictureName = "Foto1",
@@ -3482,7 +3484,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto2",
+                    PictureName = "bedroom",
                     PictureUrl = "322.webp",
                     RentalApartmentId = 32
                 });
@@ -3494,16 +3496,81 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
+                    PictureName = "bedroom",
+                    PictureUrl = "324.webp",
+                    RentalApartmentId = 32
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "bedroom",
+                    PictureUrl = "325.webp",
+                    RentalApartmentId = 32
+                });
+
+
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "331.webp",
+                    RentalApartmentId = 32
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "332.webp",
+                    RentalApartmentId = 32
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "bedroom",
+                    PictureUrl = "333.webp",
+                    RentalApartmentId = 32
+                });
+                Pictures.Add(new Picture
+                {
                     PictureName = "Foto4",
                     PictureUrl = "334.webp",
                     RentalApartmentId = 33
                 });
                 Pictures.Add(new Picture
                 {
+                    PictureName = "Foto3",
+                    PictureUrl = "335.webp",
+                    RentalApartmentId = 32
+                });
+
+                Pictures.Add(new Picture
+                {
                     PictureName = "Foto5",
-                    PictureUrl = "345.webp",
+                    PictureUrl = "341.webp",
                     RentalApartmentId = 34
                 });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "342.webp",
+                    RentalApartmentId = 32
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "343.webp",
+                    RentalApartmentId = 32
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "bedroom",
+                    PictureUrl = "344.webp",
+                    RentalApartmentId = 32
+                });
+                Pictures.Add(new Picture
+                {
+                    PictureName = "Foto3",
+                    PictureUrl = "345.webp",
+                    RentalApartmentId = 32
+                });
+
+
                 Pictures.Add(new Picture
                 {
                     PictureName = "Foto1",
@@ -3530,10 +3597,12 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto5",
+                    PictureName = "bedroom",
                     PictureUrl = "355.webp",
                     RentalApartmentId = 35
                 });
+
+
                 Pictures.Add(new Picture
                 {
                     PictureName = "Foto1",
@@ -3560,7 +3629,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto5",
+                    PictureName = "bedroom",
                     PictureUrl = "365.webp",
                     RentalApartmentId = 36
                 });
@@ -3584,7 +3653,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto4",
+                    PictureName = "bedroom",
                     PictureUrl = "374.webp",
                     RentalApartmentId = 37
                 });
@@ -3620,7 +3689,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto5",
+                    PictureName = "bedroom",
                     PictureUrl = "385.webp",
                     RentalApartmentId = 38
                 });
@@ -3638,13 +3707,13 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto3",
+                    PictureName = "bedroom",
                     PictureUrl = "393.webp",
                     RentalApartmentId = 39
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto4",
+                    PictureName = "bedroom",
                     PictureUrl = "394.webp",
                     RentalApartmentId = 39
                 });
@@ -3668,7 +3737,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto3",
+                    PictureName = "bedroom",
                     PictureUrl = "403.webp",
                     RentalApartmentId = 40
                 });
@@ -3698,13 +3767,13 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto3",
+                    PictureName = "bedroom",
                     PictureUrl = "413.webp",
                     RentalApartmentId = 41
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto4",
+                    PictureName = "bedroom",
                     PictureUrl = "414.webp",
                     RentalApartmentId = 41
                 });
@@ -3728,7 +3797,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto3",
+                    PictureName = "bedroom",
                     PictureUrl = "423.webp",
                     RentalApartmentId = 42
                 });
@@ -3752,13 +3821,13 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto2",
+                    PictureName = "bedroom",
                     PictureUrl = "432.webp",
                     RentalApartmentId = 43
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto3",
+                    PictureName = "bedroom",
                     PictureUrl = "433.webp",
                     RentalApartmentId = 43
                 });
@@ -3782,7 +3851,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto2",
+                    PictureName = "bedroom",
                     PictureUrl = "442.webp",
                     RentalApartmentId = 44
                 });
@@ -3824,7 +3893,7 @@ namespace RoomBi.DAL.EF
                 });
                 Pictures.Add(new Picture
                 {
-                    PictureName = "Foto4",
+                    PictureName = "bedroom",
                     PictureUrl = "454.webp",
                     RentalApartmentId = 45
                 });
