@@ -86,7 +86,7 @@ namespace RoomBi_Server.Token
         public UserDTO GetUserInfoFromToken(string token)
         {
             var principal = GetPrincipalFromExpiredToken(token);
-            var userInfo = new UserDTO();
+            UserDTO userInfo = new UserDTO();
 
             foreach (var claim in principal.Claims)
             {
@@ -132,7 +132,21 @@ namespace RoomBi_Server.Token
             }
             return email;
         }
-
+        public int GetIdFromToken(string token)
+        {
+            var principal = GetPrincipalFromExpiredToken(token);
+            int id = 1;
+            var claims = principal.Claims;
+            foreach (var claim in claims)
+            {
+                if (claim.Type == "Id")
+                {
+                    id = int.Parse(claim.Value);
+                    return id;
+                }
+            }
+            return id;
+        }
         // Створення GenerateRefreshToken
         public string GenerateRefreshToken()
         {

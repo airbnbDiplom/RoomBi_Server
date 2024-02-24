@@ -50,16 +50,12 @@ namespace RoomBi_Server.Controllers
         // POST: api/wishlists
         [Authorize]
         [HttpPost]
-        public /*async*/ Task<ActionResult<WishlistDTO>> PostWishlist(int id)
+        public async Task<IActionResult> PostWishlist(int id)
         {
             var token = HttpContext.Request.Headers.Authorization;
-            var principal = jwtTokenService.GetPrincipalFromExpiredToken(token);
-            //principal.Claims.Id;
-            //var principal = jwtTokenService.GetPrincipalFromExpiredToken(token.);
-            //var email = jwtTokenService.GetMailFromToken(principal);
-            //var user = await serviceOfUser.GetUserByEmail(email);
-            //await wishlistService.Create(wishlist);
-            return null;//CreatedAtAction(nameof(GetWishlist), new { id = wishlist.Id }, wishlist);
+            WishlistDTO wishlistDTO = new() { ApartmentId = id, UserId = jwtTokenService.GetIdFromToken(token) };
+            await wishlistService.Create(wishlistDTO);
+            return Ok("Ok");
         }
 
         //// DELETE: api/wishlists/5

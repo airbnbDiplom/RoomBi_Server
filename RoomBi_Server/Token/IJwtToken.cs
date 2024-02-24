@@ -12,9 +12,11 @@ namespace RoomBi_Server.Token
 
         //оновлення токену  
         public ClaimsPrincipal GetPrincipalFromExpiredToken(string? token);
+        public UserDTO GetUserInfoFromToken(string? token);
 
         //отримати пошту з токену
         public string GetMailFromToken(ClaimsPrincipal principal);
+        public int GetIdFromToken(string? token);
 
         // Створення GenerateRefreshToken
         public string GenerateRefreshToken();
