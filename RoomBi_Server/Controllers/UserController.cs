@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
+using RoomBi.DAL;
 using RoomBi_Server.Token;
  
 namespace RoomBi_Server.Controllers
@@ -21,52 +22,67 @@ namespace RoomBi_Server.Controllers
         {
             try
             {
-                switch (request.Type)
+                UserDTO user = new UserDTO();
+                user.Email = request.Email;
+                //var user = await serviceOfUser.GetUserByEmail(request.Email);
+                var newToken = jwtTokenService.GetToken(user);
+                var newRefreshToken = jwtTokenService.GenerateRefreshToken();
+                //user.RefreshToken = newRefreshToken;
+                //await userService.Update(user);
+                var response = new AuthenticationResponseDTO
                 {
-                    case "register":
-                        if (await serviceOfUser.GetBoolByEmail(request.Email))
-                        {
-                            return Ok("Ok");
-                        }
-                        else
-                            return Ok("Користувач з таким email існує");
-                    case "login":
-                        var user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
-                        if (user == null)
-                        {
-                            return Ok("Користувач з таким email або password не існує");
-                        }
-                        var token = jwtTokenService.GetToken(user);
-                        var refreshToken = jwtTokenService.GenerateRefreshToken();
-                        user.RefreshToken = refreshToken;
-                        await serviceOfUser.UpdateRefreshToken(user);
-                        var response2 = new AuthenticationResponseDTO
-                        {
-                            Token = token,
-                            RefreshToken = refreshToken
-                        };
-                        return Ok(response2);
+                    Token = newToken,
+                    RefreshToken = newRefreshToken
+                };
+                return Ok(response);
 
-                    case "google":
-                        user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
-                        if (user == null)
-                        {
-                            return Ok("Користувач з таким email або password не існує");
-                        }
-                        token = jwtTokenService.GetToken(user);
-                        refreshToken = jwtTokenService.GenerateRefreshToken();
-                        user.RefreshToken = refreshToken;
-                        await serviceOfUser.UpdateRefreshToken(user);
-                        response2 = new AuthenticationResponseDTO
-                        {
-                            Token = token,
-                            RefreshToken = refreshToken
-                        };
-                        return Ok(response2);
 
-                    default:
-                        return BadRequest("request failed");
-                }
+                //switch (request.Type)
+                //{
+                //    case "register":
+                //        if (await serviceOfUser.GetBoolByEmail(request.Email))
+                //        {
+                //            return Ok("Ok");
+                //        }
+                //        else
+                //            return Ok("Користувач з таким email існує");
+                //    case "login":
+                //        var user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
+                //        if (user == null)
+                //        {
+                //            return Ok("Користувач з таким email або password не існує");
+                //        }
+                //        var token = jwtTokenService.GetToken(user);
+                //        var refreshToken = jwtTokenService.GenerateRefreshToken();
+                //        user.RefreshToken = refreshToken;
+                //        await serviceOfUser.UpdateRefreshToken(user);
+                //        var response2 = new AuthenticationResponseDTO
+                //        {
+                //            Token = token,
+                //            RefreshToken = refreshToken
+                //        };
+                //        return Ok(response2);
+
+                //    case "google":
+                //        user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
+                //        if (user == null)
+                //        {
+                //            return Ok("Користувач з таким email або password не існує");
+                //        }
+                //        token = jwtTokenService.GetToken(user);
+                //        refreshToken = jwtTokenService.GenerateRefreshToken();
+                //        user.RefreshToken = refreshToken;
+                //        await serviceOfUser.UpdateRefreshToken(user);
+                //        response2 = new AuthenticationResponseDTO
+                //        {
+                //            Token = token,
+                //            RefreshToken = refreshToken
+                //        };
+                //        return Ok(response2);
+
+                //    default:
+                //        return BadRequest("request failed");
+                //}
 
             }
             catch (Exception ex)

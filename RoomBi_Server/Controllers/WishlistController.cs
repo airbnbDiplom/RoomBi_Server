@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Jose;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoomBi.BLL.DTO;
@@ -9,8 +10,28 @@ namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WishlistController(IServiceOfAll<WishlistDTO> wishlistService, IJwtToken jwtTokenService, IServiceOfUser<UserDTO> serviceOfUser) : ControllerBase
+    public class WishlistController(IServiceOfAll<WishlistDTO> wishlistService, IJwtToken jwtTokenService) : ControllerBase
     {
+
+        // POST: api/wishlists
+        [Authorize]
+        [HttpPost("wish")]
+        public async Task<ActionResult<WishlistDTO>> PostWishlist([FromBody] int id)
+        {
+            var token = HttpContext.Request.Headers.Authorization;
+            WishlistDTO wishlistDTO = new() { ApartmentId = id, UserId = jwtTokenService.GetIdFromToken(token) };
+            //await wishlistService.Create(wishlistDTO);
+            var response = new AuthenticationResponseDTO
+            {
+                Token = "Token",
+                RefreshToken = "[Authorize]"
+            };
+            return Ok(response);
+
+        }
+
+
+
         //// GET: api/wishlists
         //[HttpGet]
         //public async Task<ActionResult<IEnumerable<WishlistDTO>>> GetWishlists()
@@ -24,16 +45,17 @@ namespace RoomBi_Server.Controllers
         //}
 
         //// GET: api/wishlists/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<WishlistDTO>> GetWishlist(int id)
-        //{
-        //    var wishlist = await wishlistService.Get(id);
-        //    if (wishlist == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return wishlist;
-        //}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<WishlistDTO>> GetWishlist(int id)
+        {
+            //var wishlist = await wishlistService.Get(id);
+            //if (wishlist == null)
+            //{
+            //    return NotFound();
+            //}
+            //return wishlist;
+            return Ok("Ok");
+        }
 
         //// PUT: api/wishlists/5
         //[HttpPut("{id}")]
@@ -47,16 +69,7 @@ namespace RoomBi_Server.Controllers
         //    return NoContent();
         //}
 
-        // POST: api/wishlists
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> PostWishlist(int id)
-        {
-            var token = HttpContext.Request.Headers.Authorization;
-            WishlistDTO wishlistDTO = new() { ApartmentId = id, UserId = jwtTokenService.GetIdFromToken(token) };
-            await wishlistService.Create(wishlistDTO);
-            return Ok("Ok");
-        }
+
 
         //// DELETE: api/wishlists/5
         //[HttpDelete("{id}")]

@@ -1,16 +1,35 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
+using RoomBi.DAL;
+using RoomBi_Server.Token;
 
 namespace RoomBi_Server.Controllers
 {
 
     [Route("api/[controller]")]
     [ApiController]
-    public class BookingsController(IServiceBooking<DateBooking> bookingService) : ControllerBase
+    public class BookingsController(IServiceBooking<DateBooking> bookingService, IJwtToken jwtTokenService) : ControllerBase
     {
+        //[Authorize]
+        // POST: api/Bookings
+        [HttpPost]
+        public async Task<IActionResult> PostBooking(BookingDTO booking)
+        {
+            var token = HttpContext.Request.Headers.Authorization;
+            booking.OwnerId = jwtTokenService.GetIdFromToken(token);
+
+
+            var response = "Получила DateBooking booking и token";
+            return Ok(response);
+       
+        }
+
+
+
         // GET: api/Bookings
         //[HttpGet]
         //public async Task<ActionResult<IEnumerable<DateBooking>>> GetBookings()
@@ -47,15 +66,6 @@ namespace RoomBi_Server.Controllers
         //    return NoContent();
         //}
 
-        // POST: api/Bookings
-        [HttpPost]
-        public async Task<ActionResult<DateBooking>> PostBooking(DateBooking booking)
-        {
-            //await bookingService.CreateBooking(booking);
-            var response = "Получила DateBooking booking";
-            return Ok(response);
-            //return CreatedAtAction(nameof(GetBooking), new { id = booking.Id }, booking);
-        }
 
         // DELETE: api/Bookings/5
         //[HttpDelete("{id}")]
