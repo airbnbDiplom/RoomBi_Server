@@ -26,15 +26,19 @@ namespace RoomBi.DAL
         public DateTime? DateOfBirth { get; set; }
         public DateTime? AirbnbRegistrationYear { get; set; }
         public string? ProfilePicture { get; set; }
-        public string? RefreshToken { get; set; }
-        public string? Hash { get; set; }
+ 
         public bool CurrentStatus { get; set; } //bool
         public bool UserStatus { get; set; }//bool
         public int LanguageId { get; set; } = 1;
         public int CountryId { get; set; } = 1;
-        public string? Salt { get; set; }
 
+        public string? RefreshToken { get; set; }
+        public string? Hash { get; set; }
+        public string? Salt { get; set; }
         public bool IsGoogleServiceUsed { get; set; }
+
+
+
         public Country? Country { get; set; }
         public Language? Language { get; set; }
        

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class UserRepository(RBContext context) : IRepositoryOfAll<User>, IRepositoryGetEmail<User>
+    public class UserRepository(RBContext context) : IRepositoryOfAll<User>, IRepositoryGetEmailAndPassword<User>
     {
         private readonly RBContext context = context;
 
@@ -28,7 +28,10 @@ namespace RoomBi.DAL.Repositories
             //User user = new User();
             return await context.Users.FirstOrDefaultAsync(m => m.Email == email);
         }
-
+        public async Task<User> GetPassword(string password)
+        {
+            return await context.Users.FirstOrDefaultAsync(m => m.Password == password);
+        }
         public async Task Create(User item)
         {
             await context.Users.AddAsync(item);
@@ -43,6 +46,8 @@ namespace RoomBi.DAL.Repositories
             if (item != null)
                 context.Users.Remove(item);
         }
+
+      
     }
 }
 

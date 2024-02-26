@@ -77,7 +77,7 @@ namespace RoomBi.DAL.Repositories
         private RentalApartmentRepository _apartment24Repository;
         public IRepositoryGet24<RentalApartment> Apartment24 => _apartment24Repository ??= new RentalApartmentRepository(_context);
         private UserRepository _userRepository2;
-        public IRepositoryGetEmail<User> UserGetEmail => _userRepository2 ??= new UserRepository(_context);
+        public IRepositoryGetEmailAndPassword<User> UserGetEmailAndPassword => _userRepository2 ??= new UserRepository(_context);
 
         private LanguageRepository _languageRepository2;
         public IRepositoryGetName<Language> LanguageGetName => _languageRepository2 ??= new LanguageRepository(_context);

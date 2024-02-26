@@ -16,16 +16,31 @@ namespace RoomBi.BLL.Services
         IUnitOfWork Database { get; set; } = uow;
         public async Task<Boolean> GetBoolByEmail(string email)
         {
-            var user = await Database.UserGetEmail.GetEmail(email);
+            var user = await Database.UserGetEmailAndPassword.GetEmail(email);
             if (user != null) { throw new Exception("Користувач з таким email існує."); }
-          
             return true;
+        }
+        public async Task<Boolean> GetBoolByPassword(string password)
+        {
+            var user = await Database.UserGetEmailAndPassword.GetPassword(password); 
+            if (user == null)
+            {
+                throw new Exception("Користувач не знайден.");
+            }
+            if (user.Password == "google")
+            {
+                return true;
+            }
+            byte[] savedHash = Convert.FromBase64String(user.Password);
+            byte[] savedSalt = Convert.FromBase64String(user.Salt);
+            var pbkdf2 = new Rfc2898DeriveBytes(password, savedSalt, 10000);
+            byte[] newHash = pbkdf2.GetBytes(20);
+            return newHash.SequenceEqual(savedHash);
         }
         public async Task<UserDTO> GetUserByEmail(string email)
         {
-            var user = await Database.UserGetEmail.GetEmail(email);
-            if (user == null)
-                throw new NotImplementedException();
+            var user = await Database.UserGetEmailAndPassword.GetEmail(email);
+            if (user != null) { throw new Exception("Користувач з таким email існує."); }
             var language = await Database.Languages.Get(user.LanguageId);
             var contry = await Database.Country.Get(user.CountryId);
             return new UserDTO
@@ -60,62 +75,12 @@ namespace RoomBi.BLL.Services
             await Database.User.Delete(id);
             //await Database.Save();
         }
-        public async Task<UserDTO> GetByEmailAndPassword(string email, string password)
+        public async Task Create(UserDTO userDto)
         {
-            //reg
-            //Користувач з таким email існує
-
-            //login
-            //"Користувач був зареєстрований через сервіси Google."
-            //Користувач з таким email або password не існує"
-
-            //Користувач та його password "
-            var user = await Database.UserGetEmail.GetEmail(email);
-            if (password != "google" && user.Password == "google")
+            var temp = await Database.UserGetEmailAndPassword.GetEmail(userDto.Email);
+            if (temp != null)
             {
-                    throw new Exception("Користувач був зареєстрований через сервіси Google.");
-            }
-                var saltBytes = Convert.FromBase64String(user.Salt);
-                var pbkdf2 = new Rfc2898DeriveBytes(password, saltBytes, 10000);
-                byte[] hash = pbkdf2.GetBytes(20);
-            string inputPasswordHash = Convert.ToBase64String(hash);
-
-            if (user.Password != inputPasswordHash)
-            {
-                throw new Exception("Користувач з таким email або password не існує");
-            }
-            //var language = await Database.Languages.Get(user.LanguageId);
-            //var contry = await Database.Country.Get(user.CountryId);
-            return new UserDTO
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Password = user.Password,
-                Email = user.Email,
-                Address = user.Address,
-                PhoneNumber = user.PhoneNumber,
-                DateOfBirth = user.DateOfBirth,
-                AirbnbRegistrationYear = user.AirbnbRegistrationYear,
-                ProfilePicture = user.ProfilePicture,
-                RefreshToken = user.RefreshToken,
-                Hash = user.Hash,
-                CurrentStatus = user.CurrentStatus,
-                UserStatus = user.UserStatus,
-                Language = user.Language?.Name,
-                Country = user.Country?.Name,
-
-            };
-
-          
-        }
-        public async Task<UserDTO> RegisterByEmailAndPassword(string email, string password)
-        {
-            var existingUsers = await Database.User.GetAll();
-            var existingUser = existingUsers.FirstOrDefault(u => u.Email == email);
-
-            if (existingUser != null)
-            {
-                if (existingUser.IsGoogleServiceUsed)
+                if (temp.IsGoogleServiceUsed)
                 {
                     throw new Exception("Користувач з таким email вже існує і він використовував сервіс Google для входу");
                 }
@@ -124,101 +89,68 @@ namespace RoomBi.BLL.Services
                     throw new Exception("Користувач з таким email вже існує");
                 }
             }
-            var user = new User();
-            if (password == "google")
+            User user = new()
             {
-                user.Password = password;
-                user.Email = email;
+                Password = userDto.Password,
+                Email = userDto.Email,
+                RefreshToken = userDto.RefreshToken,
+            };
+            if (userDto.Password == "google")
+            {
                 user.IsGoogleServiceUsed = true;
             }
             else
             {
-                // Generate a salt
-                byte[] salt;
-                new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
-
-                // Generate the hashed password
-                var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+                byte[] salt = new byte[16];
+                using (var rng = RandomNumberGenerator.Create())
+                {
+                    rng.GetBytes(salt);
+                }
+                var pbkdf2 = new Rfc2898DeriveBytes(user.Password, salt, 10000);
                 byte[] hash = pbkdf2.GetBytes(20);
 
-                // Convert the byte array to a string
-                string savedPasswordHash = Convert.ToBase64String(hash);
-                user.Password = savedPasswordHash;
-                user.Salt = Convert.ToBase64String(salt);// Save the salt
-                user.Email = email;
+                user.Password = Convert.ToBase64String(hash);
+                user.Salt = Convert.ToBase64String(salt);
                 user.IsGoogleServiceUsed = false;
             }
             await Database.User.Create(user);
             await Database.Save();
-            var language = await Database.Languages.Get(user.LanguageId);
-            var contry = await Database.Country.Get(user.CountryId);
-            var userDto = new UserDTO
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Password = user.Password,
-                Email = user.Email,
-                Address = user.Address,
-                PhoneNumber = user.PhoneNumber,
-                DateOfBirth = user.DateOfBirth,
-                AirbnbRegistrationYear = user.AirbnbRegistrationYear,
-                ProfilePicture = user.ProfilePicture,
-                RefreshToken = user.RefreshToken,
-                Hash = user.Hash,
-                CurrentStatus = user.CurrentStatus,
-                UserStatus = user.UserStatus,
-                Language = language.Name,
-                Country = contry.Name
-            };
-
-            return userDto;
         }
 
 
 
-        public async Task Create(UserDTO userDTO)
+
+        public async Task RegisterRequest(RequestUser requestUser)
         {
+  
 
-            var existingUsers = await Database.User.GetAll();
-            var existingUser = existingUsers.FirstOrDefault(u => u.Email == userDTO.Email);
+            //    byte[] salt;
+            //    new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
 
-            if (existingUser != null)
-            {
-                if (existingUser.IsGoogleServiceUsed)
-                {
-                    throw new Exception("Користувач з таким email вже існує і він використовував сервіс Google для входу");
-                }
-                else
-                {
-                    throw new Exception("Користувач з таким email вже існує");
-                }
-            }
-            var user = new User();
-            if (userDTO.Password == "google")
-            {
-                user.Password = userDTO.Password;
-                user.Email = userDTO.Email;
-                user.IsGoogleServiceUsed = true;
-            }
-            else
-            {
-                // Generate a salt
-                byte[] salt;
-                new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+            //    // Generate the hashed password
+            //    var pbkdf2 = new Rfc2898DeriveBytes(userDTO.Password, salt, 10000);
+            //    byte[] hash = pbkdf2.GetBytes(20);
 
-                // Generate the hashed password
-                var pbkdf2 = new Rfc2898DeriveBytes(userDTO.Password, salt, 10000);
-                byte[] hash = pbkdf2.GetBytes(20);
+            //    // Convert the byte array to a string
+            //    string savedPasswordHash = Convert.ToBase64String(hash);
+            //    user.Password = savedPasswordHash;
+            //    user.Salt = Convert.ToBase64String(salt);// Save the salt
+            //    user.Email = userDTO.Email;
+            //    user.IsGoogleServiceUsed = false;
+            ////}
+            //await Database.User.Create(user);
+            //await Database.Save();
 
-                // Convert the byte array to a string
-                string savedPasswordHash = Convert.ToBase64String(hash);
-                user.Password = savedPasswordHash;
-                user.Salt = Convert.ToBase64String(salt);// Save the salt
-                user.Email = userDTO.Email;
-                user.IsGoogleServiceUsed = false;
-            }
-            await Database.User.Create(user);
-            await Database.Save();
+
+            //if (userDTO.Password == "google")
+            //{
+            //    user.Password = userDTO.Password;
+            //    user.Email = userDTO.Email;
+            //    user.IsGoogleServiceUsed = true;
+            //}
+            //else
+            //{
+            // Generate a salt
         }
         public async Task Update(UserDTO userDTO)
         {
