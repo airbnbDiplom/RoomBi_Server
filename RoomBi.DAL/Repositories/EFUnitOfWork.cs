@@ -34,6 +34,9 @@ namespace RoomBi.DAL.Repositories
         private ChatRepository _chatRepository;
         public IRepositoryOfAll<Chat> Chat => _chatRepository ??= new ChatRepository(_context);
 
+        private СontinentRepository _continentRepository;
+        public IRepositoryOfAll<Сontinent> Сontinent => _continentRepository ??= new СontinentRepository(_context);
+
         private CountryRepository _countryRepository;
         public IRepositoryOfAll<Country> Country => _countryRepository ??= new CountryRepository(_context);
 

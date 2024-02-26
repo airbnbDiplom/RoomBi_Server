@@ -8,7 +8,7 @@ using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
 using RoomBi.DAL;
 using RoomBi_Server.Token;
- 
+
 namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
@@ -16,73 +16,118 @@ namespace RoomBi_Server.Controllers
     public class UserController(IServiceOfAll<UserDTO> userService, IServiceOfUser<UserDTO> serviceOfUser,
         IJwtToken jwtTokenService) : ControllerBase
     {
+        public async Task<AuthenticationResponseDTO> AuthenticateUser(UserDTO user)
+        {
+            var token = jwtTokenService.GetToken(user);
+            var refreshToken = jwtTokenService.GenerateRefreshToken();
+            user.RefreshToken = refreshToken;
+            await serviceOfUser.UpdateRefreshToken(user);
+
+            var response = new AuthenticationResponseDTO
+            {
+                Token = token,
+                RefreshToken = refreshToken
+            };
+
+            return response;
+        }
+
         // POST: api/users
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> RegisterUser([FromBody] RequestUser request)
         {
             try
             {
-                UserDTO user = new UserDTO();
-                user.Email = request.Email;
-                //var user = await serviceOfUser.GetUserByEmail(request.Email);
-                var newToken = jwtTokenService.GetToken(user);
-                var newRefreshToken = jwtTokenService.GenerateRefreshToken();
-                //user.RefreshToken = newRefreshToken;
-                //await userService.Update(user);
-                var response = new AuthenticationResponseDTO
-                {
-                    Token = newToken,
-                    RefreshToken = newRefreshToken
-                };
-                return Ok(response);
-
-
-                //switch (request.Type)
+                //UserDTO user = new UserDTO();
+                //user.Email = request.Email;
+                ////var user = await serviceOfUser.GetUserByEmail(request.Email);
+                //var newToken = jwtTokenService.GetToken(user);
+                //var newRefreshToken = jwtTokenService.GenerateRefreshToken();
+                ////user.RefreshToken = newRefreshToken;
+                ////await userService.Update(user);
+                //var response = new AuthenticationResponseDTO
                 //{
-                //    case "register":
-                //        if (await serviceOfUser.GetBoolByEmail(request.Email))
-                //        {
-                //            return Ok("Ok");
-                //        }
-                //        else
-                //            return Ok("Користувач з таким email існує");
-                //    case "login":
-                //        var user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
-                //        if (user == null)
-                //        {
-                //            return Ok("Користувач з таким email або password не існує");
-                //        }
-                //        var token = jwtTokenService.GetToken(user);
-                //        var refreshToken = jwtTokenService.GenerateRefreshToken();
-                //        user.RefreshToken = refreshToken;
-                //        await serviceOfUser.UpdateRefreshToken(user);
-                //        var response2 = new AuthenticationResponseDTO
-                //        {
-                //            Token = token,
-                //            RefreshToken = refreshToken
-                //        };
-                //        return Ok(response2);
+                //    Token = newToken,
+                //    RefreshToken = newRefreshToken
+                //};
+                //return Ok(response);
 
-                //    case "google":
-                //        user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
-                //        if (user == null)
-                //        {
-                //            return Ok("Користувач з таким email або password не існує");
-                //        }
-                //        token = jwtTokenService.GetToken(user);
-                //        refreshToken = jwtTokenService.GenerateRefreshToken();
-                //        user.RefreshToken = refreshToken;
-                //        await serviceOfUser.UpdateRefreshToken(user);
-                //        response2 = new AuthenticationResponseDTO
-                //        {
-                //            Token = token,
-                //            RefreshToken = refreshToken
-                //        };
-                //        return Ok(response2);
 
-                //    default:
-                //        return BadRequest("request failed");
-                //}
+                switch (request.Type)
+                {
+                    case "register":
+                        try
+                        {
+                            await serviceOfUser.GetBoolByEmail(request.Email);
+                            return Ok("Ok");
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    case "register2":
+                        try
+                        {
+                            //await serviceOfUser.RegisterUser(request.Email);
+
+
+                            //AuthenticateUser(user);
+                            return Ok("User registered successfully");
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    case "login":
+                      
+                        try
+                        {
+                            var user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
+                            if (user == null)
+                            {
+                                return Ok("Користувач з таким email або password не існує");
+                            }
+                            var token = jwtTokenService.GetToken(user);
+                            var refreshToken = jwtTokenService.GenerateRefreshToken();
+                            user.RefreshToken = refreshToken;
+                            await serviceOfUser.UpdateRefreshToken(user);
+                            var response = new AuthenticationResponseDTO
+                            {
+                                Token = token,
+                                RefreshToken = refreshToken
+                            };
+                            return Ok(response);
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    case "google":
+                        try
+                        {
+                            var user2 = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
+                            if (user2 == null)
+                            {
+                                return Ok("Користувач з таким email або password не існує");
+                            }
+                            var token2 = jwtTokenService.GetToken(user2);
+                            var refreshToken2 = jwtTokenService.GenerateRefreshToken();
+                            user2.RefreshToken = refreshToken2;
+                            await serviceOfUser.UpdateRefreshToken(user2);
+                            var response2 = new AuthenticationResponseDTO
+                            {
+                                Token = token2,
+                                RefreshToken = refreshToken2
+                            };
+                            return Ok(response2);
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    default:
+                        return BadRequest("Invalid request type");
+                }
 
             }
             catch (Exception ex)
@@ -99,7 +144,7 @@ namespace RoomBi_Server.Controllers
             var token = HttpContext.Request.Headers.Authorization;
 
             //await userService.Delete(id);
-          
+
             return Ok(token);
         }
 
@@ -117,7 +162,7 @@ namespace RoomBi_Server.Controllers
             {
                 return BadRequest("Invalid token");
             }
-            var newToken = jwtTokenService.GetToken(user); 
+            var newToken = jwtTokenService.GetToken(user);
             var newRefreshToken = jwtTokenService.GenerateRefreshToken();
             user.RefreshToken = newRefreshToken;
             await userService.Update(user);
@@ -182,7 +227,7 @@ namespace RoomBi_Server.Controllers
         }
 
         //POST: api/users/login
-       [HttpPost("login")]
+        [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login([FromBody] RequestUser request)
         {
             var user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);

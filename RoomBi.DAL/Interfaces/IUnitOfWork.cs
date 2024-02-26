@@ -16,6 +16,7 @@ namespace RoomBi.DAL.Interfaces
         IRepositoryOfAll<EmergencyContactPerson> EmergencyContactPerson { get; }
         IRepositoryOfAll<Chat> Chat { get; }
         IRepositoryOfAll<Country> Country { get; }
+        IRepositoryOfAll<Сontinent> Сontinent { get; }
         IRepositoryOfAll<Booking> Booking { get; }
         IRepositoryOfAll<OfferedAmenities> OfferedAmenities { get; }
         IRepositoryOfAll<Picture> Picture { get; }

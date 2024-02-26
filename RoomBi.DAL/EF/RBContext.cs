@@ -21,6 +21,11 @@ namespace RoomBi.DAL.EF
         {
             if (Database.EnsureCreated())
             {
+                Сontinent.Add(new Сontinent { Name = "Европа" });
+                Сontinent.Add(new Сontinent { Name = "Африка" });
+                Сontinent.Add(new Сontinent { Name = "Северная Америка" });
+                Сontinent.Add(new Сontinent { Name = "Южная Америка" });
+                Сontinent.Add(new Сontinent { Name = "Австралия" });
                 #region Languages
                 Languages.Add(new Language { Name = "Англійська" }); // English
                 Languages.Add(new Language { Name = "Українська" });
@@ -3919,6 +3924,7 @@ namespace RoomBi.DAL.EF
         public DbSet<Location> Locations { get; set; }
         public DbSet<Sport> Sports { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Сontinent> Сontinent { get; set; }
         public DbSet<EmergencyContactPerson> EmergencyContactPersons { get; set; }
         public DbSet<GuestPaymentMethod> GuestPaymentMethods { get; set; }
         public DbSet<User> Users { get; set; }

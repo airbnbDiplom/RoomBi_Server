@@ -17,9 +17,9 @@ namespace RoomBi.BLL.Services
         public async Task<Boolean> GetBoolByEmail(string email)
         {
             var user = await Database.UserGetEmail.GetEmail(email);
-            if (user == null)
-                return true;
-            return false;
+            if (user != null) { throw new Exception("Користувач з таким email існує."); }
+          
+            return true;
         }
         public async Task<UserDTO> GetUserByEmail(string email)
         {
@@ -62,6 +62,14 @@ namespace RoomBi.BLL.Services
         }
         public async Task<UserDTO> GetByEmailAndPassword(string email, string password)
         {
+            //reg
+            //Користувач з таким email існує
+
+            //login
+            //"Користувач був зареєстрований через сервіси Google."
+            //Користувач з таким email або password не існує"
+
+            //Користувач та його password "
             var user = await Database.UserGetEmail.GetEmail(email);
             if (password != "google" && user.Password == "google")
             {

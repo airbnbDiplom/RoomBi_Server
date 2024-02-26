@@ -25,7 +25,7 @@ namespace RoomBi.DAL.Repositories
 
         public async Task<User> GetEmail(string email)
         {
-
+            //User user = new User();
             return await context.Users.FirstOrDefaultAsync(m => m.Email == email);
         }
 
