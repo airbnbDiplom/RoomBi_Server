@@ -23,15 +23,8 @@ namespace RoomBi_Server.Controllers
             string token = HttpContext.Request.Headers.Authorization;
             string cleanedToken = token.Replace("Bearer ", "");
             ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
-            string idString = jwtTokenService.GetIdFromToken(principal);
-            //bookingDto.OwnerId = int.Parse(jwtTokenService.GetIdFromToken(principal));
-
-            //await bookingService.CreateBooking(bookingDto);
-            var response = new AuthenticationResponseDTO
-            {
-                Token = "Получила DateBooking booking, token и id: " + idString,
-                RefreshToken = idString,
-            };
+            bookingDto.OwnerId =  int.Parse(jwtTokenService.GetIdFromToken(principal));
+            await bookingService.CreateBooking(bookingDto);
             return Ok(bookingDto);
         }
 

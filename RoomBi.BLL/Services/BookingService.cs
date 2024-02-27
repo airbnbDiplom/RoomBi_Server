@@ -4,6 +4,7 @@ using RoomBi.DAL;
 using RoomBi.BLL.Infrastructure;
 using RoomBi.BLL.Interfaces;
 using RoomBi.BLL.DTO;
+using Microsoft.VisualBasic;
 
 namespace RoomBi.BLL.Services
 {
@@ -24,8 +25,16 @@ namespace RoomBi.BLL.Services
                 PaymentStatus = true
 
             };
-            Console.WriteLine("CheckInDate: " + booking.CheckInDate.ToString("yyyy-MM-dd"));
             await Database.Booking.Create(booking);
+            var guestPaymentMethodp = new GuestPaymentMethod 
+            { 
+                CardNumber = bookingDto.Payment.CardNumber,
+                ExpirationDate = bookingDto.Payment.ExpirationDate,
+                CVV = bookingDto.Payment.CVV,
+                CardType = bookingDto.Payment.CardType,
+                IdUser = booking.OwnerId
+            };
+            await Database.GuestPaymentMethod.Create(guestPaymentMethodp);
             //await Database.Save();
         }
         //public async Task Create(DateBooking bookingDto)
