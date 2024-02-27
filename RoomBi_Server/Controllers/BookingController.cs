@@ -6,6 +6,7 @@ using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
 using RoomBi.DAL;
 using RoomBi_Server.Token;
+using System.Security.Claims;
 
 namespace RoomBi_Server.Controllers
 {
@@ -20,12 +21,10 @@ namespace RoomBi_Server.Controllers
         public async Task<IActionResult> PostBooking(BookingDTO booking)
         {
             var token = HttpContext.Request.Headers.Authorization;
-            booking.OwnerId = jwtTokenService.GetIdFromToken(token);
-
-
+            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(token);
+            booking.OwnerId = int.Parse(jwtTokenService.GetIdFromToken(principal));
             var response = "Получила DateBooking booking и token";
             return Ok(response);
-       
         }
 
 

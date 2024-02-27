@@ -16,13 +16,12 @@ namespace RoomBi_Server.Token
 
         //отримати пошту з токену
         public string GetMailFromToken(ClaimsPrincipal principal);
-        public int GetIdFromToken(string? token);
+        public string GetIdFromToken(ClaimsPrincipal principal);
 
         // Створення GenerateRefreshToken
         public string GenerateRefreshToken();
 
         // Метод, що створює JWT токен на основі списку клеймів автентифікації 
         public JwtSecurityToken CreateToken(List<Claim> authClaims);
-
     }
 }

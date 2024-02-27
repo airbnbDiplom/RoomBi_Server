@@ -132,16 +132,16 @@ namespace RoomBi_Server.Token
             }
             return email;
         }
-        public int GetIdFromToken(string token)
+        public string GetIdFromToken(ClaimsPrincipal principal)
         {
-            var principal = GetPrincipalFromExpiredToken(token);
-            int id = 1;
+
+            string id = "";
             var claims = principal.Claims;
             foreach (var claim in claims)
             {
                 if (claim.Type == "Id")
                 {
-                    id = int.Parse(claim.Value);
+                    id = claim.Value;
                     return id;
                 }
             }
@@ -173,6 +173,6 @@ namespace RoomBi_Server.Token
             return token;  // Повертаємо створений JWT токен.
         }
 
-       
+      
     }
 }

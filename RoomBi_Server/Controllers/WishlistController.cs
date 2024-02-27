@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
+using RoomBi.DAL;
 using RoomBi_Server.Token;
+using System.Security.Claims;
 
 namespace RoomBi_Server.Controllers
 {
@@ -14,17 +16,43 @@ namespace RoomBi_Server.Controllers
     {
 
         // POST: api/wishlists
-        [Authorize]
+        //[Authorize]
         [HttpPost("wish")]
-        public async Task<ActionResult<WishlistDTO>> PostWishlist([FromBody] int id)
-        {
-            var token = HttpContext.Request.Headers.Authorization;
-            WishlistDTO wishlistDTO = new() { ApartmentId = id, UserId = jwtTokenService.GetIdFromToken(token) };
+        public async Task<ActionResult<WishlistDTO>> PostWishlist([FromBody] int id, string tokentest)
+        { 
+            //var token = HttpContext.Request.Headers.Authorization;
+            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(tokentest);
+            //string idString = jwtTokenService.GetIdFromToken(principal);
+            try
+            {
+                int temp = int.Parse(jwtTokenService.GetIdFromToken(principal));
+                WishlistDTO wishlistDTO = new() { ApartmentId = id, UserId = temp };
+            }
+            catch (FormatException ex)
+            {
+                // Обработка ситуации, когда строка не может быть преобразована в int
+                return BadRequest("Неверный формат ID");
+            }
+            catch (Exception ex)
+            {
+                // Обработка других исключений
+                return BadRequest("Произошла ошибка при обработке ID");
+            }
+
+            //if (int.TryParse(idString, out int temp))
+            //{
+            //    WishlistDTO wishlistDTO = new() { ApartmentId = id, UserId = temp};
+            //}
+            //else
+            //{
+            //    // Обработка ситуации, когда строка не может быть преобразована в int
+            //}
+           
             //await wishlistService.Create(wishlistDTO);
             var response = new AuthenticationResponseDTO
             {
-                Token = "Token",
-                RefreshToken = "[Authorize]"
+                Token = "token",
+                RefreshToken = id.ToString(),
             };
             return Ok(response);
 
