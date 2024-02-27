@@ -23,7 +23,7 @@ namespace RoomBi.DAL
         public int Id { get; set; }
         public string? Title { get; set; }
         public string? Address { get; set; }
-        public string? Сity { get; set; }
+        public string? City { get; set; }
         public string? IngMap { get; set; }
         public string? LatMap { get; set; }
         public int NumberOfGuests { get; set; }
@@ -31,8 +31,6 @@ namespace RoomBi.DAL
         public int Bathrooms { get; set; }
         public int Beds { get; set; }
         public double PricePerNight { get; set; }
-
-
         public string? ObjectState { get; set; }
         public double ObjectRating { get; set; }
 
