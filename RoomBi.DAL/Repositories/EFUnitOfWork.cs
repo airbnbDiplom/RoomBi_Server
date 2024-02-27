@@ -85,7 +85,8 @@ namespace RoomBi.DAL.Repositories
         private CountryRepository _countryRepository2;
         public IRepositoryGetName<Country> CountryGetName => _countryRepository2 ??= new CountryRepository(_context);
 
-
+        private СontinentRepository _continentRepository2;
+        public IRepositoryGetName<Сontinent> СontinentGetName => _continentRepository2 ??= new СontinentRepository(_context);
         public async Task Save()
         {
             await _context.SaveChangesAsync();

@@ -32,6 +32,7 @@ namespace RoomBi.DAL.Interfaces
         IRepositoryGetEmailAndPassword<User> UserGetEmailAndPassword { get; }
         IRepositoryGetName<Language> LanguageGetName { get; }
         IRepositoryGetName<Country> CountryGetName { get; }
+        IRepositoryGetName<Сontinent> СontinentGetName { get; }
         Task Save();
     }
 }
