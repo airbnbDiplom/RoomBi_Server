@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
 using RoomBi.BLL.Services;
+using RoomBi.DAL;
 using RoomBi.DAL.EF;
 using RoomBi.DAL.Interfaces;
 using RoomBi.DAL.Repositories;
@@ -41,6 +42,7 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceForMap<RentalApartmentForMap>, RentalApartmentService>();
             services.AddScoped<IServiceOfUser<UserDTO>, UserService>();
             services.AddScoped<IServiceDataSearchForSorting<DataSearchForSorting>, DataSearchForSortingServise>();
+           
 
 
 

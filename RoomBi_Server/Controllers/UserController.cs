@@ -22,7 +22,7 @@ namespace RoomBi_Server.Controllers
             var token = jwtTokenService.GetToken(user);
             var refreshToken = jwtTokenService.GenerateRefreshToken();
             user.RefreshToken = refreshToken;
-            await serviceOfUser.UpdateRefreshToken(user);
+            //await serviceOfUser.UpdateRefreshToken(user);
             var response = new AuthenticationResponseDTO
             {
                 Token = token,
@@ -38,80 +38,90 @@ namespace RoomBi_Server.Controllers
         {
             try
             {
-                UserDTO user = new UserDTO();
-                user.Email = request.Email;
-                user.Id = 1;
-                //var user = await serviceOfUser.GetUserByEmail(request.Email);
-                var newToken = jwtTokenService.GetToken(user);
-                var newRefreshToken = jwtTokenService.GenerateRefreshToken();
-                //user.RefreshToken = newRefreshToken;
-                //await userService.Update(user);
-                var response = new AuthenticationResponseDTO
-                {
-                    Token = newToken,
-                    RefreshToken = newRefreshToken
-                };
-                return Ok(response);
-                //switch (request.Type)
+                //UserDTO user = new UserDTO();
+                //user.Email = request.Email;
+                //user.Id = 1;
+                ////var user = await serviceOfUser.GetUserByEmail(request.Email);
+                //var newToken = jwtTokenService.GetToken(user);
+                //var newRefreshToken = jwtTokenService.GenerateRefreshToken();
+                ////user.RefreshToken = newRefreshToken;
+                ////await userService.Update(user);
+                //var response = new AuthenticationResponseDTO
                 //{
-                //    case "register":
-                //        try
-                //        {
-                //            await serviceOfUser.GetBoolByEmail(request.Email);
-                //            return Ok("Ok");
-                //        }
-                //        catch (Exception ex)
-                //        {
-                //            return BadRequest(ex.Message);
-                //        }
-                //    case "register2":
-                //        try
-                //        {
-                //            UserDTO user = new()
-                //            {
-                //                Email = request.Email,
-                //                Password = request.Password
-                //            };
-                //            var response = await AuthenticateUser(user);
-                //            await userService.Create(user);
-                //            return Ok(response);
-                //        }
-                //        catch (Exception ex)
-                //        {
-                //            return BadRequest(ex.Message);
-                //        }
-                //    case "login":
+                //    Token = newToken,
+                //    RefreshToken = newRefreshToken
+                //};
+                //return Ok(response);
 
-                //        try
-                //        {
-                //            UserDTO user = await serviceOfUser.GetUserByEmail(request.Email);
-                //            await serviceOfUser.GetBoolByPassword(user.Password);
-                //            var response = await AuthenticateUser(user);
-                //            return Ok(response);
-                //        }
-                //        catch (Exception ex)
-                //        {
-                //            return BadRequest(ex.Message);
-                //        }
-                //    case "google":
-                //        try
-                //        {
-                //            UserDTO user = new()
-                //            {
-                //                Email = request.Email,
-                //                Password = request.Password
-                //            };
-                //            var response = await AuthenticateUser(user);
-                //            await userService.Create(user);
-                //            return Ok(response);
-                //        }
-                //        catch (Exception ex)
-                //        {
-                //            return BadRequest(ex.Message);
-                //        }
-                //    default:
-                //        return BadRequest("Invalid request type");
-                //}
+
+
+                switch (request.Type)
+                {
+                    case "register":
+                        try
+                        {
+                            await serviceOfUser.GetBoolByEmail(request.Email);
+                            return Ok("Ok");
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    case "register2":
+                        try
+                        {
+                            UserDTO user = new()
+                            {
+                                Email = request.Email,
+                                Password = request.Password,
+                                Name = request.Name,
+                                PhoneNumber = request.PhoneNumber,
+                                DateOfBirth = request.DateOfBirth,
+                                Country = request.Country
+                            };
+                           await userService.Create(user);
+                           user = await serviceOfUser.GetUserByEmail(user.Email);
+                           var response = await AuthenticateUser(user);
+                           user.RefreshToken = response.RefreshToken;
+                           await userService.Update(user);
+                           return Ok(response);
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex.Message);
+                        }
+                    //case "login":
+
+                    //    try
+                    //    {
+                    //        UserDTO user = await serviceOfUser.GetUserByEmail(request.Email);
+                    //        await serviceOfUser.GetBoolByPassword(user.Password);
+                    //        var response = await AuthenticateUser(user);
+                    //        return Ok(response);
+                    //    }
+                    //    catch (Exception ex)
+                    //    {
+                    //        return BadRequest(ex.Message);
+                    //    }
+                    //case "google":
+                    //    try
+                    //    {
+                    //        UserDTO user = new()
+                    //        {
+                    //            Email = request.Email,
+                    //            Password = request.Password
+                    //        };
+                    //        var response = await AuthenticateUser(user);
+                    //        await userService.Create(user);
+                    //        return Ok(response);
+                    //    }
+                    //    catch (Exception ex)
+                    //    {
+                    //        return BadRequest(ex.Message);
+                    //    }
+                    default:
+                        return BadRequest("Invalid request type");
+                }
 
             }
             catch (Exception ex)

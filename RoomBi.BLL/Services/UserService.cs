@@ -7,6 +7,7 @@ using RoomBi.BLL.DTO;
 using Newtonsoft.Json.Linq;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
+using Azure.Core;
 
 namespace RoomBi.BLL.Services
 {
@@ -19,61 +20,6 @@ namespace RoomBi.BLL.Services
             var user = await Database.UserGetEmailAndPassword.GetEmail(email);
             if (user != null) { throw new Exception("Користувач з таким email існує."); }
             return true;
-        }
-        public async Task<Boolean> GetBoolByPassword(string password)
-        {
-            var user = await Database.UserGetEmailAndPassword.GetPassword(password); 
-            if (user == null)
-            {
-                throw new Exception("Користувач не знайден.");
-            }
-            if (user.Password == "google")
-            {
-                return true;
-            }
-            byte[] savedHash = Convert.FromBase64String(user.Password);
-            byte[] savedSalt = Convert.FromBase64String(user.Salt);
-            var pbkdf2 = new Rfc2898DeriveBytes(password, savedSalt, 10000);
-            byte[] newHash = pbkdf2.GetBytes(20);
-            return newHash.SequenceEqual(savedHash);
-        }
-        public async Task<UserDTO> GetUserByEmail(string email)
-        {
-            var user = await Database.UserGetEmailAndPassword.GetEmail(email);
-            if (user != null) { throw new Exception("Користувач з таким email існує."); }
-            var language = await Database.Languages.Get(user.LanguageId);
-            var contry = await Database.Country.Get(user.CountryId);
-            return new UserDTO
-           {
-               Id = user.Id,
-               Name = user.Name,
-               Password = user.Password,
-               Email = user.Email,
-               Address = user.Address,
-               PhoneNumber = user.PhoneNumber,
-               DateOfBirth = user.DateOfBirth,
-               AirbnbRegistrationYear = user.AirbnbRegistrationYear,
-               ProfilePicture = user.ProfilePicture,
-               RefreshToken = user.RefreshToken,
-               Hash = user.Hash,
-               CurrentStatus = user.CurrentStatus,
-               UserStatus = user.UserStatus,
-               Language = language.Name,
-               Country = contry.Name
-           };
-
-        }
-        public async Task UpdateRefreshToken(UserDTO userDTO)
-        {
-            User user = await Database.User.Get(userDTO.Id);
-            user.RefreshToken = userDTO.RefreshToken;
-            await Database.User.Update(user);
-            await Database.Save();
-        }
-        public async Task Delete(int id)
-        {
-            await Database.User.Delete(id);
-            //await Database.Save();
         }
         public async Task Create(UserDTO userDto)
         {
@@ -89,11 +35,17 @@ namespace RoomBi.BLL.Services
                     throw new Exception("Користувач з таким email вже існує");
                 }
             }
+            var contry = await Database.CountryGetName.GetByName(userDto.Country);
             User user = new()
             {
                 Password = userDto.Password,
                 Email = userDto.Email,
-                RefreshToken = userDto.RefreshToken,
+                //RefreshToken = userDto.RefreshToken,
+                Name = userDto.Name,
+                PhoneNumber = userDto.PhoneNumber,
+                DateOfBirth = userDto.DateOfBirth,
+                AirbnbRegistrationYear = DateTime.Now,
+                CountryId = contry.Id
             };
             if (userDto.Password == "google")
             {
@@ -117,10 +69,66 @@ namespace RoomBi.BLL.Services
             await Database.Save();
         }
 
+        public async Task<Boolean> GetBoolByPassword(string password)
+        {
+            var user = await Database.UserGetEmailAndPassword.GetPassword(password); 
+            if (user == null)
+            {
+                throw new Exception("Користувач не знайден.");
+            }
+            if (user.Password == "google")
+            {
+                return true;
+            }
+            byte[] savedHash = Convert.FromBase64String(user.Password);
+            byte[] savedSalt = Convert.FromBase64String(user.Salt);
+            var pbkdf2 = new Rfc2898DeriveBytes(password, savedSalt, 10000);
+            byte[] newHash = pbkdf2.GetBytes(20);
+            return newHash.SequenceEqual(savedHash);
+        }
+        public async Task<UserDTO> GetUserByEmail(string email)
+        {
+            var user = await Database.UserGetEmailAndPassword.GetEmail(email);
+            if (user == null) { throw new Exception("Користувач з таким email не існує."); }
+            var language = await Database.Languages.Get(user.LanguageId);
+            var contry = await Database.Country.Get(user.CountryId);
+            return new UserDTO
+           {
+               Id = user.Id,
+               Name = user.Name,
+               Password = user.Password,
+               Email = user.Email,
+               Address = user.Address,
+               PhoneNumber = user.PhoneNumber,
+               DateOfBirth = user.DateOfBirth,
+               AirbnbRegistrationYear = user.AirbnbRegistrationYear,
+               ProfilePicture = user.ProfilePicture,
+               RefreshToken = user.RefreshToken,
+               CurrentStatus = user.CurrentStatus,
+               UserStatus = user.UserStatus,
+               Language = language.Name,
+               Country = contry.Name
+           };
+
+        }
+        public async Task UpdateRefreshToken(UserDTO userDTO)
+        {
+            User user = await Database.User.Get(userDTO.Id);
+            user.RefreshToken = userDTO.RefreshToken;
+            await Database.User.Update(user);
+            await Database.Save();
+        }
+        public async Task Delete(int id)
+        {
+            await Database.User.Delete(id);
+            //await Database.Save();
+        }
+       
 
 
 
-        public async Task RegisterRequest(RequestUser requestUser)
+
+    public async Task RegisterRequest(RequestUser requestUser)
         {
   
 
@@ -168,7 +176,6 @@ namespace RoomBi.BLL.Services
                 AirbnbRegistrationYear = userDTO.AirbnbRegistrationYear,
                 ProfilePicture = userDTO.ProfilePicture,
                 RefreshToken = userDTO.RefreshToken,
-                Hash = userDTO.Hash,
                 CurrentStatus = userDTO.CurrentStatus,
                 UserStatus = userDTO.UserStatus,
                 LanguageId = language.Id,
@@ -197,7 +204,6 @@ namespace RoomBi.BLL.Services
                 AirbnbRegistrationYear = user.AirbnbRegistrationYear,
                 ProfilePicture = user.ProfilePicture,
                 RefreshToken = user.RefreshToken,
-                Hash = user.Hash,
                 CurrentStatus = user.CurrentStatus,
                 UserStatus = user.UserStatus,
                 Language = language.Name,

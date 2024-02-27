@@ -20,9 +20,9 @@ namespace RoomBi.BLL.DTO
         public bool UserStatus { get; set; }//bool
 
 
-        public string? Token { get; set; }
+        //public string? Token { get; set; }
         public string? RefreshToken { get; set; }
-        public string? Hash { get; set; }
+        //public string? Hash { get; set; }
         public string? Language { get; set; }
         public string? Country { get; set; }
 
