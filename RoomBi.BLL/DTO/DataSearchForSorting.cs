@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RoomBi.BLL.DTO
+{
+    public class DataSearchForSorting
+    {
+        public Where? Where  { get; set; }
+        public DateBooking? When { get; set; }
+        public int Why{ get; set; }
+    }
+    public class Where
+    {
+        public string? Type { get; set; }
+        public string? Name { get; set; }
+    }
+   
+}

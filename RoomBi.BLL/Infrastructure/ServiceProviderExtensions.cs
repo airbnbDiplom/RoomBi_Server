@@ -40,6 +40,7 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceForStartPage<RentalApartmentDTOForStartPage>, RentalApartmentService>();
             services.AddScoped<IServiceForMap<RentalApartmentForMap>, RentalApartmentService>();
             services.AddScoped<IServiceOfUser<UserDTO>, UserService>();
+            services.AddScoped<IServiceDataSearchForSorting<DataSearchForSorting>, DataSearchForSortingServise>();
 
 
 
