@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RoomBi.BLL.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

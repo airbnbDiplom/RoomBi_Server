@@ -8,29 +8,24 @@ using RoomBi.BLL.DTO;
 namespace RoomBi.BLL.Services
 {
 
-    public class BookingService : IServiceBooking<DateBooking>
+    public class BookingService(IUnitOfWork uow) : IServiceBooking<BookingDTO>
     {
-        IUnitOfWork Database { get; set; }
+        IUnitOfWork Database { get; set; } = uow;
 
-        public BookingService(IUnitOfWork uow)
+        public async Task CreateBooking(BookingDTO bookingDto)
         {
-            Database = uow;
-        }
-        public async Task CreateBooking(DateBooking item)
-        {
-            //var booking = new Booking
-            //{
-                //Id = bookingDto.Id,
-                //OwnerId = bookingDto.OwnerId,
-                //ApartmentId = bookingDto.ApartmentId,
-                //CheckInDate = bookingDto.CheckInDate,
-                //CheckOutDate = bookingDto.CheckOutDate,
-                //NumberOfGuests = bookingDto.NumberOfGuests,
-                //TotalPrice = bookingDto.TotalPrice,
-                //PaymentStatus = bookingDto.PaymentStatus
+            var booking = new Booking
+            {
+                OwnerId = bookingDto.OwnerId,
+                ApartmentId = bookingDto.ApartmentId,
+                CheckInDate = new DateTime(bookingDto.CheckInDate.Year, bookingDto.CheckInDate.Month, bookingDto.CheckInDate.Day),
+                CheckOutDate = new DateTime(bookingDto.CheckOutDate.Year, bookingDto.CheckOutDate.Month, bookingDto.CheckOutDate.Day),
+                TotalPrice = bookingDto.TotalPrice,
+                PaymentStatus = true
 
-            //};
-            //await Database.Booking.Create(booking);
+            };
+            Console.WriteLine("CheckInDate: " + booking.CheckInDate.ToString("yyyy-MM-dd"));
+            await Database.Booking.Create(booking);
             //await Database.Save();
         }
         //public async Task Create(DateBooking bookingDto)

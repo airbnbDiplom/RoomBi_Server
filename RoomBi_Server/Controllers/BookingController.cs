@@ -13,18 +13,26 @@ namespace RoomBi_Server.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class BookingsController(IServiceBooking<DateBooking> bookingService, IJwtToken jwtTokenService) : ControllerBase
+    public class BookingsController(IServiceBooking<BookingDTO> bookingService, IJwtToken jwtTokenService) : ControllerBase
     {
-        //[Authorize]
+        [Authorize]
         // POST: api/Bookings
         [HttpPost]
-        public async Task<IActionResult> PostBooking(BookingDTO booking)
+        public async Task<IActionResult> PostBooking(BookingDTO bookingDto)
         {
-            var token = HttpContext.Request.Headers.Authorization;
-            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(token);
-            booking.OwnerId = int.Parse(jwtTokenService.GetIdFromToken(principal));
-            var response = "Получила DateBooking booking и token";
-            return Ok(response);
+            string token = HttpContext.Request.Headers.Authorization;
+            string cleanedToken = token.Replace("Bearer ", "");
+            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            string idString = jwtTokenService.GetIdFromToken(principal);
+            //bookingDto.OwnerId = int.Parse(jwtTokenService.GetIdFromToken(principal));
+
+            //await bookingService.CreateBooking(bookingDto);
+            var response = new AuthenticationResponseDTO
+            {
+                Token = "Получила DateBooking booking, token и id: " + idString,
+                RefreshToken = idString,
+            };
+            return Ok(bookingDto);
         }
 
 

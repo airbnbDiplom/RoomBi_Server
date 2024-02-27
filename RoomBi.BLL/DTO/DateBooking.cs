@@ -7,14 +7,11 @@ using System.Threading.Tasks;
 
 namespace RoomBi.BLL.DTO
 {
-
     public class DateBi
     {
         public int Day { get; set; }
         public int Month { get; set; }
         public int Year { get; set; }
-
-        // Конструктор класса DateBi
         public DateBi(DateTime dateTime)
         {
             Day = dateTime.Day;
@@ -49,6 +46,5 @@ namespace RoomBi.BLL.DTO
         public DateBi? CheckOutDate { get; set; }
         public double TotalPrice { get; set; }
         public Payment? Payment { get; set; }
-
     }
 }

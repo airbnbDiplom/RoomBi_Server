@@ -1,26 +1,44 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
+using RoomBi.DAL;
+using RoomBi_Server.Token;
+using System.Security.Claims;
 
 namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GuestPaymentMethodController(IServiceOfAll<UserDTO> userService, IServiceOfAll<Payment> guestPaymentMethodService) : ControllerBase
+    public class GuestPaymentMethodController(IServiceOfAll<UserDTO> userService, 
+        IServiceOfAll<Payment> guestPaymentMethodService, IJwtToken jwtTokenService) : ControllerBase
     {
-        // GET: api/guestPaymentMethods
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Payment>>> GetguestPaymentMethods()
+        [Authorize]
+        // POST: api/guestPaymentMethods
+        [HttpPost("reserve")]
+        public async Task<ActionResult<IEnumerable<Payment>>> PostguestPaymentMethods()
         {
+            string token = HttpContext.Request.Headers.Authorization;
+            string cleanedToken = token.Replace("Bearer ", "");
+            int id = 1;
             var guestPaymentMethods = await guestPaymentMethodService.GetAll();
-            var token = HttpContext.Request.Headers.Authorization;
-            //iGetIdFromToken(string token)
             if (guestPaymentMethods == null || !guestPaymentMethods.Any())
             {
                 return NotFound();
             }
-            return Ok(guestPaymentMethods);
+            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            jwtTokenService.GetIdFromToken(principal);
+            try
+            {
+                id = int.Parse(jwtTokenService.GetIdFromToken(principal));
+                var paymentsForUser = guestPaymentMethods.Where(payment => payment.IdUser == id); 
+                return Ok(paymentsForUser);
+            }
+            catch (FormatException ex)
+            {
+                return BadRequest("Неверный формат ID");
+            }
         }
 
         // GET: api/guestPaymentMethods/5

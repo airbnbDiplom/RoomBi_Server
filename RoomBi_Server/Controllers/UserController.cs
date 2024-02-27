@@ -40,6 +40,7 @@ namespace RoomBi_Server.Controllers
             {
                 UserDTO user = new UserDTO();
                 user.Email = request.Email;
+                user.Id = 1;
                 //var user = await serviceOfUser.GetUserByEmail(request.Email);
                 var newToken = jwtTokenService.GetToken(user);
                 var newRefreshToken = jwtTokenService.GenerateRefreshToken();

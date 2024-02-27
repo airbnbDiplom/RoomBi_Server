@@ -18,25 +18,21 @@ namespace RoomBi_Server.Controllers
         // POST: api/wishlists
         //[Authorize]
         [HttpPost("wish")]
-        public async Task<ActionResult<WishlistDTO>> PostWishlist([FromBody] int id, string tokentest)
-        { 
-            //var token = HttpContext.Request.Headers.Authorization;
-            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(tokentest);
-            //string idString = jwtTokenService.GetIdFromToken(principal);
+        public async Task<ActionResult<WishlistDTO>> PostWishlist([FromBody] int id)
+        {
+            string token = HttpContext.Request.Headers.Authorization;
+            string cleanedToken = token.Replace("Bearer ", "");
+            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            string idString = jwtTokenService.GetIdFromToken(principal);
+            int temp = 0;
             try
             {
-                int temp = int.Parse(jwtTokenService.GetIdFromToken(principal));
+                temp = int.Parse(jwtTokenService.GetIdFromToken(principal));
                 WishlistDTO wishlistDTO = new() { ApartmentId = id, UserId = temp };
             }
             catch (FormatException ex)
             {
-                // Обработка ситуации, когда строка не может быть преобразована в int
                 return BadRequest("Неверный формат ID");
-            }
-            catch (Exception ex)
-            {
-                // Обработка других исключений
-                return BadRequest("Произошла ошибка при обработке ID");
             }
 
             //if (int.TryParse(idString, out int temp))
@@ -47,12 +43,12 @@ namespace RoomBi_Server.Controllers
             //{
             //    // Обработка ситуации, когда строка не может быть преобразована в int
             //}
-           
+
             //await wishlistService.Create(wishlistDTO);
             var response = new AuthenticationResponseDTO
             {
-                Token = "token",
-                RefreshToken = id.ToString(),
+                Token = cleanedToken,
+                RefreshToken = idString,
             };
             return Ok(response);
 

@@ -8,14 +8,9 @@ using RoomBi.BLL.DTO;
 namespace RoomBi.BLL.Services
 {
 
-    public class GuestPaymentMethodService : IServiceOfAll<Payment>
+    public class GuestPaymentMethodService(IUnitOfWork uow) : IServiceOfAll<Payment>
     {
-        IUnitOfWork Database { get; set; }
-
-        public GuestPaymentMethodService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        IUnitOfWork Database { get; set; } = uow;
 
         public async Task Create(Payment guestPaymentMethodDTO)
         {
