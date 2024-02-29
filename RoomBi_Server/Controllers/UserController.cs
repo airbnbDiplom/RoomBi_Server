@@ -15,7 +15,7 @@ namespace RoomBi_Server.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class UserController(IServiceOfAll<UserDTO> userService, IServiceOfUser<UserDTO> serviceOfUser,
-        IJwtToken jwtTokenService, IServiceOfAll<CountryDTO> countryDTO)  : ControllerBase
+        IJwtToken jwtTokenService, IServiceOfAll<CountryDTO> country)  : ControllerBase
     {
         [HttpPost]
         public async Task<AuthenticationResponseDTO> AuthenticateUser(UserDTO user)
@@ -39,104 +39,104 @@ namespace RoomBi_Server.Controllers
         {
             try
             {
-                //UserDTO user = new()
-                //{
-                //    Email = request.Email,
-                //    Id = 1
-                //};
-                ////var user = await serviceOfUser.GetUserByEmail(request.Email);
-                //var newToken = jwtTokenService.GetToken(user);
-                //var newRefreshToken = jwtTokenService.GenerateRefreshToken();
-                ////user.RefreshToken = newRefreshToken;
-                ////await userService.Update(user);
-                //var response = new AuthenticationResponseDTO
-                //{
-                //    Token = newToken,
-                //    RefreshToken = newRefreshToken
-                //};
-                //return Ok(response);
+                //    UserDTO user = new()
+                //    {
+                //        Email = request.Email,
+                //        Id = 1
+                //    };
+                //    //var user = await serviceOfUser.GetUserByEmail(request.Email);
+                //    var newToken = jwtTokenService.GetToken(user);
+                //    var newRefreshToken = jwtTokenService.GenerateRefreshToken();
+                //    //user.RefreshToken = newRefreshToken;
+                //    //await userService.Update(user);
+                //    var response = new AuthenticationResponseDTO
+                //    {
+                //        Token = newToken,
+                //        RefreshToken = newRefreshToken
+                //    };
+                //    return Ok(response);
 
 
 
                 switch (request.Type)
-                {
-                    case "register":
-                        try
+            {
+                case "register":
+                    try
+                    {
+                        await serviceOfUser.GetBoolByEmail(request.Email);
+                        var countryList = await country.GetAll();
+                        return Ok("Ok");
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                case "register2":
+                    try
+                    {
+                        UserDTO user = new()
                         {
-                            await serviceOfUser.GetBoolByEmail(request.Email);
-                            //await serviceOfUser.GetBoolByEmail(request.Email);
-                            return Ok("Ok");
-                        }
-                        catch (Exception ex)
-                        {
-                            return BadRequest(ex.Message);
-                        }
-                    case "register2":
-                        try
-                        {
-                            UserDTO user = new()
-                            {
-                                Email = request.Email,
-                                Password = request.Password,
-                                Name = request.Name,
-                                PhoneNumber = request.PhoneNumber,
-                                DateOfBirth = DateTime.Parse(request.DateOfBirth),
-                                Country = request.Country
-                            };
-                            await userService.Create(user);
-                            user = await serviceOfUser.GetUserByEmail(user.Email);
-                            var response = await AuthenticateUser(user);
-                            user.RefreshToken = response.RefreshToken;
-                            await userService.Update(user);
-                            return Ok(response);
-                        }
-                        catch (Exception ex)
-                        {
-                            return BadRequest(ex.Message);
-                        }
-                    case "login":
+                            Email = request.Email,
+                            Password = request.Password,
+                            Name = request.Name,
+                            PhoneNumber = request.PhoneNumber,
+                            DateOfBirth = DateTime.Parse(request.DateOfBirth),
+                            Country = request.Country
+                        };
+                        await userService.Create(user);
+                        user = await serviceOfUser.GetUserByEmail(user.Email);
+                        var response = await AuthenticateUser(user);
+                        user.RefreshToken = response.RefreshToken;
+                        await userService.Update(user);
+                        return Ok(response);
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                case "login":
 
-                        try
+                    try
+                    {
+                        UserDTO user = await serviceOfUser.GetUserByEmail(request.Email);
+                        if (serviceOfUser.GetBoolByPassword(request.Password, user.Password))
                         {
-                            UserDTO user = await serviceOfUser.GetUserByEmail(request.Email);
-                            if (serviceOfUser.GetBoolByPassword(request.Password, user.Password))
-                            {
-                                var response = await AuthenticateUser(user);
-                                user.RefreshToken = response.RefreshToken;
-                                await userService.Update(user);
-                                return Ok(response);
-                            }
-                            else
-                            {
-                                return BadRequest("Паролі не співпадають.");
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            return BadRequest(ex.Message);
-                        }
-                    case "google":
-                        try
-                        {
-                            UserDTO user = new()
-                            {
-                                Email = request.Email,
-                                Password = request.Password
-                            };
-                            await userService.Create(user);
-                            user = await serviceOfUser.GetUserByEmail(user.Email);
                             var response = await AuthenticateUser(user);
                             user.RefreshToken = response.RefreshToken;
                             await userService.Update(user);
                             return Ok(response);
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            return BadRequest(ex.Message);
+                            return BadRequest("Паролі не співпадають.");
                         }
-                    default:
-                        return BadRequest("Invalid request type");
-                }
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                case "google":
+                    try
+                    {
+                        UserDTO user = new()
+                        {
+                            Email = request.Email,
+                            Password = request.Password
+                        };
+                        await userService.Create(user);
+                        user = await serviceOfUser.GetUserByEmail(user.Email);
+                        var response = await AuthenticateUser(user);
+                        user.RefreshToken = response.RefreshToken;
+                        await userService.Update(user);
+                        return Ok(response);
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                default:
+                    return BadRequest("Invalid request type");
+            }
 
             }
             catch (Exception ex)

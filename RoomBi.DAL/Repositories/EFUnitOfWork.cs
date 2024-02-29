@@ -90,6 +90,10 @@ namespace RoomBi.DAL.Repositories
 
         private СontinentRepository _continentRepository2;
         public IRepositoryGetName<Сontinent> СontinentGetName => _continentRepository2 ??= new СontinentRepository(_context);
+        
+        private RentalApartmentRepository _rentalApartmentRepository2;
+        public IRepositorySearch<RentalApartment> SearchRentalApartment => _rentalApartmentRepository2 ??= new RentalApartmentRepository(_context);
+
         public async Task Save()
         {
             await _context.SaveChangesAsync();

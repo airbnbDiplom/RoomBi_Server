@@ -34,6 +34,7 @@ namespace RoomBi.DAL.Interfaces
         IRepositoryGetName<Language> LanguageGetName { get; }
         IRepositoryGetName<Country> CountryGetName { get; }
         IRepositoryGetName<Сontinent> СontinentGetName { get; }
+        IRepositorySearch<RentalApartment> SearchRentalApartment { get; }
         Task Save();
     }
 }

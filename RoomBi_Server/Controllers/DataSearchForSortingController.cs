@@ -11,7 +11,9 @@ namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DataSearchForSortingController(IServiceDataSearchForSorting<RentalApartmentDTOForStartPage> forSorting) : ControllerBase
+    public class DataSearchForSortingController(
+        IServiceForStartPage<RentalApartmentDTOForStartPage> serviceForStartPage, 
+        IServiceDataSearchForSorting<RentalApartmentDTOForStartPage> forSorting) : ControllerBase
     {
         // GET: api/dataSearchForSortingController
         [HttpPost("sort")]
@@ -28,6 +30,7 @@ namespace RoomBi_Server.Controllers
                         case "Country":
                             try
                             {
+                               
                                 return Ok("Ok");
                             }
                             catch (Exception ex)
@@ -37,7 +40,8 @@ namespace RoomBi_Server.Controllers
                         case "Сontinent":
                             try
                             {
-                                return Ok("Ok");
+                                rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.GetAllByType(dataSearchForSorting.Where.Name);
+                                return Ok(rentalApartmentDTO);
                             }
                             catch (Exception ex)
                             {
@@ -71,7 +75,7 @@ namespace RoomBi_Server.Controllers
 
 
 
-           await forSorting.TempGetAll("qwertyu");
+           await forSorting.GetAllByType("qwertyu");
             //var users = await forSorting.TempGetAll();
             if (dataSearchForSorting == null)
             {

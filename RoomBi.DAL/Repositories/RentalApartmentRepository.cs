@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Microsoft.EntityFrameworkCore;
 using RoomBi.DAL.EF;
+using RoomBi.DAL.Entities;
 using RoomBi.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,11 @@ using System.Threading.Tasks;
 namespace RoomBi.DAL.Repositories
 {
     public class RentalApartmentRepository
-        : IRepositoryOfAll<RentalApartment>, IRepositoryGet24<RentalApartment>
+        : IRepositoryOfAll<RentalApartment>, IRepositoryGet24<RentalApartment>, IRepositorySearch<RentalApartment>
     {
         private readonly RBContext context;
-        //private readonly BookingRepository bookingRepository;
-        //private readonly PictureRepository pictureRepository;
 
-        public RentalApartmentRepository(RBContext context/*, BookingRepository bookingRepository, PictureRepository pictureRepository*/)
+        public RentalApartmentRepository(RBContext context)
         {
             this.context = context;
             //this.bookingRepository = bookingRepository;
@@ -113,6 +112,21 @@ namespace RoomBi.DAL.Repositories
             return temp.OrderBy(ra => ra.Id);
         }
 
+        public async Task<IEnumerable<RentalApartment>> GetApartmentsByContinent(string continent)
+        {
+            var continentId = await context.Сontinent
+          .Where(c => c.Name == continent)
+          .Select(c => c.Id)
+          .FirstOrDefaultAsync();
+
+            if (continentId == 0)
+            {
+                return Enumerable.Empty<RentalApartment>();
+            }
+            return await context.RentalApartments
+           .Where(apartment => apartment.СontinentId == continentId)
+           .ToListAsync();
+        }
     }
   
 }

@@ -20,7 +20,7 @@ builder.Services.AddDbContext<RBContext>(options =>
     options.UseMySql(connection,
                      ServerVersion.AutoDetect(connection),
                      serverOptions => serverOptions
-                        .MaxBatchSize(40) // Устанавливаем максимальное количество соединений
+                        .MaxBatchSize(5) // Устанавливаем максимальное количество соединений
                         .MigrationsHistoryTable(tableName: HistoryRepository.DefaultTableName, schema: RBContext.SchemaName)
                         .SchemaBehavior(MySqlSchemaBehavior.Ignore, (schema, table) => $"{schema}_{table}")));
 
