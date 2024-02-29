@@ -9,13 +9,19 @@ using System.Threading.Tasks;
 
 namespace RoomBi.BLL.Services
 {
-    public class DataSearchForSortingServise(IUnitOfWork uow) : IServiceDataSearchForSorting<DataSearchForSorting>
+    public class DataSearchForSortingServise(IUnitOfWork uow) : IServiceDataSearchForSorting<RentalApartmentDTOForStartPage>
     {
         IUnitOfWork Database { get; set; } = uow;
 
-        public Task<IEnumerable<DataSearchForSorting>> TempGetAll(string temp)
+        //public Task<IEnumerable<DataSearchForSorting>> TempGetAll(string temp)
+        //{
+        //   
+        //}
+
+        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> TempGetAll(string temp)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(temp);
+           return null;
         }
     }
 }

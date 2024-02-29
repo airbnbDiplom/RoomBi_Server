@@ -72,13 +72,15 @@ namespace RoomBi_Server.Controllers
                     case "register2":
                         try
                         {
+                            string dateStr = "1990-06-28T20:00:00.000Z";
+                            DateTime date = DateTime.Parse(dateStr);
                             UserDTO user = new()
                             {
                                 Email = request.Email,
                                 Password = request.Password,
                                 Name = request.Name,
                                 PhoneNumber = request.PhoneNumber,
-                                DateOfBirth = request.DateOfBirth,
+                                DateOfBirth = DateTime.Parse(request.DateOfBirth),
                                 Country = request.Country
                             };
                             await userService.Create(user);
