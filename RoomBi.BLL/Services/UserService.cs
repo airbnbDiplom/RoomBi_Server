@@ -53,15 +53,19 @@ namespace RoomBi.BLL.Services
             }
             else
             {
-                byte[] salt = new byte[16];
-                using (var rng = RandomNumberGenerator.Create())
-                {
-                    rng.GetBytes(salt);
-                }
+                byte[] salt;
+                new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+
+                // Хешируем пароль с использованием PBKDF2
                 var pbkdf2 = new Rfc2898DeriveBytes(user.Password, salt, 10000);
                 byte[] hash = pbkdf2.GetBytes(20);
 
-                user.Password = Convert.ToBase64String(hash);
+                // Комбинируем хеш и соль вместе
+                byte[] hashBytes = new byte[36];
+                Array.Copy(salt, 0, hashBytes, 0, 16);
+                Array.Copy(hash, 0, hashBytes, 16, 20);
+
+                user.Password = Convert.ToBase64String(hashBytes);
                 user.Salt = Convert.ToBase64String(salt);
                 user.IsGoogleServiceUsed = false;
             }
@@ -69,22 +73,37 @@ namespace RoomBi.BLL.Services
             await Database.Save();
         }
 
-        public async Task<Boolean> GetBoolByPassword(string password)
+        public bool GetBoolByPassword(string password, string hashedPassword)
         {
-            var user = await Database.UserGetEmailAndPassword.GetPassword(password); 
-            if (user == null)
-            {
-                throw new Exception("Користувач не знайден.");
-            }
-            if (user.Password == "google")
+            if (password == "google")
             {
                 return true;
             }
-            byte[] savedHash = Convert.FromBase64String(user.Password);
-            byte[] savedSalt = Convert.FromBase64String(user.Salt);
-            var pbkdf2 = new Rfc2898DeriveBytes(password, savedSalt, 10000);
-            byte[] newHash = pbkdf2.GetBytes(20);
-            return newHash.SequenceEqual(savedHash);
+            try
+            {
+                // Декодируем хеш и соль из строки
+                byte[] hashedBytes = Convert.FromBase64String(hashedPassword);
+                byte[] salt = new byte[16];
+                Array.Copy(hashedBytes, 0, salt, 0, 16);
+
+                // Хешируем введенный пользователем пароль с использованием соли из базы данных
+                var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+                byte[] hash = pbkdf2.GetBytes(20);
+
+                // Сравниваем полученный хеш с хешем из базы данных
+                for (int i = 0; i < 20; i++)
+                {
+                    if (hashedBytes[i + 16] != hash[i])
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
         public async Task<UserDTO> GetUserByEmail(string email)
         {
@@ -162,23 +181,12 @@ namespace RoomBi.BLL.Services
         }
         public async Task Update(UserDTO userDTO)
         {
-            var language = await Database.LanguageGetName.GetByName(userDTO.Language);
-            var contry = await Database.CountryGetName.GetByName(userDTO.Country);
-            var user = new User
+            var user = await Database.User.Get(userDTO.Id);
+            //var language = await Database.LanguageGetName.GetByName(userDTO.Language);
+            //var contry = await Database.CountryGetName.GetByName(userDTO.Country);
+            if (user != null)
             {
-                Name = userDTO.Name,
-                Password = userDTO.Password,
-                Email = userDTO.Email,
-                Address = userDTO.Address,
-                PhoneNumber = userDTO.PhoneNumber,
-                DateOfBirth = userDTO.DateOfBirth,
-                AirbnbRegistrationYear = userDTO.AirbnbRegistrationYear,
-                ProfilePicture = userDTO.ProfilePicture,
-                RefreshToken = userDTO.RefreshToken,
-                CurrentStatus = userDTO.CurrentStatus,
-                UserStatus = userDTO.UserStatus,
-                LanguageId = language.Id,
-                CountryId = contry.Id
+                user.RefreshToken = userDTO.RefreshToken;
             };
             await Database.User.Update(user);
             await Database.Save();

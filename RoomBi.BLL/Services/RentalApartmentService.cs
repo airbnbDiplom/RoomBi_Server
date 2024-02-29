@@ -124,7 +124,7 @@ namespace RoomBi.BLL.Services
                 House = rentalApartment.House?.Name,
                 Country = rentalApartment.Country?.Name,
                 Wish = await Database.GetItemWishlist.CheckIfWishlistItemExists(rentalApartment.Id, rentalApartment.Id),
-            //await GetinfoAboutApartment(rentalApartment.Id),
+ 
 
             OfferedAmenities = rentalApartment.OfferedAmenities,
                 Master = MapUserToMaster(user, language, country),
@@ -227,8 +227,8 @@ namespace RoomBi.BLL.Services
                         Id = apartment.Id,
                         Title = apartment.Title,
                         IngMap = apartment.IngMap,
-                        LatMap = apartment.LatMap,  
-                        PricePerNight = apartment.PricePerNight, 
+                        LatMap = apartment.LatMap,
+                        PricePerNight = 8888,//apartment.PricePerNight, 
                         ObjectRating = apartment.ObjectRating,
                         Country = apartment.Country?.Name,
                         Location = apartment.Location?.Name,
