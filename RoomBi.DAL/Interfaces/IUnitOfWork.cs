@@ -29,6 +29,7 @@ namespace RoomBi.DAL.Interfaces
         IRepositoryOfAll<CommentsAboutGuest> CommentsAboutGuest { get; }
         IRepositoryOfAll<Wishlist> Wishlist { get; }
         IRepositoryGet24<RentalApartment> Apartment24 { get; }
+        IRepositoryGetWishlictitem<Wishlist> GetItemWishlist { get; }
         IRepositoryGetEmailAndPassword<User> UserGetEmailAndPassword { get; }
         IRepositoryGetName<Language> LanguageGetName { get; }
         IRepositoryGetName<Country> CountryGetName { get; }

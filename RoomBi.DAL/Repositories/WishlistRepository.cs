@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class WishlistRepository(RBContext context) : IRepositoryOfAll<Wishlist>
+    public class WishlistRepository(RBContext context) : IRepositoryOfAll<Wishlist>, IRepositoryGetWishlictitem<Wishlist>
     {
         private readonly RBContext context = context;
 
@@ -35,6 +35,23 @@ namespace RoomBi.DAL.Repositories
             Wishlist? item = await context.Wishlists.FindAsync(id);
             if (item != null)
                 context.Wishlists.Remove(item);
+        }
+
+        
+
+        public async Task<Boolean> CheckIfWishlistItemExists(int userId, int apartId)
+        {
+            try
+            {
+                var wishlistItems = await context.Wishlists
+                    .Where(w => w.UserId == userId && w.ApartmentId == apartId)
+                    .ToListAsync();
+                return wishlistItems.Count != 0;
+            }
+            catch (Exception ex)
+            {
+                throw; 
+            }
         }
     }
 }

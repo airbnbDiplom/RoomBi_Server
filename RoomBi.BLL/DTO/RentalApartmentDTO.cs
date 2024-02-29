@@ -24,6 +24,7 @@ namespace RoomBi.BLL.DTO
         public string? House { get; set; }
         public string? Sport { get; set; }
         public string? Country { get; set; }
+        public bool Wish { get; set; } = false;
         public OfferedAmenities? OfferedAmenities { get; set; }
         public MasterForApartmentPage? Master { get; set; }
         public ICollection<DateBooking>? DateBooking { get; set; }

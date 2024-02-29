@@ -166,7 +166,6 @@ namespace RoomBi.BLL.Services
             var contry = await Database.CountryGetName.GetByName(userDTO.Country);
             var user = new User
             {
-                Id = userDTO.Id,
                 Name = userDTO.Name,
                 Password = userDTO.Password,
                 Email = userDTO.Email,

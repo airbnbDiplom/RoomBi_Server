@@ -18,6 +18,10 @@ namespace RoomBi.DAL.Repositories
     {
         Task<IEnumerable<T>> Get24(int page, int pageSize);
     }
+    public interface IRepositoryGetWishlictitem<T> where T : class
+    {
+        Task<Boolean> CheckIfWishlistItemExists(int userId, int apartId);
+    }
     public interface IRepositoryForApartment<T> where T : class
     {
         Task<IEnumerable<T>> ByApartmentId(int apartmentId);

@@ -52,9 +52,13 @@ namespace RoomBi_Server.Controllers
         }
 
         // GET: api/rentalApartments/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<RentalApartmentDTO>> GetRentalApartment(int id)
+        [HttpGet("item/")]
+        public async Task<ActionResult<RentalApartmentDTO>> GetRentalApartment(int id, int idUser = 0)
         {
+            if(id > 0)
+            {
+                idUser = 1;
+            }
             var rentalApartment = await rentalApartmentService.Get(id);
             if (rentalApartment == null)
             {

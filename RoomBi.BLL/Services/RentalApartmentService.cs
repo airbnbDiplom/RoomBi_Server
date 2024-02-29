@@ -123,8 +123,10 @@ namespace RoomBi.BLL.Services
                 Sport = rentalApartment.Sport?.Name,
                 House = rentalApartment.House?.Name,
                 Country = rentalApartment.Country?.Name,
+                Wish = await Database.GetItemWishlist.CheckIfWishlistItemExists(rentalApartment.Id, rentalApartment.Id),
+            //await GetinfoAboutApartment(rentalApartment.Id),
 
-                OfferedAmenities = rentalApartment.OfferedAmenities,
+            OfferedAmenities = rentalApartment.OfferedAmenities,
                 Master = MapUserToMaster(user, language, country),
                 GuestComments = guestCommentsDTOCollection,
                 Pictures = rentalApartment.Pictures,
@@ -299,7 +301,11 @@ namespace RoomBi.BLL.Services
             return formattedDate;
         }
 
-
-
+        //public async Task<bool> GetinfoAboutApartment(int apartmentId)
+        //{
+        //    Wishlist wishlist = await Database.Wishlist.CheckIfWishlistItemExists(apartmentId);
+        //    if (wishlist == null) {  return false; }
+        //    return true;
+        //}
     }
 }

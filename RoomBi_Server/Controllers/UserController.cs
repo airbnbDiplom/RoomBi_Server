@@ -38,9 +38,11 @@ namespace RoomBi_Server.Controllers
         {
             try
             {
-                //UserDTO user = new UserDTO();
-                //user.Email = request.Email;
-                //user.Id = 1;
+                //UserDTO user = new()
+                //{
+                //    Email = request.Email,
+                //    Id = 1
+                //};
                 ////var user = await serviceOfUser.GetUserByEmail(request.Email);
                 //var newToken = jwtTokenService.GetToken(user);
                 //var newRefreshToken = jwtTokenService.GenerateRefreshToken();
@@ -79,12 +81,12 @@ namespace RoomBi_Server.Controllers
                                 DateOfBirth = request.DateOfBirth,
                                 Country = request.Country
                             };
-                           await userService.Create(user);
-                           user = await serviceOfUser.GetUserByEmail(user.Email);
-                           var response = await AuthenticateUser(user);
-                           user.RefreshToken = response.RefreshToken;
-                           await userService.Update(user);
-                           return Ok(response);
+                            await userService.Create(user);
+                            user = await serviceOfUser.GetUserByEmail(user.Email);
+                            var response = await AuthenticateUser(user);
+                            user.RefreshToken = response.RefreshToken;
+                            await userService.Update(user);
+                            return Ok(response);
                         }
                         catch (Exception ex)
                         {

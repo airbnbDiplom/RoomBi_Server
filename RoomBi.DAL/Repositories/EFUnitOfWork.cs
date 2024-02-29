@@ -72,7 +72,10 @@ namespace RoomBi.DAL.Repositories
 
         private RentalApartmentRepository _rentalApartmentRepository;
         public IRepositoryOfAll<RentalApartment> RentalApartment => _rentalApartmentRepository ??= new RentalApartmentRepository(_context/*, _bookingRepository, _pictureRepository*/);
-        
+
+
+        private WishlistRepository _wishlistItemRepository;
+        public IRepositoryGetWishlictitem<Wishlist> GetItemWishlist => _wishlistItemRepository ??= new WishlistRepository(_context);
 
         private RentalApartmentRepository _apartment24Repository;
         public IRepositoryGet24<RentalApartment> Apartment24 => _apartment24Repository ??= new RentalApartmentRepository(_context);
