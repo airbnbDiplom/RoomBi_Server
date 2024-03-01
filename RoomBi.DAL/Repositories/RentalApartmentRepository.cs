@@ -127,6 +127,21 @@ namespace RoomBi.DAL.Repositories
            .Where(apartment => apartment.СontinentId == continentId)
            .ToListAsync();
         }
+        public async Task<IEnumerable<RentalApartment>> GetApartmentsByCountry(string country)
+        {
+           var countryId = await context.Countries
+          .Where(c => c.Name == country)
+          .Select(c => c.Id)
+          .FirstOrDefaultAsync();
+
+            if (countryId == 0)
+            {
+                return Enumerable.Empty<RentalApartment>();
+            }
+            return await context.RentalApartments
+           .Where(apartment => apartment.CountryId == countryId)
+           .ToListAsync();
+        }
     }
   
 }

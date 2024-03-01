@@ -18,7 +18,7 @@ namespace RoomBi.BLL.Services
         IUnitOfWork Database { get; set; } = uow;
 
 
-        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllByType(string type)
+        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllByType(string type, string name)
         {
             try
             {
@@ -28,10 +28,8 @@ namespace RoomBi.BLL.Services
                 {
                     switch (type)
                     {
-                        case "Country":
-                            return null;
-                        case "Европа":
-                            var rentalApartments = await Database.SearchRentalApartment.GetApartmentsByContinent(type);
+                        case "country":  
+                            var rentalApartments = await Database.SearchRentalApartment.GetApartmentsByCountry(name);
                             var mapper = new MapperConfiguration(cfg =>
                             {
                                 cfg.CreateMap<RentalApartment, RentalApartmentDTOForStartPage>()
@@ -39,10 +37,19 @@ namespace RoomBi.BLL.Services
                                     .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name));
                             }).CreateMapper();
                             return mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentDTOForStartPage>>(rentalApartments);
-                        case "City":
+                        case "continent":
+                            rentalApartments = await Database.SearchRentalApartment.GetApartmentsByContinent(name);
+                            mapper = new MapperConfiguration(cfg =>
+                            {
+                                cfg.CreateMap<RentalApartment, RentalApartmentDTOForStartPage>()
+                                    .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Location.Name))
+                                    .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name));
+                            }).CreateMapper();
+                            return mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentDTOForStartPage>>(rentalApartments);
+                        case "city":
                             return null;
                         default:
-                            return null;
+                            throw new Exception("Не корректный type.");
                     }
                 }
             }

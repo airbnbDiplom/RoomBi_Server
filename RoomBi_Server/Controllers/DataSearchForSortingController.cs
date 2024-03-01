@@ -12,7 +12,7 @@ namespace RoomBi_Server.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class DataSearchForSortingController(
-        IServiceForStartPage<RentalApartmentDTOForStartPage> serviceForStartPage, 
+        IServiceForStartPage<RentalApartmentDTOForStartPage> serviceForStartPage,
         IServiceDataSearchForSorting<RentalApartmentDTOForStartPage> forSorting) : ControllerBase
     {
         // GET: api/dataSearchForSortingController
@@ -25,63 +25,29 @@ namespace RoomBi_Server.Controllers
 
                 if (dataSearchForSorting.Where.Type != null)
                 {
-                    switch (dataSearchForSorting.Where.Type)
+                    try
                     {
-                        case "Country":
-                            try
-                            {
-                               
-                                return Ok("Ok");
-                            }
-                            catch (Exception ex)
-                            {
-                                return BadRequest(ex.Message);
-                            }
-                        case "Сontinent":
-                            try
-                            {
-                                rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.GetAllByType(dataSearchForSorting.Where.Name);
-                                return Ok(rentalApartmentDTO);
-                            }
-                            catch (Exception ex)
-                            {
-                                return BadRequest(ex.Message);
-                            }
-                        case "City":
-                            try
-                            {
-                                return Ok("Ok");
-                            }
-                            catch (Exception ex)
-                            {
-                                return BadRequest(ex.Message);
-                            }
-                        default:
-                            return BadRequest("Invalid request type");
+                        rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.GetAllByType(dataSearchForSorting.Where.Type, dataSearchForSorting.Where.Name);
+                        return Ok(rentalApartmentDTO);
                     }
-
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
                 }
-               
-
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-         
 
-
-
-
-
-
-           await forSorting.GetAllByType("qwertyu");
-            //var users = await forSorting.TempGetAll();
-            if (dataSearchForSorting == null)
-            {
-                return NotFound();
-            }
-            return Ok(dataSearchForSorting);
+            //await forSorting.GetAllByType("qwertyu");
+            // //var users = await forSorting.TempGetAll();
+            // if (dataSearchForSorting == null)
+            // {
+            //     return NotFound();
+            // }
+            return Ok("Не попал в свич");
         }
     }
 }

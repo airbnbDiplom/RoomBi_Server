@@ -8,6 +8,6 @@ namespace RoomBi.BLL.Interfaces
 {
     public interface IServiceDataSearchForSorting<T> where T : class
     {
-        Task<IEnumerable<T>> GetAllByType(string type);
+        Task<IEnumerable<T>> GetAllByType(string type, string name);
     }
 }

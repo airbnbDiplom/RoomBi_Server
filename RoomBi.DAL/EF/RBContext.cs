@@ -22,11 +22,11 @@ namespace RoomBi.DAL.EF
             if (Database.EnsureCreated())
             {
                 #region Сontinent
-                Сontinent.Add(new Сontinent { Name = "Европа" });
+                Сontinent.Add(new Сontinent { Name = "Європа" });
                 Сontinent.Add(new Сontinent { Name = "Африка" });
-                Сontinent.Add(new Сontinent { Name = "Северная Америка" });
-                Сontinent.Add(new Сontinent { Name = "Южная Америка" });
-                Сontinent.Add(new Сontinent { Name = "Австралия" });
+                Сontinent.Add(new Сontinent { Name = "Північна Америка" });
+                Сontinent.Add(new Сontinent { Name = "Південна Америка" });
+                Сontinent.Add(new Сontinent { Name = "Австралія" });
                 #endregion
                 #region Languages
                 Languages.Add(new Language { Name = "Англійська" }); // English

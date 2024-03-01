@@ -228,7 +228,7 @@ namespace RoomBi.BLL.Services
                         Title = apartment.Title,
                         IngMap = apartment.IngMap,
                         LatMap = apartment.LatMap,
-                        PricePerNight = 8888,//apartment.PricePerNight, 
+                        PricePerNight = apartment.PricePerNight, 
                         ObjectRating = apartment.ObjectRating,
                         Country = apartment.Country?.Name,
                         Location = apartment.Location?.Name,
