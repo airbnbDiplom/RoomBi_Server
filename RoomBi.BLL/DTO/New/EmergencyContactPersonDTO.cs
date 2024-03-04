@@ -1,6 +1,6 @@
 ﻿using RoomBi.DAL;
 
-namespace RoomBi.BLL.DTO
+namespace RoomBi.BLL.DTO.New
 {
     public class EmergencyContactPersonDTO
     {
@@ -16,7 +16,7 @@ namespace RoomBi.BLL.DTO
         //public User? User { get; set; }
 
         //public Country? Country { get; set; }
-        
+
 
     }
 }

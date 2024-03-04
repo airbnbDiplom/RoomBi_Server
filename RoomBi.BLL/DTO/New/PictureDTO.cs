@@ -1,6 +1,6 @@
 ﻿using RoomBi.DAL;
 
-namespace RoomBi.BLL.DTO
+namespace RoomBi.BLL.DTO.New
 {
     public class PictureDTO
     {

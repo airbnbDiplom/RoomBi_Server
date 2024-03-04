@@ -1,6 +1,7 @@
 ﻿using Jose;
 using Microsoft.Extensions.DependencyInjection;
 using RoomBi.BLL.DTO;
+using RoomBi.BLL.DTO.New;
 using RoomBi.BLL.Interfaces;
 using RoomBi.BLL.Services;
 using RoomBi.DAL;
@@ -34,7 +35,7 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceOfAll<LocationDTO>, LocationService>();
             services.AddScoped<IServiceOfAll<HouseDTO>, HouseService>();
             services.AddScoped<IServiceOfAll<SportDTO>, SportService>();
-            services.AddScoped<IServiceOfAll<RentalApartmentDTO>, RentalApartmentService>();
+            //services.AddScoped<IServiceOfAll<RentalApartmentDTO>, RentalApartmentService>();
             services.AddScoped<IServiceOfAll<UserDTO>, UserService>();
             services.AddScoped<IServiceOfAll<WishlistDTO>, WishlistService>();
             services.AddScoped<IServiceOfAll<CommentsAboutGuestDTO>, CommentsAboutGuestService>();
@@ -42,6 +43,7 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceForMap<RentalApartmentForMap>, RentalApartmentService>();
             services.AddScoped<IServiceOfUser<UserDTO>, UserService>();
             services.AddScoped<IServiceDataSearchForSorting<RentalApartmentDTOForStartPage>, DataSearchForSortingServise>();
+            services.AddScoped<IServiceForItem<RentalApartmentDTO>, RentalApartmentService>();
            
 
 

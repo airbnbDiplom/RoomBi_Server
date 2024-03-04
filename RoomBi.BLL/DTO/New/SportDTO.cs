@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RoomBi.BLL.DTO
+namespace RoomBi.BLL.DTO.New
 {
     public class SportDTO
     {
         public SportDTO()
         {
-            this.RentalApartments = new HashSet<RentalApartment>();
+            RentalApartments = new HashSet<RentalApartment>();
         }
         public int Id { get; set; }
         public string? Name { get; set; }  // Golf// Skiing 

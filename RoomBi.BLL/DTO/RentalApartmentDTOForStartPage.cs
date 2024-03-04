@@ -19,7 +19,7 @@ namespace RoomBi.BLL.DTO
         public ICollection<Picture>? Pictures { get; set; }
         public string? IngMap { get; set; }
         public string? LatMap { get; set; }
-
+        public bool Wish { get; set; } = false;
         public string? Location { get; set; }// арктика || null
         public string? House { get; set; }// квартира || null
         public string? Sport { get; set; }// серфинг || null

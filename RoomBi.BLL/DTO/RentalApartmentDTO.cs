@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using RoomBi.DAL;
 using RoomBi.DAL.Entities;
+using RoomBi.BLL.DTO.New;
 
 namespace RoomBi.BLL.DTO
 {

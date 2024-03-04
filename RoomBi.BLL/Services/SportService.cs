@@ -2,8 +2,8 @@
 using RoomBi.BLL.Interfaces;
 using RoomBi.DAL.Interfaces;
 using RoomBi.BLL.Infrastructure;
-using RoomBi.BLL.DTO;
 using RoomBi.DAL.Entities;
+using RoomBi.BLL.DTO.New;
 
 namespace RoomBi.BLL.Services
 {

@@ -43,6 +43,7 @@ namespace RoomBi.DAL.Repositories
         {
             try
             {
+                if(userId == 0) { return false; }
                 var wishlistItems = await context.Wishlists
                     .Where(w => w.UserId == userId && w.ApartmentId == apartId)
                     .ToListAsync();

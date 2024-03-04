@@ -64,8 +64,8 @@ namespace RoomBi_Server.Controllers
                     try
                     {
                         await serviceOfUser.GetBoolByEmail(request.Email);
-                        var countryList = await country.GetAll();
-                        return Ok(countryList);
+                        //var countryList = await country.GetAll();
+                        return Ok("Ok");
                     }
                     catch (Exception ex)
                     {

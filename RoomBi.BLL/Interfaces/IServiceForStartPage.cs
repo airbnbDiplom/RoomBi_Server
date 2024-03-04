@@ -8,8 +8,12 @@ namespace RoomBi.BLL.Interfaces
 {
     public interface IServiceForStartPage<T>
     {
-        Task<IEnumerable<T>> GetAllForStartPage(int page = 1, int pageSize = 24);
+        Task<IEnumerable<T>> GetAllForStartPage(int page = 1, int pageSize = 24, int idUser = 0);
         Task<T> GetCard(int id);
+    }
+    public interface IServiceForItem<T>
+    {
+        Task<T> GetItem(int id, int userId);
     }
     public interface IServiceForMap<T>
     {

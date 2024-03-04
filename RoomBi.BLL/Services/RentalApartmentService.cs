@@ -12,69 +12,19 @@ using System.Diagnostics.Metrics;
 using RoomBi.DAL.Repositories;
 using System.Net;
 using System.Collections.ObjectModel;
+using RoomBi.BLL.DTO.New;
 
 
 namespace RoomBi.BLL.Services
 {
-    public class RentalApartmentService(IUnitOfWork uow) : IServiceOfAll<RentalApartmentDTO>,
+    public class RentalApartmentService(IUnitOfWork uow) : /*IServiceOfAll<RentalApartmentDTO>,*/
+        IServiceForItem<RentalApartmentDTO>,
         IServiceForStartPage<RentalApartmentDTOForStartPage>,
         IServiceForMap<RentalApartmentForMap>
     {
         private readonly IUnitOfWork Database = uow;
-        public async Task Create(RentalApartmentDTO rentalApartmentDTO)
-        {
-            var rentalApartment = new RentalApartment
-            {
-                Id = rentalApartmentDTO.Id,
-                Title = rentalApartmentDTO.Title,
-                Address = rentalApartmentDTO.Address,
-                IngMap = rentalApartmentDTO.IngMap,
-                LatMap = rentalApartmentDTO.LatMap,
-                NumberOfGuests = rentalApartmentDTO.NumberOfGuests,
-                Bedrooms = rentalApartmentDTO.Bedrooms,
-                Bathrooms = rentalApartmentDTO.Bathrooms,
-                Beds = rentalApartmentDTO.Beds,
-                PricePerNight = rentalApartmentDTO.PricePerNight,
-                ObjectRating = rentalApartmentDTO.ObjectRating,
-                ObjectState = rentalApartmentDTO.ObjectState,
-                //OfferedAmenitiesId = rentalApartmentDTO.OfferedAmenitiesId,
-                TypeApartment = rentalApartmentDTO.TypeApartment,
-                //PropertyTypeId = rentalApartmentDTO.PropertyTypeId,
-                //CountryId = rentalApartmentDTO.CountryId
-            };
-            await Database.RentalApartment.Create(rentalApartment);
-            await Database.Save();
-        }
-        public async Task Update(RentalApartmentDTO rentalApartmentDTO)
-        {
-            var rentalApartment = new RentalApartment
-            {
-                Id = rentalApartmentDTO.Id,
-                Title = rentalApartmentDTO.Title,
-                Address = rentalApartmentDTO.Address,
-                IngMap = rentalApartmentDTO.IngMap,
-                LatMap = rentalApartmentDTO.LatMap,
-                NumberOfGuests = rentalApartmentDTO.NumberOfGuests,
-                Bedrooms = rentalApartmentDTO.Bedrooms,
-                Bathrooms = rentalApartmentDTO.Bathrooms,
-                Beds = rentalApartmentDTO.Beds,
-                PricePerNight = rentalApartmentDTO.PricePerNight,
-                ObjectRating = rentalApartmentDTO.ObjectRating,
-                ObjectState = rentalApartmentDTO.ObjectState,
-                //OfferedAmenitiesId = rentalApartmentDTO.OfferedAmenitiesId,
-                TypeApartment = rentalApartmentDTO.TypeApartment,
-                //PropertyTypeId = rentalApartmentDTO.PropertyTypeId,
-                //CountryId = rentalApartmentDTO.CountryId
-            };
-            await Database.RentalApartment.Update(rentalApartment);
-            await Database.Save();
-        }
-        public async Task Delete(int id)
-        {
-            await Database.RentalApartment.Delete(id);
-            await Database.Save();
-        }
-        public async Task<RentalApartmentDTO> Get(int id)
+      
+        public async Task<RentalApartmentDTO> GetItem(int id, int userId)
         {
             var rentalApartment = await Database.RentalApartment.Get(id);
             if (rentalApartment == null)
@@ -123,10 +73,9 @@ namespace RoomBi.BLL.Services
                 Sport = rentalApartment.Sport?.Name,
                 House = rentalApartment.House?.Name,
                 Country = rentalApartment.Country?.Name,
-                Wish = await Database.GetItemWishlist.CheckIfWishlistItemExists(rentalApartment.Id, rentalApartment.Id),
- 
+                Wish = await Database.GetItemWishlist.CheckIfWishlistItemExists(userId, rentalApartment.Id),
 
-            OfferedAmenities = rentalApartment.OfferedAmenities,
+                OfferedAmenities = rentalApartment.OfferedAmenities,
                 Master = MapUserToMaster(user, language, country),
                 GuestComments = guestCommentsDTOCollection,
                 Pictures = rentalApartment.Pictures,
@@ -167,7 +116,6 @@ namespace RoomBi.BLL.Services
 
         };
         }
-
         public async Task<RentalApartmentDTOForStartPage> GetCard(int id)
         {
             var rentalApartment = await Database.RentalApartment.Get(id);
@@ -190,17 +138,7 @@ namespace RoomBi.BLL.Services
                 BookingFree = null
             };
         }
-        public async Task<IEnumerable<RentalApartmentDTO>> GetAll()
-        {
-            var rentalApartments = await Database.RentalApartment.GetAll();
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<RentalApartment, RentalApartmentDTO>()
-                    .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Location.Name))
-                    .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name));
-            }).CreateMapper();
-            return mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentDTO>>(rentalApartments);
-        }
+       
         public async Task<IEnumerable<RentalApartmentForMap>> GetAllForMap(string map)
         {
             var rentalApartments = await Database.RentalApartment.GetAll();
@@ -214,7 +152,7 @@ namespace RoomBi.BLL.Services
             }).CreateMapper();
             return mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentForMap>>(rentalApartments);
         }
-        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllForStartPage(int page, int pageSize)
+        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllForStartPage(int page, int pageSize, int idUser)
         {
             if (page == 1) 
             {
@@ -231,6 +169,7 @@ namespace RoomBi.BLL.Services
                         PricePerNight = apartment.PricePerNight, 
                         ObjectRating = apartment.ObjectRating,
                         Country = apartment.Country?.Name,
+                        Wish = await Database.GetItemWishlist.CheckIfWishlistItemExists(idUser, apartment.Id),
                         Location = apartment.Location?.Name,
                         House = apartment.House?.Name,
                         Sport = apartment.Sport?.Name,
@@ -278,34 +217,116 @@ namespace RoomBi.BLL.Services
         {
             if (rentalApartment.Booking == null || rentalApartment.Booking.Count == 0)
             {
-                return string.Empty;
+                DateTime date = DateTime.Now;
+                DateTime newDate = date.AddDays(5);
+                string formattedDate = date.ToString("dd MMM", new CultureInfo("uk-UA")) +
+                                        " - " +
+                                        newDate.ToString("dd MMM", new CultureInfo("uk-UA"));
+                return formattedDate;
             }
-
             var bookings = rentalApartment.Booking.OrderBy(b => b.CheckOutDate).ToList();
+            DateTime datenow = DateTime.Now;
+            DateTime first = bookings.First().CheckInDate;
+            TimeSpan difference1 = first - datenow;
+            if (difference1.Days >= 5)
+            {
+                DateTime newDate = datenow.AddDays(5);
+                string formattedDate = datenow.ToString("dd MMM", new CultureInfo("uk-UA")) +
+                                        " - " +
+                                        newDate.ToString("dd MMM", new CultureInfo("uk-UA"));
+                return formattedDate;
+            }
             DateTime lastCheckOutDate = bookings.First().CheckOutDate;
-
             foreach (var booking in bookings.Skip(1))
             {
                 DateTime nextCheckInDate = booking.CheckInDate;
                 TimeSpan difference = nextCheckInDate - lastCheckOutDate;
                 if (difference.Days >= 5)
                 {
-                    lastCheckOutDate = booking.CheckOutDate;
+                    DateTime newDate = lastCheckOutDate.AddDays(5);
+                    string formattedDate = lastCheckOutDate.ToString("dd MMM", new CultureInfo("uk-UA")) +
+                                            " - " +
+                                            newDate.ToString("dd MMM", new  CultureInfo("uk-UA"));
+                    return formattedDate;
                 }
+                lastCheckOutDate = booking.CheckOutDate;
             }
-
-            DateTime newDate = lastCheckOutDate.AddDays(5);
-            string formattedDate = lastCheckOutDate.ToString("dd MMM", new System.Globalization.CultureInfo("uk-UA")) +
+            DateTime newDate1 = lastCheckOutDate.AddDays(5);
+            string formattedDate1 = lastCheckOutDate.ToString("dd MMM", new CultureInfo("uk-UA")) +
                                     " - " +
-                                    newDate.ToString("dd MMM", new System.Globalization.CultureInfo("uk-UA"));
-            return formattedDate;
+                                    newDate1.ToString("dd MMM", new CultureInfo("uk-UA"));
+            return formattedDate1;
+
         }
 
-        //public async Task<bool> GetinfoAboutApartment(int apartmentId)
+
+        //public async Task<IEnumerable<RentalApartmentDTO>> GetAll()
         //{
-        //    Wishlist wishlist = await Database.Wishlist.CheckIfWishlistItemExists(apartmentId);
-        //    if (wishlist == null) {  return false; }
-        //    return true;
+        //    var rentalApartments = await Database.RentalApartment.GetAll();
+        //    var mapper = new MapperConfiguration(cfg =>
+        //    {
+        //        cfg.CreateMap<RentalApartment, RentalApartmentDTO>()
+        //            .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Location.Name))
+        //            .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name));
+        //    }).CreateMapper();
+        //    return mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentDTO>>(rentalApartments);
+        //}
+        //public Task<RentalApartmentDTO> Get(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
+        //public async Task Create(RentalApartmentDTO rentalApartmentDTO)
+        //{
+        //    var rentalApartment = new RentalApartment
+        //    {
+        //        Id = rentalApartmentDTO.Id,
+        //        Title = rentalApartmentDTO.Title,
+        //        Address = rentalApartmentDTO.Address,
+        //        IngMap = rentalApartmentDTO.IngMap,
+        //        LatMap = rentalApartmentDTO.LatMap,
+        //        NumberOfGuests = rentalApartmentDTO.NumberOfGuests,
+        //        Bedrooms = rentalApartmentDTO.Bedrooms,
+        //        Bathrooms = rentalApartmentDTO.Bathrooms,
+        //        Beds = rentalApartmentDTO.Beds,
+        //        PricePerNight = rentalApartmentDTO.PricePerNight,
+        //        ObjectRating = rentalApartmentDTO.ObjectRating,
+        //        ObjectState = rentalApartmentDTO.ObjectState,
+        //        //OfferedAmenitiesId = rentalApartmentDTO.OfferedAmenitiesId,
+        //        TypeApartment = rentalApartmentDTO.TypeApartment,
+        //        //PropertyTypeId = rentalApartmentDTO.PropertyTypeId,
+        //        //CountryId = rentalApartmentDTO.CountryId
+        //    };
+        //    await Database.RentalApartment.Create(rentalApartment);
+        //    await Database.Save();
+        //}
+        //public async Task Update(RentalApartmentDTO rentalApartmentDTO)
+        //{
+        //    var rentalApartment = new RentalApartment
+        //    {
+        //        Id = rentalApartmentDTO.Id,
+        //        Title = rentalApartmentDTO.Title,
+        //        Address = rentalApartmentDTO.Address,
+        //        IngMap = rentalApartmentDTO.IngMap,
+        //        LatMap = rentalApartmentDTO.LatMap,
+        //        NumberOfGuests = rentalApartmentDTO.NumberOfGuests,
+        //        Bedrooms = rentalApartmentDTO.Bedrooms,
+        //        Bathrooms = rentalApartmentDTO.Bathrooms,
+        //        Beds = rentalApartmentDTO.Beds,
+        //        PricePerNight = rentalApartmentDTO.PricePerNight,
+        //        ObjectRating = rentalApartmentDTO.ObjectRating,
+        //        ObjectState = rentalApartmentDTO.ObjectState,
+        //        //OfferedAmenitiesId = rentalApartmentDTO.OfferedAmenitiesId,
+        //        TypeApartment = rentalApartmentDTO.TypeApartment,
+        //        //PropertyTypeId = rentalApartmentDTO.PropertyTypeId,
+        //        //CountryId = rentalApartmentDTO.CountryId
+        //    };
+        //    await Database.RentalApartment.Update(rentalApartment);
+        //    await Database.Save();
+        //}
+        //public async Task Delete(int id)
+        //{
+        //    await Database.RentalApartment.Delete(id);
+        //    await Database.Save();
         //}
     }
 }

@@ -8,36 +8,22 @@ namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RentalApartmentController(IServiceOfAll<RentalApartmentDTO> rentalApartmentService, 
+    public class RentalApartmentController(
+        /*IServiceOfAll<RentalApartmentDTO> rentalApartmentService,*/
         IServiceForStartPage<RentalApartmentDTOForStartPage> serviceForStartPage,
-        IServiceForMap<RentalApartmentForMap> serviceForMap) : ControllerBase
+        IServiceForMap<RentalApartmentForMap> serviceForMap,
+        IServiceForItem<RentalApartmentDTO> serviceForItem) : ControllerBase
     {
-     
-
         // GET: api/rentalApartments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RentalApartmentDTOForStartPage>>> GetRentalApartments(int page = 1, int pageSize = 24)
+        public async Task<ActionResult<IEnumerable<RentalApartmentDTOForStartPage>>> GetRentalApartments(int page = 1, int pageSize = 24, int idUser = 0)
         {
-            if (page == 2)
+            var rentalApartments = await serviceForStartPage.GetAllForStartPage(page, pageSize, idUser);
+            if (rentalApartments == null || !rentalApartments.Any())
             {
-                var rentalApartments = await serviceForStartPage.GetAllForStartPage(page, pageSize);
-                if (rentalApartments == null || !rentalApartments.Any())
-                {
-                    return NotFound();
-                }
-                return Ok(rentalApartments);
+                return NotFound();
             }
-            else 
-            {
-              var rentalApartments = await serviceForStartPage.GetAllForStartPage(page, pageSize);
-                if (rentalApartments == null || !rentalApartments.Any())
-                {
-                    return NotFound();
-                }
-                return Ok(rentalApartments);
-            }
-            
-
+            return Ok(rentalApartments);
         }
         // GET: api/rentalApartments/map
         [HttpGet("map/{map}")]
@@ -55,11 +41,7 @@ namespace RoomBi_Server.Controllers
         [HttpGet("item/")]
         public async Task<ActionResult<RentalApartmentDTO>> GetRentalApartment(int id, int idUser = 0)
         {
-            if(id > 0)
-            {
-                idUser = 1;
-            }
-            var rentalApartment = await rentalApartmentService.Get(id);
+            var rentalApartment = await serviceForItem.GetItem(id, idUser);
             if (rentalApartment == null)
             {
                 return NotFound();
@@ -78,32 +60,32 @@ namespace RoomBi_Server.Controllers
             return rentalApartment;
         }
 
-        // PUT: api/rentalApartments/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutRentalApartment(int id, RentalApartmentDTO rentalApartment)
-        {
-            if (id != rentalApartment.Id)
-            {
-                return BadRequest();
-            }
-            await rentalApartmentService.Update(rentalApartment);
-            return NoContent();
-        }
+        //// PUT: api/rentalApartments/5
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutRentalApartment(int id, RentalApartmentDTO rentalApartment)
+        //{
+        //    if (id != rentalApartment.Id)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    await rentalApartmentService.Update(rentalApartment);
+        //    return NoContent();
+        //}
 
         // POST: api/rentalApartments
-        [HttpPost]
-        public async Task<ActionResult<RentalApartmentDTO>> PostRentalApartment(RentalApartmentDTO rentalApartment)
-        {
-            await rentalApartmentService.Create(rentalApartment);
-            return CreatedAtAction(nameof(GetRentalApartment), new { id = rentalApartment.Id }, rentalApartment);
-        }
+        //[HttpPost]
+        //public async Task<ActionResult<RentalApartmentDTO>> PostRentalApartment(RentalApartmentDTO rentalApartment)
+        //{
+        //    await rentalApartmentService.Create(rentalApartment);
+        //    return CreatedAtAction(nameof(GetRentalApartment), new { id = rentalApartment.Id }, rentalApartment);
+        //}
 
-        // DELETE: api/rentalApartments/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRentalApartment(int id)
-        {
-            await rentalApartmentService.Delete(id);
-            return NoContent();
-        }
+        //// DELETE: api/rentalApartments/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteRentalApartment(int id)
+        //{
+        //    await rentalApartmentService.Delete(id);
+        //    return NoContent();
+        //}
     }
 }

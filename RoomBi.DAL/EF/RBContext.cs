@@ -31,6 +31,16 @@ namespace RoomBi.DAL.EF
                 #region Languages
                 Languages.Add(new Language { Name = "Англійська" }); // English
                 Languages.Add(new Language { Name = "Українська" });
+                Languages.Add(new Language { Name = "Французька" });
+                Languages.Add(new Language { Name = "Німецька" });
+                Languages.Add(new Language { Name = "Італійська" });
+                Languages.Add(new Language { Name = "Португальська" });
+                Languages.Add(new Language { Name = "Польська" });
+                Languages.Add(new Language { Name = "Японська" });
+                Languages.Add(new Language { Name = "Іспанська" });
+                Languages.Add(new Language { Name = "Арабська" });
+                Languages.Add(new Language { Name = "Турецька" });
+                Languages.Add(new Language { Name = "Фінська" });
                 #endregion
                 #region Countries
                 Countries.Add(new Country { Name = "Україна", CountryCode = "+380" });
@@ -1661,19 +1671,8 @@ namespace RoomBi.DAL.EF
                     CountryId = 5,
                 });
                 SaveChanges();
-                #endregion 
+                #endregion
                 #region Booking
-                Bookings.Add(new Booking
-                {
-
-                    OwnerId = 1,
-                    ApartmentId = 1,
-                    CheckInDate = DateTime.Now.AddDays(25),
-                    CheckOutDate = DateTime.Now.AddDays(32),
-                    NumberOfGuests = 2,
-                    TotalPrice = 200.0,
-                    PaymentStatus = true
-                });
                 Bookings.Add(new Booking
                 {
 
@@ -1698,6 +1697,19 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
+
+                    OwnerId = 1,
+                    ApartmentId = 1,
+                    CheckInDate = DateTime.Now.AddDays(25),
+                    CheckOutDate = DateTime.Now.AddDays(32),
+                    NumberOfGuests = 2,
+                    TotalPrice = 200.0,
+                    PaymentStatus = true
+                });
+            
+          
+                Bookings.Add(new Booking
+                {
                     OwnerId = 2,
                     ApartmentId = 2,
                     CheckInDate = DateTime.Now.AddDays(10),
@@ -1706,6 +1718,7 @@ namespace RoomBi.DAL.EF
                     TotalPrice = 300.0,
                     PaymentStatus = false
                 });
+
                 Bookings.Add(new Booking
                 {
                     OwnerId = 2,
@@ -1716,6 +1729,7 @@ namespace RoomBi.DAL.EF
                     TotalPrice = 300.0,
                     PaymentStatus = false
                 });
+
                 Bookings.Add(new Booking
                 {
                     OwnerId = 2,

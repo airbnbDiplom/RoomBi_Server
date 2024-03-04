@@ -3,12 +3,12 @@ using RoomBi.DAL.Interfaces;
 using RoomBi.DAL;
 using RoomBi.BLL.Infrastructure;
 using RoomBi.BLL.Interfaces;
-using RoomBi.BLL.DTO;
+using RoomBi.BLL.DTO.New;
 
 namespace RoomBi.BLL.Services
 {
 
-        public class EmergencyContactPersonService : IServiceOfAll<EmergencyContactPersonDTO>
+    public class EmergencyContactPersonService : IServiceOfAll<EmergencyContactPersonDTO>
         {
             IUnitOfWork Database { get; set; }
 

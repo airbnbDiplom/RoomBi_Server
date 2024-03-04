@@ -15,20 +15,84 @@ namespace RoomBi_Server.Controllers
         IServiceForStartPage<RentalApartmentDTOForStartPage> serviceForStartPage,
         IServiceDataSearchForSorting<RentalApartmentDTOForStartPage> forSorting) : ControllerBase
     {
-        // GET: api/dataSearchForSortingController
         [HttpPost("sort")]
         public async Task<ActionResult<IEnumerable<RentalApartmentDTOForStartPage>>> GetCards([FromBody] DataSearchForSorting dataSearchForSorting)
         {
             try
             {
-                ICollection<RentalApartmentDTOForStartPage> rentalApartmentDTO = new List<RentalApartmentDTOForStartPage>();
+                ICollection<RentalApartmentDTOForStartPage>? rentalApartmentDTO = new List<RentalApartmentDTOForStartPage>();
 
-                if (dataSearchForSorting.Where.Type != null)
+                if (dataSearchForSorting.Where.Type != "")
                 {
                     try
                     {
                         rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.GetAllByType(dataSearchForSorting.Where.Type, dataSearchForSorting.Where.Name);
-                        return Ok(rentalApartmentDTO);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                }
+
+                if (dataSearchForSorting.When.Start.Day != 0)
+                {
+                    try
+                    {
+                        if (rentalApartmentDTO.Count == 0)
+                        {
+                            rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.DateBookingSearch(dataSearchForSorting.When, rentalApartmentDTO = null);
+                        }
+                        else
+                        {
+                            rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.DateBookingSearch(dataSearchForSorting.When, rentalApartmentDTO);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                }
+
+                if (dataSearchForSorting.Why != 0)
+                {
+                    try
+                    {
+                        if (rentalApartmentDTO.Count == 0)
+                        {
+                            rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.GetAllByNumberOfGuests(dataSearchForSorting.Why, rentalApartmentDTO = null);
+                        }
+                        else
+                        {
+                            rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.GetAllByNumberOfGuests(dataSearchForSorting.Why, rentalApartmentDTO);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                }
+                return Ok(rentalApartmentDTO);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            //return Ok("Ok");
+        }
+
+        [HttpPost("filter")]
+        public async Task<ActionResult<IEnumerable<RentalApartmentDTOForStartPage>>> GetCardsForMax([FromBody] Filter filter)
+        {
+            try
+            {
+                ICollection<RentalApartmentDTOForStartPage> rentalApartmentDTO = new List<RentalApartmentDTOForStartPage>();
+                if (filter != null)
+                {
+                    try
+                    {
+                        var rentalApartments = await serviceForStartPage.GetAllForStartPage();
+                        return Ok(rentalApartments);
                     }
                     catch (Exception ex)
                     {
@@ -40,14 +104,9 @@ namespace RoomBi_Server.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
-            //await forSorting.GetAllByType("qwertyu");
-            // //var users = await forSorting.TempGetAll();
-            // if (dataSearchForSorting == null)
-            // {
-            //     return NotFound();
-            // }
-            return Ok("Не попал в свич");
+            return Ok("Ok");
         }
     }
+
 }
+

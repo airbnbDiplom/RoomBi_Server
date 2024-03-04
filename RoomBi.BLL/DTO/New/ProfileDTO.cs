@@ -1,6 +1,6 @@
 ﻿using RoomBi.DAL;
 
-namespace RoomBi.BLL.DTO
+namespace RoomBi.BLL.DTO.New
 {
     public class ProfileDTO
     {
@@ -18,6 +18,6 @@ namespace RoomBi.BLL.DTO
         public string? BiographyTitle { get; set; }//Так можно было бы назвать мою биографию
         public string? DailyActivity { get; set; }//Что я делаю часами  
         public int IdUser { get; set; }
-       // public User? User { get; set; }
+        // public User? User { get; set; }
     }
 }
