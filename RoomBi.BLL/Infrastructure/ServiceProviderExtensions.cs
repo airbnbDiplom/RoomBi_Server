@@ -44,7 +44,9 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceOfUser<UserDTO>, UserService>();
             services.AddScoped<IServiceDataSearchForSorting<RentalApartmentDTOForStartPage>, DataSearchForSortingServise>();
             services.AddScoped<IServiceForItem<RentalApartmentDTO>, RentalApartmentService>();
-           
+            services.AddScoped<IServiceOfUserGoogle<User>, UserService>();
+
+
 
 
 

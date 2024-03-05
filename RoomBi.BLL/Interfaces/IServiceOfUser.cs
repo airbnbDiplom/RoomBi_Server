@@ -14,6 +14,12 @@ namespace RoomBi.BLL.Interfaces
         Boolean GetBoolByPassword(string password, string password2);
         Task<T> GetUserByEmail(string email);
         Task UpdateRefreshToken(T item);
-
+    
     }
+    public interface IServiceOfUserGoogle<T>
+    {
+    
+        Task<T> GetUserByGoogle(RequestUser item);
+    }
+
 }

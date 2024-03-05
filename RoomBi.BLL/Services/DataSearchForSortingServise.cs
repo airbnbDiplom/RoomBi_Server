@@ -21,7 +21,6 @@ namespace RoomBi.BLL.Services
 
     {
         IUnitOfWork Database { get; set; } = uow;
-
         public async Task<IEnumerable<RentalApartmentDTOForStartPage>> DateBookingSearch(DateBooking booking, ICollection<RentalApartmentDTOForStartPage> rentalApartmentDTO)
         {
             DateTime start = new(booking.Start!.Year, booking.Start!.Month, booking.Start!.Day);
@@ -51,7 +50,6 @@ namespace RoomBi.BLL.Services
             }
             return rentalApartmentResult;
         }
-
         public static RentalApartmentDTOForStartPage NewRentalApartment(RentalApartment apartment)
         {
             var rentalApartmentTemp = new RentalApartmentDTOForStartPage
@@ -160,7 +158,6 @@ namespace RoomBi.BLL.Services
             return formattedDate1;
 
         }
-
         public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllByNumberOfGuests(int why, ICollection<RentalApartmentDTOForStartPage> rentalApartmentDTO)
         {
             ICollection<RentalApartmentDTOForStartPage> rentalApartmentResult = new List<RentalApartmentDTOForStartPage>();

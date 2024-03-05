@@ -8,11 +8,12 @@ using Newtonsoft.Json.Linq;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using Azure.Core;
+using System.Runtime.Intrinsics.X86;
 
 namespace RoomBi.BLL.Services
 {
 
-    public class UserService(IUnitOfWork uow) : IServiceOfAll<UserDTO>, IServiceOfUser<UserDTO>
+    public class UserService(IUnitOfWork uow) : IServiceOfAll<UserDTO>, IServiceOfUser<UserDTO>, IServiceOfUserGoogle<User>
     {
         IUnitOfWork Database { get; set; } = uow;
         public async Task<Boolean> GetBoolByEmail(string email)
@@ -72,7 +73,6 @@ namespace RoomBi.BLL.Services
             await Database.User.Create(user);
             await Database.Save();
         }
-
         public bool GetBoolByPassword(string password, string hashedPassword)
         {
             if (password == "google")
@@ -142,12 +142,33 @@ namespace RoomBi.BLL.Services
             await Database.User.Delete(id);
             //await Database.Save();
         }
-       
+        public async Task<User> GetUserByGoogle(RequestUser item)
+        {
+            var user = await Database.UserGetEmailAndPassword.GetEmail(item.Email);
+            if (user == null)
+            {
+                var contry = await Database.CountryGetName.GetByName(item.Country);
+                User user1 = new()
+                {
+                    Password = item.Password,
+                    Email = item.Email,
+                    Name = item.Name,
+                    PhoneNumber = item.PhoneNumber,
+                    DateOfBirth = DateTime.Parse(item.DateOfBirth),
+                    AirbnbRegistrationYear = DateTime.Now,
+                    CountryId = contry.Id,
+                    IsGoogleServiceUsed = true
+                };
+                await Database.User.Create(user);
+                await Database.Save();
+                return user1;
+            }
+            return user;
+        }
 
 
 
-
-    public async Task RegisterRequest(RequestUser requestUser)
+        public async Task RegisterRequest(RequestUser requestUser)
         {
   
 
@@ -223,6 +244,6 @@ namespace RoomBi.BLL.Services
             return mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(await Database.User.GetAll());
         }
 
-     
+    
     }
 }
