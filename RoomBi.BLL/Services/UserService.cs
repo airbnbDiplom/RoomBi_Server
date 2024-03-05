@@ -150,7 +150,7 @@ namespace RoomBi.BLL.Services
                 var contry = await Database.CountryGetName.GetByName(item.Country);
                 User user1 = new()
                 {
-                    Password = item.Password,
+                    Password = "google",
                     Email = item.Email,
                     Name = item.Name,
                     PhoneNumber = item.PhoneNumber,
@@ -159,7 +159,7 @@ namespace RoomBi.BLL.Services
                     CountryId = contry.Id,
                     IsGoogleServiceUsed = true
                 };
-                await Database.User.Create(user);
+                await Database.User.Create(user1);
                 await Database.Save();
                 return user1;
             }

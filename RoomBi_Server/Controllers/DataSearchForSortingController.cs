@@ -22,7 +22,7 @@ namespace RoomBi_Server.Controllers
             {
                 ICollection<RentalApartmentDTOForStartPage>? rentalApartmentDTO = new List<RentalApartmentDTOForStartPage>();
 
-                if (dataSearchForSorting.Where.Type != ""|| dataSearchForSorting.Where.Type != "string")
+                if (dataSearchForSorting.Where.Type != "" || dataSearchForSorting.Where.Type != "string")
                 {
                     try
                     {
@@ -107,6 +107,5 @@ namespace RoomBi_Server.Controllers
             return Ok("Ok");
         }
     }
-
 }
 
