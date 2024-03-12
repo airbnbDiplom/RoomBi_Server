@@ -26,7 +26,7 @@ builder.Services.AddDbContext<RBContext>(options =>
 
 
 
-//builder.Services.AddCors(); // добавляем сервисы CORS
+builder.Services.AddCors(); // добавляем сервисы CORS
 
 builder.Services.AddScoped<IJwtToken, JwtTokenService>();
 builder.Services.AddCustomServices();
@@ -88,12 +88,12 @@ app.UseAuthorization();
 //.AllowAnyHeader()
 //.AllowAnyMethod()
 //.AllowCredentials());
-//app.UseCors(builder => builder.WithOrigins("http://localhost:3000", "https://room-bi.vercel.app")
-//                            .AllowAnyHeader()
-//                            .AllowAnyMethod());
+app.UseCors(builder => builder.WithOrigins("http://localhost:3000", "https://room-bi.vercel.app")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod());
 
-//app.UseCors();
-//app.UseCors(MyAllowSpecificOrigins);
+app.UseCors();
+ 
 app.MapControllers();
 
 app.Run();

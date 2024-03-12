@@ -114,30 +114,33 @@ namespace RoomBi.BLL.Services
             var language = await Database.Languages.Get(user.LanguageId);
             var contry = await Database.Country.Get(user.CountryId);
             return new UserDTO
-           {
-               Id = user.Id,
-               Name = user.Name,
-               Password = user.Password,
-               Email = user.Email,
-               Address = user.Address,
-               PhoneNumber = user.PhoneNumber,
-               DateOfBirth = user.DateOfBirth,
-               AirbnbRegistrationYear = user.AirbnbRegistrationYear,
-               ProfilePicture = user.ProfilePicture,
-               RefreshToken = user.RefreshToken,
-               CurrentStatus = user.CurrentStatus,
-               UserStatus = user.UserStatus,
-               Language = language.Name,
-               Country = contry.Name
-           };
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Password = user.Password,
+                Email = user.Email,
+                Address = user.Address,
+                PhoneNumber = user.PhoneNumber,
+                DateOfBirth = user.DateOfBirth,
+                AirbnbRegistrationYear = user.AirbnbRegistrationYear,
+                ProfilePicture = user.ProfilePicture,
+                RefreshToken = user.RefreshToken,
+                CurrentStatus = user.CurrentStatus,
+                UserStatus = user.UserStatus,
+                Language = language.Name,
+                Country = contry.Name
+            };
 
         }
         public async Task UpdateRefreshToken(UserDTO userDTO)
         {
             User user = await Database.User.Get(userDTO.Id);
-            user.RefreshToken = userDTO.RefreshToken;
-            await Database.User.Update(user);
-            await Database.Save();
+            if (user != null)
+            {
+                user.RefreshToken = userDTO.RefreshToken;
+                await Database.User.Update(user);
+                await Database.Save();
+            }
         }
         public async Task Delete(int id)
         {
@@ -152,6 +155,7 @@ namespace RoomBi.BLL.Services
                 //var contry = await Database.CountryGetName.GetByName(item.Country);
                 User user1 = new()
                 {
+
                     Password = "google",
                     Email = item.Email,
                     //Name = item.Name,
@@ -167,12 +171,9 @@ namespace RoomBi.BLL.Services
             }
             return user;
         }
+        //public async Task RegisterRequest(RequestUser requestUser)
+        //{
 
-
-
-        public async Task RegisterRequest(RequestUser requestUser)
-        {
-  
 
             //    byte[] salt;
             //    new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
@@ -201,31 +202,26 @@ namespace RoomBi.BLL.Services
             //else
             //{
             // Generate a salt
-        }
+        //}
         public async Task Update(UserDTO userDTO)
         {
             var user = await Database.UserGetEmailAndPassword.GetEmail(userDTO.Email);
-
-            //var language = await Database.LanguageGetName.GetByName(userDTO.Language);
-            //var contry = await Database.CountryGetName.GetByName(userDTO.Country);
             if (user != null)
-            { 
+            {
                 if (userDTO.Name != "")
                     user.Name = userDTO.Name;
-                user.Password = user.Password;
-                user.Address = user.Address;
-                user.PhoneNumber = user.PhoneNumber;
-                //user.DateOfBirth = user.DateOfBirth;
-                user.ProfilePicture = user.ProfilePicture;
-                //user.RefreshToken = user.RefreshToken;
-                //user.CurrentStatus = user.CurrentStatus;
-                //user.UserStatus = user.UserStatus;
-                //user.LanguageId = language.Id;
-                //user.CountryId = contry.Id;
-                //user.RefreshToken = userDTO.RefreshToken;
+                if (userDTO.Password != "")
+                    user.Password = userDTO.Password;
+                if (userDTO.Address != "")
+                    user.Address = userDTO.Address;
+                if (userDTO.PhoneNumber != "")
+                    user.PhoneNumber = userDTO.PhoneNumber;
+                if (userDTO.ProfilePicture != "")
+                    user.ProfilePicture = userDTO.ProfilePicture;
+                await Database.User.Update(user);
+                await Database.Save();
             };
-            await Database.User.Update(user);
-            await Database.Save();
+
         }
         public async Task<UserDTO> Get(int id)
         {
@@ -259,6 +255,6 @@ namespace RoomBi.BLL.Services
             return mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(await Database.User.GetAll());
         }
 
-    
+
     }
 }
