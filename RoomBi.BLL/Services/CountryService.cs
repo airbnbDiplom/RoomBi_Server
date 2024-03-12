@@ -23,7 +23,7 @@ namespace RoomBi.BLL.Services
             {
                 Id = countryDto.Id,
                 Name = countryDto.Name,
-                CountryCode = countryDto.CountryCode
+                PhoneCode = countryDto.PhoneCode
             };
             await Database.Country.Create(country);
             await Database.Save();
@@ -35,7 +35,7 @@ namespace RoomBi.BLL.Services
             {
                 Id = countryDto.Id,
                 Name = countryDto.Name,
-                CountryCode = countryDto.CountryCode
+                PhoneCode = countryDto.PhoneCode
             };
             await Database.Country.Update(country);
             await Database.Save();
@@ -56,7 +56,7 @@ namespace RoomBi.BLL.Services
             {
                 Id = country.Id,
                 Name = country.Name,
-                CountryCode = country.CountryCode
+                PhoneCode = country.PhoneCode
             };
         }
 

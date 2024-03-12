@@ -24,6 +24,8 @@ namespace RoomBi.DAL
         public string? Title { get; set; }
         public string? Address { get; set; }
         public string? City { get; set; }
+        public Int64 PlaceId { get; set; }
+        public string? CountryCode { get; set; }
         public string? IngMap { get; set; }
         public string? LatMap { get; set; }
         public int NumberOfGuests { get; set; }
@@ -45,9 +47,11 @@ namespace RoomBi.DAL
         public int SportId { get; set; }
         public Sport? Sport { get; set; }
         public int CountryId { get; set; }
-        public Country? Country { get; set; }
-        public int СontinentId { get; set; }
-        public Сontinent? Сontinent { get; set; }
+        public Country? Country { get; set; }/// <summary>
+        /// 
+        /// </summary>
+        //public int СontinentId { get; set; }
+        //public Сontinent? Сontinent { get; set; }
         public int UserId { get; set; }
         public User? User { get; set; }
 

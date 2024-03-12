@@ -21,9 +21,11 @@ namespace RoomBi.DAL.Repositories
     public interface IRepositoryGetWishlictitem<T> where T : class
     {
         Task<Boolean> CheckIfWishlistItemExists(int userId, int apartId);
+        Task DeleteIfWishlistItem(int userId, int apartId);
     }
     public interface IRepositoryForApartment<T> where T : class
     {
         Task<IEnumerable<T>> ByApartmentId(int apartmentId);
     }
+   
 }

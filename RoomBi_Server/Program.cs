@@ -26,7 +26,7 @@ builder.Services.AddDbContext<RBContext>(options =>
 
 
 
-builder.Services.AddCors(); // добавляем сервисы CORS
+//builder.Services.AddCors(); // добавляем сервисы CORS
 
 builder.Services.AddScoped<IJwtToken, JwtTokenService>();
 builder.Services.AddCustomServices();
@@ -38,7 +38,8 @@ var issuer = builder.Configuration.GetSection("Jwt:Issuer").Value;
 var audience = builder.Configuration.GetSection("Jwt:Audience").Value;
 var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
-builder.Services.AddAuthentication(opt => {
+builder.Services.AddAuthentication(opt =>
+{
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -87,9 +88,9 @@ app.UseAuthorization();
 //.AllowAnyHeader()
 //.AllowAnyMethod()
 //.AllowCredentials());
-app.UseCors(builder => builder.WithOrigins("http://localhost:3000", "https://room-bi.vercel.app")
-                            .AllowAnyHeader()
-                            .AllowAnyMethod());
+//app.UseCors(builder => builder.WithOrigins("http://localhost:3000", "https://room-bi.vercel.app")
+//                            .AllowAnyHeader()
+//                            .AllowAnyMethod());
 
 //app.UseCors();
 //app.UseCors(MyAllowSpecificOrigins);

@@ -36,9 +36,6 @@ namespace RoomBi.DAL.Repositories
             if (item != null)
                 context.Wishlists.Remove(item);
         }
-
-        
-
         public async Task<Boolean> CheckIfWishlistItemExists(int userId, int apartId)
         {
             try
@@ -52,6 +49,20 @@ namespace RoomBi.DAL.Repositories
             catch (Exception ex)
             {
                 throw; 
+            }
+        }
+
+        public async Task DeleteIfWishlistItem(int userId, int apartId)
+        {
+            try
+            {
+                Wishlist? item = await context.Wishlists.FirstOrDefaultAsync(w => w.UserId == userId && w.ApartmentId == apartId);
+                if (item != null)
+                    context.Wishlists.Remove(item);
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

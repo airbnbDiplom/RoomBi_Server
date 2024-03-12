@@ -16,4 +16,5 @@ namespace RoomBi.BLL.Interfaces
         Task<IEnumerable<T>> GetAll();
        
     }
+
 }

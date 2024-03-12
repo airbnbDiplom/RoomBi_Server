@@ -11,7 +11,7 @@ namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GuestPaymentMethodController(IServiceOfAll<UserDTO> userService, 
+    public class GuestPaymentMethodController(IServiceOfAll<UserDTO> userService,
         IServiceOfAll<Payment> guestPaymentMethodService, IJwtToken jwtTokenService) : ControllerBase
     {
         [Authorize]
@@ -32,7 +32,7 @@ namespace RoomBi_Server.Controllers
             try
             {
                 id = int.Parse(jwtTokenService.GetIdFromToken(principal));
-                var paymentsForUser = guestPaymentMethods.Where(payment => payment.IdUser == id); 
+                var paymentsForUser = guestPaymentMethods.Where(payment => payment.IdUser == id);
                 return Ok(paymentsForUser);
             }
             catch (FormatException ex)

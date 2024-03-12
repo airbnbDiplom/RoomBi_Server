@@ -13,13 +13,14 @@ namespace RoomBi.DAL.Repositories
 {
     public class RentalApartmentRepository(RBContext context) :
         IRepositoryOfAll<RentalApartment>,
-        IRepositoryGet24<RentalApartment>, 
+        IRepositoryGet24<RentalApartment>,
         IRepositorySearch<RentalApartment>
     {
         private readonly RBContext context = context;
 
         public async Task<RentalApartment> Get(int id)
         {
+           
             var rentalApartment = await context.RentalApartments/*.Include(r => r.Pictures)*/
                                                                 //.Include(r => r.Booking)
                                                                 //.Include(r => r.Chats)
@@ -31,17 +32,20 @@ namespace RoomBi.DAL.Repositories
                                                                 .Include(r => r.User)
                                                                 .Include(r => r.OfferedAmenities)
                                                                 .FirstOrDefaultAsync(m => m.Id == id);
-            var bookingRepository = new BookingRepository(context);
+            //var bookingRepository = new BookingRepository(context);
             var pictureRepository = new PictureRepository(context);
             var chatRepository = new ChatRepository(context);
             var guestCommentsRepository = new GuestCommentsRepository(context);
             if (rentalApartment != null)
             {
                 rentalApartment.Pictures = (ICollection<Picture>)await pictureRepository.ByApartmentId(id);
-                rentalApartment.Booking = (ICollection<Booking>)await bookingRepository.ByApartmentId(id);
+                rentalApartment.Booking = await context.Bookings.Where(booking => booking.ApartmentId == id).OrderBy(booking => booking.CheckInDate).ToListAsync();
+
+
                 rentalApartment.Chats = (ICollection<Chat>)await chatRepository.ByApartmentId(id);
                 rentalApartment.GuestComments = (ICollection<GuestComments>)await guestCommentsRepository.ByApartmentId(id);
             }
+            await context.SaveChangesAsync();
             return rentalApartment;
         }
         public async Task Create(RentalApartment item)
@@ -116,7 +120,7 @@ namespace RoomBi.DAL.Repositories
                 return Enumerable.Empty<RentalApartment>();
             }
             return await context.RentalApartments
-           .Where(apartment => apartment.СontinentId == continentId)
+           //.Where(apartment => apartment.СontinentId == continentId)
            .ToListAsync();
         }
         public async Task<IEnumerable<RentalApartment>> GetApartmentsByCountry(string country)
@@ -194,7 +198,48 @@ namespace RoomBi.DAL.Repositories
             }
             return whyApartments;
         }
+
+        public async Task<IEnumerable<RentalApartment>> GetFilteredApartments(string? typeAccommodation, string[]? typeOfHousing, int? minimumPrice, int? maximumPrice, int? bedrooms, int? beds, int? bathrooms, bool rating, string[]? offeredAmenitiesDTO, string[]? hostsLanguage)
+        {
+            var temp = await context.RentalApartments
+                 .Include(ra => ra.Country)
+                 .Include(ra => ra.Location)
+                 .Include(ra => ra.House)
+                 .Include(ra => ra.Sport)
+                 .ToListAsync();
+            var bookingRepository = new BookingRepository(context);
+            var pictureRepository = new PictureRepository(context);
+            for (int i = 0; i < temp.Count; i++)
+            {
+                var apartment = temp[i];
+                var bookings = await bookingRepository.ByApartmentId(apartment.Id);
+                var pictures = await pictureRepository.ByApartmentId(apartment.Id);
+
+                apartment.Booking = bookings.ToList();
+                apartment.Pictures = pictures.ToList();
+            }
+            var filteredApartments = temp
+       .Where(apartment =>
+           (string.IsNullOrEmpty(typeAccommodation) || apartment.TypeApartment.ToLower() == typeAccommodation.ToLower()) &&
+           (typeOfHousing == null || !typeOfHousing.Any() || typeOfHousing.Contains(apartment.TypeApartment.ToLower())) &&
+           apartment.PricePerNight >= minimumPrice &&
+           apartment.PricePerNight <= maximumPrice &&
+           apartment.Bedrooms == bedrooms &&
+           apartment.Beds == beds &&
+           apartment.Bathrooms == bathrooms &&
+           (!rating || apartment.ObjectRating == 5)// &&
+           //(offeredAmenitiesDTO == null || offeredAmenitiesDTO.Length == 0 || offeredAmenitiesDTO.All(amenity => apartment.OfferedAmenities.Any(oa => oa.Name.ToLower() == amenity.ToLower()))) &&
+           //(hostsLanguage == null || !hostsLanguage.Any() || (apartment.User != null && hostsLanguage.Contains(apartment.User.Language.ToLower())))
+       );
+            return filteredApartments;
+        }
+
+        public Task<IEnumerable<RentalApartment>> GetApartmentsByCountryCode(string CountryCode)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
+
 
 

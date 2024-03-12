@@ -39,99 +39,99 @@ namespace RoomBi_Server.Controllers
         {
             try
             {
-                //    UserDTO user = new()
-                //    {
-                //        Email = request.Email,
-                //        Id = 1
-                //    };
-                //    //var user = await serviceOfUser.GetUserByEmail(request.Email);
-                //    var newToken = jwtTokenService.GetToken(user);
-                //    var newRefreshToken = jwtTokenService.GenerateRefreshToken();
-                //    //user.RefreshToken = newRefreshToken;
-                //    //await userService.Update(user);
-                //    var response = new AuthenticationResponseDTO
-                //    {
-                //        Token = newToken,
-                //        RefreshToken = newRefreshToken
-                //    };
-                //    return Ok(response);
-
-
-
-                switch (request.Type)
+                UserDTO user = new()
                 {
-                    case "register":
-                        try
-                        {
-                            await serviceOfUser.GetBoolByEmail(request.Email);
-                            //var countryList = await country.GetAll();
-                            return Ok("Ok");
-                        }
-                        catch (Exception ex)
-                        {
-                            return BadRequest(ex.Message);
-                        }
-                    case "register2":
-                        try
-                        {
-                            UserDTO user = new()
-                            {
-                                Email = request.Email,
-                                Password = request.Password,
-                                Name = request.Name,
-                                PhoneNumber = request.PhoneNumber,
-                                DateOfBirth = DateTime.Parse(request.DateOfBirth),
-                                Country = request.Country
-                            };
-                            await userService.Create(user);
-                            user = await serviceOfUser.GetUserByEmail(user.Email);
-                            var response = await AuthenticateUser(user);
-                            user.RefreshToken = response.RefreshToken;
-                            await userService.Update(user);
-                            return Ok(response);
-                        }
-                        catch (Exception ex)
-                        {
-                            return BadRequest(ex.Message);
-                        }
-                    case "login":
+                    Email = request.Email,
+                    Id = 1
+                };
+                //var user = await serviceOfUser.GetUserByEmail(request.Email);
+                var newToken = jwtTokenService.GetToken(user);
+                var newRefreshToken = jwtTokenService.GenerateRefreshToken();
+                //user.RefreshToken = newRefreshToken;
+                //await userService.Update(user);
+                var response = new AuthenticationResponseDTO
+                {
+                    Token = newToken,
+                    RefreshToken = newRefreshToken
+                };
+                return Ok(response);
 
-                        try
-                        {
-                            UserDTO user = await serviceOfUser.GetUserByEmail(request.Email);
-                            if (serviceOfUser.GetBoolByPassword(request.Password, user.Password))
-                            {
-                                var response = await AuthenticateUser(user);
-                                user.RefreshToken = response.RefreshToken;
-                                await userService.Update(user);
-                                return Ok(response);
-                            }
-                            else
-                            {
-                                return BadRequest("Паролі не співпадають.");
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            return BadRequest(ex.Message);
-                        }
-                    case "google":
-                        try
-                        {
-                            var user = await serviceOfUserGoogle.GetUserByGoogle(request);
-                            var user2 = await serviceOfUser.GetUserByEmail(user.Email);
-                            var response = await AuthenticateUser(user2);
-                            user2.RefreshToken = response.RefreshToken;
-                            await userService.Update(user2);
-                            return Ok(response);
-                        }
-                        catch (Exception ex)
-                        {
-                            return BadRequest(ex.Message);
-                        }
-                    default:
-                        return BadRequest("Invalid request type");
-                }
+
+
+                //switch (request.Type)
+                //{
+                //    case "register":
+                //        try
+                //        {
+                //            await serviceOfUser.GetBoolByEmail(request.Email);
+                //            //var countryList = await country.GetAll();
+                //            return Ok("Ok");
+                //        }
+                //        catch (Exception ex)
+                //        {
+                //            return BadRequest(ex.Message);
+                //        }
+                //    case "register2":
+                //        try
+                //        {
+                //            UserDTO user = new()
+                //            {
+                //                Email = request.Email,
+                //                Password = request.Password,
+                //                Name = request.Name,
+                //                PhoneNumber = request.PhoneNumber,
+                //                DateOfBirth = DateTime.Parse(request.DateOfBirth),
+                //                Country = request.Country
+                //            };
+                //            await userService.Create(user);
+                //            user = await serviceOfUser.GetUserByEmail(user.Email);
+                //            var response = await AuthenticateUser(user);
+                //            user.RefreshToken = response.RefreshToken;
+                //            await userService.Update(user);
+                //            return Ok(response);
+                //        }
+                //        catch (Exception ex)
+                //        {
+                //            return BadRequest(ex.Message);
+                //        }
+                //    case "login":
+
+                //        try
+                //        {
+                //            UserDTO user = await serviceOfUser.GetUserByEmail(request.Email);
+                //            if (serviceOfUser.GetBoolByPassword(request.Password, user.Password))
+                //            {
+                //                var response = await AuthenticateUser(user);
+                //                user.RefreshToken = response.RefreshToken;
+                //                await userService.Update(user);
+                //                return Ok(response);
+                //            }
+                //            else
+                //            {
+                //                return BadRequest("Паролі не співпадають.");
+                //            }
+                //        }
+                //        catch (Exception ex)
+                //        {
+                //            return BadRequest(ex.Message);
+                //        }
+                //    case "google":
+                //        try
+                //        {
+                //            var user = await serviceOfUserGoogle.GetUserByGoogle(request);
+                //            var user2 = await serviceOfUser.GetUserByEmail(user.Email);
+                //            var response = await AuthenticateUser(user2);
+                //            user2.RefreshToken = response.RefreshToken;
+                //            await userService.Update(user2);
+                //            return Ok(response);
+                //        }
+                //        catch (Exception ex)
+                //        {
+                //            return BadRequest(ex.Message);
+                //        }
+                //    default:
+                //        return BadRequest("Invalid request type");
+                //}
 
             }
             catch (Exception ex)
@@ -177,6 +177,21 @@ namespace RoomBi_Server.Controllers
             };
             return Ok(response);
         }
+        //[Authorize]
+        // PUT: api/users/5
+        [HttpPut]
+        public async Task<IActionResult> PutUser(UserDTO user)
+        {   //string token = HttpContext.Request.Headers.Authorization;
+            //string cleanedToken = token.Replace("Bearer ", "");
+            //ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            //int temp = int.Parse(jwtTokenService.GetIdFromToken(principal));
+            //if (temp != user.Id)
+            //{
+            //    return BadRequest();
+            //}
+            await userService.Update(user);
+            return NoContent();
+        }
 
 
 
@@ -192,65 +207,53 @@ namespace RoomBi_Server.Controllers
 
 
 
-
-
-        //    // GET: api/users
-        //    [HttpGet]
-        //    public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers()
-        //    {
-        //        var users = await userService.GetAll();
-        //        if (users == null || !users.Any())
-        //        {
-        //            return NotFound();
-        //        }
-        //        return Ok(users);
-        //    }
-
-        //    // GET: api/users/5
-        //    [HttpGet("{id}")]
-        //    public async Task<ActionResult<UserDTO>> GetUser(int id)
-        //    {
-        //        var user = await userService.Get(id);
-        //        if (user == null)
-        //        {
-        //            return NotFound();
-        //        }
-        //        return user;
-        //    }
-
-        //    // PUT: api/users/5
-        //    [HttpPut("{id}")]
-        //    public async Task<IActionResult> PutUser(int id, UserDTO user)
-        //    {
-        //        if (id != user.Id)
-        //        {
-        //            return BadRequest();
-        //        }
-        //        await userService.Update(user);
-        //        return NoContent();
-        //    }
-
-        //    //POST: api/users/login
-        //    //[HttpPost("login")]
-        //    //public async Task<ActionResult<UserDTO>> Login([FromBody] RequestUser request)
-        //    //{
-        //    //    var user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
-        //    //    if (user == null)
+        //    //    // GET: api/users
+        //    //    [HttpGet]
+        //    //    public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers()
         //    //    {
-        //    //        return NotFound();
+        //    //        var users = await userService.GetAll();
+        //    //        if (users == null || !users.Any())
+        //    //        {
+        //    //            return NotFound();
+        //    //        }
+        //    //        return Ok(users);
         //    //    }
-        //    //    var token = jwtTokenService.GetToken(user);
-        //    //    var refreshToken = jwtTokenService.GenerateRefreshToken();
-        //    //    user.RefreshToken = refreshToken;
-        //    //    //await userService.Update(user);
-        //    //    var response = new AuthenticationResponseDTO
-        //    //    {
-        //    //        Token = token,
-        //    //        RefreshToken = refreshToken
-        //    //    };
-        //    //    return Ok(response);
 
-        //    //}
+        //    //    // GET: api/users/5
+        //    //    [HttpGet("{id}")]
+        //    //    public async Task<ActionResult<UserDTO>> GetUser(int id)
+        //    //    {
+        //    //        var user = await userService.Get(id);
+        //    //        if (user == null)
+        //    //        {
+        //    //            return NotFound();
+        //    //        }
+        //    //        return user;
+        //    //    }
+
+
+
+        //    //    //POST: api/users/login
+        //    //    //[HttpPost("login")]
+        //    //    //public async Task<ActionResult<UserDTO>> Login([FromBody] RequestUser request)
+        //    //    //{
+        //    //    //    var user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
+        //    //    //    if (user == null)
+        //    //    //    {
+        //    //    //        return NotFound();
+        //    //    //    }
+        //    //    //    var token = jwtTokenService.GetToken(user);
+        //    //    //    var refreshToken = jwtTokenService.GenerateRefreshToken();
+        //    //    //    user.RefreshToken = refreshToken;
+        //    //    //    //await userService.Update(user);
+        //    //    //    var response = new AuthenticationResponseDTO
+        //    //    //    {
+        //    //    //        Token = token,
+        //    //    //        RefreshToken = refreshToken
+        //    //    //    };
+        //    //    //    return Ok(response);
+
+        //    //    //}
 
 
     }

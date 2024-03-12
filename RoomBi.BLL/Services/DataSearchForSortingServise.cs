@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using RoomBi.BLL.DTO;
+using RoomBi.BLL.DTO.New;
 using RoomBi.BLL.Interfaces;
 using RoomBi.DAL;
 using RoomBi.DAL.Entities;
@@ -72,7 +73,7 @@ namespace RoomBi.BLL.Services
             rentalApartmentTemp.BookingFree = FormatDate(apartment);
             return rentalApartmentTemp;
         }
-        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllByType(string type, string name)
+        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllByType(string type, string countryCode)
         {
             ICollection<RentalApartmentDTOForStartPage> rentalApartmentDTO = new List<RentalApartmentDTOForStartPage>();
             try
@@ -82,26 +83,19 @@ namespace RoomBi.BLL.Services
                     switch (type)
                     {
                         case "country":
-                            var rentalApartments = await Database.SearchRentalApartment.GetApartmentsByCountry(name);
+                            var rentalApartments = await Database.SearchRentalApartment.GetApartmentsByCountryCode(countryCode);
                             foreach (var item in rentalApartments)
                             {
                                 rentalApartmentDTO.Add(NewRentalApartment(item));
                             }
                             return rentalApartmentDTO;
-                        case "continent":
-                            rentalApartments = await Database.SearchRentalApartment.GetApartmentsByContinent(name);
-                            foreach (var item in rentalApartments)
-                            {
-                                rentalApartmentDTO.Add(NewRentalApartment(item));
-                            }
-                            return rentalApartmentDTO;
-                        case "city":
-                            rentalApartments = await Database.SearchRentalApartment.GetApartmentsByCity(name);
-                            foreach (var item in rentalApartments)
-                            {
-                                rentalApartmentDTO.Add(NewRentalApartment(item));
-                            }
-                            return rentalApartmentDTO;
+                        //case "city":
+                        //    rentalApartments = await Database.SearchRentalApartment.GetApartmentsByCity(name);
+                        //    foreach (var item in rentalApartments)
+                        //    {
+                        //        rentalApartmentDTO.Add(NewRentalApartment(item));
+                        //    }
+                        //    return rentalApartmentDTO;
                         default:
                             throw new Exception("Не корректный type.");
                     }
@@ -167,7 +161,7 @@ namespace RoomBi.BLL.Services
                 
                 foreach (var item in rentalApartments)
                 {
-                    rentalApartmentResult.Add(NewRentalApartment(item));
+                   rentalApartmentResult.Add(NewRentalApartment(item));
                 }
                 return rentalApartmentResult;
             }
@@ -178,6 +172,22 @@ namespace RoomBi.BLL.Services
                 var sortedResult = rentalApartmentDTO.Where(result => apartmentIds.Contains(result.Id)).ToList();
                 return sortedResult;
             }
+        }
+
+        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllByFilter(Filter filter)
+        {
+            ICollection<RentalApartmentDTOForStartPage> rentalApartmentResult = new List<RentalApartmentDTOForStartPage>();
+            var filteredApartments = await Database.SearchRentalApartment.GetFilteredApartments(
+                filter.TypeAccommodation, filter.TypeOfHousing, filter.MinimumPrice,
+                filter.MaximumPrice, filter.Bedrooms, filter.Beds, filter.Bathrooms, filter.Rating,
+                filter.OfferedAmenitiesDTO, filter.HostsLanguage);
+            foreach (var item in filteredApartments)
+            {
+                RentalApartmentDTOForStartPage dTOForStartPage = NewRentalApartment(item);
+                rentalApartmentResult.Add(dTOForStartPage);
+            }
+            return rentalApartmentResult;
+           
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using Azure.Core;
 using System.Runtime.Intrinsics.X86;
+using System.Net;
 
 namespace RoomBi.BLL.Services
 {
@@ -33,6 +34,7 @@ namespace RoomBi.BLL.Services
                 }
                 else
                 {
+
                     throw new Exception("Користувач з таким email вже існує");
                 }
             }
@@ -147,16 +149,16 @@ namespace RoomBi.BLL.Services
             var user = await Database.UserGetEmailAndPassword.GetEmail(item.Email);
             if (user == null)
             {
-                var contry = await Database.CountryGetName.GetByName(item.Country);
+                //var contry = await Database.CountryGetName.GetByName(item.Country);
                 User user1 = new()
                 {
                     Password = "google",
                     Email = item.Email,
-                    Name = item.Name,
-                    PhoneNumber = item.PhoneNumber,
-                    DateOfBirth = DateTime.Parse(item.DateOfBirth),
+                    //Name = item.Name,
+                    //PhoneNumber = item.PhoneNumber,
+                    //DateOfBirth = DateTime.Parse(item.DateOfBirth),
                     AirbnbRegistrationYear = DateTime.Now,
-                    CountryId = contry.Id,
+                    //CountryId = contry.Id,
                     IsGoogleServiceUsed = true
                 };
                 await Database.User.Create(user1);
@@ -202,12 +204,25 @@ namespace RoomBi.BLL.Services
         }
         public async Task Update(UserDTO userDTO)
         {
-            var user = await Database.User.Get(userDTO.Id);
+            var user = await Database.UserGetEmailAndPassword.GetEmail(userDTO.Email);
+
             //var language = await Database.LanguageGetName.GetByName(userDTO.Language);
             //var contry = await Database.CountryGetName.GetByName(userDTO.Country);
             if (user != null)
-            {
-                user.RefreshToken = userDTO.RefreshToken;
+            { 
+                if (userDTO.Name != "")
+                    user.Name = userDTO.Name;
+                user.Password = user.Password;
+                user.Address = user.Address;
+                user.PhoneNumber = user.PhoneNumber;
+                //user.DateOfBirth = user.DateOfBirth;
+                user.ProfilePicture = user.ProfilePicture;
+                //user.RefreshToken = user.RefreshToken;
+                //user.CurrentStatus = user.CurrentStatus;
+                //user.UserStatus = user.UserStatus;
+                //user.LanguageId = language.Id;
+                //user.CountryId = contry.Id;
+                //user.RefreshToken = userDTO.RefreshToken;
             };
             await Database.User.Update(user);
             await Database.Save();

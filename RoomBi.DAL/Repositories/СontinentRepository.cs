@@ -45,5 +45,12 @@ namespace RoomBi.DAL.Repositories
             if (item != null)
                 context.Сontinent.Remove(item);
         }
+
+        public Task CloseExcessConnections()
+        {
+            throw new NotImplementedException();
+        }
+
+      
     }
 }

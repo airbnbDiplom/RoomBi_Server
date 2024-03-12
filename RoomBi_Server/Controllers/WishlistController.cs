@@ -1,4 +1,5 @@
-﻿using Jose;
+﻿using Azure;
+using Jose;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,42 +17,33 @@ namespace RoomBi_Server.Controllers
     {
 
         // POST: api/wishlists
-        //[Authorize]
+        [Authorize]
         [HttpPost("wish")]
         public async Task<ActionResult<WishlistDTO>> PostWishlist([FromBody] int id)
         {
             string token = HttpContext.Request.Headers.Authorization;
             string cleanedToken = token.Replace("Bearer ", "");
             ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
-            string idString = jwtTokenService.GetIdFromToken(principal);
-            int temp = 0;
             try
             {
-                temp = int.Parse(jwtTokenService.GetIdFromToken(principal));
+                int temp = int.Parse(jwtTokenService.GetIdFromToken(principal));
                 WishlistDTO wishlistDTO = new() { ApartmentId = id, UserId = temp };
+                await wishlistService.Create(wishlistDTO);
             }
-            catch (FormatException ex)
+            catch (Exception ex)
             {
-                return BadRequest("Неверный формат ID");
+                if (ex.Message == "Ok")
+                {
+                    var data = new { key = "Ok" };
+                    return Ok(data);
+                }
+                else if (ex.Message == "No")
+                {
+                    var data = new { key = "No" };
+                    return Ok(data);
+                }
             }
-
-            //if (int.TryParse(idString, out int temp))
-            //{
-            //    WishlistDTO wishlistDTO = new() { ApartmentId = id, UserId = temp};
-            //}
-            //else
-            //{
-            //    // Обработка ситуации, когда строка не может быть преобразована в int
-            //}
-
-            //await wishlistService.Create(wishlistDTO);
-            var response = new AuthenticationResponseDTO
-            {
-                Token = cleanedToken,
-                RefreshToken = idString,
-            };
-            return Ok(response);
-
+            return BadRequest("");
         }
 
 
@@ -69,17 +61,17 @@ namespace RoomBi_Server.Controllers
         //}
 
         //// GET: api/wishlists/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<WishlistDTO>> GetWishlist(int id)
-        {
-            //var wishlist = await wishlistService.Get(id);
-            //if (wishlist == null)
-            //{
-            //    return NotFound();
-            //}
-            //return wishlist;
-            return Ok("Ok");
-        }
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<WishlistDTO>> GetWishlist(int id)
+        //{
+        //    //var wishlist = await wishlistService.Get(id);
+        //    //if (wishlist == null)
+        //    //{
+        //    //    return NotFound();
+        //    //}
+        //    //return wishlist;
+        //    return Ok("Ok");
+        //}
 
         //// PUT: api/wishlists/5
         //[HttpPut("{id}")]

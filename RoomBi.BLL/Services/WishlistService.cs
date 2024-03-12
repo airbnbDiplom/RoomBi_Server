@@ -8,25 +8,31 @@ using RoomBi.BLL.DTO;
 namespace RoomBi.BLL.Services
 {
 
-    public class WishlistService : IServiceOfAll<WishlistDTO>
+    public class WishlistService(IUnitOfWork uow) : IServiceOfAll<WishlistDTO>
     {
-        IUnitOfWork Database { get; set; }
-
-        public WishlistService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        IUnitOfWork Database { get; set; } = uow;
 
         public async Task Create(WishlistDTO wishlistDTO)
         {
-            var wishlist = new Wishlist
+            if (!await Database.GetItemWishlist.CheckIfWishlistItemExists(wishlistDTO.UserId, wishlistDTO.ApartmentId))
             {
-                Id = wishlistDTO.Id,
-                UserId = wishlistDTO.UserId,
-                ApartmentId = wishlistDTO.ApartmentId
-            };
-            await Database.Wishlist.Create(wishlist);
-            await Database.Save();
+                var wishlist = new Wishlist
+                {
+                    Id = wishlistDTO.Id,
+                    UserId = wishlistDTO.UserId,
+                    ApartmentId = wishlistDTO.ApartmentId
+                };
+                await Database.Wishlist.Create(wishlist); 
+                await Database.Save();
+                throw new Exception("Ok");
+
+            }
+            else
+            {
+                await Database.GetItemWishlist.DeleteIfWishlistItem(wishlistDTO.UserId, wishlistDTO.ApartmentId);
+                await Database.Save();
+                throw new Exception("No");
+            }
         }
 
         public async Task Update(WishlistDTO wishlistDTO)

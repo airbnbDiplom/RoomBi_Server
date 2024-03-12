@@ -40,5 +40,7 @@ namespace RoomBi.DAL.Repositories
             if (item != null)
                 context.Languages.Remove(item);
         }
+
+      
     }
 }

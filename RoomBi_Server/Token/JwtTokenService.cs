@@ -36,6 +36,9 @@ namespace RoomBi_Server.Token
                 new("Id", user.Id.ToString()),
                 user.Name != null ? new Claim("Name", user.Name) : new Claim("Name", ""),
                 user.Email != null ? new Claim("Email", user.Email) : new Claim("Email", ""),
+                user.Address != null ? new Claim("Address", user.Address) : new Claim("Address", ""),
+                user.PhoneNumber != null ? new Claim("PhoneNumber", user.PhoneNumber) : new Claim("PhoneNumber", ""),
+                user.AirbnbRegistrationYear != null ? new Claim("AirbnbRegistrationYear", user.AirbnbRegistrationYear.Value.ToString("yyyy-MM-dd")) : new Claim("AirbnbRegistrationYear", ""),
                 new("ProfilePicture", user.ProfilePicture ?? ""),
                 user.Language != null ? new Claim("Language", user.Language) : new Claim("Language", ""),
                 user.Country != null ? new Claim("Country", user.Country) : new Claim("Country", "")

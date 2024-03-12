@@ -94,6 +94,8 @@ namespace RoomBi.DAL.Repositories
         private RentalApartmentRepository _rentalApartmentRepository2;
         public IRepositorySearch<RentalApartment> SearchRentalApartment => _rentalApartmentRepository2 ??= new RentalApartmentRepository(_context);
 
+      
+
         public async Task Save()
         {
             await _context.SaveChangesAsync();
