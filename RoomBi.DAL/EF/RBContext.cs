@@ -756,7 +756,6 @@ namespace RoomBi.DAL.EF
                 });
                 RentalApartments.Add(new RentalApartment
                 {
-
                     UserId = 8,
                     Title = "Avari Apartments",
                     Address = "Лондон, Вестминстер, SW1V 4PA",

@@ -73,29 +73,29 @@ namespace RoomBi.BLL.Services
             rentalApartmentTemp.BookingFree = FormatDate(apartment);
             return rentalApartmentTemp;
         }
-        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllByType(string type, string countryCode)
+        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllByType(Where where)
         {
             ICollection<RentalApartmentDTOForStartPage> rentalApartmentDTO = new List<RentalApartmentDTOForStartPage>();
             try
             {
-                if (type != null || type != "")
+                if (where.Type != null || where.Type != "")
                 {
-                    switch (type)
+                    switch (where.Type)
                     {
                         case "country":
-                            var rentalApartments = await Database.SearchRentalApartment.GetApartmentsByCountryCode(countryCode);
+                            var rentalApartments = await Database.SearchRentalApartment.GetApartmentsByCountryCode(where.CountryCode);
                             foreach (var item in rentalApartments)
                             {
                                 rentalApartmentDTO.Add(NewRentalApartment(item));
                             }
                             return rentalApartmentDTO;
-                        //case "city":
-                        //    rentalApartments = await Database.SearchRentalApartment.GetApartmentsByCity(name);
-                        //    foreach (var item in rentalApartments)
-                        //    {
-                        //        rentalApartmentDTO.Add(NewRentalApartment(item));
-                        //    }
-                        //    return rentalApartmentDTO;
+                        case "city":
+                            rentalApartments = await Database.SearchRentalApartment.GetApartmentsByCity(where.PlaceId);
+                            foreach (var item in rentalApartments)
+                            {
+                                rentalApartmentDTO.Add(NewRentalApartment(item));
+                            }
+                            return rentalApartmentDTO;
                         default:
                             throw new Exception("Не корректный type.");
                     }
@@ -152,7 +152,7 @@ namespace RoomBi.BLL.Services
             return formattedDate1;
 
         }
-        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllByNumberOfGuests(int why, ICollection<RentalApartmentDTOForStartPage> rentalApartmentDTO)
+        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllByNumberOfGuests(int? why, ICollection<RentalApartmentDTOForStartPage> rentalApartmentDTO)
         {
             ICollection<RentalApartmentDTOForStartPage> rentalApartmentResult = new List<RentalApartmentDTOForStartPage>();
             var rentalApartments = await Database.SearchRentalApartment.GetApartmentsByNumberOfGuests(why);

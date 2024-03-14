@@ -1,4 +1,6 @@
-﻿namespace RoomBi.DAL
+﻿
+
+namespace RoomBi.DAL
 {
     public class OfferedAmenities
     {
@@ -43,6 +45,8 @@
 
         // Description
         public string? Description { get; set; } // Описание
+
+       
     }
 
 }

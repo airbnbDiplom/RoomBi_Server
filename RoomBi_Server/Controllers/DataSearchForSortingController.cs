@@ -18,68 +18,70 @@ namespace RoomBi_Server.Controllers
         [HttpPost("sort")]
         public async Task<ActionResult<IEnumerable<RentalApartmentDTOForStartPage>>> GetCards([FromBody] DataSearchForSorting dataSearchForSorting)
         {
-            //try
-            //{
-            //    ICollection<RentalApartmentDTOForStartPage>? rentalApartmentDTO = new List<RentalApartmentDTOForStartPage>();
+            try
+            {
+                ICollection<RentalApartmentDTOForStartPage>? rentalApartmentDTO = new List<RentalApartmentDTOForStartPage>();
 
-            //    if (dataSearchForSorting?.Where?.Type != "")
-            //    {
-            //        try
-            //        {
-            //            rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.GetAllByType(dataSearchForSorting.Where.Type, dataSearchForSorting.Where.Name);
+                if (dataSearchForSorting?.Where?.Type != "")
+                {
+                    try
+                    {
+                        rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.GetAllByType(dataSearchForSorting.Where);
 
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            return BadRequest(ex.Message);
-            //        }
-            //    }
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                }
 
-            //    if (dataSearchForSorting.When.Start.Day != 0)
-            //    {
-            //        try
-            //        {
-            //            if (rentalApartmentDTO.Count == 0)
-            //            {
-            //                rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.DateBookingSearch(dataSearchForSorting.When, rentalApartmentDTO = null);
-            //            }
-            //            else
-            //            {
-            //                rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.DateBookingSearch(dataSearchForSorting.When, rentalApartmentDTO);
-            //            }
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            return BadRequest(ex.Message);
-            //        }
-            //    }
+                if (dataSearchForSorting.When.Start.Day != 0)
+                {
+                    try
+                    {
+                        if (rentalApartmentDTO.Count == 0)
+                        {
+                            rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.DateBookingSearch(dataSearchForSorting.When, rentalApartmentDTO = null);
+                        }
+                        else
+                        {
+                            rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.DateBookingSearch(dataSearchForSorting.When, rentalApartmentDTO);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                }
 
-            //    if (dataSearchForSorting.Why != 0)
-            //    {
-            //        try
-            //        {
-            //            if (rentalApartmentDTO.Count == 0)
-            //            {
-            //                rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.GetAllByNumberOfGuests(dataSearchForSorting.Why, rentalApartmentDTO = null);
-            //            }
-            //            else
-            //            {
-            //                rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.GetAllByNumberOfGuests(dataSearchForSorting.Why, rentalApartmentDTO);
-            //            }
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            return BadRequest(ex.Message);
-            //        }
-            //    }
-            //    return Ok(rentalApartmentDTO);
-            //}
-            //catch (Exception ex)
-            //{
-            //    return BadRequest(ex.Message);
-            //}
-            var rentalApartments = await serviceForStartPage.GetAllForStartPage();
-            return Ok(rentalApartments);
+                if (dataSearchForSorting.Why != 0)
+                {
+                    try
+                    {
+                        if (rentalApartmentDTO.Count == 0)
+                        {
+                            rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.GetAllByNumberOfGuests(dataSearchForSorting.Why, rentalApartmentDTO = null);
+                        }
+                        else
+                        {
+                            rentalApartmentDTO = (ICollection<RentalApartmentDTOForStartPage>)await forSorting.GetAllByNumberOfGuests(dataSearchForSorting.Why, rentalApartmentDTO);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                }
+                return Ok(rentalApartmentDTO);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+            //var rentalApartments = await serviceForStartPage.GetAllForStartPage();
+            //return Ok(rentalApartments);
         }
 
         [HttpPost("filter")]

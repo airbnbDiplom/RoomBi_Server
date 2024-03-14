@@ -187,23 +187,19 @@ namespace RoomBi_Server.Controllers
             //{
             //    return BadRequest();
             //}
+
             await userService.Update(user);
-            return NoContent();
+            user = await serviceOfUser.GetUserByEmail(user.Email);
+            var token = jwtTokenService.GetToken(user);
+            var refreshToken = user.RefreshToken;
+            var response = new AuthenticationResponseDTO
+            {
+                Token = token,
+                RefreshToken = refreshToken
+            };
+            return Ok(response);
+
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //    //    // GET: api/users
         //    //    [HttpGet]

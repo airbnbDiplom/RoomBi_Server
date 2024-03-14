@@ -83,14 +83,14 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 
-//app.UseCors(builder => builder
-//.WithOrigins("http://localhost:3000", "https://room-bi.vercel.app")
-//.AllowAnyHeader()
-//.AllowAnyMethod()
-//.AllowCredentials());
-app.UseCors(builder => builder.WithOrigins("http://localhost:3000", "https://room-bi.vercel.app")
-                            .AllowAnyHeader()
-                            .AllowAnyMethod());
+app.UseCors(builder => builder
+.WithOrigins("http://localhost:3000", "https://room-bi.vercel.app")
+.AllowAnyHeader()
+.AllowAnyMethod()
+.AllowCredentials());
+//app.UseCors(builder => builder.WithOrigins("http://localhost:3000", "https://room-bi.vercel.app")
+//                            .AllowAnyHeader()
+//                            .AllowAnyMethod());
 
 app.UseCors();
  

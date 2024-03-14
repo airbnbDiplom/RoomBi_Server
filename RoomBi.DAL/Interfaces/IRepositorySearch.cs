@@ -8,11 +8,15 @@ namespace RoomBi.DAL.Interfaces
 {
     public interface IRepositorySearch<RentalApartment> 
     {
-        Task<IEnumerable<RentalApartment>> GetApartmentsByCountryCode(string CountryCode);
-        Task<IEnumerable<RentalApartment>> GetApartmentsByCity(string city);
-        Task<RentalApartment> GetApartmentsByDateBooking(DateTime start, DateTime end, int idApartment);
+        Task<IEnumerable<RentalApartment>> GetApartmentsByCountryCode(string? countryCode);
+        Task<IEnumerable<RentalApartment>> GetApartmentsByCity(int? placeId);
+
+        Task<RentalApartment> GetApartmentsByDateBooking(DateTime start, DateTime end, int? idApartment);
+        Task<IEnumerable<RentalApartment>> GetApartmentsByNumberOfGuests(int? why);
+
+
         Task<IEnumerable<RentalApartment>> GetAllMinForSearch();
-        Task<IEnumerable<RentalApartment>> GetApartmentsByNumberOfGuests(int why);
+        
         Task<IEnumerable<RentalApartment>> GetFilteredApartments(string? typeAccommodation, 
             string[]? typeOfHousing, int? minimumPrice, int? maximumPrice,
             int? bedrooms, int? beds, int? bathrooms, bool rating,  string[]? offeredAmenitiesDTO,

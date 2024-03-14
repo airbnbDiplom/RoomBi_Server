@@ -15,7 +15,8 @@ namespace RoomBi.BLL.DTO
     public class Where
     {
         public string? Type { get; set; }
-        public string? Name { get; set; }
+        public string? CountryCode { get; set; }
+        public int? PlaceId { get; set; }
     }
    
 }
