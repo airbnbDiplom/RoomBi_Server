@@ -158,7 +158,7 @@ namespace RoomBi.BLL.Services
 
                     Password = "google",
                     Email = item.Email,
-                    //Name = item.Name,
+                    Name = item.Name,
                     //PhoneNumber = item.PhoneNumber,
                     //DateOfBirth = DateTime.Parse(item.DateOfBirth),
                     AirbnbRegistrationYear = DateTime.Now,

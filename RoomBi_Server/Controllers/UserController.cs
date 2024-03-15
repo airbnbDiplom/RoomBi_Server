@@ -175,7 +175,7 @@ namespace RoomBi_Server.Controllers
             };
             return Ok(response);
         }
-        [Authorize]
+        //[Authorize]
         // PUT: api/users/5
         [HttpPut]
         public async Task<IActionResult> PutUser(UserDTO user)
