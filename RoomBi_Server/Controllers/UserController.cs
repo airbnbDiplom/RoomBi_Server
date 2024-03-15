@@ -9,6 +9,7 @@ using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
 using RoomBi.DAL;
 using RoomBi_Server.Token;
+using System.Security.Claims;
 
 namespace RoomBi_Server.Controllers
 {
@@ -175,7 +176,7 @@ namespace RoomBi_Server.Controllers
             };
             return Ok(response);
         }
-        //[Authorize]
+        [Authorize]
         // PUT: api/users/5
         [HttpPut]
         public async Task<IActionResult> PutUser(UserDTO user)
@@ -201,29 +202,33 @@ namespace RoomBi_Server.Controllers
 
         }
 
-        //    //    // GET: api/users
-        //    //    [HttpGet]
-        //    //    public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers()
-        //    //    {
-        //    //        var users = await userService.GetAll();
-        //    //        if (users == null || !users.Any())
-        //    //        {
-        //    //            return NotFound();
-        //    //        }
-        //    //        return Ok(users);
-        //    //    }
-
-        //    //    // GET: api/users/5
-        //    //    [HttpGet("{id}")]
-        //    //    public async Task<ActionResult<UserDTO>> GetUser(int id)
-        //    //    {
-        //    //        var user = await userService.Get(id);
-        //    //        if (user == null)
-        //    //        {
-        //    //            return NotFound();
-        //    //        }
-        //    //        return user;
-        //    //    }
+        // GET: api/users
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers()
+        //{
+        //    var users = await userService.GetAll();
+        //    if (users == null || !users.Any())
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(users);
+        //}
+        [Authorize]
+        // GET: api/users/5
+        [HttpGet("email")]
+        public async Task<ActionResult<UserDTO>> GetUser()
+        {
+            string token = HttpContext.Request.Headers.Authorization;
+            string cleanedToken = token.Replace("Bearer ", "");
+            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            string temp = jwtTokenService.GetMailFromToken(principal);
+            var user = await serviceOfUser.GetUserByEmail(temp);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
+        }
 
 
 

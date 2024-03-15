@@ -210,8 +210,8 @@ namespace RoomBi.BLL.Services
             {
                 if (userDTO.Name != "")
                     user.Name = userDTO.Name;
-                if (userDTO.Password != "")
-                    user.Password = userDTO.Password;
+                //if (userDTO.Password != "")
+                //    user.Password = userDTO.Password;//solt
                 if (userDTO.Address != "")
                     user.Address = userDTO.Address;
                 if (userDTO.PhoneNumber != "")
