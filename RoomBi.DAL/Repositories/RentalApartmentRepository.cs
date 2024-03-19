@@ -220,17 +220,7 @@ namespace RoomBi.DAL.Repositories
             var temp = await context.RentalApartments
                 .Include(ra => ra.Country)
                 .ToListAsync();
-            var bookingRepository = new BookingRepository(context);
-            var pictureRepository = new PictureRepository(context);
-            for (int i = 0; i < temp.Count; i++)
-            {
-                var apartment = temp[i];
-                var bookings = await bookingRepository.ByApartmentId(apartment.Id);
-                var pictures = await pictureRepository.ByApartmentId(apartment.Id);
 
-                apartment.Booking = bookings.ToList();
-                apartment.Pictures = pictures.ToList();
-            }
             var filteredApartments = temp
             .Where(apartment =>
                 apartment.PricePerNight >= minimumPrice &&
@@ -238,24 +228,14 @@ namespace RoomBi.DAL.Repositories
                 apartment.Bedrooms == bedrooms &&
                 apartment.Beds == beds &&
                 apartment.Bathrooms == bathrooms &&
-                (!rating || apartment.ObjectRating == 5)&&
-            (typeAccommodation == "Any" || apartment.TypeApartment.ToLower() == typeAccommodation.ToLower()) &&
-            (typeAccommodation != "Rooms" || apartment.TypeApartment == "Room")).ToList();
-           var offeredAmenitiesRepository = new OfferedAmenitiesRepository(context);
+                (!rating || apartment.ObjectRating == 5)).ToList();
+            var offeredAmenitiesRepository = new OfferedAmenitiesRepository(context);
             List<RentalApartment> result = [];
             for (int i = 0; i < filteredApartments.Count; i++)
             {
                 var apartment = temp[i];
                 var offeredAmenities = await offeredAmenitiesRepository.Get(temp[i].OfferedAmenitiesId);
-                //if (offeredAmenitiesDTO != null && offeredAmenitiesDTO.Any())
-                //{
-                //    var amenitiesToCheck = offeredAmenitiesDTO.Select(a => a.ToLower()).ToList();
-                //    if (!amenitiesToCheck.All(amenity =>
-                //        typeof(OfferedAmenities).GetProperty(amenity)?.GetValue(offeredAmenities) as bool? == true))
-                //    {
-                //        result.Remove(apartment);
-                //    }
-                //}
+
                 if (offeredAmenitiesDTO != null)
                 {
                     if (offeredAmenitiesDTO.Contains("wiFi", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.WiFi) continue;
@@ -289,13 +269,40 @@ namespace RoomBi.DAL.Repositories
                 }
             }
             List<RentalApartment> result2 = [];
-         
-            
-            
-                return result;
+            result2 = result.Where(apartment =>
+            {
+                if (typeAccommodation == "Any")
+                {
+                    return true;
+                }
+                else if (typeAccommodation == "Houses")
+                {
+                    return apartment.TypeApartment == "Ціле помешкання";
+                }
+                else if (typeAccommodation == "Rooms")
+                {
+                    return apartment.TypeApartment == "Кімната";
+                }
+                else
+                {
+                    return false;
+                }
+            }).ToList();
+            var bookingRepository = new BookingRepository(context);
+            var pictureRepository = new PictureRepository(context);
+            for (int i = 0; i < result2.Count; i++)
+            {
+                var apartment = result2[i];
+                var bookings = await bookingRepository.ByApartmentId(apartment.Id);
+                var pictures = await pictureRepository.ByApartmentId(apartment.Id);
+
+                apartment.Booking = bookings.ToList();
+                apartment.Pictures = pictures.ToList();
+            }
+            return result2;
         }
 
-       
+
 
         public async Task<IEnumerable<RentalApartment>> GetApartmentsByCountryCode(string? CountryCode)
         {

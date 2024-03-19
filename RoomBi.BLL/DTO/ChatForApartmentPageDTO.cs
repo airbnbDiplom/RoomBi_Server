@@ -13,8 +13,6 @@ namespace RoomBi.BLL.DTO
         public DateTime DateTime { get; set; }
         public int RentalApartmentId { get; set; }
         public int MasterIdUser { get; set; }
-        public string? UserMaster { get; set; }
-        public int GuestIdUser { get; set; }
-        public string? UserGuest { get; set; }
+     
     }
 }

@@ -36,7 +36,7 @@ namespace RoomBi.BLL.Services
                     var apartment = await Database.SearchRentalApartment.GetApartmentsByDateBooking(start, end, item.Id);
                     if (apartment != null)
                     {
-                        rentalApartmentResult.Add(NewRentalApartment(apartment));
+                        rentalApartmentResult.Add(await NewRentalApartment(apartment));
                     }
                 }
             }
@@ -46,13 +46,14 @@ namespace RoomBi.BLL.Services
                 {
                     var apartment = await Database.SearchRentalApartment.GetApartmentsByDateBooking(start, end, item.Id);
                     if (apartment != null)
-                        rentalApartmentResult.Add(NewRentalApartment(apartment));
+                        rentalApartmentResult.Add(await NewRentalApartment(apartment));
                 }
             }
             return rentalApartmentResult;
         }
-        public static RentalApartmentDTOForStartPage NewRentalApartment(RentalApartment apartment)
+        public  async Task<RentalApartmentDTOForStartPage> NewRentalApartment(RentalApartment apartment)
         {
+            Country country = await Database.Country.Get(apartment.CountryId);
             var rentalApartmentTemp = new RentalApartmentDTOForStartPage
             {
                 Id = apartment.Id,
@@ -61,13 +62,12 @@ namespace RoomBi.BLL.Services
                 LatMap = apartment.LatMap,
                 PricePerNight = apartment.PricePerNight,
                 ObjectRating = apartment.ObjectRating,
-                Country = apartment.Country?.Name,
+                Country = country.Name,
                 //Wish = await Database.GetItemWishlist.CheckIfWishlistItemExists(idUser, apartment.Id),
                 //Location = apartment.Location?.Name,
                 //House = apartment.House?.Name,
                 //Sport = apartment.Sport?.Name,
-                Pictures = apartment.Pictures,
-
+                Pictures = apartment.Pictures
             };
             rentalApartmentTemp.Country += ", " + apartment.Address;
             rentalApartmentTemp.BookingFree = FormatDate(apartment);
@@ -86,14 +86,14 @@ namespace RoomBi.BLL.Services
                             var rentalApartments = await Database.SearchRentalApartment.GetApartmentsByCountryCode(where.CountryCode);
                             foreach (var item in rentalApartments)
                             {
-                                rentalApartmentDTO.Add(NewRentalApartment(item));
+                                rentalApartmentDTO.Add(await NewRentalApartment(item));
                             }
                             return rentalApartmentDTO;
                         case "city":
                             rentalApartments = await Database.SearchRentalApartment.GetApartmentsByCity(where.PlaceId);
                             foreach (var item in rentalApartments)
                             {
-                                rentalApartmentDTO.Add(NewRentalApartment(item));
+                                rentalApartmentDTO.Add(await NewRentalApartment(item));
                             }
                             return rentalApartmentDTO;
                         default:
@@ -161,7 +161,7 @@ namespace RoomBi.BLL.Services
                 
                 foreach (var item in rentalApartments)
                 {
-                   rentalApartmentResult.Add(NewRentalApartment(item));
+                   rentalApartmentResult.Add(await NewRentalApartment(item));
                 }
                 return rentalApartmentResult;
             }
@@ -183,7 +183,7 @@ namespace RoomBi.BLL.Services
                 filter.OfferedAmenitiesDTO, filter.HostsLanguage);
             foreach (var item in filteredApartments)
             {
-                RentalApartmentDTOForStartPage dTOForStartPage = NewRentalApartment(item);
+                RentalApartmentDTOForStartPage dTOForStartPage = await NewRentalApartment(item);
                 rentalApartmentResult.Add(dTOForStartPage);
             }
             return rentalApartmentResult;
