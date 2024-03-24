@@ -21,6 +21,7 @@ namespace RoomBi.BLL.DTO
         public string? RefreshToken { get; set; }
         public string? Language { get; set; }
         public string? Country { get; set; }
+        public string? PF { get; set; } = "No";
 
     }
 }

@@ -85,6 +85,10 @@ namespace RoomBi_Server.Controllers
                             };
                             await userService.Create(user);
                             user = await serviceOfUser.GetUserByEmail(user.Email);
+                            if(user.Profile != null)
+                            {
+                                user.PF = "Yes";
+                            }
                             var response = await AuthenticateUser(user);
                             user.RefreshToken = response.RefreshToken;
                             await serviceOfUser.UpdateRefreshToken(user);
@@ -102,6 +106,10 @@ namespace RoomBi_Server.Controllers
                             {
                                 var response = await AuthenticateUser(user);
                                 user.RefreshToken = response.RefreshToken;
+                                if (user.Profile != null)
+                                {
+                                    user.PF = "Yes";
+                                }
                                 await serviceOfUser.UpdateRefreshToken(user);
                                 return Ok(response);
                             }
@@ -121,6 +129,10 @@ namespace RoomBi_Server.Controllers
                             var user2 = await serviceOfUser.GetUserByEmail(user.Email);
                             var response = await AuthenticateUser(user2);
                             user2.RefreshToken = response.RefreshToken;
+                            if (user2.Profile != null)
+                            {
+                                user2.PF = "Yes";
+                            }
                             await serviceOfUser.UpdateRefreshToken(user2);
                             return Ok(response);
                         }
@@ -193,6 +205,10 @@ namespace RoomBi_Server.Controllers
             user = await serviceOfUser.GetUserByEmail(user.Email);
             var token = jwtTokenService.GetToken(user);
             var refreshToken = user.RefreshToken;
+            if (user.Profile != null)
+            {
+                user.PF = "Yes";
+            }
             var response = new AuthenticationResponseDTO
             {
                 Token = token,
