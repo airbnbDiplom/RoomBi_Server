@@ -9,7 +9,8 @@ using Microsoft.VisualBasic;
 namespace RoomBi.BLL.Services
 {
 
-    public class BookingService(IUnitOfWork uow) : IServiceBooking<BookingDTO>
+    public class BookingService(IUnitOfWork uow) : IServiceBooking<BookingDTO>,
+        IServiceChatGetAll<MessageObj>
     {
         IUnitOfWork Database { get; set; } = uow;
 
@@ -26,8 +27,8 @@ namespace RoomBi.BLL.Services
 
             };
             await Database.Booking.Create(booking);
-            var guestPaymentMethodp = new GuestPaymentMethod 
-            { 
+            var guestPaymentMethodp = new GuestPaymentMethod
+            {
                 CardNumber = bookingDto.Payment.CardNumber,
                 ExpirationDate = bookingDto.Payment.ExpirationDate,
                 CVV = bookingDto.Payment.CVV,
@@ -35,25 +36,58 @@ namespace RoomBi.BLL.Services
                 IdUser = booking.OwnerId
             };
             await Database.GuestPaymentMethod.Create(guestPaymentMethodp);
-            //await Database.Save();
+            await Database.Save();
         }
-        //public async Task Create(DateBooking bookingDto)
-        //{
-        //    var booking = new Booking
-        //    {
-        //        Id = bookingDto.Id,
-        //        OwnerId = bookingDto.OwnerId,
-        //        ApartmentId = bookingDto.ApartmentId,
-        //        CheckInDate = bookingDto.CheckInDate,
-        //        CheckOutDate = bookingDto.CheckOutDate,
-        //        NumberOfGuests = bookingDto.NumberOfGuests,
-        //        TotalPrice = bookingDto.TotalPrice,
-        //        PaymentStatus = bookingDto.PaymentStatus
+        public async Task CreateBookingWithChat(BookingDTO bookingDto)
+        {
+            var booking = new Booking
+            {
+                OwnerId = bookingDto.OwnerId,
+                ApartmentId = bookingDto.ApartmentId,
+                CheckInDate = new DateTime(bookingDto.CheckInDate.Year, bookingDto.CheckInDate.Month, bookingDto.CheckInDate.Day),
+                CheckOutDate = new DateTime(bookingDto.CheckOutDate.Year, bookingDto.CheckOutDate.Month, bookingDto.CheckOutDate.Day),
+                TotalPrice = bookingDto.TotalPrice,
+                PaymentStatus = false
 
-        //    };
-        //    await Database.Booking.Create(booking);
-        //    await Database.Save();
-        //}
+            };
+            await Database.Booking.Create(booking);
+            await Database.Save();
+        }
+
+        public async Task<List<MessageObj>> GetAllChatObj(int GuestIdUser)
+        {
+            var temp = await Database.GetAllChat.GetAllChat(GuestIdUser);
+            var messageObjs = new List<MessageObj>();
+            for (int i = 0; i < temp.Count; i++)
+            {
+                List<Chat>? chatGroup = temp[i];
+                var master = await Database.User.Get(chatGroup[0].MasterIdUser);
+                var apartment = await Database.RentalApartment.Get(chatGroup[0].RentalApartmentId);
+                var messageObj = new MessageObj
+                {
+                    FotoMaster = master.ProfilePicture,
+                    FotoApartment = apartment.Pictures.FirstOrDefault()?.PictureUrl,
+                    NameApartment = apartment.Title,
+                    NameMaster = master.Name,
+                    Booking = await Database.Booking.Get(apartment.Id),
+                    Message = chatGroup.Select(chat => new ChatForApartmentPageDTO
+                {
+                    Id = chat.Id,
+                    Comment = chat.Comment,
+                    DateTime = chat.DateTime,
+                    RentalApartmentId = chat.RentalApartmentId,
+                    MasterIdUser = chat.MasterIdUser,
+                    GuestIdUser = chat.GuestIdUser
+                }).ToList()
+                };
+                messageObjs.Add(messageObj);
+
+            }
+            return messageObjs;
+        }
+
+
+
 
         //public async Task Update(DateBooking bookingDto)
         //{

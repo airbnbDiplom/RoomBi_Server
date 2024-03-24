@@ -393,7 +393,7 @@ namespace RoomBi.DAL.EF
                     BiographyTitle = "'Canvas of Dreams: Navigating Life's Palette' would be an apt title for my biography.",
                     DailyActivity = "I spend hours sketching, experimenting with new art techniques, and immersing myself in the world of creativity."
                 ,
-                    IdUser = 1
+                    IdUser = 2
                 });
                 SaveChanges();
                 #endregion
@@ -595,12 +595,12 @@ namespace RoomBi.DAL.EF
                     City = "Лондон",
                     PlaceId = 243408926,
 
-                    CountryCode = "gb",  IngMap = "51.49434732193943",
-                    LatMap = "-0.17556511307713604",
+                    CountryCode = "gb",  IngMap = "51.51029749292652",
+                    LatMap = "-0.2052512847809161",
                     NumberOfGuests = 4,
                     Bedrooms = 2,
                     Bathrooms = 2,
-                    Beds = 3,
+                    Beds = 2,
                     PricePerNight = 150.0,
                     ObjectState = "Вільний",
                     ObjectRating = 5,
@@ -623,7 +623,7 @@ namespace RoomBi.DAL.EF
                     NumberOfGuests = 4,
                     Bedrooms = 2,
                     Bathrooms = 2,
-                    Beds = 3,
+                    Beds = 2,
                     PricePerNight = 110.0,
                     ObjectState = "Вільний",
                     ObjectRating = 5,
@@ -646,8 +646,8 @@ namespace RoomBi.DAL.EF
                     PlaceId = 243408926,
                     NumberOfGuests = 4,
                     Bedrooms = 1,
-                    Bathrooms = 2,
-                    Beds = 3,
+                    Bathrooms = 1,
+                    Beds = 1,
                     PricePerNight = 45.0,
                     ObjectState = "Вільний",
                     ObjectRating = 4.8,
@@ -671,7 +671,7 @@ namespace RoomBi.DAL.EF
                     NumberOfGuests = 2,
                     Bedrooms = 1,
                     Bathrooms = 1,
-                    Beds = 1,
+                    Beds = 2,
                     PricePerNight = 200.0,
                     ObjectState = "Вільний",
                     ObjectRating = 2.7,
@@ -743,7 +743,7 @@ namespace RoomBi.DAL.EF
                     NumberOfGuests = 2,
                     Bedrooms = 1,
                     Bathrooms = 1,
-                    Beds = 1,
+                    Beds = 2,
                     PricePerNight = 59.0,
                     ObjectState = "Вільний",
                     ObjectRating = 5,
@@ -763,10 +763,10 @@ namespace RoomBi.DAL.EF
                     LatMap = "-0.012962606372573467",
                     City = "Лондон",
                     PlaceId = 243408926,
-                    NumberOfGuests = 2,
-                    Bedrooms = 1,
+                    NumberOfGuests = 4,
+                    Bedrooms = 2,
                     Bathrooms = 1,
-                    Beds = 1,
+                    Beds = 2,
                     PricePerNight = 75.0,
                     ObjectState = "Вільний",
                     ObjectRating = 4.6,
@@ -832,8 +832,8 @@ namespace RoomBi.DAL.EF
                     UserId = 11,
                     Title = "Мінібудинок",
                     Address = "Шенек, Хемниц",
-                    CountryCode = "de",  IngMap = "50.3936523",
-                    LatMap = "12.3356774",
+                    CountryCode = "de",  IngMap = "50.21540706044495",
+                    LatMap = "8.839970711377223",
                     City = "Шенек",
                     PlaceId = 121107681,
                     NumberOfGuests = 3,
@@ -1170,8 +1170,8 @@ namespace RoomBi.DAL.EF
                     UserId = 4,
                     Title = "Сассі Матери",
                     Address = "Матера, 63095 Асколи-Пичено",
-                    CountryCode = "it",  IngMap = "42.75138162766794",
-                    LatMap = "13.40020045383883",
+                    CountryCode = "it",  IngMap = "40.672932196749265",
+                    LatMap = "16.59806772753433",
                     City = "Матера",
                     PlaceId = 81260500,
                     NumberOfGuests = 4,
@@ -1236,9 +1236,6 @@ namespace RoomBi.DAL.EF
                     SportId = 2,
                     CountryId = 3,
                 });
-
-
-
 
                 RentalApartments.Add(new RentalApartment
                 {
@@ -2639,35 +2636,85 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddHours(-4),
                     RentalApartmentId = 1,
                     MasterIdUser = 1,
-                    GuestIdUser = 2
+                    GuestIdUser = 5
                 });
-
                 Chats.Add(new Chat
                 {
                     Comment = "Добрий вечір, як я можу вам допомогти?",
                     DateTime = DateTime.Now.AddHours(-3),
                     RentalApartmentId = 1,
                     MasterIdUser = 1,
-                    GuestIdUser = 2
+                    GuestIdUser = 5
                 });
-
                 Chats.Add(new Chat
                 {
                     Comment = "Дуже хочу орендувати кімнату від вас.",
                     DateTime = DateTime.Now.AddHours(-2),
                     RentalApartmentId = 1,
                     MasterIdUser = 1,
-                    GuestIdUser = 2
+                   GuestIdUser = 5
                 });
-
                 Chats.Add(new Chat
                 {
                     Comment = "О, ласкаво просимо! З радістю вас побачу.",
                     DateTime = DateTime.Now.AddHours(-1),
                     RentalApartmentId = 1,
                     MasterIdUser = 1,
-                    GuestIdUser = 2
+                   GuestIdUser = 5
                 });
+                Chats.Add(new Chat
+                {
+                    Comment = "Добрий день! Ми сім'я з чотирьох осіб і хотіли б забронювати дім на літні канікули. Чи є вас підходящі варіанти?",
+                    DateTime = DateTime.Now.AddHours(-4),
+                    RentalApartmentId = 2,
+                    MasterIdUser = 2,
+                    GuestIdUser = 5
+                });
+
+                Chats.Add(new Chat
+                {
+                    Comment = "Доброго дня! Так, у нас є декілька варіантів для вашої сім'ї. Скільки часу ви плануєте провести у нас?",
+                    DateTime = DateTime.Now.AddHours(-3),
+                    RentalApartmentId = 2,
+                    MasterIdUser = 2,
+                   GuestIdUser = 5
+                });
+
+                Chats.Add(new Chat
+                {
+                    Comment = "Ми плануємо залишитися на два тижні, приблизно з 15 липня по 1 серпня. Чи є доступні дати в цей період?",
+                    DateTime = DateTime.Now.AddHours(-2),
+                    RentalApartmentId = 2,
+                    MasterIdUser = 2,
+                   GuestIdUser = 5
+                });
+
+                Chats.Add(new Chat
+                {
+                    Comment = "Так, у нас є доступні дати на ваш період перебування. Які у вас вимоги до дому? Наприклад, скільки спалень вам потрібно?",
+                    DateTime = DateTime.Now.AddHours(-1),
+                    RentalApartmentId = 2,
+                    MasterIdUser = 2,
+                   GuestIdUser = 5
+                });
+                Chats.Add(new Chat
+                {
+                    Comment = "Привіт! Цикавить чи є на кухні все необхідне обладнання для приготування їжи?",
+                    DateTime = DateTime.Now.AddHours(-3),
+                    RentalApartmentId = 3,
+                    MasterIdUser = 3,
+                   GuestIdUser = 5
+                });
+
+                Chats.Add(new Chat
+                {
+                    Comment = "Так, кухня повністю обладнана.",
+                    DateTime = DateTime.Now.AddHours(-2),
+                    RentalApartmentId = 3,
+                    MasterIdUser = 3,
+                   GuestIdUser = 5
+                });
+
 
                 SaveChanges();
 

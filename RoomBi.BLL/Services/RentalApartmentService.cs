@@ -23,7 +23,7 @@ namespace RoomBi.BLL.Services
         IServiceForMap<RentalApartmentForMap>
     {
         private readonly IUnitOfWork Database = uow;
-      
+
         public async Task<RentalApartmentDTO> GetItem(int id, int userId)
         {
             var rentalApartment = await Database.RentalApartment.Get(id);
@@ -43,9 +43,9 @@ namespace RoomBi.BLL.Services
                 {
                     Id = guestComment.Id,
                     GuestIdUser = guestComment.GuestIdUser,
-                    UserName = user2.Name, 
-                    UserCountry = country2.Name, 
-                    UserAvatar = user2.ProfilePicture, 
+                    UserName = user2.Name,
+                    UserCountry = country2.Name,
+                    UserAvatar = user2.ProfilePicture,
                     Comment = guestComment.Comment,
                     DateTime = guestComment.DateTime,
                     Rating = guestComment.Rating
@@ -88,8 +88,11 @@ namespace RoomBi.BLL.Services
 
             foreach (var booking in bookings)
             {
-                var dateBooking = new DateBooking(booking.CheckInDate, booking.CheckOutDate);
-                dateBookings.Add(dateBooking);
+                if (booking.PaymentStatus)
+                {
+                    var dateBooking = new DateBooking(booking.CheckInDate, booking.CheckOutDate);
+                    dateBookings.Add(dateBooking);
+                }
             }
 
             return dateBookings;
@@ -114,7 +117,7 @@ namespace RoomBi.BLL.Services
                 HostingGuests = hostingGuests,
                 JoiningTheCommunity = user.AirbnbRegistrationYear?.Year.ToString()
 
-        };
+            };
         }
         public async Task<RentalApartmentDTOForStartPage> GetCard(int id)
         {
@@ -124,7 +127,7 @@ namespace RoomBi.BLL.Services
             return new RentalApartmentDTOForStartPage
             {
                 Id = rentalApartment.Id,
-             
+
                 Title = rentalApartment.Title,
                 IngMap = rentalApartment.IngMap,
                 LatMap = rentalApartment.LatMap,
@@ -138,7 +141,7 @@ namespace RoomBi.BLL.Services
                 BookingFree = null
             };
         }
-       
+
         public async Task<IEnumerable<RentalApartmentForMap>> GetAllForMap(string map)
         {
             var rentalApartments = await Database.RentalApartment.GetAll();
@@ -154,7 +157,7 @@ namespace RoomBi.BLL.Services
         }
         public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllForStartPage(int page, int pageSize, int idUser)
         {
-            if (page == 1) 
+            if (page == 1)
             {
                 var rentalApartments = await Database.Apartment24.Get24(page, pageSize);
                 List<RentalApartmentDTOForStartPage> rentalApartmentList = [];
@@ -166,7 +169,7 @@ namespace RoomBi.BLL.Services
                         Title = apartment.Title,
                         IngMap = apartment.IngMap,
                         LatMap = apartment.LatMap,
-                        PricePerNight = apartment.PricePerNight, 
+                        PricePerNight = apartment.PricePerNight,
                         ObjectRating = apartment.ObjectRating,
                         Country = apartment.Country?.Name,
                         Wish = await Database.GetItemWishlist.CheckIfWishlistItemExists(idUser, apartment.Id),
@@ -174,7 +177,7 @@ namespace RoomBi.BLL.Services
                         House = apartment.House?.Name,
                         Sport = apartment.Sport?.Name,
                         Pictures = apartment.Pictures,
-                        
+
                     };
                     rentalApartmentDto.Country += ", " + apartment.Address;
                     rentalApartmentDto.BookingFree = FormatDate(apartment);
@@ -246,7 +249,7 @@ namespace RoomBi.BLL.Services
                     DateTime newDate = lastCheckOutDate.AddDays(5);
                     string formattedDate = lastCheckOutDate.ToString("dd MMM", new CultureInfo("uk-UA")) +
                                             " - " +
-                                            newDate.ToString("dd MMM", new  CultureInfo("uk-UA"));
+                                            newDate.ToString("dd MMM", new CultureInfo("uk-UA"));
                     return formattedDate;
                 }
                 lastCheckOutDate = booking.CheckOutDate;

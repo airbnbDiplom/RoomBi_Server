@@ -1,4 +1,6 @@
-﻿namespace RoomBi.DAL
+﻿using System.Text.Json.Serialization;
+
+namespace RoomBi.DAL
 {
     public class Booking
     {
@@ -6,6 +8,7 @@
         public int OwnerId { get; set; }
         public User? User { get; set; }
         public int ApartmentId { get; set; }
+        [JsonIgnore]
         public RentalApartment? RentalApartment { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }

@@ -15,6 +15,7 @@ namespace RoomBi.DAL.Interfaces
         IRepositoryOfAll<GuestPaymentMethod> GuestPaymentMethod { get; }
         IRepositoryOfAll<EmergencyContactPerson> EmergencyContactPerson { get; }
         IRepositoryOfAll<Chat> Chat { get; }
+     
         IRepositoryOfAll<Country> Country { get; }
         IRepositoryOfAll<Сontinent> Сontinent { get; }
         IRepositoryOfAll<Booking> Booking { get; }
@@ -35,6 +36,7 @@ namespace RoomBi.DAL.Interfaces
         IRepositoryGetName<Country> CountryGetName { get; }
         IRepositoryGetName<Сontinent> СontinentGetName { get; }
         IRepositorySearch<RentalApartment> SearchRentalApartment { get; }
+        IRepositoryForChat<Chat> GetAllChat { get; }
         Task Save();
     }
 }

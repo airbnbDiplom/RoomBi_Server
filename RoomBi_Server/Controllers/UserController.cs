@@ -16,7 +16,7 @@ namespace RoomBi_Server.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class UserController(IServiceOfAll<UserDTO> userService, IServiceOfUser<UserDTO> serviceOfUser,
-        IJwtToken jwtTokenService, IServiceOfAll<CountryDTO> country, IServiceOfUserGoogle<User> serviceOfUserGoogle) : ControllerBase
+        IJwtToken jwtTokenService, IServiceOfUserGoogle<User> serviceOfUserGoogle) : ControllerBase
     {
         [HttpPost]
         public async Task<AuthenticationResponseDTO> AuthenticateUser(UserDTO user)
@@ -223,6 +223,7 @@ namespace RoomBi_Server.Controllers
             ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
             string temp = jwtTokenService.GetMailFromToken(principal);
             var user = await serviceOfUser.GetUserByEmail(temp);
+            //var user = await serviceOfUser.GetUserByEmail("jane.smith@example.com");
             if (user == null)
             {
                 return NotFound();

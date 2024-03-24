@@ -191,7 +191,7 @@ namespace RoomBi.DAL.Repositories
         public async Task<IEnumerable<RentalApartment>> GetApartmentsByNumberOfGuests(int? why)
         {
             var whyApartments = await context.RentalApartments
-           .Where(apartment => apartment.NumberOfGuests == why)
+           .Where(apartment => apartment.NumberOfGuests >= why)
            .ToListAsync();
             var bookingRepository = new BookingRepository(context);
             var pictureRepository = new PictureRepository(context);

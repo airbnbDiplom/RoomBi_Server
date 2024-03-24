@@ -24,7 +24,8 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IUnitOfWork, EFUnitOfWork>();
             services.AddScoped<IServiceOfAll<LanguageDTO>, LanguageService>();
             services.AddScoped<IServiceOfAll<CountryDTO>, CountryService>();
-            services.AddScoped<IServiceOfAll<ChatDTO>, ChatService>();
+            services.AddScoped<IServiceChat<ChatForApartmentPageDTO>, ChatService>();
+            services.AddScoped<IServiceChatGetAll<MessageObj>, BookingService>();
             services.AddScoped<IServiceBooking<BookingDTO>, BookingService>();
             services.AddScoped<IServiceOfAll<EmergencyContactPersonDTO>, EmergencyContactPersonService>();
             services.AddScoped<IServiceOfAll<Payment>, GuestPaymentMethodService>();

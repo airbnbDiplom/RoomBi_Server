@@ -19,4 +19,8 @@ namespace RoomBi.BLL.Interfaces
     {
         Task<IEnumerable<T>> GetAllForMap(string map);
     }
+    //public interface IServiceForUser<T>
+    //{
+    //    Task<T> GetProfile(int idUser);
+    //}
 }

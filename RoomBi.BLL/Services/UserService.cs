@@ -113,6 +113,8 @@ namespace RoomBi.BLL.Services
             if (user == null) { throw new Exception("Користувач з таким email не існує."); }
             var language = await Database.Languages.Get(user.LanguageId);
             var contry = await Database.Country.Get(user.CountryId);
+            var profile = await Database.Profile.Get(user.Id);
+
             return new UserDTO
             {
                 Id = user.Id,
@@ -128,7 +130,8 @@ namespace RoomBi.BLL.Services
                 CurrentStatus = user.CurrentStatus,
                 UserStatus = user.UserStatus,
                 Language = language.Name,
-                Country = contry.Name
+                Country = contry.Name,
+                Profile = profile,
             };
 
         }

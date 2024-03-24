@@ -5,12 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+ 
 namespace RoomBi.DAL.Repositories
 {
-    public class ChatRepository(RBContext context) : IRepositoryOfAll<Chat>, IRepositoryForApartment<Chat>
+    public class ChatRepository: IRepositoryOfAll<Chat>, IRepositoryForApartment<Chat>,
+         IRepositoryForChat<Chat>
     {
-        private readonly RBContext context = context;
+        private readonly RBContext context;
+
+        public ChatRepository(RBContext context)
+        {
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+        }
         public async Task<IEnumerable<Chat>> ByApartmentId(int apartmentId)// коллекция для определенной квартиры
         {
                  return await context.Chats
@@ -19,7 +25,9 @@ namespace RoomBi.DAL.Repositories
         }
         public async Task<IEnumerable<Chat>> GetAll()
         {
-            return await context.Chats.ToListAsync();
+            var chatMessages = await context.Chats.ToListAsync();
+            Console.WriteLine($"Retrieved {chatMessages.Count} chat messages");
+            return chatMessages;
         }
         public async Task<Chat> Get(int id)
         {
@@ -40,6 +48,20 @@ namespace RoomBi.DAL.Repositories
             Chat? item = await context.Chats.FindAsync(id);
             if (item != null)
                 context.Chats.Remove(item);
+        }
+
+        public async Task<List<List<Chat>>> GetAllChat(int user)
+        {
+            var chatMessages = await context.Chats
+            .Where(chat => chat.GuestIdUser == user)
+            .ToListAsync();
+
+            var groupedMessages = chatMessages
+                .GroupBy(m => m.RentalApartmentId)
+                .Select(g => g.ToList())
+                .ToList();
+
+            return groupedMessages;
         }
     }
 }

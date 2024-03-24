@@ -33,6 +33,7 @@ namespace RoomBi.DAL.Repositories
 
         private ChatRepository _chatRepository;
         public IRepositoryOfAll<Chat> Chat => _chatRepository ??= new ChatRepository(_context);
+     
 
         private СontinentRepository _continentRepository;
         public IRepositoryOfAll<Сontinent> Сontinent => _continentRepository ??= new СontinentRepository(_context);
@@ -94,7 +95,9 @@ namespace RoomBi.DAL.Repositories
         private RentalApartmentRepository _rentalApartmentRepository2;
         public IRepositorySearch<RentalApartment> SearchRentalApartment => _rentalApartmentRepository2 ??= new RentalApartmentRepository(_context);
 
-      
+        private ChatRepository _chatRepository2;
+        public IRepositoryForChat<Chat> GetAllChat => _chatRepository2 ??= new ChatRepository(_context);
+
 
         public async Task Save()
         {

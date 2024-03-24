@@ -15,14 +15,10 @@ namespace RoomBi.BLL.DTO
         public DateTime? DateOfBirth { get; set; }
         public DateTime? AirbnbRegistrationYear { get; set; }
         public string? ProfilePicture { get; set; }
-       
-        public bool CurrentStatus { get; set; } //bool
-        public bool UserStatus { get; set; }//bool
-
-
-        //public string? Token { get; set; }
+        public Profile? Profile { get; set; }
+        public bool CurrentStatus { get; set; } 
+        public bool UserStatus { get; set; }
         public string? RefreshToken { get; set; }
-        //public string? Hash { get; set; }
         public string? Language { get; set; }
         public string? Country { get; set; }
 

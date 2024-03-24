@@ -25,7 +25,7 @@ namespace RoomBi.DAL.Repositories
         public async Task<Booking> Get(int id)
         {
 
-            return await context.Bookings.FirstOrDefaultAsync(m => m.Id == id);
+            return await context.Bookings.FirstOrDefaultAsync(m => m.ApartmentId == id);
             //return await context.Bookings.FindAsync(id);
         }
         public async Task Create(Booking item)

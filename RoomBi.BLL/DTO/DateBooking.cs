@@ -38,13 +38,5 @@ namespace RoomBi.BLL.DTO
         }
 
     }
-    public class BookingDTO
-    {
-        public int OwnerId { get; set; }
-        public int ApartmentId { get; set; }
-        public DateBi? CheckInDate { get; set; }
-        public DateBi? CheckOutDate { get; set; }
-        public double TotalPrice { get; set; }
-        public Payment? Payment { get; set; }
-    }
+ 
 }

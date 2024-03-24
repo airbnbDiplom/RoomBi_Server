@@ -16,10 +16,10 @@ namespace RoomBi.DAL.Repositories
         {
             return await context. Profiles.ToListAsync();
         }
-        public async Task< Profile> Get(int id)
+        public async Task<Profile> Get(int idUser)
         {
 
-            return await context. Profiles.FirstOrDefaultAsync(m => m.Id == id);
+            return await context. Profiles.FirstOrDefaultAsync(m => m.IdUser == idUser);
             //return await context. Profiles.FindAsync(id);
         }
         public async Task Create( Profile item)

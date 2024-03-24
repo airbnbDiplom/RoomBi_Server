@@ -6,7 +6,7 @@ using RoomBi.BLL.Services;
 using RoomBi.DAL;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
+using System.Linq;
 namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
@@ -16,13 +16,13 @@ namespace RoomBi_Server.Controllers
         IServiceDataSearchForSorting<RentalApartmentDTOForStartPage> forSorting) : ControllerBase
     {
         [HttpPost("sort")]
-        public async Task<ActionResult<IEnumerable<RentalApartmentDTOForStartPage>>> GetCards([FromBody] DataSearchForSorting dataSearchForSorting)
+        public async Task<ActionResult<IEnumerable<RentalApartmentDTOForStartPage>>> GetCards([FromBody] DataSearchForSorting dataSearchForSorting, int page = 1, int pageSize = 8)
         {
             try
             {
                 ICollection<RentalApartmentDTOForStartPage>? rentalApartmentDTO = new List<RentalApartmentDTOForStartPage>();
 
-                if (dataSearchForSorting?.Where?.Type != "")
+                if (dataSearchForSorting?.Where != null)
                 {
                     try
                     {
@@ -72,7 +72,25 @@ namespace RoomBi_Server.Controllers
                         return BadRequest(ex.Message);
                     }
                 }
-                return Ok(rentalApartmentDTO);
+                if (rentalApartmentDTO.Count != 0)
+                {
+                    int totalItems = rentalApartmentDTO.Count;
+                    int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+                    if (page > totalPages)
+                    {
+                        return Ok(new List<RentalApartmentDTOForStartPage>());
+                    }
+                    int startIndex = (page - 1) * pageSize;
+                    var pageApartments = rentalApartmentDTO.Skip(startIndex).Take(pageSize);
+                    return Ok(pageApartments);
+                }
+                else
+                {
+                    // Возвращаем пустую коллекцию, если нет объектов
+                    return Ok(new List<RentalApartmentDTOForStartPage>());
+                }
+
             }
             catch (Exception ex)
             {
