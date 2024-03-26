@@ -28,6 +28,7 @@ namespace RoomBi.BLL.DTO
         public DateBi? CheckOutDate { get; set; }
         public double TotalPrice { get; set; }
         public Payment? Payment { get; set; }
+        public int NumberOfGuests { get; set; }
 
     }
 }

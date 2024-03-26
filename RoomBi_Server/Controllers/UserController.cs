@@ -28,7 +28,8 @@ namespace RoomBi_Server.Controllers
             var response = new AuthenticationResponseDTO
             {
                 Token = token,
-                RefreshToken = refreshToken
+                RefreshToken = refreshToken,
+                Profile = user.Profile
             };
 
             return response;
@@ -153,8 +154,8 @@ namespace RoomBi_Server.Controllers
 
         [Authorize]
         // DELETE: api/users/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        [HttpDelete("delete")]
+        public async Task<IActionResult> DeleteUser()
         {
             var token = HttpContext.Request.Headers.Authorization;
 

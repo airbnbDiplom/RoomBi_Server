@@ -24,29 +24,54 @@ namespace RoomBi_Server.Controllers
     {
         //[Authorize]
         //Post: api/chat s/5
+        [HttpPost("GetAllChat")]
+        public async Task<ActionResult<List<MessageObj>>> GetAllChat()
+        {
+            //string token = HttpContext.Request.Headers.Authorization;
+            //string cleanedToken = token.Replace("Bearer ", "");
+            //ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            //var GuestIdUser = int.Parse(jwtTokenService.GetIdFromToken(principal));
+            //List<MessageObj> result = await serviceChatGetAll.GetAllChatObj(GuestIdUser);
+            List<MessageObj> result = await serviceChatGetAll.GetAllChatObj(5);
+            return result;
+        }
+        //[Authorize]
+        //Post: api/chat s/5
         [HttpPost("messageStart")]
-        public async Task<ActionResult<List<MessageObj>>> PutChat([FromBody] MessageStart MessageStart)
+        public async Task<ActionResult<List<MessageObj>>> MessageStart([FromBody] ChatForApartmentPageDTO chatForApartmentPageDTO)
         {
             //    string token = HttpContext.Request.Headers.Authorization;
             //    string cleanedToken = token.Replace("Bearer ", "");
             //    ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
-            //if (MessageStart.ChatForApartmentPageDTO!=null)
-            //{
-            //    //MessageStart.ChatForApartmentPageDTO.GuestIdUser = int.Parse(jwtTokenService.GetIdFromToken(principal));
+            //    MessageStart.ChatForApartmentPageDTO.GuestIdUser = int.Parse(jwtTokenService.GetIdFromToken(principal));
+            chatForApartmentPageDTO.GuestIdUser = 5;
+            await chatService.Create(chatForApartmentPageDTO);
+            return Content("Ok");
 
-            //    MessageStart.ChatForApartmentPageDTO.GuestIdUser = 1;
-            //    await chatService.Create(MessageStart.ChatForApartmentPageDTO);
-            //}
-            //if (MessageStart.BookingDTO != null)
-            //{
-            //    await serviceBooking.CreateBookingWithChat(MessageStart.BookingDTO);
-            //}
-            List<MessageObj> result = await serviceChatGetAll.GetAllChatObj(5);
-
-            return result;
-         
         }
 
+        //[Authorize]
+        //Post: api/chat s/5
+        [HttpPost("putChat")]
+        public async Task<ActionResult<List<MessageObj>>> PutChat([FromBody] MessageStart MessageStart)
+        {
+            //string token = HttpContext.Request.Headers.Authorization;
+            //string cleanedToken = token.Replace("Bearer ", "");
+            //ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            if (MessageStart.ChatForApartmentPageDTO != null)
+            {
+                //MessageStart.ChatForApartmentPageDTO.GuestIdUser = int.Parse(jwtTokenService.GetIdFromToken(principal));
+                MessageStart.ChatForApartmentPageDTO.GuestIdUser = 1;
+                await chatService.Create(MessageStart.ChatForApartmentPageDTO);
+            }
+            if (MessageStart.BookingDTO != null)
+            {
+                MessageStart.BookingDTO.OwnerId = 1;
+                await serviceBooking.CreateBookingWithChat(MessageStart.BookingDTO);
+            }
+            return Content("Ok");
+
+        }
         //// GET: api/Chats
         //[HttpGet]
         //public async Task<ActionResult<IEnumerable<ChatDTO>>> GetChats()
