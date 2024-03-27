@@ -174,38 +174,6 @@ namespace RoomBi.BLL.Services
             }
             return user;
         }
-        //public async Task RegisterRequest(RequestUser requestUser)
-        //{
-
-
-            //    byte[] salt;
-            //    new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
-
-            //    // Generate the hashed password
-            //    var pbkdf2 = new Rfc2898DeriveBytes(userDTO.Password, salt, 10000);
-            //    byte[] hash = pbkdf2.GetBytes(20);
-
-            //    // Convert the byte array to a string
-            //    string savedPasswordHash = Convert.ToBase64String(hash);
-            //    user.Password = savedPasswordHash;
-            //    user.Salt = Convert.ToBase64String(salt);// Save the salt
-            //    user.Email = userDTO.Email;
-            //    user.IsGoogleServiceUsed = false;
-            ////}
-            //await Database.User.Create(user);
-            //await Database.Save();
-
-
-            //if (userDTO.Password == "google")
-            //{
-            //    user.Password = userDTO.Password;
-            //    user.Email = userDTO.Email;
-            //    user.IsGoogleServiceUsed = true;
-            //}
-            //else
-            //{
-            // Generate a salt
-        //}
         public async Task Update(UserDTO userDTO)
         {
             var user = await Database.UserGetEmailAndPassword.GetEmail(userDTO.Email);
@@ -257,6 +225,38 @@ namespace RoomBi.BLL.Services
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(await Database.User.GetAll());
         }
+        //public async Task RegisterRequest(RequestUser requestUser)
+        //{
+
+
+        //    byte[] salt;
+        //    new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+
+        //    // Generate the hashed password
+        //    var pbkdf2 = new Rfc2898DeriveBytes(userDTO.Password, salt, 10000);
+        //    byte[] hash = pbkdf2.GetBytes(20);
+
+        //    // Convert the byte array to a string
+        //    string savedPasswordHash = Convert.ToBase64String(hash);
+        //    user.Password = savedPasswordHash;
+        //    user.Salt = Convert.ToBase64String(salt);// Save the salt
+        //    user.Email = userDTO.Email;
+        //    user.IsGoogleServiceUsed = false;
+        ////}
+        //await Database.User.Create(user);
+        //await Database.Save();
+
+
+        //if (userDTO.Password == "google")
+        //{
+        //    user.Password = userDTO.Password;
+        //    user.Email = userDTO.Email;
+        //    user.IsGoogleServiceUsed = true;
+        //}
+        //else
+        //{
+        // Generate a salt
+        //}
 
 
     }

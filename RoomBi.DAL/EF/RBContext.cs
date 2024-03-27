@@ -299,6 +299,21 @@ namespace RoomBi.DAL.EF
                     CurrentStatus = true,
                     UserStatus = true,
                 });
+                Users.Add(new User
+                {
+                    Name = "Maksim Dubovyi",
+                    Password = "L1Lm6Mo+jJM5wqBRJSAuIrl2EwidaLZj/wMkx1IRb9ZPUhIn",
+                    Email = "max@x.com",
+                    Address = "Odessa",
+                    PhoneNumber = "+380969774697",
+                    DateOfBirth = new DateTime(1989, 08, 30),
+                    AirbnbRegistrationYear = new DateTime(2004, 7, 12),
+                    ProfilePicture = "max.jpg",
+                    LanguageId = 2,
+                    CountryId = 1,
+                    CurrentStatus = true,
+                    UserStatus = true,
+                });
                 SaveChanges();
 
                 #endregion
@@ -310,7 +325,7 @@ namespace RoomBi.DAL.EF
                     ExpirationDate = "12/25",
                     CVV = "123",
                     CardType = "Visa",
-                    IdUser = 1
+                    IdUser = 14
                 });
                 GuestPaymentMethods.Add(new GuestPaymentMethod
                 {
@@ -319,7 +334,7 @@ namespace RoomBi.DAL.EF
                     ExpirationDate = "11/28",
                     CVV = "303",
                     CardType = "MasterCard",
-                    IdUser = 1
+                    IdUser = 14
                 });
                 GuestPaymentMethods.Add(new GuestPaymentMethod
                 {
@@ -1725,7 +1740,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(14),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
 
                 Bookings.Add(new Booking
@@ -1736,7 +1751,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(14),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
 
                 Bookings.Add(new Booking
@@ -1747,7 +1762,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(10),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1757,7 +1772,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(15),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1767,7 +1782,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(39),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1777,7 +1792,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(9),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1787,7 +1802,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(99),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1797,7 +1812,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(29),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1807,7 +1822,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(9),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1817,7 +1832,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(9),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1827,7 +1842,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(29),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1837,7 +1852,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(3),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1847,7 +1862,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(22),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1857,7 +1872,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(5),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1867,7 +1882,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(19),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1877,7 +1892,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(9),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1887,7 +1902,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(7),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1897,7 +1912,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(4),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1907,7 +1922,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(13),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1917,7 +1932,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(5),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1927,7 +1942,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(22),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1937,7 +1952,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(2),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1947,7 +1962,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(12),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1957,7 +1972,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(15),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1967,7 +1982,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(9),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1977,7 +1992,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(18),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1987,7 +2002,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(6),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -1997,7 +2012,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(3),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2007,7 +2022,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(13),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2017,7 +2032,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(21),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2027,7 +2042,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(6),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2037,7 +2052,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(23),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2047,7 +2062,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(11),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2057,7 +2072,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(3),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2067,7 +2082,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(14),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2077,7 +2092,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(9),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2087,7 +2102,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(2),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2097,7 +2112,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(31),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2107,7 +2122,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(5),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2117,7 +2132,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(7),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2127,7 +2142,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(9),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2137,7 +2152,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(4),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2147,7 +2162,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(15),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2157,7 +2172,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(23),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2167,7 +2182,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(4),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2177,7 +2192,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(8),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2187,7 +2202,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(32),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2197,7 +2212,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(10),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2207,7 +2222,7 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(12),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
-                    PaymentStatus = false
+                    PaymentStatus = true
                 });
                 Bookings.Add(new Booking
                 {
@@ -2217,6 +2232,41 @@ namespace RoomBi.DAL.EF
                     CheckOutDate = DateTime.Now.AddDays(15),
                     NumberOfGuests = 3,
                     TotalPrice = 300.0,
+                    PaymentStatus = true
+                });
+
+
+
+
+                //переписка
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 14,
+                    ApartmentId = 1,
+                    CheckInDate = DateTime.Now.AddDays(8),
+                    CheckOutDate = DateTime.Now.AddDays(10),
+                    NumberOfGuests = 2,
+                    TotalPrice = 300.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 14,
+                    ApartmentId = 2,
+                    CheckInDate = DateTime.Now.AddDays(0),
+                    CheckOutDate = DateTime.Now.AddDays(5),
+                    NumberOfGuests = 3,
+                    TotalPrice = 550.0,
+                    PaymentStatus = false
+                });
+                Bookings.Add(new Booking
+                {
+                    OwnerId = 14,
+                    ApartmentId = 3,
+                    CheckInDate = DateTime.Now.AddDays(15),
+                    CheckOutDate = DateTime.Now.AddDays(19),
+                    NumberOfGuests = 3,
+                    TotalPrice = 180.0,
                     PaymentStatus = false
                 });
 
@@ -2635,8 +2685,8 @@ namespace RoomBi.DAL.EF
                     Comment = "Привіт, як ви?",
                     DateTime = DateTime.Now.AddHours(-4),
                     RentalApartmentId = 1,
-                    MasterIdUser = 1,
-                    GuestIdUser = 5
+                    MasterIdUser = 14,  // ot
+                    GuestIdUser = 1     // do
                 });
                 Chats.Add(new Chat
                 {
@@ -2644,15 +2694,15 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddHours(-3),
                     RentalApartmentId = 1,
                     MasterIdUser = 1,
-                    GuestIdUser = 5
+                    GuestIdUser = 14
                 });
                 Chats.Add(new Chat
                 {
                     Comment = "Дуже хочу орендувати кімнату від вас.",
                     DateTime = DateTime.Now.AddHours(-2),
                     RentalApartmentId = 1,
-                    MasterIdUser = 1,
-                   GuestIdUser = 5
+                    MasterIdUser = 14,
+                   GuestIdUser = 1
                 });
                 Chats.Add(new Chat
                 {
@@ -2660,15 +2710,18 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddHours(-1),
                     RentalApartmentId = 1,
                     MasterIdUser = 1,
-                   GuestIdUser = 5
+                    GuestIdUser = 14
                 });
+
+
+
                 Chats.Add(new Chat
                 {
                     Comment = "Добрий день! Ми сім'я з чотирьох осіб і хотіли б забронювати дім на літні канікули. Чи є вас підходящі варіанти?",
                     DateTime = DateTime.Now.AddHours(-4),
                     RentalApartmentId = 2,
-                    MasterIdUser = 2,
-                    GuestIdUser = 5
+                    MasterIdUser = 14,
+                    GuestIdUser = 2
                 });
 
                 Chats.Add(new Chat
@@ -2677,7 +2730,7 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddHours(-3),
                     RentalApartmentId = 2,
                     MasterIdUser = 2,
-                   GuestIdUser = 5
+                   GuestIdUser = 14
                 });
 
                 Chats.Add(new Chat
@@ -2685,8 +2738,8 @@ namespace RoomBi.DAL.EF
                     Comment = "Ми плануємо залишитися на два тижні, приблизно з 15 липня по 1 серпня. Чи є доступні дати в цей період?",
                     DateTime = DateTime.Now.AddHours(-2),
                     RentalApartmentId = 2,
-                    MasterIdUser = 2,
-                   GuestIdUser = 5
+                    MasterIdUser = 14,
+                    GuestIdUser = 2
                 });
 
                 Chats.Add(new Chat
@@ -2695,15 +2748,15 @@ namespace RoomBi.DAL.EF
                     DateTime = DateTime.Now.AddHours(-1),
                     RentalApartmentId = 2,
                     MasterIdUser = 2,
-                   GuestIdUser = 5
+                    GuestIdUser = 14
                 });
                 Chats.Add(new Chat
                 {
                     Comment = "Привіт! Цикавить чи є на кухні все необхідне обладнання для приготування їжи?",
                     DateTime = DateTime.Now.AddHours(-3),
                     RentalApartmentId = 3,
-                    MasterIdUser = 3,
-                   GuestIdUser = 5
+                    MasterIdUser = 14,
+                    GuestIdUser = 3
                 });
 
                 Chats.Add(new Chat
@@ -2711,14 +2764,10 @@ namespace RoomBi.DAL.EF
                     Comment = "Так, кухня повністю обладнана.",
                     DateTime = DateTime.Now.AddHours(-2),
                     RentalApartmentId = 3,
-                    MasterIdUser = 3,
-                   GuestIdUser = 5
+                    MasterIdUser = 14,
+                    GuestIdUser = 3
                 });
-
-
                 SaveChanges();
-
-
                 #endregion
                 #region Pictures
                 Pictures.Add(new Picture

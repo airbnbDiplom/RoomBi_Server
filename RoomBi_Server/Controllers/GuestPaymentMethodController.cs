@@ -21,18 +21,16 @@ namespace RoomBi_Server.Controllers
         {
             string token = HttpContext.Request.Headers.Authorization;
             string cleanedToken = token.Replace("Bearer ", "");
-            int id = 1;
+            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            var temp = int.Parse(jwtTokenService.GetIdFromToken(principal));
             var guestPaymentMethods = await guestPaymentMethodService.GetAll();
             if (guestPaymentMethods == null || !guestPaymentMethods.Any())
             {
                 return NotFound();
             }
-            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
-            jwtTokenService.GetIdFromToken(principal);
             try
             {
-                id = int.Parse(jwtTokenService.GetIdFromToken(principal));
-                var paymentsForUser = guestPaymentMethods.Where(payment => payment.IdUser == id);
+                var paymentsForUser = guestPaymentMethods.Where(payment => payment.IdUser == temp);
                 return Ok(paymentsForUser);
             }
             catch (FormatException ex)

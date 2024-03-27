@@ -27,6 +27,11 @@ namespace RoomBi.DAL.Repositories
         }
         public async Task Create(GuestPaymentMethod item)
         {
+            var temp = await context.GuestPaymentMethods.FirstOrDefaultAsync(m => m.CardNumber == item.CardNumber);
+            if(temp != null)
+            {
+                return;
+            }
             await context.GuestPaymentMethods.AddAsync(item);
         }
         public async Task Update(GuestPaymentMethod item)

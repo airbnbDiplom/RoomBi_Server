@@ -30,6 +30,7 @@ namespace RoomBi.DAL.Repositories
         }
         public async Task Create(Booking item)
         {
+          
             await context.Bookings.AddAsync(item);
         }
         public async Task Update(Booking item)
