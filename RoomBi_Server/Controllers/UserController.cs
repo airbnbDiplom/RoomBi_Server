@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using RoomBi.BLL;
 using RoomBi.BLL.DTO;
+using RoomBi.BLL.DTO.New;
 using RoomBi.BLL.Interfaces;
 using RoomBi.DAL;
 using RoomBi_Server.Token;
@@ -16,7 +17,8 @@ namespace RoomBi_Server.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class UserController(IServiceOfAll<UserDTO> userService, IServiceOfUser<UserDTO> serviceOfUser,
-        IJwtToken jwtTokenService, IServiceOfUserGoogle<User> serviceOfUserGoogle) : ControllerBase
+        IJwtToken jwtTokenService, IServiceOfUserGoogle<User> serviceOfUserGoogle,
+        IServiceOfAll<ProfileDTO> profileService/*, IServiceProfile<ProfileDTO> serviceProfile*/) : ControllerBase
     {
         [HttpPost]
         public async Task<AuthenticationResponseDTO> AuthenticateUser(UserDTO user)
@@ -86,7 +88,7 @@ namespace RoomBi_Server.Controllers
                             };
                             await userService.Create(user);
                             user = await serviceOfUser.GetUserByEmail(user.Email);
-                            if(user.Profile != null)
+                            if (user.Profile != null)
                             {
                                 user.PF = "Yes";
                             }
@@ -219,17 +221,7 @@ namespace RoomBi_Server.Controllers
 
         }
 
-        // GET: api/users
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers()
-        //{
-        //    var users = await userService.GetAll();
-        //    if (users == null || !users.Any())
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(users);
-        //}
+
         [Authorize]
         // GET: api/users/5
         [HttpGet("email")]
@@ -248,30 +240,7 @@ namespace RoomBi_Server.Controllers
             return user;
         }
 
-
-
-        //    //    //POST: api/users/login
-        //    //    //[HttpPost("login")]
-        //    //    //public async Task<ActionResult<UserDTO>> Login([FromBody] RequestUser request)
-        //    //    //{
-        //    //    //    var user = await serviceOfUser.GetByEmailAndPassword(request.Email, request.Password);
-        //    //    //    if (user == null)
-        //    //    //    {
-        //    //    //        return NotFound();
-        //    //    //    }
-        //    //    //    var token = jwtTokenService.GetToken(user);
-        //    //    //    var refreshToken = jwtTokenService.GenerateRefreshToken();
-        //    //    //    user.RefreshToken = refreshToken;
-        //    //    //    //await userService.Update(user);
-        //    //    //    var response = new AuthenticationResponseDTO
-        //    //    //    {
-        //    //    //        Token = token,
-        //    //    //        RefreshToken = refreshToken
-        //    //    //    };
-        //    //    //    return Ok(response);
-
-        //    //    //}
-
+      
 
     }
 }

@@ -17,6 +17,7 @@ namespace RoomBi.BLL.DTO.New
         public string? UselessSkill { get; set; }//Мой самый бесполезный навык
         public string? BiographyTitle { get; set; }//Так можно было бы назвать мою биографию
         public string? DailyActivity { get; set; }//Что я делаю часами  
+        public string? AboutMe { get; set; }// Oбо мне
         public int IdUser { get; set; }
         // public User? User { get; set; }
     }

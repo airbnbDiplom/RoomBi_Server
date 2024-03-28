@@ -1,65 +1,114 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RoomBi.BLL.DTO;
+
 using RoomBi.BLL.DTO.New;
 using RoomBi.BLL.Interfaces;
+using RoomBi.DAL.Entities;
+using RoomBi_Server.Token;
+using System.Security.Claims;
 
 namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProfileController(IServiceOfAll<ProfileDTO> profileService) : ControllerBase
+    public class ProfileController(IServiceOfAll<ProfileDTO> profileService,
+         IJwtToken jwtTokenService, IServiceProfile<ProfileDTO> serviceProfile) : ControllerBase
     {
-        //        // GET: api/profiles
-        //        [HttpGet]
-        //        public async Task<ActionResult<IEnumerable<ProfileDTO>>> GetProfiles()
-        //        {
-        //            var profiles = await profileService.GetAll();
-        //            if (profiles == null || !profiles.Any())
-        //            {
-        //                return NotFound();
-        //            }
-        //            return Ok(profiles);
-        //        }
+        [HttpPost]
+        public string? GetFirstNonEmptyField(ProfileDTO profile)
+        {
+            if (!string.IsNullOrEmpty(profile.SchoolYears)) return nameof(profile.SchoolYears);
+            if (!string.IsNullOrEmpty(profile.Pets)) return nameof(profile.Pets);
+            if (!string.IsNullOrEmpty(profile.Job)) return nameof(profile.Job);
+            if (!string.IsNullOrEmpty(profile.MyLocation)) return nameof(profile.MyLocation);
+            if (!string.IsNullOrEmpty(profile.MyLanguages)) return nameof(profile.MyLanguages);
+            if (!string.IsNullOrEmpty(profile.Generation)) return nameof(profile.Generation);
+            if (!string.IsNullOrEmpty(profile.FavoriteSchoolSong)) return nameof(profile.FavoriteSchoolSong);
+            if (!string.IsNullOrEmpty(profile.Passion)) return nameof(profile.Passion);
+            if (!string.IsNullOrEmpty(profile.InterestingFact)) return nameof(profile.InterestingFact);
+            if (!string.IsNullOrEmpty(profile.UselessSkill)) return nameof(profile.UselessSkill);
+            if (!string.IsNullOrEmpty(profile.BiographyTitle)) return nameof(profile.BiographyTitle);
+            if (!string.IsNullOrEmpty(profile.DailyActivity)) return nameof(profile.DailyActivity);
+            if (!string.IsNullOrEmpty(profile.AboutMe)) return nameof(profile.AboutMe);
 
-        //        // GET: api/profiles/5
-        //        [HttpGet("{id}")]
-        //        public async Task<ActionResult<ProfileDTO>> GetProfile(int id)
-        //        {
-        //            var profile = await profileService.Get(id);
-        //            if (profile == null)
-        //            {
-        //                return NotFound();
-        //            }
-        //            return profile;
-        //        }
+            return null;
+        }
 
-        //        // PUT: api/profiles/5
-        //        [HttpPut("{id}")]
-        //        public async Task<IActionResult> PutProfile(int id, ProfileDTO profile)
-        //        {
-        //            if (id != profile.Id)
-        //            {
-        //                return BadRequest();
-        //            }
-        //            await profileService.Update(profile);
-        //            return NoContent();
-        //        }
+        //[Authorize]
+        //POST: api/profiles
+       [HttpPost("profile")]
+        public async Task<ActionResult<ProfileDTO>> PostProfile([FromBody] ProfileDTO profile)
+        {
+            //string token = HttpContext.Request.Headers.Authorization; // id из токена
+            //string cleanedToken = token.Replace("Bearer ", "");
+            //ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+           //profile.IdUser = int.Parse(jwtTokenService.GetIdFromToken(principal));
+            profile.IdUser = 5;
+            var item = await profileService.Get(profile.IdUser); // проверяем наличие profile
+            if (item == null)                        // если нет
+            {
+                await profileService.Create(profile);
+                return Content("Ok");
+            }
+            else
+            {
+                var temp = GetFirstNonEmptyField(profile);
+                if (temp == null)                            // если есть но поля пустые
+                {
+                    await profileService.Delete(item.Id);
+                    return Content("Ok");
+                }
+                else if (temp != null)
+                {
+                    await serviceProfile.UpdateProfile(temp, profile, profile.IdUser);  // если есть передаем поле для изменения
+                    return Content("Ok");
+                }
+                return Content("Ok");
+            }
 
-        //        // POST: api/profiles
-        //        [HttpPost]
-        //        public async Task<ActionResult<ProfileDTO>> PostProfile(ProfileDTO profile)
-        //        {
-        //            await profileService.Create(profile);
-        //            return CreatedAtAction(nameof(GetProfile), new { id = profile.Id }, profile);
-        //        }
+        } }
 
-        //        // DELETE: api/profiles/5
-        [HttpDelete("{id}")]
-public async Task<IActionResult> DeleteProfile(int id)
-{
-    await profileService.Delete(id);
-    return NoContent();
-}
+
+        //    return NoContent();
+        //}
+
+        // POST: api/profiles
+        //[HttpPost]
+        //public async Task<ActionResult<ProfileDTO>> PostProfile(ProfileDTO profile)
+        //{
+        //    await profileService.Create(profile);
+        //    return NoContent();
+        //}
+
+        //// DELETE: api/profiles/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteProfile(int id)
+        //{
+        //    await profileService.Delete(id);
+        //    return NoContent();
+        //}
+        //// GET: api/profiles
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<ProfileDTO>>> GetProfiles()
+        //{
+        //    var profiles = await profileService.GetAll();
+        //    if (profiles == null || !profiles.Any())
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(profiles);
+        //}
+        //// GET: api/profiles/5
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<ProfileDTO>> GetProfile(int id)
+        //{
+        //    var profile = await profileService.Get(id);
+        //    if (profile == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return profile;
+
     }
-}
+  

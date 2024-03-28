@@ -35,7 +35,7 @@ namespace RoomBi_Server.Controllers
                     }
                 }
 
-                if (dataSearchForSorting.When.Start.Day != 0)
+                if (dataSearchForSorting.When.Start.Day >= 0)
                 {
                     try
                     {

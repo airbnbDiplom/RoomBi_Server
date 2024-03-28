@@ -1,4 +1,5 @@
 ﻿using RoomBi.BLL.DTO;
+using RoomBi.BLL.DTO.New;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,9 @@ namespace RoomBi.BLL.Interfaces
         Task<IEnumerable<T>> GetAll();
        
     }
+    public interface IServiceProfile<T> where T : class
+    {
+        Task UpdateProfile(string fieldName, T item, int idUser);
 
+    }
 }

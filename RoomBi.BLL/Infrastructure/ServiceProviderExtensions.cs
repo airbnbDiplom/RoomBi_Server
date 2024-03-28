@@ -36,7 +36,7 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceOfAll<LocationDTO>, LocationService>();
             services.AddScoped<IServiceOfAll<HouseDTO>, HouseService>();
             services.AddScoped<IServiceOfAll<SportDTO>, SportService>();
-            //services.AddScoped<IServiceOfAll<RentalApartmentDTO>, RentalApartmentService>();
+            services.AddScoped<IServiceProfile<ProfileDTO>, ProfileService>();
             services.AddScoped<IServiceOfAll<UserDTO>, UserService>();
             services.AddScoped<IServiceOfAll<WishlistDTO>, WishlistService>();
             services.AddScoped<IServiceOfAll<CommentsAboutGuestDTO>, CommentsAboutGuestService>();
