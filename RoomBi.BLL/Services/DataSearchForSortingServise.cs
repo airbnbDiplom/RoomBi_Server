@@ -167,7 +167,7 @@ namespace RoomBi.BLL.Services
             }
             else
             {
-                var filteredApartments = rentalApartments.Where(apartment => apartment.NumberOfGuests == why).ToList();
+                var filteredApartments = rentalApartments.Where(apartment => apartment.NumberOfGuests >= why).ToList();
                 var apartmentIds = filteredApartments.Select(apartment => apartment.Id).ToList();
                 var sortedResult = rentalApartmentDTO.Where(result => apartmentIds.Contains(result.Id)).ToList();
                 return sortedResult;
