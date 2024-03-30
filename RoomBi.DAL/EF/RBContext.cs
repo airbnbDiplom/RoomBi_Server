@@ -2764,8 +2764,8 @@ namespace RoomBi.DAL.EF
                     Comment = "Так, кухня повністю обладнана.",
                     DateTime = DateTime.Now.AddHours(-2),
                     RentalApartmentId = 3,
-                    MasterIdUser = 14,
-                    GuestIdUser = 3
+                    MasterIdUser = 3,
+                    GuestIdUser = 14
                 });
                 SaveChanges();
                 #endregion

@@ -35,16 +35,16 @@ namespace RoomBi_Server.Controllers
             return null;
         }
 
-        //[Authorize]
+        [Authorize]
         //POST: api/profiles
-       [HttpPost("profile")]
+        [HttpPost("profile")]
         public async Task<ActionResult<ProfileDTO>> PostProfile([FromBody] ProfileDTO profile)
         {
-            //string token = HttpContext.Request.Headers.Authorization; // id из токена
-            //string cleanedToken = token.Replace("Bearer ", "");
-            //ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
-           //profile.IdUser = int.Parse(jwtTokenService.GetIdFromToken(principal));
-            profile.IdUser = 5;
+            string token = HttpContext.Request.Headers.Authorization; // id из токена
+            string cleanedToken = token.Replace("Bearer ", "");
+            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            profile.IdUser = int.Parse(jwtTokenService.GetIdFromToken(principal));
+            //profile.IdUser = 5;
             var item = await profileService.Get(profile.IdUser); // проверяем наличие profile
             if (item == null)                        // если нет
             {
@@ -67,48 +67,55 @@ namespace RoomBi_Server.Controllers
                 return Content("Ok");
             }
 
-        } }
+        }
 
 
-        //    return NoContent();
-        //}
+        [Authorize]
+        // GET: api/profiles/5
+        [HttpGet("id")]
+        public async Task<ActionResult<ProfileDTO>> GetProfile()
+        {
+            string token = HttpContext.Request.Headers.Authorization; // id из токена
+            string cleanedToken = token.Replace("Bearer ", "");
+            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            int idUser = int.Parse(jwtTokenService.GetIdFromToken(principal));
+            //int idUser = 5;
+            var profile = await profileService.Get(idUser);
+            if (profile == null)
+            {
+                return NotFound();
+            }
+            return profile;
 
-        // POST: api/profiles
-        //[HttpPost]
-        //public async Task<ActionResult<ProfileDTO>> PostProfile(ProfileDTO profile)
-        //{
-        //    await profileService.Create(profile);
-        //    return NoContent();
-        //}
-
-        //// DELETE: api/profiles/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteProfile(int id)
-        //{
-        //    await profileService.Delete(id);
-        //    return NoContent();
-        //}
-        //// GET: api/profiles
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<ProfileDTO>>> GetProfiles()
-        //{
-        //    var profiles = await profileService.GetAll();
-        //    if (profiles == null || !profiles.Any())
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(profiles);
-        //}
-        //// GET: api/profiles/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<ProfileDTO>> GetProfile(int id)
-        //{
-        //    var profile = await profileService.Get(id);
-        //    if (profile == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return profile;
-
+        }
     }
+}
+
+    // POST: api/profiles
+    //[HttpPost]
+    //public async Task<ActionResult<ProfileDTO>> PostProfile(ProfileDTO profile)
+    //{
+    //    await profileService.Create(profile);
+    //    return NoContent();
+    //}
+
+    //// DELETE: api/profiles/5
+    //[HttpDelete("{id}")]
+    //public async Task<IActionResult> DeleteProfile(int id)
+    //{
+    //    await profileService.Delete(id);
+    //    return NoContent();
+    //}
+    //// GET: api/profiles
+    //[HttpGet]
+    //public async Task<ActionResult<IEnumerable<ProfileDTO>>> GetProfiles()
+    //{
+    //    var profiles = await profileService.GetAll();
+    //    if (profiles == null || !profiles.Any())
+    //    {
+    //        return NotFound();
+    //    }
+    //    return Ok(profiles);
+    //}
+  
   

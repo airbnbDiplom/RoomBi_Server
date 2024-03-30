@@ -61,7 +61,7 @@ namespace RoomBi.BLL.Services
             for (int i = 0; i < temp.Count; i++)
             {
                 List<Chat>? chatGroup = temp[i];
-                var master = await Database.User.Get(chatGroup[0].MasterIdUser);
+                var master = await Database.User.Get(chatGroup[0].GuestIdUser);
                 var apartment = await Database.RentalApartment.Get(chatGroup[0].RentalApartmentId);
                 var messageObj = new MessageObj
                 {

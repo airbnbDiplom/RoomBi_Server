@@ -34,8 +34,11 @@ namespace RoomBi_Server.Controllers
                         return BadRequest(ex.Message);
                     }
                 }
-
-                if (dataSearchForSorting.When.Start.Day >= 0)
+                if (dataSearchForSorting?.Where != null && rentalApartmentDTO.Count == 0)
+                {
+                    return Ok(new List<RentalApartmentDTOForStartPage>());
+                }
+                    if (dataSearchForSorting.When.Start.Day >= 0)
                 {
                     try
                     {

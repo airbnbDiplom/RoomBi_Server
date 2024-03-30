@@ -89,15 +89,13 @@ namespace RoomBi.BLL.Services
                                 rentalApartmentDTO.Add(await NewRentalApartment(item));
                             }
                             return rentalApartmentDTO;
-                        case "city":
+                        default:
                             rentalApartments = await Database.SearchRentalApartment.GetApartmentsByCity(where.PlaceId);
                             foreach (var item in rentalApartments)
                             {
                                 rentalApartmentDTO.Add(await NewRentalApartment(item));
                             }
                             return rentalApartmentDTO;
-                        default:
-                            throw new Exception("Не корректный type.");
                     }
                 }
             }
