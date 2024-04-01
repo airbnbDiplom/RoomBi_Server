@@ -220,56 +220,93 @@ namespace RoomBi.DAL.Repositories
             var temp = await context.RentalApartments
                 .Include(ra => ra.Country)
                 .ToListAsync();
-
             var filteredApartments = temp
-            .Where(apartment =>
-                apartment.PricePerNight >= minimumPrice &&
-                apartment.PricePerNight <= maximumPrice &&
-                apartment.Bedrooms == bedrooms &&
-                apartment.Beds == beds &&
-                apartment.Bathrooms == bathrooms &&
-                (!rating || apartment.ObjectRating == 5)).ToList();
-            var offeredAmenitiesRepository = new OfferedAmenitiesRepository(context);
+                .Where(apartment =>
+                    apartment.PricePerNight >= minimumPrice &&
+                    apartment.PricePerNight <= maximumPrice &&
+                    (!rating || apartment.ObjectRating == 5) &&
+                    (bedrooms == null || apartment.Bedrooms == bedrooms) &&
+                    (beds == null || apartment.Beds == beds) &&
+                    (bathrooms == null || apartment.Bathrooms == bathrooms))
+                .ToList();
+
             List<RentalApartment> result = [];
-            for (int i = 0; i < filteredApartments.Count; i++)
+            if (offeredAmenitiesDTO != null)
             {
-                var apartment = temp[i];
-                var offeredAmenities = await offeredAmenitiesRepository.Get(temp[i].OfferedAmenitiesId);
+                var offeredAmenitiesRepository = new OfferedAmenitiesRepository(context);
 
-                if (offeredAmenitiesDTO != null)
+                for (int i = 0; i < filteredApartments.Count; i++)
                 {
-                    if (offeredAmenitiesDTO.Contains("wiFi", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.WiFi) continue;
-                    if (offeredAmenitiesDTO.Contains("tV", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.TV) continue;
-                    if (offeredAmenitiesDTO.Contains("kitchen", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.Kitchen) continue;
-                    if (offeredAmenitiesDTO.Contains("washingMachine", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.WashingMachine) continue;
-                    if (offeredAmenitiesDTO.Contains("airConditioner", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.AirConditioner) continue;
-                    if (offeredAmenitiesDTO.Contains("workspace", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.Workspace) continue;
-                    if (offeredAmenitiesDTO.Contains("firstAidKit", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.FirstAidKit) continue;
-                    if (offeredAmenitiesDTO.Contains("fireExtinguisher", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.FireExtinguisher) continue;
-                    if (offeredAmenitiesDTO.Contains("freeParking", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.FreeParking) continue;
-                    if (offeredAmenitiesDTO.Contains("paidParking", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.PaidParking) continue;
-                    if (offeredAmenitiesDTO.Contains("pool", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.Pool) continue;
-                    if (offeredAmenitiesDTO.Contains("jacuzzi", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.Jacuzzi) continue;
-                    if (offeredAmenitiesDTO.Contains("innerYard", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.InnerYard) continue;
-                    if (offeredAmenitiesDTO.Contains("bBQArea", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.BBQArea) continue;
-                    if (offeredAmenitiesDTO.Contains("outdoorDiningArea", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.OutdoorDiningArea) continue;
-                    if (offeredAmenitiesDTO.Contains("firePit", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.FirePit) continue;
-                    if (offeredAmenitiesDTO.Contains("fireplace", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.Fireplace) continue;
-                    if (offeredAmenitiesDTO.Contains("poolTable", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.PoolTable) continue;
-                    if (offeredAmenitiesDTO.Contains("piano", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.Piano) continue;
-                    if (offeredAmenitiesDTO.Contains("gymEquipment", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.GymEquipment) continue;
-                    if (offeredAmenitiesDTO.Contains("outdoorShower", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.OutdoorShower) continue;
-                    if (offeredAmenitiesDTO.Contains("lakeAccess", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.LakeAccess) continue;
-                    if (offeredAmenitiesDTO.Contains("beachAccess", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.BeachAccess) continue;
-                    if (offeredAmenitiesDTO.Contains("skiInOut", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.SkiInOut) continue;
-                    if (offeredAmenitiesDTO.Contains("carbonMonoxideDetector", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.CarbonMonoxideDetector) continue;
-                    if (offeredAmenitiesDTO.Contains("smokeDetector", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.SmokeDetector) continue;
-                    result.Add(apartment);
+                    var apartment = filteredApartments[i];
+                    var offeredAmenities = await offeredAmenitiesRepository.Get(temp[i].OfferedAmenitiesId);
+                    {
+                        if (offeredAmenitiesDTO.Contains("wiFi", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.WiFi) continue;
+                        if (offeredAmenitiesDTO.Contains("tV", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.TV) continue;
+                        if (offeredAmenitiesDTO.Contains("kitchen", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.Kitchen) continue;
+                        if (offeredAmenitiesDTO.Contains("washingMachine", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.WashingMachine) continue;
+                        if (offeredAmenitiesDTO.Contains("airConditioner", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.AirConditioner) continue;
+                        if (offeredAmenitiesDTO.Contains("workspace", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.Workspace) continue;
+                        if (offeredAmenitiesDTO.Contains("firstAidKit", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.FirstAidKit) continue;
+                        if (offeredAmenitiesDTO.Contains("fireExtinguisher", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.FireExtinguisher) continue;
+                        if (offeredAmenitiesDTO.Contains("freeParking", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.FreeParking) continue;
+                        if (offeredAmenitiesDTO.Contains("paidParking", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.PaidParking) continue;
+                        if (offeredAmenitiesDTO.Contains("pool", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.Pool) continue;
+                        if (offeredAmenitiesDTO.Contains("jacuzzi", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.Jacuzzi) continue;
+                        if (offeredAmenitiesDTO.Contains("innerYard", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.InnerYard) continue;
+                        if (offeredAmenitiesDTO.Contains("bBQArea", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.BBQArea) continue;
+                        if (offeredAmenitiesDTO.Contains("outdoorDiningArea", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.OutdoorDiningArea) continue;
+                        if (offeredAmenitiesDTO.Contains("firePit", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.FirePit) continue;
+                        if (offeredAmenitiesDTO.Contains("fireplace", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.Fireplace) continue;
+                        if (offeredAmenitiesDTO.Contains("poolTable", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.PoolTable) continue;
+                        if (offeredAmenitiesDTO.Contains("piano", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.Piano) continue;
+                        if (offeredAmenitiesDTO.Contains("gymEquipment", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.GymEquipment) continue;
+                        if (offeredAmenitiesDTO.Contains("outdoorShower", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.OutdoorShower) continue;
+                        if (offeredAmenitiesDTO.Contains("lakeAccess", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.LakeAccess) continue;
+                        if (offeredAmenitiesDTO.Contains("beachAccess", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.BeachAccess) continue;
+                        if (offeredAmenitiesDTO.Contains("skiInOut", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.SkiInOut) continue;
+                        if (offeredAmenitiesDTO.Contains("carbonMonoxideDetector", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.CarbonMonoxideDetector) continue;
+                        if (offeredAmenitiesDTO.Contains("smokeDetector", StringComparer.OrdinalIgnoreCase)) if (!offeredAmenities.SmokeDetector) continue;
+                        result.Add(apartment);
 
+                    }
                 }
+                List<RentalApartment> result2 = [];
+                result2 = result.Where(apartment =>
+                {
+                    if (typeAccommodation == "Any")
+                    {
+                        return true;
+                    }
+                    else if (typeAccommodation == "Houses")
+                    {
+                        return apartment.TypeApartment == "Ціле помешкання";
+                    }
+                    else if (typeAccommodation == "Rooms")
+                    {
+                        return apartment.TypeApartment == "Кімната";
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }).ToList();
+                var bookingRepository = new BookingRepository(context);
+                var pictureRepository = new PictureRepository(context);
+                for (int i = 0; i < result2.Count; i++)
+                {
+                    var apartment = result2[i];
+                    var bookings = await bookingRepository.ByApartmentId(apartment.Id);
+                    var pictures = await pictureRepository.ByApartmentId(apartment.Id);
+
+                    apartment.Booking = bookings.ToList();
+                    apartment.Pictures = pictures.ToList();
+                }
+                return result2;
             }
-            List<RentalApartment> result2 = [];
-            result2 = result.Where(apartment =>
+            else
+            {
+                List<RentalApartment> result3 = [];
+                result3 = filteredApartments.Where(apartment =>
             {
                 if (typeAccommodation == "Any")
                 {
@@ -288,18 +325,19 @@ namespace RoomBi.DAL.Repositories
                     return false;
                 }
             }).ToList();
-            var bookingRepository = new BookingRepository(context);
-            var pictureRepository = new PictureRepository(context);
-            for (int i = 0; i < result2.Count; i++)
+            var bookingRepository2 = new BookingRepository(context);
+            var pictureRepository2 = new PictureRepository(context);
+            for (int i = 0; i < result3.Count; i++)
             {
-                var apartment = result2[i];
-                var bookings = await bookingRepository.ByApartmentId(apartment.Id);
-                var pictures = await pictureRepository.ByApartmentId(apartment.Id);
+                var apartment = result3[i];
+                var bookings = await bookingRepository2.ByApartmentId(apartment.Id);
+                var pictures = await pictureRepository2.ByApartmentId(apartment.Id);
 
                 apartment.Booking = bookings.ToList();
                 apartment.Pictures = pictures.ToList();
             }
-            return result2;
+            return result3;
+            }
         }
 
 
