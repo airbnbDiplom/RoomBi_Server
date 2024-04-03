@@ -174,6 +174,12 @@ namespace RoomBi.BLL.Services
 
         public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllByFilter(Filter filter)
         {
+            if (filter.TypeOfHousing.Count() == 0) filter.TypeOfHousing = null;
+            if (filter.OfferedAmenitiesDTO.Count() == 0) filter.OfferedAmenitiesDTO = null;
+            if (filter.HostsLanguage.Count() == 0) filter.HostsLanguage = null;
+            if (filter.Bedrooms == 0) filter.Bedrooms = null;
+            if (filter.Beds == 0) filter.Beds = null;
+            if (filter.Bathrooms == 0) filter.Bathrooms = null;
             ICollection<RentalApartmentDTOForStartPage> rentalApartmentResult = new List<RentalApartmentDTOForStartPage>();
             var filteredApartments = await Database.SearchRentalApartment.GetFilteredApartments(
                 filter.TypeAccommodation, filter.TypeOfHousing, filter.MinimumPrice,
@@ -186,6 +192,21 @@ namespace RoomBi.BLL.Services
             }
             return rentalApartmentResult;
            
+        }
+
+        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetNearestRooms(string ingMap, string latMap)
+        {
+            
+            //ingMap = ingMap.Replace('.', ',');
+            //latMap = latMap.Replace('.', ',');
+            ICollection<RentalApartmentDTOForStartPage> rentalApartmentResult = new List<RentalApartmentDTOForStartPage>();
+            var filteredApartments = await Database.SearchRentalApartment.GetNearestApartments(ingMap, latMap);
+            foreach (var item in filteredApartments)
+            {
+                RentalApartmentDTOForStartPage dTOForStartPage = await NewRentalApartment(item);
+                rentalApartmentResult.Add(dTOForStartPage);
+            }
+            return rentalApartmentResult;
         }
     }
 }

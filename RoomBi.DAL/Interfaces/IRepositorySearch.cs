@@ -21,5 +21,6 @@ namespace RoomBi.DAL.Interfaces
             string[]? typeOfHousing, int? minimumPrice, int? maximumPrice,
             int? bedrooms, int? beds, int? bathrooms, bool rating,  string[]? offeredAmenitiesDTO,
             string[]? hostsLanguage);
+        Task<List<RentalApartment>> GetNearestApartments(string ingMap, string latMap);
     }
 }

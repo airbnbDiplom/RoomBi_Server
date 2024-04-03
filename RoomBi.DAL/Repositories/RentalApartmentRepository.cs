@@ -6,6 +6,7 @@ using RoomBi.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -273,15 +274,15 @@ namespace RoomBi.DAL.Repositories
                 List<RentalApartment> result2 = [];
                 result2 = result.Where(apartment =>
                 {
-                    if (typeAccommodation == "Any")
+                    if (typeAccommodation == "Будь-який")
                     {
                         return true;
                     }
-                    else if (typeAccommodation == "Houses")
+                    else if (typeAccommodation == "Ціле помешкання")
                     {
                         return apartment.TypeApartment == "Ціле помешкання";
                     }
-                    else if (typeAccommodation == "Rooms")
+                    else if (typeAccommodation == "Кімната")
                     {
                         return apartment.TypeApartment == "Кімната";
                     }
@@ -308,15 +309,15 @@ namespace RoomBi.DAL.Repositories
                 List<RentalApartment> result3 = [];
                 result3 = filteredApartments.Where(apartment =>
             {
-                if (typeAccommodation == "Any")
+                if (typeAccommodation == "Будь-який")
                 {
                     return true;
                 }
-                else if (typeAccommodation == "Houses")
+                else if (typeAccommodation == "Ціле помешкання")
                 {
                     return apartment.TypeApartment == "Ціле помешкання";
                 }
-                else if (typeAccommodation == "Rooms")
+                else if (typeAccommodation == "Кімната")
                 {
                     return apartment.TypeApartment == "Кімната";
                 }
@@ -364,6 +365,73 @@ namespace RoomBi.DAL.Repositories
             }
             return cityApartments;
         }
+
+
+
+        //public async Task<List<RentalApartment>> GetNearestApartments(string ingMap, string latMap)
+        //{
+        //    if (!double.TryParse(ingMap, out double ing) || !double.TryParse(latMap, out double lat))
+        //    {
+        //        throw new ArgumentException("Invalid coordinates format");
+        //    }
+        //    var allApartments = await context.RentalApartments.ToListAsync();
+
+        //    var nearestApartments = allApartments
+        //        .Select(apartment => new
+        //        {
+        //            Apartment = apartment,
+        //            Distance = Math.Sqrt(Math.Pow(double.Parse(apartment.LatMap.Replace('.', ',')) - ing, 2) +
+        //                     Math.Pow(double.Parse(apartment.IngMap.Replace('.', ',')) - lat, 2))
+        //        })
+        //        .OrderBy(apartment => apartment.Distance)
+        //        .Take(10)
+        //        .Select(apartment => apartment.Apartment)
+        //        .ToList();
+        //    var pictureRepository = new PictureRepository(context);
+        //    for (int i = 0; i < nearestApartments.Count; i++)
+        //    {
+        //        var apartment = nearestApartments[i];
+        //        var pictures = await pictureRepository.ByApartmentId(apartment.Id);
+        //        apartment.Pictures = pictures.ToList();
+        //    }
+        //    return nearestApartments;
+        //}
+
+
+        public async Task<List<RentalApartment>> GetNearestApartments(string ingMap, string latMap)
+        {
+            if (!double.TryParse(ingMap, NumberStyles.Float, CultureInfo.InvariantCulture, out double ing) ||
+                !double.TryParse(latMap, NumberStyles.Float, CultureInfo.InvariantCulture, out double lat))
+            {
+                throw new ArgumentException("Invalid coordinates format");
+            }
+
+            var allApartments = await context.RentalApartments.ToListAsync();
+
+            var nearestApartments = allApartments
+                .Select(apartment => new
+                {
+                    Apartment = apartment,
+                    Distance = Math.Sqrt(Math.Pow(double.Parse(apartment.LatMap, CultureInfo.InvariantCulture) - lat, 2) +
+                                         Math.Pow(double.Parse(apartment.IngMap, CultureInfo.InvariantCulture) - ing, 2))
+                })
+                .OrderBy(apartment => apartment.Distance)
+                .Take(10)
+                .Select(apartment => apartment.Apartment)
+                .ToList();
+
+            var pictureRepository = new PictureRepository(context);
+            for (int i = 0; i < nearestApartments.Count; i++)
+            {
+                var apartment = nearestApartments[i];
+                var pictures = await pictureRepository.ByApartmentId(apartment.Id);
+                apartment.Pictures = pictures.ToList();
+            }
+
+            return nearestApartments;
+        }
+
+
     }
 }
 

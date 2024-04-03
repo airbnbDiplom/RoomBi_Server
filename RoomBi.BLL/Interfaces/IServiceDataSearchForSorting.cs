@@ -13,5 +13,6 @@ namespace RoomBi.BLL.Interfaces
         Task<IEnumerable<T>> DateBookingSearch(DateBooking booking, ICollection<RentalApartmentDTOForStartPage>? rentalApartmentDTO = null);
         Task<IEnumerable<T>> GetAllByNumberOfGuests(int? why, ICollection<RentalApartmentDTOForStartPage>? rentalApartmentDTO = null);
         Task<IEnumerable<T>> GetAllByFilter(Filter filter);
+        Task<IEnumerable<T>> GetNearestRooms(string ingMap, string latMap);
     }
 }

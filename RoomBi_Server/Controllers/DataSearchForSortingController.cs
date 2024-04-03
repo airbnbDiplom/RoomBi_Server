@@ -114,6 +114,7 @@ namespace RoomBi_Server.Controllers
                 {
                     try
                     {
+
                         var rentalApartments2 = await forSorting.GetAllByFilter(filter);
 
                         return Ok(rentalApartments2);
@@ -123,6 +124,21 @@ namespace RoomBi_Server.Controllers
                         return BadRequest(ex.Message);
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok("Ok");
+        }
+
+        [HttpPost("coordinates")]
+        public async Task<ActionResult<IEnumerable<RentalApartmentDTOForStartPage>>> GetNearestApartments(string ingMap, string latMap)
+        {
+            try
+            {
+                var rentalApartments = await forSorting.GetNearestRooms(ingMap, latMap);  
+                return Ok(rentalApartments);
             }
             catch (Exception ex)
             {
