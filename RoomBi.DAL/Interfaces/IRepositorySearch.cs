@@ -13,8 +13,6 @@ namespace RoomBi.DAL.Interfaces
 
         Task<RentalApartment> GetApartmentsByDateBooking(DateTime start, DateTime end, int? idApartment);
         Task<IEnumerable<RentalApartment>> GetApartmentsByNumberOfGuests(int? why);
-
-
         Task<IEnumerable<RentalApartment>> GetAllMinForSearch();
         
         Task<IEnumerable<RentalApartment>> GetFilteredApartments(string? typeAccommodation, 

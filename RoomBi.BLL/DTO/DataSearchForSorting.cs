@@ -9,7 +9,7 @@ namespace RoomBi.BLL.DTO
     public class DataSearchForSorting
     {
         public Where? Where  { get; set; }
-        public DateBooking? When { get; set; }
+        public DateBookingAlex? When { get; set; }
         public int Why{ get; set; }
     }
     public class Where

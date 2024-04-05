@@ -41,7 +41,7 @@ namespace RoomBi.DAL
         public Country? Country { get; set; }
         public Language? Language { get; set; }
         public bool CurrentStatus { get; set; } //bool
-        public bool UserStatus { get; set; }//bool
+        public bool UserStatus { get; set; } = false;//bool
 
     }
 }

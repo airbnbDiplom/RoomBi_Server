@@ -16,8 +16,8 @@ namespace RoomBi.BLL.Interfaces
     {
         Task Create(T item);
     }
-    public interface IServiceChatGetAll<T>
+    public interface IServiceGetAllIdUser<T>
     {
-        Task<List<T>> GetAllChatObj(int GuestIdUser);
+        Task<List<T>> GetAllObj(int IdUser);
     }
 }

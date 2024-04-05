@@ -10,7 +10,7 @@ namespace RoomBi.BLL.Services
 {
 
     public class BookingService(IUnitOfWork uow) : IServiceBooking<BookingDTO>,
-        IServiceChatGetAll<MessageObj>
+        IServiceGetAllIdUser<MessageObj>
     {
         IUnitOfWork Database { get; set; } = uow;
 
@@ -54,7 +54,7 @@ namespace RoomBi.BLL.Services
             await Database.Save();
         }
 
-        public async Task<List<MessageObj>> GetAllChatObj(int GuestIdUser)
+        public async Task<List<MessageObj>> GetAllObj(int GuestIdUser)
         {
             var temp = await Database.GetAllChat.GetAllChat(GuestIdUser);
             var messageObjs = new List<MessageObj>();
@@ -85,6 +85,8 @@ namespace RoomBi.BLL.Services
             }
             return messageObjs;
         }
+
+     
 
 
 

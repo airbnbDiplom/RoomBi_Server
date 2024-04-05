@@ -40,12 +40,12 @@ namespace RoomBi.DAL.Repositories
             var guestCommentsRepository = new GuestCommentsRepository(context);
             if (rentalApartment != null)
             {
-                rentalApartment.Pictures = (ICollection<Picture>)await pictureRepository.ByApartmentId(id);
+                rentalApartment.Pictures = (ICollection<Picture>)await pictureRepository.GetAllById(id);
                 rentalApartment.Booking = await context.Bookings.Where(booking => booking.ApartmentId == id).OrderBy(booking => booking.CheckInDate).ToListAsync();
 
 
-                rentalApartment.Chats = (ICollection<Chat>)await chatRepository.ByApartmentId(id);
-                rentalApartment.GuestComments = (ICollection<GuestComments>)await guestCommentsRepository.ByApartmentId(id);
+                rentalApartment.Chats = (ICollection<Chat>)await chatRepository.GetAllById(id);
+                rentalApartment.GuestComments = (ICollection<GuestComments>)await guestCommentsRepository.GetAllById(id);
             }
             await context.SaveChangesAsync();
             return rentalApartment;
@@ -79,8 +79,8 @@ namespace RoomBi.DAL.Repositories
             for (int i = 0; i < temp.Count; i++)
             {
                 var apartment = temp[i];
-                var bookings = await bookingRepository.ByApartmentId(apartment.Id);
-                var pictures = await pictureRepository.ByApartmentId(apartment.Id);
+                var bookings = await bookingRepository.GetAllById(apartment.Id);
+                var pictures = await pictureRepository.GetAllById(apartment.Id);
 
                 apartment.Booking = bookings.ToList();
                 apartment.Pictures = pictures.ToList();
@@ -101,8 +101,8 @@ namespace RoomBi.DAL.Repositories
             for (int i = 0; i < temp.Count; i++)
             {
                 var apartment = temp[i];
-                var bookings = await bookingRepository.ByApartmentId(apartment.Id);
-                var pictures = await pictureRepository.ByApartmentId(apartment.Id);
+                var bookings = await bookingRepository.GetAllById(apartment.Id);
+                var pictures = await pictureRepository.GetAllById(apartment.Id);
 
                 apartment.Booking = bookings.ToList();
                 apartment.Pictures = pictures.ToList();
@@ -183,7 +183,7 @@ namespace RoomBi.DAL.Repositories
             for (int i = 0; i < temp.Count; i++)
             {
                 var apartment = temp[i];
-                var bookings = await bookingRepository.ByApartmentId(apartment.Id);
+                var bookings = await bookingRepository.GetAllById(apartment.Id);
                 apartment.Booking = bookings.ToList();
             }
             return temp.OrderBy(ra => ra.Id);
@@ -199,8 +199,8 @@ namespace RoomBi.DAL.Repositories
             for (int i = 0; i < whyApartments.Count; i++)
             {
                 var apartment = whyApartments[i];
-                var bookings = await bookingRepository.ByApartmentId(apartment.Id);
-                var pictures = await pictureRepository.ByApartmentId(apartment.Id);
+                var bookings = await bookingRepository.GetAllById(apartment.Id);
+                var pictures = await pictureRepository.GetAllById(apartment.Id);
 
                 apartment.Booking = bookings.ToList();
                 apartment.Pictures = pictures.ToList();
@@ -296,8 +296,8 @@ namespace RoomBi.DAL.Repositories
                 for (int i = 0; i < result2.Count; i++)
                 {
                     var apartment = result2[i];
-                    var bookings = await bookingRepository.ByApartmentId(apartment.Id);
-                    var pictures = await pictureRepository.ByApartmentId(apartment.Id);
+                    var bookings = await bookingRepository.GetAllById(apartment.Id);
+                    var pictures = await pictureRepository.GetAllById(apartment.Id);
 
                     apartment.Booking = bookings.ToList();
                     apartment.Pictures = pictures.ToList();
@@ -331,8 +331,8 @@ namespace RoomBi.DAL.Repositories
             for (int i = 0; i < result3.Count; i++)
             {
                 var apartment = result3[i];
-                var bookings = await bookingRepository2.ByApartmentId(apartment.Id);
-                var pictures = await pictureRepository2.ByApartmentId(apartment.Id);
+                var bookings = await bookingRepository2.GetAllById(apartment.Id);
+                var pictures = await pictureRepository2.GetAllById(apartment.Id);
 
                 apartment.Booking = bookings.ToList();
                 apartment.Pictures = pictures.ToList();
@@ -353,8 +353,8 @@ namespace RoomBi.DAL.Repositories
             for (int i = 0; i < cityApartments.Count; i++)
             {
                 var apartment = cityApartments[i];
-                var bookings = await bookingRepository.ByApartmentId(apartment.Id);
-                var pictures = await pictureRepository.ByApartmentId(apartment.Id);
+                var bookings = await bookingRepository.GetAllById(apartment.Id);
+                var pictures = await pictureRepository.GetAllById(apartment.Id);
 
                 apartment.Booking = bookings.ToList();
                 apartment.Pictures = pictures.ToList();
@@ -424,7 +424,7 @@ namespace RoomBi.DAL.Repositories
             for (int i = 0; i < nearestApartments.Count; i++)
             {
                 var apartment = nearestApartments[i];
-                var pictures = await pictureRepository.ByApartmentId(apartment.Id);
+                var pictures = await pictureRepository.GetAllById(apartment.Id);
                 apartment.Pictures = pictures.ToList();
             }
 

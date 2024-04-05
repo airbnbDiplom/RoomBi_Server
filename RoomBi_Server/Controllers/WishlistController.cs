@@ -3,17 +3,20 @@ using Jose;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
 using RoomBi.DAL;
 using RoomBi_Server.Token;
 using System.Security.Claims;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WishlistController(IServiceOfAll<WishlistDTO> wishlistService, IJwtToken jwtTokenService) : ControllerBase
+    public class WishlistController(IServiceOfAll<WishlistDTO> wishlistService, IJwtToken jwtTokenService,
+        IServiceGetAllIdUser<WishlistDTO> serviceGetAllIdUser) : ControllerBase
     {
 
         // POST: api/wishlists
@@ -46,8 +49,33 @@ namespace RoomBi_Server.Controllers
             return BadRequest("");
         }
 
-
-
+        //[Authorize]
+        [HttpGet("getwishlist")]
+        public async Task<ActionResult<AuthenticationResponseDTO>> GetWishlist()
+        {
+            //string token = HttpContext.Request.Headers.Authorization;
+            //string cleanedToken = token.Replace("Bearer ", "");
+            //ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            //int temp = int.Parse(jwtTokenService.GetIdFromToken(principal));
+            //try
+            //{
+            //    int temp = 1;
+            //    var wishlist = await serviceGetAllIdUser.GetAllObj(temp);
+            //    return Ok(wishlist);
+            //}
+            //catch
+            //{
+            //    return BadRequest("");
+            //}
+            //UserDTO user = new UserDTO();
+            var response = new AuthenticationResponseDTO
+            {
+                Token = "1",
+                RefreshToken = "2",
+                //Profile = user.Profile
+            };
+            return response;
+        }
         //// GET: api/wishlists
         //[HttpGet]
         //public async Task<ActionResult<IEnumerable<WishlistDTO>>> GetWishlists()
@@ -60,19 +88,7 @@ namespace RoomBi_Server.Controllers
         //    return Ok(wishlists);
         //}
 
-        //// GET: api/wishlists/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<WishlistDTO>> GetWishlist(int id)
-        //{
-        //    //var wishlist = await wishlistService.Get(id);
-        //    //if (wishlist == null)
-        //    //{
-        //    //    return NotFound();
-        //    //}
-        //    //return wishlist;
-        //    return Ok("Ok");
-        //}
-
+        // GET: api/wishlists/5
         //// PUT: api/wishlists/5
         //[HttpPut("{id}")]
         //public async Task<IActionResult> PutWishlist(int id, WishlistDTO wishlist)

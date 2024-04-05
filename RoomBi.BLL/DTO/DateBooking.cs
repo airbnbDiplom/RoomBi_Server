@@ -22,7 +22,14 @@ namespace RoomBi.BLL.DTO
         {
         }
     }
+    public class DateBookingAlex
+    {
+        public DateTime  Start { get; set; }
+        public DateTime End { get; set; }
 
+       
+
+    }
     public class DateBooking
     {
         public DateBi? Start { get; set; }

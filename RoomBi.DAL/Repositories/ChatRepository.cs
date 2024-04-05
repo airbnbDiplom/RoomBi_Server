@@ -8,7 +8,7 @@ using System.Threading.Tasks;
  
 namespace RoomBi.DAL.Repositories
 {
-    public class ChatRepository: IRepositoryOfAll<Chat>, IRepositoryForApartment<Chat>,
+    public class ChatRepository: IRepositoryOfAll<Chat>, IRepositoryGetAllByID<Chat>,
          IRepositoryForChat<Chat>
     {
         private readonly RBContext context;
@@ -17,7 +17,7 @@ namespace RoomBi.DAL.Repositories
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public async Task<IEnumerable<Chat>> ByApartmentId(int apartmentId)// коллекция для определенной квартиры
+        public async Task<IEnumerable<Chat>> GetAllById(int apartmentId)// коллекция для определенной квартиры
         {
                  return await context.Chats
                     .Where(chat => chat.RentalApartmentId == apartmentId)

@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class PictureRepository(RBContext context) : IRepositoryOfAll<Picture>, IRepositoryForApartment<Picture>
+    public class PictureRepository(RBContext context) : IRepositoryOfAll<Picture>, IRepositoryGetAllByID<Picture>
     {
         private readonly RBContext context = context;
-        public async Task<IEnumerable<Picture>> ByApartmentId(int apartmentId)// коллекция для определенной квартиры
+        public async Task<IEnumerable<Picture>> GetAllById(int apartmentId)// коллекция для определенной квартиры
         {
             return await context.Pictures
                 .Where(picture => picture.RentalApartmentId == apartmentId)

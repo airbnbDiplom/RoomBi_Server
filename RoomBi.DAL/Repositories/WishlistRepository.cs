@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class WishlistRepository(RBContext context) : IRepositoryOfAll<Wishlist>, IRepositoryGetWishlictitem<Wishlist>
+    public class WishlistRepository(RBContext context) : IRepositoryOfAll<Wishlist>, 
+        IRepositoryGetWishlictitem<Wishlist>
     {
         private readonly RBContext context = context;
 
@@ -64,6 +65,11 @@ namespace RoomBi.DAL.Repositories
             {
                 throw;
             }
+        }
+
+        public async Task<IEnumerable<Wishlist>> GetAllById(int userId)
+        {
+            return await context.Wishlists.Where(m => m.UserId == userId).ToListAsync();
         }
     }
 }

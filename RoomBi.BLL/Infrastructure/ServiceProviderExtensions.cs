@@ -25,7 +25,7 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceOfAll<LanguageDTO>, LanguageService>();
             services.AddScoped<IServiceOfAll<CountryDTO>, CountryService>();
             services.AddScoped<IServiceChat<ChatForApartmentPageDTO>, ChatService>();
-            services.AddScoped<IServiceChatGetAll<MessageObj>, BookingService>();
+            services.AddScoped<IServiceGetAllIdUser<MessageObj>, BookingService>();
             services.AddScoped<IServiceBooking<BookingDTO>, BookingService>();
             services.AddScoped<IServiceOfAll<EmergencyContactPersonDTO>, EmergencyContactPersonService>();
             services.AddScoped<IServiceOfAll<Payment>, GuestPaymentMethodService>();
@@ -43,9 +43,11 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceForStartPage<RentalApartmentDTOForStartPage>, RentalApartmentService>();
             services.AddScoped<IServiceForMap<RentalApartmentForMap>, RentalApartmentService>();
             services.AddScoped<IServiceOfUser<UserDTO>, UserService>();
-            services.AddScoped<IServiceDataSearchForSorting<RentalApartmentDTOForStartPage>, DataSearchForSortingServise>();
+            services.AddScoped<IServiceDataSearchForSorting<RentalApartment>, DataSearchForSortingServise>();
+            services.AddScoped<IServiceForSorting <RentalApartmentDTOForStartPage>, DataSearchForSortingServise>();
             services.AddScoped<IServiceForItem<RentalApartmentDTO>, RentalApartmentService>();
             services.AddScoped<IServiceOfUserGoogle<User>, UserService>();
+            services.AddScoped<IServiceGetAllIdUser<WishlistDTO>, WishlistService>();
 
 
 

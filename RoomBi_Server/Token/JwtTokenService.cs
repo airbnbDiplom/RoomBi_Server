@@ -43,6 +43,7 @@ namespace RoomBi_Server.Token
                 new("ProfilePicture", user.ProfilePicture ?? ""),
                 user.Language != null ? new Claim("Language", user.Language) : new Claim("Language", ""),
                 user.Country != null ? new Claim("Country", user.Country) : new Claim("Country", ""),
+                new Claim("UserStatus", user.UserStatus ? "1" : "0")
             };
 
 

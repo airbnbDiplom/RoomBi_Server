@@ -16,7 +16,7 @@ namespace RoomBi_Server.Controllers
         IServiceChat<ChatForApartmentPageDTO> chatService,
         IJwtToken jwtTokenService, 
         IServiceBooking<BookingDTO> serviceBooking,
-        IServiceChatGetAll<MessageObj> serviceChatGetAll
+        IServiceGetAllIdUser<MessageObj> serviceChatGetAll
         ) : ControllerBase
     {
         [Authorize]
@@ -28,7 +28,7 @@ namespace RoomBi_Server.Controllers
             string cleanedToken = token.Replace("Bearer ", "");
             ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
             var GuestIdUser = int.Parse(jwtTokenService.GetIdFromToken(principal));
-            List<MessageObj> result = await serviceChatGetAll.GetAllChatObj(GuestIdUser);
+            List<MessageObj> result = await serviceChatGetAll.GetAllObj(GuestIdUser);
             //List<MessageObj> result = await serviceChatGetAll.GetAllChatObj(14);
             return result;
         }

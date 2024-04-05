@@ -8,7 +8,8 @@ using RoomBi.BLL.DTO;
 namespace RoomBi.BLL.Services
 {
 
-    public class WishlistService(IUnitOfWork uow) : IServiceOfAll<WishlistDTO>
+    public class WishlistService(IUnitOfWork uow) : IServiceOfAll<WishlistDTO>, 
+        IServiceGetAllIdUser<WishlistDTO>
     {
         IUnitOfWork Database { get; set; } = uow;
 
@@ -72,5 +73,10 @@ namespace RoomBi.BLL.Services
             return mapper.Map<IEnumerable<Wishlist>, IEnumerable<WishlistDTO>>(await Database.Wishlist.GetAll());
         }
 
+        public async Task<List<WishlistDTO>> GetAllObj(int IdUser)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Wishlist, WishlistDTO>()).CreateMapper();
+            return (List<WishlistDTO>)mapper.Map<IEnumerable<Wishlist>, IEnumerable<WishlistDTO>>(await Database.GetItemWishlist.GetAllById(IdUser));
+        }
     }
 }

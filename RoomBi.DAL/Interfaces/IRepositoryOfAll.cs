@@ -23,14 +23,15 @@ namespace RoomBi.DAL.Repositories
     {
         Task<Boolean> CheckIfWishlistItemExists(int userId, int apartId);
         Task DeleteIfWishlistItem(int userId, int apartId);
+        Task<IEnumerable<T>> GetAllById(int Id);
     }
-    public interface IRepositoryForApartment<T> where T : class
+    public interface IRepositoryGetAllByID<T> where T : class
     {
-        Task<IEnumerable<T>> ByApartmentId(int apartmentId);
+        Task<IEnumerable<T>> GetAllById(int Id);
     }
     public interface IRepositoryForChat<T> where T : class
     {
         Task<List<List<T>>> GetAllChat(int user);
     }
-
+    //
 }
