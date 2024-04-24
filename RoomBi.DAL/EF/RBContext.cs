@@ -312,6 +312,54 @@ namespace RoomBi.DAL.EF
                     LanguageId = 2,
                     CountryId = 1,
                     CurrentStatus = true,
+                    UserStatus = false,
+                });
+                Users.Add(new User
+                {
+                    Name = "Oleksii Bliakharskyi",
+                    Password = "bsLm3J8N1PMXnhPNlchfQ5S7urmwGVqnMlzAITYa27MUH4h6",
+                    Salt = "bsLm3J8N1PMXnhPNlchfQw==",
+                    Email = "alex1991020480@gmail.com",
+                    Address = "Odessa",
+                    PhoneNumber = "+380634224834",
+                    DateOfBirth = new DateTime(1991, 02, 04),
+                    AirbnbRegistrationYear = new DateTime(2022, 7, 12),
+                    ProfilePicture = "alex.jpg",
+                    LanguageId = 2,
+                    CountryId = 1,
+                    CurrentStatus = true,
+                    UserStatus = false,
+                });
+                Users.Add(new User
+                {
+                    Name = "Kostya Tom",
+                    Password = "bmioV7y4dn0n4at1YcKOEYvdMuQ1OzlIpr61B1S5YYDP7368",
+                    Salt = "bmioV7y4dn0n4at1YcKOEQ==",
+                    Email = "1@c.c",
+                    Address = "Odessa",
+                    PhoneNumber = "+4411111111",
+                    DateOfBirth = new DateTime(1990, 06, 29),
+                    AirbnbRegistrationYear = new DateTime(2024, 02, 12),
+                    ProfilePicture = "kostya.jpg",
+                    LanguageId = 2,
+                    CountryId = 1,
+                    CurrentStatus = true,
+                    UserStatus = false,
+                });
+                Users.Add(new User
+                {
+                    Name = "Nata Stetsenko",
+                    Password = "pBJExL8FEDakeMc4WRAaHPNoIaYAlEuzvJ42FniruCOLq9bV",
+                    Salt = "pBJExL8FEDakeMc4WRAaHA==",
+                    Email = "natastetsenko@gmail.com",
+                    Address = "Odessa",
+                    PhoneNumber = "+380679600161",
+                    DateOfBirth = new DateTime(1979, 10, 03),
+                    AirbnbRegistrationYear = new DateTime(2020, 01, 07),
+                    ProfilePicture = "nata.jpg",
+                    LanguageId = 2,
+                    CountryId = 1,
+                    CurrentStatus = true,
                     UserStatus = true,
                 });
                 SaveChanges();
@@ -749,7 +797,7 @@ namespace RoomBi.DAL.EF
                 RentalApartments.Add(new RentalApartment
                 {
 
-                    UserId = 7,
+                    UserId = 17,
                     Title = "Flat 17",
                     Address = "Лондон, Кенсингтон и Челси, SW3 3E",
                     CountryCode = "gb",  IngMap = "51.527865159086794",
@@ -2686,32 +2734,32 @@ namespace RoomBi.DAL.EF
                     Comment = "Привіт, як ви?",
                     DateTime = DateTime.Now.AddHours(-4),
                     RentalApartmentId = 1,
-                    MasterIdUser = 14,  // ot
-                    GuestIdUser = 1     // do
+                    From  = 14,  // ot
+                    To = 1     // do
                 });
                 Chats.Add(new Chat
                 {
                     Comment = "Добрий вечір, як я можу вам допомогти?",
                     DateTime = DateTime.Now.AddHours(-3),
                     RentalApartmentId = 1,
-                    MasterIdUser = 1,
-                    GuestIdUser = 14
+                    From  = 1,
+                    To = 14
                 });
                 Chats.Add(new Chat
                 {
                     Comment = "Дуже хочу орендувати кімнату від вас.",
                     DateTime = DateTime.Now.AddHours(-2),
                     RentalApartmentId = 1,
-                    MasterIdUser = 14,
-                   GuestIdUser = 1
+                    From  = 14,
+                   To = 1
                 });
                 Chats.Add(new Chat
                 {
                     Comment = "О, ласкаво просимо! З радістю вас побачу.",
                     DateTime = DateTime.Now.AddHours(-1),
                     RentalApartmentId = 1,
-                    MasterIdUser = 1,
-                    GuestIdUser = 14
+                    From  = 1,
+                    To = 14
                 });
 
 
@@ -2721,8 +2769,8 @@ namespace RoomBi.DAL.EF
                     Comment = "Добрий день! Ми сім'я з чотирьох осіб і хотіли б забронювати дім на літні канікули. Чи є вас підходящі варіанти?",
                     DateTime = DateTime.Now.AddHours(-4),
                     RentalApartmentId = 2,
-                    MasterIdUser = 14,
-                    GuestIdUser = 2
+                    From  = 14,
+                    To = 2
                 });
 
                 Chats.Add(new Chat
@@ -2730,8 +2778,8 @@ namespace RoomBi.DAL.EF
                     Comment = "Доброго дня! Так, у нас є декілька варіантів для вашої сім'ї. Скільки часу ви плануєте провести у нас?",
                     DateTime = DateTime.Now.AddHours(-3),
                     RentalApartmentId = 2,
-                    MasterIdUser = 2,
-                   GuestIdUser = 14
+                    From  = 2,
+                   To = 14
                 });
 
                 Chats.Add(new Chat
@@ -2739,8 +2787,8 @@ namespace RoomBi.DAL.EF
                     Comment = "Ми плануємо залишитися на два тижні, приблизно з 15 липня по 1 серпня. Чи є доступні дати в цей період?",
                     DateTime = DateTime.Now.AddHours(-2),
                     RentalApartmentId = 2,
-                    MasterIdUser = 14,
-                    GuestIdUser = 2
+                    From  = 14,
+                    To = 2
                 });
 
                 Chats.Add(new Chat
@@ -2748,16 +2796,16 @@ namespace RoomBi.DAL.EF
                     Comment = "Так, у нас є доступні дати на ваш період перебування. Які у вас вимоги до дому? Наприклад, скільки спалень вам потрібно?",
                     DateTime = DateTime.Now.AddHours(-1),
                     RentalApartmentId = 2,
-                    MasterIdUser = 2,
-                    GuestIdUser = 14
+                    From  = 2,
+                    To = 14
                 });
                 Chats.Add(new Chat
                 {
                     Comment = "Привіт! Цикавить чи є на кухні все необхідне обладнання для приготування їжи?",
                     DateTime = DateTime.Now.AddHours(-3),
                     RentalApartmentId = 3,
-                    MasterIdUser = 14,
-                    GuestIdUser = 3
+                    From  = 14,
+                    To = 3
                 });
 
                 Chats.Add(new Chat
@@ -2765,8 +2813,8 @@ namespace RoomBi.DAL.EF
                     Comment = "Так, кухня повністю обладнана.",
                     DateTime = DateTime.Now.AddHours(-2),
                     RentalApartmentId = 3,
-                    MasterIdUser = 3,
-                    GuestIdUser = 14
+                    From  = 3,
+                    To = 14
                 });
                 SaveChanges();
                 #endregion

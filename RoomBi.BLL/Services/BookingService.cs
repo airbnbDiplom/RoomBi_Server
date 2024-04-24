@@ -54,21 +54,24 @@ namespace RoomBi.BLL.Services
             await Database.Save();
         }
 
-        public async Task<List<MessageObj>> GetAllObj(int GuestIdUser)
+        public async Task<List<MessageObj>> GetAllObj(int fromId)
         {
-            var temp = await Database.GetAllChat.GetAllChat(GuestIdUser);
+            var temp = await Database.GetAllChat.GetAllChat(fromId);
             var messageObjs = new List<MessageObj>();
             for (int i = 0; i < temp.Count; i++)
             {
                 List<Chat>? chatGroup = temp[i];
-                var master = await Database.User.Get(chatGroup[0].GuestIdUser);
+                var from = await Database.User.Get(chatGroup[0].From);
+                var to = await Database.User.Get(chatGroup[0].To);
                 var apartment = await Database.RentalApartment.Get(chatGroup[0].RentalApartmentId);
                 var messageObj = new MessageObj
                 {
-                    FotoMaster = master.ProfilePicture,
+                    FotoFrom = from.ProfilePicture,
+                    FotoTo = to.ProfilePicture,
                     FotoApartment = apartment.Pictures.FirstOrDefault()?.PictureUrl,
                     NameApartment = apartment.Title,
-                    NameMaster = master.Name,
+                    NameFrom = from.Name,
+                    NameTo = to.Name,
                     Booking = await Database.Booking.Get(apartment.Id),
                     Message = chatGroup.Select(chat => new ChatForApartmentPageDTO
                 {
@@ -76,8 +79,8 @@ namespace RoomBi.BLL.Services
                     Comment = chat.Comment,
                     DateTime = chat.DateTime,
                     RentalApartmentId = chat.RentalApartmentId,
-                    MasterIdUser = chat.MasterIdUser,
-                    GuestIdUser = chat.GuestIdUser
+                    FromId = chat.From,
+                    ToId = chat.To
                 }).ToList()
                 };
                 messageObjs.Add(messageObj);

@@ -12,8 +12,8 @@ namespace RoomBi.BLL.DTO
         public string? Comment { get; set; }
         public DateTime DateTime { get; set; }
         public int RentalApartmentId { get; set; }
-        public int MasterIdUser { get; set; }
-        public int GuestIdUser { get; set; }
+        public int FromId { get; set; }
+        public int ToId { get; set; }
     }
     public class MessageStart
     {

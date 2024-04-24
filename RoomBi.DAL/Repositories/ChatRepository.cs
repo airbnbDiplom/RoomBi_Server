@@ -53,7 +53,7 @@ namespace RoomBi.DAL.Repositories
         public async Task<List<List<Chat>>> GetAllChat(int user)
         {
             var chatMessages = await context.Chats
-            .Where(chat => (chat.GuestIdUser == user || chat.MasterIdUser == user))
+            .Where(chat => (chat.To == user || chat.From == user))
             .ToListAsync();
 
             var groupedMessages = chatMessages

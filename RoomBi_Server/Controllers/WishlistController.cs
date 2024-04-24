@@ -16,7 +16,8 @@ namespace RoomBi_Server.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class WishlistController(IServiceOfAll<WishlistDTO> wishlistService, IJwtToken jwtTokenService,
-        IServiceGetAllIdUser<WishlistDTO> serviceGetAllIdUser) : ControllerBase
+        IServiceGetAllIdUser<WishlistDTO> serviceGetAllIdUser,
+        IServiceForStartPage<RentalApartmentDTOForStartPage> serviceForStartPage) : ControllerBase
     {
 
         // POST: api/wishlists
@@ -57,24 +58,34 @@ namespace RoomBi_Server.Controllers
             //string cleanedToken = token.Replace("Bearer ", "");
             //ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
             //int temp = int.Parse(jwtTokenService.GetIdFromToken(principal));
-            //try
-            //{
-            //    int temp = 1;
-            //    var wishlist = await serviceGetAllIdUser.GetAllObj(temp);
-            //    return Ok(wishlist);
-            //}
-            //catch
-            //{
-            //    return BadRequest("");
-            //}
-            //UserDTO user = new UserDTO();
-            var response = new AuthenticationResponseDTO
+            try
             {
-                Token = "1",
-                RefreshToken = "2",
-                //Profile = user.Profile
-            };
-            return response;
+                int temp = 1;
+                var wishlist = await serviceGetAllIdUser.GetAllObj(temp);
+                if(wishlist == null)
+                {
+                    return Ok(new List<RentalApartmentDTOForStartPage>());
+                }
+                List<RentalApartmentDTOForStartPage> rentalApartment = [];
+
+                foreach (var item in wishlist)
+                {
+                    rentalApartment.Add(await serviceForStartPage.GetCard(item.ApartmentId));
+                }
+                return Ok(rentalApartment);
+            }
+            catch
+            {
+                return BadRequest("");
+            }
+
+            //var response = new AuthenticationResponseDTO
+            //{
+            //    Token = "1",
+            //    RefreshToken = "2",
+            //    //Profile = user.Profile
+            //};
+            //return response;
         }
         //// GET: api/wishlists
         //[HttpGet]
@@ -103,12 +114,12 @@ namespace RoomBi_Server.Controllers
 
 
 
-        //// DELETE: api/wishlists/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteWishlist(int id)
-        //{
-        //    await wishlistService.Delete(id);
-        //    return NoContent();
-        //}
+        // DELETE: api/wishlists/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteWishlist(int id)
+        {
+            await wishlistService.Delete(id);
+            return NoContent();
+        }
     }
 }

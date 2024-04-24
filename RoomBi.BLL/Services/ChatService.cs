@@ -30,8 +30,8 @@ namespace RoomBi.BLL.Services
                 Comment = chatDto.Comment,
                 DateTime = chatDto.DateTime,
                 RentalApartmentId = chatDto.RentalApartmentId,
-                MasterIdUser = chatDto.MasterIdUser,
-                GuestIdUser = chatDto.GuestIdUser
+                From = chatDto.FromId,
+                To = chatDto.ToId
 
             };
             await Database.Chat.Create(chat);
