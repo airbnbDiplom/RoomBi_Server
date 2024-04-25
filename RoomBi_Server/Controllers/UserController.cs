@@ -17,8 +17,7 @@ namespace RoomBi_Server.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class UserController(IServiceOfAll<UserDTO> userService, IServiceOfUser<UserDTO> serviceOfUser,
-        IJwtToken jwtTokenService, IServiceOfUserGoogle<User> serviceOfUserGoogle,
-        IServiceOfAll<ProfileDTO> profileService/*, IServiceProfile<ProfileDTO> serviceProfile*/) : ControllerBase
+        IJwtToken jwtTokenService, IServiceOfUserGoogle<User> serviceOfUserGoogle, IServiceOfAll<UserDTOProfile> serviceProfile) : ControllerBase
     {
         [HttpPost]
         public async Task<AuthenticationResponseDTO> AuthenticateUser(UserDTO user)
@@ -239,8 +238,17 @@ namespace RoomBi_Server.Controllers
             }
             return user;
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserDTOProfile>> GetUser(int id)
+        {
+            var user = await serviceProfile.Get(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
+        }
 
-      
 
     }
 }

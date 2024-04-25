@@ -9,7 +9,6 @@ namespace RoomBi.BLL.Interfaces
 {
     public interface IServiceOfUser<T>
     {
-        //Task<T> GetByEmailAndPassword(string email, string password);
         Task<Boolean> GetBoolByEmail(string email);
         Boolean GetBoolByPassword(string password, string password2);
         Task<T> GetUserByEmail(string email);
@@ -21,5 +20,6 @@ namespace RoomBi.BLL.Interfaces
     
         Task<T> GetUserByGoogle(RequestUser item);
     }
+   
 
 }

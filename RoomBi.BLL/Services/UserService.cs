@@ -14,7 +14,11 @@ using System.Net;
 namespace RoomBi.BLL.Services
 {
 
-    public class UserService(IUnitOfWork uow) : IServiceOfAll<UserDTO>, IServiceOfUser<UserDTO>, IServiceOfUserGoogle<User>
+    public class UserService(IUnitOfWork uow) :
+        IServiceOfAll<UserDTO>,
+        IServiceOfUser<UserDTO>, 
+        IServiceOfUserGoogle<User>, IServiceOfAll<UserDTOProfile>
+
     {
         IUnitOfWork Database { get; set; } = uow;
         public async Task<Boolean> GetBoolByEmail(string email)
@@ -189,6 +193,8 @@ namespace RoomBi.BLL.Services
                     user.PhoneNumber = userDTO.PhoneNumber;
                 if (userDTO.ProfilePicture != "")
                     user.ProfilePicture = userDTO.ProfilePicture;
+                if (userDTO.RefreshToken != "")
+                    user.RefreshToken = userDTO.RefreshToken;
                 await Database.User.Update(user);
                 await Database.Save();
             };
@@ -220,10 +226,65 @@ namespace RoomBi.BLL.Services
                 Country = contry.Name
             };
         }
+         async Task<UserDTOProfile> IServiceOfAll<UserDTOProfile>.Get(int id)
+        {
+            var user = await Database.User.Get(id);
+            if (user == null)
+                throw new ValidationException("Wrong user!", "");
+            var language = await Database.Languages.Get(user.LanguageId);
+            var contry = await Database.Country.Get(user.CountryId);
+            var profile = await Database.Profile.Get(id);
+            return new UserDTOProfile
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Address = user.Address,
+                PhoneNumber = user.PhoneNumber,
+                DateOfBirth = user.DateOfBirth,
+                AirbnbRegistrationYear = user.AirbnbRegistrationYear,
+                ProfilePicture = user.ProfilePicture,
+                CurrentStatus = user.CurrentStatus,
+                UserStatus = user.UserStatus,
+                Language = language.Name,
+                Country = contry.Name,
+        //PF  =
+        //SchoolYears =
+        // Pets  =
+        // Job  =
+        // MyLocation =   
+        // MyLanguages  =
+        // Generation  =
+        // FavoriteSchoolSong=  
+        // Passion  =
+        // InterestingFact= 
+        // UselessSkill =
+        // BiographyTitle=  
+        // DailyActivity  =
+        // AboutMe  =
+    };
+        }
         public async Task<IEnumerable<UserDTO>> GetAll()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(await Database.User.GetAll());
+        }
+
+        public Task Create(UserDTOProfile item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Update(UserDTOProfile item)
+        {
+            throw new NotImplementedException();
+        }
+
+     
+
+        Task<IEnumerable<UserDTOProfile>> IServiceOfAll<UserDTOProfile>.GetAll()
+        {
+            throw new NotImplementedException();
         }
         //public async Task RegisterRequest(RequestUser requestUser)
         //{
