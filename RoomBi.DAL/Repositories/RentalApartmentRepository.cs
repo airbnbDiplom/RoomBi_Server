@@ -152,7 +152,17 @@ namespace RoomBi.DAL.Repositories
             }
             return cityApartments;
         }
-
+        public async Task<IEnumerable<RentalApartment>> GetApartmentsByUser(int? userId)
+        {
+            var cityApartments = await context.RentalApartments
+            .Where(apartment => apartment.UserId == userId)
+            .ToListAsync();
+            if (cityApartments.Count == 0)
+            {
+                return Enumerable.Empty<RentalApartment>();
+            }
+            return cityApartments;
+        }
         public async Task<RentalApartment> GetApartmentsByDateBooking(DateTime start, DateTime end, int? idApartment)
         {
             var bookings = await context.Bookings

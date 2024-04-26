@@ -2335,12 +2335,11 @@ namespace RoomBi.DAL.EF
                 #region CommentsAboutGuests
                 CommentsAboutGuests.Add(new CommentsAboutGuest
                 {
-                    Comment = "Мав можливість приймати Дмитро Золкин. Чудовий гість, який був поважним і залишив місце в бездоганному стані.",
+                    Comment = "Мав можливість приймати Jane Smith. Чудовий гість, який був поважним і залишив місце в бездоганному стані.",
                     DateComments = DateTime.Now.AddDays(-7),
                     MasterIdUser = 2,
                     GuestIdUser = 1
                 });
-
                 CommentsAboutGuests.Add(new CommentsAboutGuest
                 {
                     Comment = "Джейн Сміт залишалася у нас і принесла позитивну енергію в будинок. Велика комунікація і залишила теплі враження.",

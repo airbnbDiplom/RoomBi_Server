@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Azure.Core;
 using System.Runtime.Intrinsics.X86;
 using System.Net;
+using System.Globalization;
+using System.Xml.Linq;
 
 namespace RoomBi.BLL.Services
 {
@@ -234,6 +236,36 @@ namespace RoomBi.BLL.Services
             var language = await Database.Languages.Get(user.LanguageId);
             var contry = await Database.Country.Get(user.CountryId);
             var profile = await Database.Profile.Get(id);
+            var commentsAboutGuests = await Database.CommentsAboutGuest.GetAll();
+            List<CommentsAboutGuest> commentsAboutGuestList = [];
+            foreach (var comment in commentsAboutGuests)
+            {
+                if(comment.GuestIdUser == user.Id)
+                    commentsAboutGuestList.Add(comment);
+            }
+            var rentalApartments = await Database.SearchRentalApartment.GetApartmentsByUser(user.Id);
+            List<RentalApartmentDTOForStartPage> rentalApartmentList = [];
+            foreach (var apartment in rentalApartments)
+            {
+                var rentalApartmentDto = new RentalApartmentDTOForStartPage
+                {
+                    Id = apartment.Id,
+                    Title = apartment.Title,
+                    IngMap = apartment.IngMap,
+                    LatMap = apartment.LatMap,
+                    PricePerNight = apartment.PricePerNight,
+                    ObjectRating = apartment.ObjectRating,
+                    Country = apartment.Country?.Name,
+                    Location = apartment.Location?.Name,
+                    House = apartment.House?.Name,
+                    Sport = apartment.Sport?.Name,
+                    Pictures = apartment.Pictures,
+
+                };
+                rentalApartmentDto.Country += ", " + apartment.Address;
+                rentalApartmentDto.BookingFree = FormatDate(apartment);
+                rentalApartmentList.Add(rentalApartmentDto);
+            }
             return new UserDTOProfile
             {
                 Id = user.Id,
@@ -248,21 +280,67 @@ namespace RoomBi.BLL.Services
                 UserStatus = user.UserStatus,
                 Language = language.Name,
                 Country = contry.Name,
-        //PF  =
-        //SchoolYears =
-        // Pets  =
-        // Job  =
-        // MyLocation =   
-        // MyLanguages  =
-        // Generation  =
-        // FavoriteSchoolSong=  
-        // Passion  =
-        // InterestingFact= 
-        // UselessSkill =
-        // BiographyTitle=  
-        // DailyActivity  =
-        // AboutMe  =
-    };
+                SchoolYears = profile.SchoolYears,
+                Pets = profile.Pets,
+                Job = profile.Job,
+                MyLocation = profile.MyLocation,
+                MyLanguages = profile.MyLanguages,
+                Generation = profile.Generation,
+                FavoriteSchoolSong = profile.FavoriteSchoolSong,
+                Passion = profile.Passion,
+                InterestingFact = profile.InterestingFact,
+                UselessSkill = profile.UselessSkill,
+                BiographyTitle = profile.BiographyTitle,
+                DailyActivity = profile.DailyActivity,
+                AboutMe = profile.AboutMe,
+                CommentsAboutGuests = commentsAboutGuestList,
+                RentalApartments = rentalApartmentList
+            };
+        }
+        public static string FormatDate(RentalApartment rentalApartment)
+        {
+            if (rentalApartment.Booking == null || rentalApartment.Booking.Count == 0)
+            {
+                DateTime date = DateTime.Now;
+                DateTime newDate = date.AddDays(5);
+                string formattedDate = date.ToString("dd MMM", new CultureInfo("uk-UA")) +
+                                        " - " +
+                                        newDate.ToString("dd MMM", new CultureInfo("uk-UA"));
+                return formattedDate;
+            }
+            var bookings = rentalApartment.Booking.OrderBy(b => b.CheckOutDate).ToList();
+            DateTime datenow = DateTime.Now;
+            DateTime first = bookings.First().CheckInDate;
+            TimeSpan difference1 = first - datenow;
+            if (difference1.Days >= 5)
+            {
+                DateTime newDate = datenow.AddDays(5);
+                string formattedDate = datenow.ToString("dd MMM", new CultureInfo("uk-UA")) +
+                                        " - " +
+                                        newDate.ToString("dd MMM", new CultureInfo("uk-UA"));
+                return formattedDate;
+            }
+            DateTime lastCheckOutDate = bookings.First().CheckOutDate;
+            foreach (var booking in bookings.Skip(1))
+            {
+                DateTime nextCheckInDate = booking.CheckInDate;
+                TimeSpan difference = nextCheckInDate - lastCheckOutDate;
+                if (difference.Days >= 5)
+                {
+                    DateTime newDate = lastCheckOutDate.AddDays(5);
+                    string formattedDate = lastCheckOutDate.ToString("dd MMM", new CultureInfo("uk-UA")) +
+                                            " - " +
+                                            newDate.ToString("dd MMM", new CultureInfo("uk-UA"));
+                    return formattedDate;
+                }
+                lastCheckOutDate = booking.CheckOutDate;
+            }
+            DateTime newDate1 = lastCheckOutDate.AddDays(5);
+            string formattedDate1 = lastCheckOutDate.ToString("dd MMM", new CultureInfo("uk-UA")) +
+                                    " - " +
+                                    newDate1.ToString("dd MMM", new CultureInfo("uk-UA"));
+            return formattedDate1;
+
         }
         public async Task<IEnumerable<UserDTO>> GetAll()
         {

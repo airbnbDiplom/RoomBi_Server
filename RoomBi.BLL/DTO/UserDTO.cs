@@ -53,6 +53,6 @@ namespace RoomBi.BLL.DTO
         public string? DailyActivity { get; set; }//Что я делаю часами  
         public string? AboutMe { get; set; }// Oбо мне
         public ICollection<CommentsAboutGuest>? CommentsAboutGuests { get; set; }
-        public ICollection<RentalApartmentDTOForStartPage>? RentalApartment { get; set; }
+        public ICollection<RentalApartmentDTOForStartPage>? RentalApartments { get; set; }
     }
 }
