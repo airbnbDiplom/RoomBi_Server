@@ -52,7 +52,7 @@ namespace RoomBi.BLL.DTO
         public string? BiographyTitle { get; set; }//Так можно было бы назвать мою биографию
         public string? DailyActivity { get; set; }//Что я делаю часами  
         public string? AboutMe { get; set; }// Oбо мне
-        public ICollection<CommentsAboutGuest>? CommentsAboutGuests { get; set; }
+        public ICollection<CommentsAboutGuestDTO>? CommentsAboutGuestDTO { get; set; }
         public ICollection<RentalApartmentDTOForStartPage>? RentalApartments { get; set; }
     }
 }

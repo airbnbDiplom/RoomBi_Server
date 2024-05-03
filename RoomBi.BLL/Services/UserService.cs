@@ -18,7 +18,7 @@ namespace RoomBi.BLL.Services
 
     public class UserService(IUnitOfWork uow) :
         IServiceOfAll<UserDTO>,
-        IServiceOfUser<UserDTO>, 
+        IServiceOfUser<UserDTO>,
         IServiceOfUserGoogle<User>, IServiceOfAll<UserDTOProfile>
 
     {
@@ -228,7 +228,7 @@ namespace RoomBi.BLL.Services
                 Country = contry.Name
             };
         }
-         async Task<UserDTOProfile> IServiceOfAll<UserDTOProfile>.Get(int id)
+        async Task<UserDTOProfile> IServiceOfAll<UserDTOProfile>.Get(int id)
         {
             var user = await Database.User.Get(id);
             if (user == null)
@@ -237,11 +237,23 @@ namespace RoomBi.BLL.Services
             var contry = await Database.Country.Get(user.CountryId);
             var profile = await Database.Profile.Get(id);
             var commentsAboutGuests = await Database.CommentsAboutGuest.GetAll();
-            List<CommentsAboutGuest> commentsAboutGuestList = [];
+            List<CommentsAboutGuestDTO> commentsAboutGuestList = [];
             foreach (var comment in commentsAboutGuests)
             {
-                if(comment.GuestIdUser == user.Id)
-                    commentsAboutGuestList.Add(comment);
+                if (comment.GuestIdUser == user.Id)
+                {
+                    var master = await Database.User.Get(comment.MasterIdUser);
+                    CommentsAboutGuestDTO commentsAboutGuestDTO = new()
+                    {
+                        Id = comment.Id,
+                        Comment = comment.Comment,
+                        DateComments = comment.DateComments,
+                        MasterId = comment.MasterIdUser,
+                        MasterName = master.Name,
+                        MasterAvatar = master.ProfilePicture
+                    };
+                    commentsAboutGuestList.Add(commentsAboutGuestDTO);
+                }
             }
             var rentalApartments = await Database.SearchRentalApartment.GetApartmentsByUser(user.Id);
             List<RentalApartmentDTOForStartPage> rentalApartmentList = [];
@@ -260,7 +272,6 @@ namespace RoomBi.BLL.Services
                     House = apartment.House?.Name,
                     Sport = apartment.Sport?.Name,
                     Pictures = apartment.Pictures,
-
                 };
                 rentalApartmentDto.Country += ", " + apartment.Address;
                 rentalApartmentDto.BookingFree = FormatDate(apartment);
@@ -293,7 +304,7 @@ namespace RoomBi.BLL.Services
                 BiographyTitle = profile.BiographyTitle,
                 DailyActivity = profile.DailyActivity,
                 AboutMe = profile.AboutMe,
-                CommentsAboutGuests = commentsAboutGuestList,
+                CommentsAboutGuestDTO = commentsAboutGuestList,
                 RentalApartments = rentalApartmentList
             };
         }
@@ -357,9 +368,6 @@ namespace RoomBi.BLL.Services
         {
             throw new NotImplementedException();
         }
-
-     
-
         Task<IEnumerable<UserDTOProfile>> IServiceOfAll<UserDTOProfile>.GetAll()
         {
             throw new NotImplementedException();

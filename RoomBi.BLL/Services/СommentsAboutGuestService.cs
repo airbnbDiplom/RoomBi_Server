@@ -24,8 +24,8 @@ namespace RoomBi.BLL.Services
                 Id = commentsAboutGuestDTO.Id,
                 Comment = commentsAboutGuestDTO.Comment,
                 DateComments = commentsAboutGuestDTO.DateComments,
-                MasterIdUser = commentsAboutGuestDTO.MasterIdUser,
-                GuestIdUser = commentsAboutGuestDTO.GuestIdUser
+                MasterIdUser = commentsAboutGuestDTO.MasterId
+              
             };
             await Database.CommentsAboutGuest.Create(commentsAboutGuest);
             await Database.Save();
@@ -38,8 +38,8 @@ namespace RoomBi.BLL.Services
                 Id = commentsAboutGuestDTO.Id,
                 Comment = commentsAboutGuestDTO.Comment,
                 DateComments = commentsAboutGuestDTO.DateComments,
-                MasterIdUser = commentsAboutGuestDTO.MasterIdUser,
-                GuestIdUser = commentsAboutGuestDTO.GuestIdUser
+                MasterIdUser = commentsAboutGuestDTO.MasterId
+                
             };
             await Database.CommentsAboutGuest.Update(commentsAboutGuest);
             await Database.Save();
@@ -61,8 +61,8 @@ namespace RoomBi.BLL.Services
                 Id = commentsAboutGuest.Id,
                 Comment = commentsAboutGuest.Comment,
                 DateComments = commentsAboutGuest.DateComments,
-                MasterIdUser = commentsAboutGuest.MasterIdUser,
-                GuestIdUser = commentsAboutGuest.GuestIdUser
+                MasterId = commentsAboutGuest.MasterIdUser,
+               
             };
         }
 

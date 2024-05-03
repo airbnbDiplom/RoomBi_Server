@@ -50,17 +50,17 @@ namespace RoomBi_Server.Controllers
             return BadRequest("");
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet("getwishlist")]
         public async Task<ActionResult<AuthenticationResponseDTO>> GetWishlist()
         {
-            //string token = HttpContext.Request.Headers.Authorization;
-            //string cleanedToken = token.Replace("Bearer ", "");
-            //ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
-            //int temp = int.Parse(jwtTokenService.GetIdFromToken(principal));
+            string token = HttpContext.Request.Headers.Authorization;
+            string cleanedToken = token.Replace("Bearer ", "");
+            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            int temp = int.Parse(jwtTokenService.GetIdFromToken(principal));
             try
             {
-                int temp = 1;
+                //int temp = 1;
                 var wishlist = await serviceGetAllIdUser.GetAllObj(temp);
                 if(wishlist == null)
                 {
