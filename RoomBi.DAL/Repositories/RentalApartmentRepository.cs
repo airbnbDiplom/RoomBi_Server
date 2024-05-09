@@ -157,9 +157,20 @@ namespace RoomBi.DAL.Repositories
             var cityApartments = await context.RentalApartments
             .Where(apartment => apartment.UserId == userId)
             .ToListAsync();
+           
             if (cityApartments.Count == 0)
-            {
+            { 
                 return Enumerable.Empty<RentalApartment>();
+            }
+            var pictureRepository = new PictureRepository(context);
+            for (int i = 0; i < cityApartments.Count; i++)
+            {
+                var apartment = cityApartments[i];
+                //var bookings = await bookingRepository.GetAllById(apartment.Id);
+                var pictures = await pictureRepository.GetAllById(apartment.Id);
+
+                //apartment.Booking = bookings.ToList();
+                apartment.Pictures = pictures.ToList();
             }
             return cityApartments;
         }

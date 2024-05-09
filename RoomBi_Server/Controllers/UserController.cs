@@ -220,7 +220,6 @@ namespace RoomBi_Server.Controllers
 
         }
 
-
         [Authorize]
         // GET: api/users/5
         [HttpGet("email")]
