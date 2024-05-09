@@ -72,13 +72,19 @@ namespace RoomBi_Server.Controllers
         //    return NoContent();
         //}
 
-        // POST: api/rentalApartments
-        //[HttpPost]
-        //public async Task<ActionResult<RentalApartmentDTO>> PostRentalApartment(RentalApartmentDTO rentalApartment)
-        //{
-        //    await rentalApartmentService.Create(rentalApartment);
-        //    return CreatedAtAction(nameof(GetRentalApartment), new { id = rentalApartment.Id }, rentalApartment);
-        //}
+        //POST: api/rentalApartments
+       [HttpPost("create")]
+        public async Task<ActionResult<TransferDataDTO>> PostRentalApartment(TransferDataDTO transferDataDTO)
+        {
+            if(transferDataDTO != null)
+            {
+                return Content("transferDataDTO != null");
+            }
+            return Content("transferDataDTO == null");
+
+            //await rentalApartmentService.Create(rentalApartment);
+
+        }
 
         //// DELETE: api/rentalApartments/5
         //[HttpDelete("{id}")]
