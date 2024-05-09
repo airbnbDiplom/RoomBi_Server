@@ -54,5 +54,6 @@ namespace RoomBi.BLL.DTO
         public string? AboutMe { get; set; }// Oбо мне
         public ICollection<CommentsAboutGuestDTO>? CommentsAboutGuestDTO { get; set; }
         public ICollection<RentalApartmentDTOForStartPage>? RentalApartments { get; set; }
+        public ICollection<BookingDTOWithFoto>? BookingDTOWithFoto { get; set; }
     }
 }

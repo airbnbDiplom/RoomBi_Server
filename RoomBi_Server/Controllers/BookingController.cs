@@ -13,7 +13,8 @@ namespace RoomBi_Server.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class BookingsController(IServiceBooking<BookingDTO> bookingService, IJwtToken jwtTokenService) : ControllerBase
+    public class BookingsController(IServiceBooking<BookingDTO> bookingService,
+        IJwtToken jwtTokenService, IServiceGetAllIdUser<BookingDTOWithFoto> serviceGetAllIdUser) : ControllerBase
     {
         [Authorize]
         // POST: api/Bookings
@@ -29,18 +30,23 @@ namespace RoomBi_Server.Controllers
         }
 
 
-
-        // GET: api/Bookings
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<DateBooking>>> GetBookings()
-        //{
-        //    var bookings = await bookingService.GetAll();
-        //    if (bookings == null || !bookings.Any())
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(bookings);
-        //}
+        //[Authorize]
+        //GET: api/Bookings
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<BookingDTOWithFoto>>> GetBookings()
+        {
+            //string token = HttpContext.Request.Headers.Authorization;
+            //string cleanedToken = token.Replace("Bearer ", "");
+            //ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            //int temp = int.Parse(jwtTokenService.GetIdFromToken(principal));
+            int temp = 1;
+            var bookings = await serviceGetAllIdUser.GetAllObj(temp);
+            if (bookings == null || !bookings.Any())
+            {
+                return NotFound();
+            }
+            return Ok(bookings);
+        }
 
         // GET: api/Bookings/5
         //[HttpGet("{id}")]

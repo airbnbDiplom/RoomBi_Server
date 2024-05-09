@@ -49,6 +49,7 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceForItem<RentalApartmentDTO>, RentalApartmentService>();
             services.AddScoped<IServiceOfUserGoogle<User>, UserService>();
             services.AddScoped<IServiceGetAllIdUser<WishlistDTO>, WishlistService>();
+            services.AddScoped<IServiceGetAllIdUser<BookingDTOWithFoto>, BookingService>();
 
 
 

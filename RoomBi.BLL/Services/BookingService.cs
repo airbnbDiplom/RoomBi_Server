@@ -10,7 +10,7 @@ namespace RoomBi.BLL.Services
 {
 
     public class BookingService(IUnitOfWork uow) : IServiceBooking<BookingDTO>,
-        IServiceGetAllIdUser<MessageObj>
+        IServiceGetAllIdUser<MessageObj>, IServiceGetAllIdUser<BookingDTOWithFoto>
     {
         IUnitOfWork Database { get; set; } = uow;
 
@@ -74,14 +74,14 @@ namespace RoomBi.BLL.Services
                     NameTo = to.Name,
                     Booking = await Database.Booking.Get(apartment.Id),
                     Message = chatGroup.Select(chat => new ChatForApartmentPageDTO
-                {
-                    Id = chat.Id,
-                    Comment = chat.Comment,
-                    DateTime = chat.DateTime,
-                    RentalApartmentId = chat.RentalApartmentId,
-                    FromId = chat.From,
-                    ToId = chat.To
-                }).ToList()
+                    {
+                        Id = chat.Id,
+                        Comment = chat.Comment,
+                        DateTime = chat.DateTime,
+                        RentalApartmentId = chat.RentalApartmentId,
+                        FromId = chat.From,
+                        ToId = chat.To
+                    }).ToList()
                 };
                 messageObjs.Add(messageObj);
 
@@ -89,7 +89,27 @@ namespace RoomBi.BLL.Services
             return messageObjs;
         }
 
-     
+        async Task<List<BookingDTOWithFoto>> IServiceGetAllIdUser<BookingDTOWithFoto>.GetAllObj(int IdUser)
+        {
+            var booking = await Database.Booking.GetAll();
+            var bookingList = new List<BookingDTOWithFoto>();
+            foreach (var item in booking)
+            {
+                if (item.OwnerId == IdUser)
+                {
+                    BookingDTOWithFoto bookingDTOWithFoto = new()
+                    {
+                        ApartmentId = item.ApartmentId,
+                    };
+                    bookingList.Add(bookingDTOWithFoto);
+                }
+               
+
+            }
+            return bookingList;
+        }
+
+
 
 
 

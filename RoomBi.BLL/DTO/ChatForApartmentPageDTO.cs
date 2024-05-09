@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RoomBi.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,16 @@ namespace RoomBi.BLL.DTO
         public DateBi? CheckOutDate { get; set; }
         public double TotalPrice { get; set; }
         public Payment? Payment { get; set; }
+
+    }
+    public class BookingDTOWithFoto
+    {
+        public int ApartmentId { get; set; }
+        public string? TitleApartment { get; set; }
+        public bool? Comment { get; set; } = false;
+        public DateTime? CheckInDate { get; set; }
+        public DateTime? CheckOutDate { get; set; }
+        public ICollection<Picture>? Pictures { get; set; }
 
     }
 }
