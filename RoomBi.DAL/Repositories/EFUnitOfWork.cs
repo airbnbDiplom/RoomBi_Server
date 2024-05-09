@@ -43,7 +43,8 @@ namespace RoomBi.DAL.Repositories
 
         private BookingRepository _bookingRepository;
         public IRepositoryOfAll<Booking> Booking => _bookingRepository ??= new BookingRepository(_context);
-
+        private BookingRepository _bookingRepository2;
+        public IRepositoryGetAllByID<Booking> Booking2 => _bookingRepository2 ??= new BookingRepository(_context);
         private OfferedAmenitiesRepository _offeredAmenitiesRepository;
         public IRepositoryOfAll<OfferedAmenities> OfferedAmenities => _offeredAmenitiesRepository ??= new OfferedAmenitiesRepository(_context);
 

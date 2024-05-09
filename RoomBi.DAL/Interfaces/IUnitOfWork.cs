@@ -19,6 +19,7 @@ namespace RoomBi.DAL.Interfaces
         IRepositoryOfAll<Country> Country { get; }
         IRepositoryOfAll<Сontinent> Сontinent { get; }
         IRepositoryOfAll<Booking> Booking { get; }
+        IRepositoryGetAllByID<Booking> Booking2 { get; }
         IRepositoryOfAll<OfferedAmenities> OfferedAmenities { get; }
         IRepositoryOfAll<Picture> Picture { get; }
         IRepositoryOfAll<Profile> Profile { get; }
