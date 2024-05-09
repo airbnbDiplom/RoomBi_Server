@@ -38,20 +38,29 @@ namespace RoomBi.BLL.Services
 
         public async Task Update(WishlistDTO wishlistDTO)
         {
-            var wishlist = new Wishlist
-            {
-                Id = wishlistDTO.Id,
-                UserId = wishlistDTO.UserId,
-                ApartmentId = wishlistDTO.ApartmentId
-            };
-            await Database.Wishlist.Update(wishlist);
-            await Database.Save();
+                await Database.GetItemWishlist.DeleteIfWishlistItem(wishlistDTO.UserId, wishlistDTO.ApartmentId);
+                await Database.Save();
+               
+           
         }
 
         public async Task Delete(int id)
         {
-            await Database.Wishlist.Delete(id);
-            await Database.Save();
+            //if (!await Database.GetItemWishlist.CheckIfWishlistItemExists(wishlistDTO.UserId, wishlistDTO.ApartmentId))
+            //{
+            //    var wishlist = new Wishlist
+            //    {
+            //        Id = wishlistDTO.Id,
+            //        UserId = wishlistDTO.UserId,
+            //        ApartmentId = wishlistDTO.ApartmentId
+            //    };
+            //    await Database.Wishlist.Create(wishlist);
+            //    await Database.Save();
+            //    throw new Exception("Ok");
+
+            //}
+            //await Database.Wishlist.Delete(id);
+            //await Database.Save();
         }
 
         public async Task<WishlistDTO> Get(int id)

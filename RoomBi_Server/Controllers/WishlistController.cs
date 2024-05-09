@@ -87,39 +87,27 @@ namespace RoomBi_Server.Controllers
             //};
             //return response;
         }
-        //// GET: api/wishlists
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<WishlistDTO>>> GetWishlists()
-        //{
-        //    var wishlists = await wishlistService.GetAll();
-        //    if (wishlists == null || !wishlists.Any())
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(wishlists);
-        //}
 
-        // GET: api/wishlists/5
-        //// PUT: api/wishlists/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutWishlist(int id, WishlistDTO wishlist)
-        //{
-        //    if (id != wishlist.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    await wishlistService.Update(wishlist);
-        //    return NoContent();
-        //}
-
-
-
+        [Authorize]
         // DELETE: api/wishlists/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWishlist(int id)
         {
-            await wishlistService.Delete(id);
-            return NoContent();
+            string token = HttpContext.Request.Headers.Authorization;
+            string cleanedToken = token.Replace("Bearer ", "");
+            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            try
+            {
+                int temp = int.Parse(jwtTokenService.GetIdFromToken(principal));
+                WishlistDTO wishlistDTO = new() { ApartmentId = id, UserId = temp };
+                await wishlistService.Update(wishlistDTO);
+            }
+            catch
+            {
+
+            }
+            var data = new { key = "Ok-2" };
+            return Ok(data);
         }
     }
 }
