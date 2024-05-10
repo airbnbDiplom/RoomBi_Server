@@ -30,16 +30,16 @@ namespace RoomBi_Server.Controllers
         }
 
 
-        //[Authorize]
+        [Authorize]
         //GET: api/Bookings
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookingDTOWithFoto>>> GetBookings()
         {
-            //string token = HttpContext.Request.Headers.Authorization;
-            //string cleanedToken = token.Replace("Bearer ", "");
-            //ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
-            //int temp = int.Parse(jwtTokenService.GetIdFromToken(principal));
-            int temp = 1;
+            string token = HttpContext.Request.Headers.Authorization;
+            string cleanedToken = token.Replace("Bearer ", "");
+            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            int temp = int.Parse(jwtTokenService.GetIdFromToken(principal));
+            //int temp = 1;
             var bookings = await serviceGetAllIdUser.GetAllObj(temp);
             if (bookings == null || !bookings.Any())
             {

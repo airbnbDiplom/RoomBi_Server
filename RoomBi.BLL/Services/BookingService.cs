@@ -5,6 +5,7 @@ using RoomBi.BLL.Infrastructure;
 using RoomBi.BLL.Interfaces;
 using RoomBi.BLL.DTO;
 using Microsoft.VisualBasic;
+using System.Collections.Generic;
 
 namespace RoomBi.BLL.Services
 {
@@ -97,10 +98,20 @@ namespace RoomBi.BLL.Services
             {
                 if (item.OwnerId == IdUser)
                 {
+                    var apartment = await Database.RentalApartment.Get(item.ApartmentId);
+
                     BookingDTOWithFoto bookingDTOWithFoto = new()
                     {
                         ApartmentId = item.ApartmentId,
+                        TitleApartment = apartment.Title,
+                        CheckInDate = item.CheckInDate,
+                        CheckOutDate = item.CheckOutDate,
+                        Pictures = apartment.Pictures
                     };
+                    if(apartment.GuestComments != null)
+                    {
+                        bookingDTOWithFoto.Comment = HasCommentForUser(apartment.GuestComments, IdUser);
+                    }
                     bookingList.Add(bookingDTOWithFoto);
                 }
                
@@ -109,6 +120,10 @@ namespace RoomBi.BLL.Services
             return bookingList;
         }
 
+        public bool HasCommentForUser(ICollection<GuestComments> guestComments, int userId)
+        {
+            return guestComments.Any(comment => comment.GuestIdUser == userId);
+        }
 
 
 

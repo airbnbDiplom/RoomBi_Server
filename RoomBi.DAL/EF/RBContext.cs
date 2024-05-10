@@ -1749,7 +1749,7 @@ namespace RoomBi.DAL.EF
                 Bookings.Add(new Booking
                 {
 
-                    OwnerId = 1,
+                    OwnerId = 2,
                     ApartmentId = 1,
                     CheckInDate = DateTime.Now,
                     CheckOutDate = DateTime.Now.AddDays(7),
@@ -1771,7 +1771,7 @@ namespace RoomBi.DAL.EF
                 Bookings.Add(new Booking
                 {
 
-                    OwnerId = 1,
+                    OwnerId = 17,
                     ApartmentId = 1,
                     CheckInDate = DateTime.Now.AddDays(25),
                     CheckOutDate = DateTime.Now.AddDays(32),
@@ -1783,7 +1783,7 @@ namespace RoomBi.DAL.EF
           
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 16,
                     ApartmentId = 2,
                     CheckInDate = DateTime.Now.AddDays(10),
                     CheckOutDate = DateTime.Now.AddDays(14),
@@ -1794,7 +1794,7 @@ namespace RoomBi.DAL.EF
 
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 15,
                     ApartmentId = 3,
                     CheckInDate = DateTime.Now.AddDays(2),
                     CheckOutDate = DateTime.Now.AddDays(14),
@@ -1805,7 +1805,7 @@ namespace RoomBi.DAL.EF
 
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 14,
                     ApartmentId = 4,
                     CheckInDate = DateTime.Now.AddDays(5),
                     CheckOutDate = DateTime.Now.AddDays(10),
@@ -1815,7 +1815,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 13,
                     ApartmentId = 4,
                     CheckInDate = DateTime.Now.AddDays(12),
                     CheckOutDate = DateTime.Now.AddDays(15),
@@ -1825,7 +1825,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 12,
                     ApartmentId = 5,
                     CheckInDate = DateTime.Now.AddDays(32),
                     CheckOutDate = DateTime.Now.AddDays(39),
@@ -1835,7 +1835,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 11,
                     ApartmentId = 6,
                     CheckInDate = DateTime.Now.AddDays(2),
                     CheckOutDate = DateTime.Now.AddDays(9),
@@ -1845,7 +1845,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 10,
                     ApartmentId = 7,
                     CheckInDate = DateTime.Now.AddDays(2),
                     CheckOutDate = DateTime.Now.AddDays(99),
@@ -1855,7 +1855,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 9,
                     ApartmentId = 8,
                     CheckInDate = DateTime.Now.AddDays(20),
                     CheckOutDate = DateTime.Now.AddDays(29),
@@ -1865,7 +1865,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 8,
                     ApartmentId = 9,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(9),
@@ -1875,7 +1875,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 7,
                     ApartmentId = 10,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(9),
@@ -1885,7 +1885,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 6,
                     ApartmentId = 10,
                     CheckInDate = DateTime.Now.AddDays(12),
                     CheckOutDate = DateTime.Now.AddDays(29),
@@ -1895,7 +1895,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 5,
                     ApartmentId = 11,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(3),
@@ -1905,7 +1905,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 4,
                     ApartmentId = 11,
                     CheckInDate = DateTime.Now.AddDays(10),
                     CheckOutDate = DateTime.Now.AddDays(22),
@@ -1915,7 +1915,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 3,
                     ApartmentId = 12,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(5),
@@ -1935,7 +1935,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 1,
                     ApartmentId = 13,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(9),
@@ -1945,7 +1945,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 17,
                     ApartmentId = 14,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(7),
@@ -1955,7 +1955,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 16,
                     ApartmentId = 15,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(4),
@@ -1965,7 +1965,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 15,
                     ApartmentId = 15,
                     CheckInDate = DateTime.Now.AddDays(9),
                     CheckOutDate = DateTime.Now.AddDays(13),
@@ -1975,7 +1975,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 14,
                     ApartmentId = 16,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(5),
@@ -1985,7 +1985,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 13,
                     ApartmentId = 17,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(22),
@@ -1995,7 +1995,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 12,
                     ApartmentId = 18,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(2),
@@ -2005,7 +2005,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 11,
                     ApartmentId = 19,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(12),
@@ -2015,7 +2015,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 10,
                     ApartmentId = 20,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(15),
@@ -2025,7 +2025,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 9,
                     ApartmentId = 21,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(9),
@@ -2035,7 +2035,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 8,
                     ApartmentId = 22,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(18),
@@ -2045,7 +2045,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 7,
                     ApartmentId = 23,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(6),
@@ -2055,7 +2055,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 6,
                     ApartmentId = 24,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(3),
@@ -2065,7 +2065,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 5,
                     ApartmentId = 25,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(13),
@@ -2075,7 +2075,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 4,
                     ApartmentId = 26,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(21),
@@ -2085,7 +2085,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 3,
                     ApartmentId = 27,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(6),
@@ -2105,7 +2105,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 1,
                     ApartmentId = 29,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(11),
@@ -2115,7 +2115,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 17,
                     ApartmentId = 30,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(3),
@@ -2125,7 +2125,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 16,
                     ApartmentId = 31,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(14),
@@ -2135,7 +2135,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 15,
                     ApartmentId = 32,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(9),
@@ -2145,7 +2145,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 14,
                     ApartmentId = 32,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(2),
@@ -2155,7 +2155,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 13,
                     ApartmentId = 33,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(31),
@@ -2165,7 +2165,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 12,
                     ApartmentId = 34,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(5),
@@ -2175,7 +2175,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 11,
                     ApartmentId = 35,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(7),
@@ -2185,7 +2185,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 10,
                     ApartmentId = 36,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(9),
@@ -2195,7 +2195,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 9,
                     ApartmentId = 37,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(4),
@@ -2205,7 +2205,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 8,
                     ApartmentId = 38,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(15),
@@ -2215,7 +2215,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 7,
                     ApartmentId = 39,
                     CheckInDate = DateTime.Now.AddDays(11),
                     CheckOutDate = DateTime.Now.AddDays(23),
@@ -2225,7 +2225,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 6,
                     ApartmentId = 40,
                     CheckInDate = DateTime.Now.AddDays(2),
                     CheckOutDate = DateTime.Now.AddDays(4),
@@ -2235,7 +2235,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 5,
                     ApartmentId = 41,
                     CheckInDate = DateTime.Now.AddDays(5),
                     CheckOutDate = DateTime.Now.AddDays(8),
@@ -2245,7 +2245,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 4,
                     ApartmentId = 42,
                     CheckInDate = DateTime.Now.AddDays(10),
                     CheckOutDate = DateTime.Now.AddDays(32),
@@ -2255,7 +2255,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 3,
                     ApartmentId = 43,
                     CheckInDate = DateTime.Now.AddDays(1),
                     CheckOutDate = DateTime.Now.AddDays(10),
@@ -2275,7 +2275,7 @@ namespace RoomBi.DAL.EF
                 });
                 Bookings.Add(new Booking
                 {
-                    OwnerId = 2,
+                    OwnerId = 1,
                     ApartmentId = 45,
                     CheckInDate = DateTime.Now.AddDays(5),
                     CheckOutDate = DateTime.Now.AddDays(15),
