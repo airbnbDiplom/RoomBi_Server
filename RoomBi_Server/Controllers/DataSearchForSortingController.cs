@@ -14,93 +14,51 @@ namespace RoomBi_Server.Controllers
     public class DataSearchForSortingController(
         IServiceForSorting<RentalApartmentDTOForStartPage> serviceForSorting,
         IServiceDataSearchForSorting<RentalApartment> forSorting,
-        IServiceForSorting<RentalApartmentDTOWithBooking> serviceForSorting1) : ControllerBase
+        IServiceForSorting<RentalApartmentDTOWithBooking> serviceForSorting1
+        ) : ControllerBase
     {
         [HttpPost("sort")]
         public async Task<ActionResult<IEnumerable<RentalApartmentDTOWithBooking>>> GetCards([FromBody] DataSearchForSorting dataSearchForSorting, int page = 1, int pageSize = 8)
         {
             try
             {
-                IEnumerable<RentalApartment> rentalApartment = new List<RentalApartment>();
-                if (dataSearchForSorting?.Where != null)
+                IEnumerable<RentalApartment> rentalApartmentQuery = await forSorting.DateBookingSearch();
+                if (dataSearchForSorting?.Where.Type == "country")
                 {
-                    try
-                    {
-                        rentalApartment = await forSorting.GetAllByType(dataSearchForSorting.Where);
-                        if (rentalApartment.Count() == 0)
-                        {
-                            return Ok(new List<RentalApartmentDTOWithBooking>());
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        return BadRequest(ex.Message);
-                    }
+                    rentalApartmentQuery = rentalApartmentQuery.Where(r => r.CountryCode == dataSearchForSorting.Where.CountryCode);
                 }
-                if (dataSearchForSorting.Why != 0)
+                else 
                 {
-                    try
-                    {
-                        if (rentalApartment.Count() == 0)
-                        {
-                            rentalApartment = await forSorting.GetAllByNumberOfGuests(dataSearchForSorting.Why, rentalApartment = null);
-                            if (rentalApartment.Count() == 0)
-                            {
-                                return Ok(new List<RentalApartmentDTOWithBooking>());
-                            }
-                        }
-                        else
-                        {
-                            rentalApartment = await forSorting.GetAllByNumberOfGuests(dataSearchForSorting.Why, rentalApartment);
-                            if (rentalApartment.Count() == 0)
-                            {
-                                return Ok(new List<RentalApartmentDTOForStartPage>());
-                            }
+                    rentalApartmentQuery = rentalApartmentQuery.Where(r => r.PlaceId == dataSearchForSorting.Where.PlaceId);
+                }
 
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        return BadRequest(ex.Message);
-                    }
-                }
-                //try
-                //{
-                //    if (rentalApartment.Count() == 0)
-                //    {
-                //        rentalApartment = await forSorting.DateBookingSearch(dataSearchForSorting.When, rentalApartment = null);
-                //    }
-                //    else
-                //    {
-                //        rentalApartment = await forSorting.DateBookingSearch(dataSearchForSorting.When, rentalApartment);
-                //    }
-                //}
-                //catch (Exception ex)
-                //{
-                //    return BadRequest(ex.Message);
-                //}
-                int totalItems = rentalApartment.Count();
-                if (totalItems != 0)
-                {
-                    int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+                rentalApartmentQuery = rentalApartmentQuery.Where(r => r.NumberOfGuests == dataSearchForSorting.Why);  
+            int totalItems = rentalApartmentQuery.Count();
+            if (totalItems == 0)
+            {
+                return Ok(new List<RentalApartmentDTOWithBooking>());
+            }
+          //      int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
-                    if (page > totalPages)
-                    {
-                        return Ok(new List<RentalApartmentDTOForStartPage>());
-                    }
-                    int startIndex = (page - 1) * pageSize;
-                    var pageApartments = rentalApartment.Skip(startIndex).Take(pageSize);
-                    List<RentalApartmentDTOWithBooking> rentalApartmentResult = [];
-                    foreach (var item in pageApartments)
-                    {
-                        rentalApartmentResult.Add(await serviceForSorting1.NewRentalApartment(item));
-                    }
-                    return Ok(rentalApartmentResult);
-                }
-                else
-                {
-                    return Ok(new List<RentalApartmentDTOWithBooking>());
-                }
+          //      if (page > totalPages)
+          //      {
+          //          return Ok(new List<RentalApartmentDTOWithBooking>());
+          //      }
+
+          //      int startIndex = (page - 1) * pageSize;
+          //      var pageApartments = rentalApartmentQuery
+          //.OrderBy(r => r.Id)
+          //.Skip(startIndex)
+          //.Take(pageSize);
+
+
+                var rentalApartmentResult = new List<RentalApartmentDTOWithBooking>();
+            foreach (var item in rentalApartmentQuery)
+            {
+                rentalApartmentResult.Add(await serviceForSorting1.NewRentalApartment(item));
+            }
+
+            return Ok(rentalApartmentResult);
             }
             catch (Exception ex)
             {

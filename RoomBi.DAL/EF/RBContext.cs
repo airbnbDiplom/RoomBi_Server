@@ -3796,19 +3796,19 @@ namespace RoomBi.DAL.EF
                 {
                     PictureName = "Foto3",
                     PictureUrl = "331.webp",
-                    RentalApartmentId = 32
+                    RentalApartmentId = 33
                 });
                 Pictures.Add(new Picture
                 {
                     PictureName = "Foto3",
                     PictureUrl = "332.webp",
-                    RentalApartmentId = 32
+                    RentalApartmentId = 33
                 });
                 Pictures.Add(new Picture
                 {
                     PictureName = "bedroom",
                     PictureUrl = "333.webp",
-                    RentalApartmentId = 32
+                    RentalApartmentId = 33
                 });
                 Pictures.Add(new Picture
                 {
@@ -3820,7 +3820,7 @@ namespace RoomBi.DAL.EF
                 {
                     PictureName = "Foto3",
                     PictureUrl = "335.webp",
-                    RentalApartmentId = 32
+                    RentalApartmentId = 33
                 });
 
                 Pictures.Add(new Picture
@@ -3833,25 +3833,25 @@ namespace RoomBi.DAL.EF
                 {
                     PictureName = "Foto3",
                     PictureUrl = "342.webp",
-                    RentalApartmentId = 32
+                    RentalApartmentId = 34
                 });
                 Pictures.Add(new Picture
                 {
                     PictureName = "Foto3",
                     PictureUrl = "343.webp",
-                    RentalApartmentId = 32
+                    RentalApartmentId = 34
                 });
                 Pictures.Add(new Picture
                 {
                     PictureName = "bedroom",
                     PictureUrl = "344.webp",
-                    RentalApartmentId = 32
+                    RentalApartmentId = 34
                 });
                 Pictures.Add(new Picture
                 {
                     PictureName = "Foto3",
                     PictureUrl = "345.webp",
-                    RentalApartmentId = 32
+                    RentalApartmentId = 34
                 });
 
 

@@ -48,35 +48,34 @@ namespace RoomBi.BLL.Services
         }
 
 
-        //public async Task<IEnumerable<RentalApartment>> DateBookingSearch(DateBookingAlex booking,
-        //    IEnumerable<RentalApartment> rentalApartment)
-        //{
-        //    List<RentalApartment> rentalApartmentResult = [];
+        public async Task<IEnumerable<RentalApartment>> DateBookingSearch()
+        {
+            IEnumerable <RentalApartment> rentalApartments = await Database.RentalApartment.GetAll();
 
-        //    if (rentalApartment == null)
-        //    {
-        //        IEnumerable<RentalApartment> rentalApartments = await Database.SearchRentalApartment.GetAllMinForSearch();
+            //if (rentalApartment == null)
+            //{
+            //    IEnumerable<RentalApartment> rentalApartments = await Database.SearchRentalApartment.GetAllMinForSearch();
 
-        //        foreach (var item in rentalApartments)
-        //        {
-        //            var apartment = await Database.SearchRentalApartment.GetApartmentsByDateBooking(booking.Start, booking.End, item.Id);
-        //            if (apartment != null)
-        //            {
-        //                rentalApartmentResult.Add(apartment);
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        foreach (var item in rentalApartment)
-        //        {
-        //            var apartment = await Database.SearchRentalApartment.GetApartmentsByDateBooking(booking.Start, booking.End, item.Id);
-        //            if (apartment != null)
-        //                rentalApartmentResult.Add(apartment);
-        //        }
-        //    }
-        //    return rentalApartmentResult;
-        //}
+            //    foreach (var item in rentalApartments)
+            //    {
+            //        var apartment = await Database.SearchRentalApartment.GetApartmentsByDateBooking(booking.Start, booking.End, item.Id);
+            //        if (apartment != null)
+            //        {
+            //            rentalApartmentResult.Add(apartment);
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    foreach (var item in rentalApartment)
+            //    {
+            //        var apartment = await Database.SearchRentalApartment.GetApartmentsByDateBooking(booking.Start, booking.End, item.Id);
+            //        if (apartment != null)
+            //            rentalApartmentResult.Add(apartment);
+            //    }
+            //}
+            return rentalApartments;
+        }
         public async Task<IEnumerable<RentalApartment>> GetAllByNumberOfGuests(int? why, IEnumerable<RentalApartment> rentalApartment)
         {
 
@@ -105,10 +104,6 @@ namespace RoomBi.BLL.Services
                 PricePerNight = apartment.PricePerNight,
                 ObjectRating = apartment.ObjectRating,
                 Country = country.Name,
-                //Wish = await Database.GetItemWishlist.CheckIfWishlistItemExists(idUser, apartment.Id),
-                //Location = apartment.Location?.Name,
-                //House = apartment.House?.Name,
-                //Sport = apartment.Sport?.Name,
                 Pictures = apartment.Pictures
             };
             rentalApartmentTemp.Country += ", " + apartment.Address;
@@ -198,25 +193,11 @@ namespace RoomBi.BLL.Services
 
         async Task<RentalApartmentDTOWithBooking> IServiceForSorting<RentalApartmentDTOWithBooking>.NewRentalApartment(RentalApartment apartment)
         {
-            Country country = await Database.Country.Get(apartment.CountryId);
-            var booking = await Database.Booking2.GetAllById(apartment.Id);
-            var rentalApartmentTemp = new RentalApartmentDTOWithBooking
-            {
-                Id = apartment.Id,
-                Title = apartment.Title,
-                IngMap = apartment.IngMap,
-                LatMap = apartment.LatMap,
-                PricePerNight = apartment.PricePerNight,
-                ObjectRating = apartment.ObjectRating,
-                Country = country.Name,
-                Pictures = apartment.Pictures,
-
-            };
             List<DateBookingAlex> dateBookingAlex = [];
-            if (booking != null)
+            if (apartment.Booking != null)
             {
-               
-                foreach (var item in booking)
+
+                foreach (var item in apartment.Booking)
                 {
                     DateBookingAlex date = new()
                     {
@@ -226,9 +207,19 @@ namespace RoomBi.BLL.Services
                     dateBookingAlex.Add(date);
                 }
             }
-            rentalApartmentTemp.DateBookingAlex = dateBookingAlex;
-            rentalApartmentTemp.Country += ", " + apartment.Address;
-            rentalApartmentTemp.BookingFree = FormatDate(apartment);
+            var rentalApartmentTemp = new RentalApartmentDTOWithBooking
+            {
+                Id = apartment.Id,
+                Title = apartment.Title,
+                IngMap = apartment.IngMap,
+                LatMap = apartment.LatMap,
+                PricePerNight = apartment.PricePerNight,
+                ObjectRating = apartment.ObjectRating,
+                Country = apartment.Country.Name + apartment.Address,
+                Pictures = apartment.Pictures,
+                DateBookingAlex = dateBookingAlex,
+                BookingFree = FormatDate(apartment)
+            };
             return rentalApartmentTemp;
         }
     }
