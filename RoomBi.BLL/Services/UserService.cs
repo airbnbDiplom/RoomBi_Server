@@ -4,14 +4,9 @@ using RoomBi.DAL;
 using RoomBi.BLL.Infrastructure;
 using RoomBi.BLL.Interfaces;
 using RoomBi.BLL.DTO;
-using Newtonsoft.Json.Linq;
 using System.Security.Cryptography;
-using Microsoft.EntityFrameworkCore;
-using Azure.Core;
-using System.Runtime.Intrinsics.X86;
-using System.Net;
 using System.Globalization;
-using System.Xml.Linq;
+
 
 namespace RoomBi.BLL.Services
 {
@@ -372,39 +367,5 @@ namespace RoomBi.BLL.Services
         {
             throw new NotImplementedException();
         }
-        //public async Task RegisterRequest(RequestUser requestUser)
-        //{
-
-
-        //    byte[] salt;
-        //    new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
-
-        //    // Generate the hashed password
-        //    var pbkdf2 = new Rfc2898DeriveBytes(userDTO.Password, salt, 10000);
-        //    byte[] hash = pbkdf2.GetBytes(20);
-
-        //    // Convert the byte array to a string
-        //    string savedPasswordHash = Convert.ToBase64String(hash);
-        //    user.Password = savedPasswordHash;
-        //    user.Salt = Convert.ToBase64String(salt);// Save the salt
-        //    user.Email = userDTO.Email;
-        //    user.IsGoogleServiceUsed = false;
-        ////}
-        //await Database.User.Create(user);
-        //await Database.Save();
-
-
-        //if (userDTO.Password == "google")
-        //{
-        //    user.Password = userDTO.Password;
-        //    user.Email = userDTO.Email;
-        //    user.IsGoogleServiceUsed = true;
-        //}
-        //else
-        //{
-        // Generate a salt
-        //}
-
-
     }
 }

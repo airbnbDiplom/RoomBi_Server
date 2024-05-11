@@ -1,11 +1,7 @@
 ﻿using RoomBi.DAL.EF;
 using RoomBi.DAL.Entities;
 using RoomBi.DAL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace RoomBi.DAL.Repositories
 {
@@ -18,7 +14,7 @@ namespace RoomBi.DAL.Repositories
         {
             _context = context;
         }
-    
+
         private LanguageRepository _languageRepository;
         public IRepositoryOfAll<Language> Languages => _languageRepository ??= new LanguageRepository(_context);
 
@@ -33,7 +29,7 @@ namespace RoomBi.DAL.Repositories
 
         private ChatRepository _chatRepository;
         public IRepositoryOfAll<Chat> Chat => _chatRepository ??= new ChatRepository(_context);
-     
+
 
         private СontinentRepository _continentRepository;
         public IRepositoryOfAll<Сontinent> Сontinent => _continentRepository ??= new СontinentRepository(_context);
@@ -92,7 +88,7 @@ namespace RoomBi.DAL.Repositories
 
         private СontinentRepository _continentRepository2;
         public IRepositoryGetName<Сontinent> СontinentGetName => _continentRepository2 ??= new СontinentRepository(_context);
-        
+
         private RentalApartmentRepository _rentalApartmentRepository2;
         public IRepositorySearch<RentalApartment> SearchRentalApartment => _rentalApartmentRepository2 ??= new RentalApartmentRepository(_context);
 

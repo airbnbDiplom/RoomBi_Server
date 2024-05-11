@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoomBi.DAL.EF;
 using RoomBi.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {

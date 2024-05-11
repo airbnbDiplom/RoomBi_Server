@@ -1,5 +1,4 @@
-﻿using RoomBi.DAL;
-
+﻿
 namespace RoomBi.BLL
 {
     public class CountryDTO

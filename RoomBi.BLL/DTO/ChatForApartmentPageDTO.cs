@@ -1,10 +1,4 @@
-﻿using RoomBi.DAL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace RoomBi.BLL.DTO
 {
     public class ChatForApartmentPageDTO
@@ -18,8 +12,8 @@ namespace RoomBi.BLL.DTO
     }
     public class MessageStart
     {
-       public ChatForApartmentPageDTO? ChatForApartmentPageDTO { get; set; }
-       public BookingDTO? BookingDTO { get; set; }
+        public ChatForApartmentPageDTO? ChatForApartmentPageDTO { get; set; }
+        public BookingDTO? BookingDTO { get; set; }
     }
-   
+
 }

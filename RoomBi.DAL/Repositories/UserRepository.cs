@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoomBi.DAL.EF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
@@ -18,14 +13,11 @@ namespace RoomBi.DAL.Repositories
         }
         public async Task<User> Get(int id)
         {
-
             return await context.Users.FirstOrDefaultAsync(m => m.Id == id);
-            //return await context.Users.FindAsync(id);
         }
 
         public async Task<User> GetEmail(string email)
         {
-            //User user = new User();
             return await context.Users.FirstOrDefaultAsync(m => m.Email == email);
         }
         public async Task<User> GetPassword(string password)
@@ -46,8 +38,6 @@ namespace RoomBi.DAL.Repositories
             if (item != null)
                 context.Users.Remove(item);
         }
-
-      
     }
 }
 

@@ -1,6 +1,5 @@
-﻿
-using RoomBi.DAL;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using RoomBi.DAL;
+
 
 namespace RoomBi.BLL.DTO
 {
@@ -16,7 +15,7 @@ namespace RoomBi.BLL.DTO
         public DateTime? AirbnbRegistrationYear { get; set; }
         public string? ProfilePicture { get; set; }
         public Profile? Profile { get; set; }
-        public bool CurrentStatus { get; set; } 
+        public bool CurrentStatus { get; set; }
         public bool UserStatus { get; set; }
         public string? RefreshToken { get; set; }
         public string? Language { get; set; }

@@ -1,12 +1,7 @@
-﻿using Azure;
-using Azure.Core;
+﻿
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
-using RoomBi.BLL;
 using RoomBi.BLL.DTO;
-using RoomBi.BLL.DTO.New;
 using RoomBi.BLL.Interfaces;
 using RoomBi.DAL;
 using RoomBi_Server.Token;

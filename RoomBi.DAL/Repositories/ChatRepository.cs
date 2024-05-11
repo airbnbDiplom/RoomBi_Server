@@ -1,14 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoomBi.DAL.EF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
- 
+
+
 namespace RoomBi.DAL.Repositories
 {
-    public class ChatRepository: IRepositoryOfAll<Chat>, IRepositoryGetAllByID<Chat>,
+    public class ChatRepository : IRepositoryOfAll<Chat>, IRepositoryGetAllByID<Chat>,
          IRepositoryForChat<Chat>
     {
         private readonly RBContext context;
@@ -19,9 +15,9 @@ namespace RoomBi.DAL.Repositories
         }
         public async Task<IEnumerable<Chat>> GetAllById(int apartmentId)// коллекция для определенной квартиры
         {
-                 return await context.Chats
-                    .Where(chat => chat.RentalApartmentId == apartmentId)
-                    .ToListAsync();
+            return await context.Chats
+               .Where(chat => chat.RentalApartmentId == apartmentId)
+               .ToListAsync();
         }
         public async Task<IEnumerable<Chat>> GetAll()
         {

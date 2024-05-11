@@ -1,15 +1,10 @@
-﻿using Azure;
-using Jose;
+﻿
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
-using RoomBi.DAL;
 using RoomBi_Server.Token;
 using System.Security.Claims;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RoomBi_Server.Controllers
 {

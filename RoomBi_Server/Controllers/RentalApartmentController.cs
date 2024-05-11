@@ -1,15 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
-using System.Diagnostics;
 
 namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class RentalApartmentController(
-        /*IServiceOfAll<RentalApartmentDTO> rentalApartmentService,*/
         IServiceForStartPage<RentalApartmentDTOForStartPage> serviceForStartPage,
         IServiceForMap<RentalApartmentForMap> serviceForMap,
         IServiceForItem<RentalApartmentDTO> serviceForItem) : ControllerBase

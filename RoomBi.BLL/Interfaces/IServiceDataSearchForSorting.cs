@@ -19,10 +19,4 @@ namespace RoomBi.BLL.Interfaces
 
 
 
-//public interface IServiceForSorting<T> where T : class
-    //{
-    //    Task<T> NewRentalApartment(RentalApartment apartment);
-    //}
-//Task<IEnumerable<T>> GetAllByType(Where where);
 
-//Task<IEnumerable<T>> GetAllByNumberOfGuests(int? why, IEnumerable<RentalApartment>? rentalApartment = null);

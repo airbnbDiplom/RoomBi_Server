@@ -22,8 +22,6 @@ namespace RoomBi.BLL.Services
             var guestСomments = new GuestComments
             {
                 Id = guestСommentsDTO.Id,
-                //GuestIdUser = guestСommentsDTO.UserId,
-                //ApartmentId = guestСommentsDTO.ApartmentId,
                 Comment = guestСommentsDTO.Comment,
                 Rating = guestСommentsDTO.Rating
             };
@@ -36,8 +34,6 @@ namespace RoomBi.BLL.Services
             var guestСomments = new GuestComments
             {
                 Id = guestСommentsDTO.Id,
-                //GuestIdUser = guestСommentsDTO.UserId,
-                //ApartmentId = guestСommentsDTO.ApartmentId,
                 Comment = guestСommentsDTO.Comment,
                 Rating = guestСommentsDTO.Rating
             };
@@ -59,8 +55,6 @@ namespace RoomBi.BLL.Services
             return new GuestCommentsForRentalItemDTO
             {
                 Id = guestСomments.Id,
-                //UserId = guestСomments.GuestIdUser,
-                //ApartmentId = guestСomments.ApartmentId,
                 Comment = guestСomments.Comment,
                 Rating = guestСomments.Rating
             };

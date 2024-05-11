@@ -1,20 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoomBi.DAL.EF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class EmergencyContactPersonRepository : IRepositoryOfAll<EmergencyContactPerson>
+    public class EmergencyContactPersonRepository(RBContext context) : IRepositoryOfAll<EmergencyContactPerson>
     {
-        private readonly RBContext context;
-        public EmergencyContactPersonRepository(RBContext context)
-        {
-            this.context = context;
-        }
+        private readonly RBContext context = context;
+
         public async Task<IEnumerable<EmergencyContactPerson>> GetAll()
         {
             return await context.EmergencyContactPersons.ToListAsync();

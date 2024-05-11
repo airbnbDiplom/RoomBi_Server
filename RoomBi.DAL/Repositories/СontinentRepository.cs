@@ -24,7 +24,6 @@ namespace RoomBi.DAL.Repositories
         {
 
             return await context.Сontinent.FirstOrDefaultAsync(m => m.Id == id);
-            //return await context.Countrys.FindAsync(id);
         }
         public async Task<Сontinent> GetByName(string name)
         {

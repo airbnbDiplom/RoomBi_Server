@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DTO\New\**" />
+    <EmbeddedResource Remove="DTO\New\**" />
+    <None Remove="DTO\New\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="jose-jwt" Version="4.1.0" />
     <PackageReference Include="JWT" Version="10.1.1" />

@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using RoomBi.DAL.Interfaces;
-using RoomBi.DAL;
-using RoomBi.BLL.Infrastructure;
 using RoomBi.BLL.Interfaces;
-using RoomBi.BLL.DTO.New;
+using RoomBi.BLL.DTO;
 
 namespace RoomBi.BLL.Services
 {

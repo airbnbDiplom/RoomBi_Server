@@ -4,14 +4,7 @@ using RoomBi.DAL;
 using RoomBi.BLL.Infrastructure;
 using RoomBi.BLL.Interfaces;
 using RoomBi.BLL.DTO;
-using RoomBi.DAL.Entities;
-using System;
 using System.Globalization;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using RoomBi.DAL.Repositories;
-using System.Net;
-using System.Collections.ObjectModel;
 using RoomBi.BLL.DTO.New;
 
 
@@ -171,16 +164,15 @@ namespace RoomBi.BLL.Services
                         LatMap = apartment.LatMap,
                         PricePerNight = apartment.PricePerNight,
                         ObjectRating = apartment.ObjectRating,
-                        Country = apartment.Country?.Name,
+                        Country = apartment.Country?.Name + ", " + apartment.Address,
                         Wish = await Database.GetItemWishlist.CheckIfWishlistItemExists(idUser, apartment.Id),
                         Location = apartment.Location?.Name,
                         House = apartment.House?.Name,
                         Sport = apartment.Sport?.Name,
-                        Pictures = apartment.Pictures,
+                        Pictures = apartment.Pictures, 
+                        BookingFree = FormatDate(apartment)
 
                     };
-                    rentalApartmentDto.Country += ", " + apartment.Address;
-                    rentalApartmentDto.BookingFree = FormatDate(apartment);
 
                     rentalApartmentList.Add(rentalApartmentDto);
                 }
@@ -200,16 +192,14 @@ namespace RoomBi.BLL.Services
                         LatMap = apartment.LatMap,
                         PricePerNight = apartment.PricePerNight,
                         ObjectRating = apartment.ObjectRating,
-                        Country = apartment.Country?.Name,
+                        Country = apartment.Country?.Name + ", " + apartment.Address,
                         Location = apartment.Location?.Name,
                         House = apartment.House?.Name,
                         Sport = apartment.Sport?.Name,
                         Pictures = apartment.Pictures,
+                        BookingFree = FormatDate(apartment)
 
                     };
-                    rentalApartmentDto.Country += ", " + apartment.Address;
-                    rentalApartmentDto.BookingFree = FormatDate(apartment);
-
                     rentalApartmentList.Add(rentalApartmentDto);
                 }
 
@@ -261,75 +251,5 @@ namespace RoomBi.BLL.Services
             return formattedDate1;
 
         }
-
-
-        //public async Task<IEnumerable<RentalApartmentDTO>> GetAll()
-        //{
-        //    var rentalApartments = await Database.RentalApartment.GetAll();
-        //    var mapper = new MapperConfiguration(cfg =>
-        //    {
-        //        cfg.CreateMap<RentalApartment, RentalApartmentDTO>()
-        //            .ForMember(dest => dest.Location, opt => opt.MapFrom(src => src.Location.Name))
-        //            .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Country.Name));
-        //    }).CreateMapper();
-        //    return mapper.Map<IEnumerable<RentalApartment>, IEnumerable<RentalApartmentDTO>>(rentalApartments);
-        //}
-        //public Task<RentalApartmentDTO> Get(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
-        //public async Task Create(RentalApartmentDTO rentalApartmentDTO)
-        //{
-        //    var rentalApartment = new RentalApartment
-        //    {
-        //        Id = rentalApartmentDTO.Id,
-        //        Title = rentalApartmentDTO.Title,
-        //        Address = rentalApartmentDTO.Address,
-        //        IngMap = rentalApartmentDTO.IngMap,
-        //        LatMap = rentalApartmentDTO.LatMap,
-        //        NumberOfGuests = rentalApartmentDTO.NumberOfGuests,
-        //        Bedrooms = rentalApartmentDTO.Bedrooms,
-        //        Bathrooms = rentalApartmentDTO.Bathrooms,
-        //        Beds = rentalApartmentDTO.Beds,
-        //        PricePerNight = rentalApartmentDTO.PricePerNight,
-        //        ObjectRating = rentalApartmentDTO.ObjectRating,
-        //        ObjectState = rentalApartmentDTO.ObjectState,
-        //        //OfferedAmenitiesId = rentalApartmentDTO.OfferedAmenitiesId,
-        //        TypeApartment = rentalApartmentDTO.TypeApartment,
-        //        //PropertyTypeId = rentalApartmentDTO.PropertyTypeId,
-        //        //CountryId = rentalApartmentDTO.CountryId
-        //    };
-        //    await Database.RentalApartment.Create(rentalApartment);
-        //    await Database.Save();
-        //}
-        //public async Task Update(RentalApartmentDTO rentalApartmentDTO)
-        //{
-        //    var rentalApartment = new RentalApartment
-        //    {
-        //        Id = rentalApartmentDTO.Id,
-        //        Title = rentalApartmentDTO.Title,
-        //        Address = rentalApartmentDTO.Address,
-        //        IngMap = rentalApartmentDTO.IngMap,
-        //        LatMap = rentalApartmentDTO.LatMap,
-        //        NumberOfGuests = rentalApartmentDTO.NumberOfGuests,
-        //        Bedrooms = rentalApartmentDTO.Bedrooms,
-        //        Bathrooms = rentalApartmentDTO.Bathrooms,
-        //        Beds = rentalApartmentDTO.Beds,
-        //        PricePerNight = rentalApartmentDTO.PricePerNight,
-        //        ObjectRating = rentalApartmentDTO.ObjectRating,
-        //        ObjectState = rentalApartmentDTO.ObjectState,
-        //        //OfferedAmenitiesId = rentalApartmentDTO.OfferedAmenitiesId,
-        //        TypeApartment = rentalApartmentDTO.TypeApartment,
-        //        //PropertyTypeId = rentalApartmentDTO.PropertyTypeId,
-        //        //CountryId = rentalApartmentDTO.CountryId
-        //    };
-        //    await Database.RentalApartment.Update(rentalApartment);
-        //    await Database.Save();
-        //}
-        //public async Task Delete(int id)
-        //{
-        //    await Database.RentalApartment.Delete(id);
-        //    await Database.Save();
-        //}
     }
 }

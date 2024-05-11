@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using RoomBi.DAL;
-
+﻿
 namespace RoomBi.BLL.DTO
 {
     public class CommentsAboutGuestDTO

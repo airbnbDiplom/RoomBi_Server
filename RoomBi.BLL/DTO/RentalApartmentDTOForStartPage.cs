@@ -1,10 +1,4 @@
 ﻿using RoomBi.DAL;
-using RoomBi.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RoomBi.BLL.DTO
 {
@@ -24,5 +18,4 @@ namespace RoomBi.BLL.DTO
         public string? House { get; set; }// квартира || null
         public string? Sport { get; set; }// серфинг || null
     }
-  
 }

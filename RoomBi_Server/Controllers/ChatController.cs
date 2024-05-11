@@ -47,7 +47,7 @@ namespace RoomBi_Server.Controllers
 
         }
 
-        //[Authorize]
+        [Authorize]
         //Post: api/chat s/5
         [HttpPost("messageStart")]
         public async Task<ActionResult<List<MessageObj>>> MessageStart([FromBody] MessageStart MessageStart)

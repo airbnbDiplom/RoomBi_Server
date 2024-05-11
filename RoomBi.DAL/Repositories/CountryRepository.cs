@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoomBi.DAL.EF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace RoomBi.DAL.Repositories
@@ -20,7 +15,7 @@ namespace RoomBi.DAL.Repositories
 
         public async Task<IEnumerable<Country>> GetAll()
         {
-          
+
             return await context.Countries.ToListAsync();
 
         }

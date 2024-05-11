@@ -1,12 +1,8 @@
-﻿using Azure.Core;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
-using RoomBi.BLL.Services;
-using RoomBi.DAL;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+
 namespace RoomBi_Server.Controllers
 {
     [Route("api/[controller]")]

@@ -1,23 +1,9 @@
-﻿using AutoMapper;
-using Azure;
-using Azure.Core;
-using RoomBi.BLL.DTO;
-using RoomBi.BLL.DTO.New;
+﻿using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
 using RoomBi.DAL;
-using RoomBi.DAL.EF;
-using RoomBi.DAL.Entities;
 using RoomBi.DAL.Interfaces;
-using RoomBi.DAL.Repositories;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace RoomBi.BLL.Services
 {
@@ -27,7 +13,7 @@ namespace RoomBi.BLL.Services
         IUnitOfWork Database { get; set; } = uow;
         public async Task<IEnumerable<RentalApartmentDTOForStartPage>> AlexSearch(DataSearchForSorting dataSearchForSorting, int page, int pageSize)
         {
-            IEnumerable<RentalApartment> rentalApartments = await Database.SearchRentalApartment.GetObjectByTwoStringAndTwoInt(
+            IEnumerable<RentalApartment> rentalApartments = await Database.SearchRentalApartment.GetObjectForAlex(
                 dataSearchForSorting.When.Start,
                 dataSearchForSorting.When.End,
                 dataSearchForSorting?.Where?.Type,
@@ -109,7 +95,7 @@ namespace RoomBi.BLL.Services
         }
         public async Task<RentalApartmentDTOForStartPage> NewRentalApartment(RentalApartment apartment)
         {
-            Country country = await Database.Country.Get(apartment.CountryId);
+          
             var rentalApartmentTemp = new RentalApartmentDTOForStartPage
             {
                 Id = apartment.Id,
@@ -118,11 +104,10 @@ namespace RoomBi.BLL.Services
                 LatMap = apartment.LatMap,
                 PricePerNight = apartment.PricePerNight,
                 ObjectRating = apartment.ObjectRating,
-                Country = country.Name,
-                Pictures = apartment.Pictures
+                Country = apartment.Country.Name + " " + apartment.Address,
+                Pictures = apartment.Pictures,
+                BookingFree = FormatDate(apartment)
             };
-            rentalApartmentTemp.Country += ", " + apartment.Address;
-            rentalApartmentTemp.BookingFree = FormatDate(apartment);
             return rentalApartmentTemp;
         }
         public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllByFilter(Filter filter)
@@ -157,46 +142,5 @@ namespace RoomBi.BLL.Services
             }
             return rentalApartmentResult;
         }
-
-
-
-        //public async Task<IEnumerable<RentalApartment>> GetAllByNumberOfGuests(int? why, IEnumerable<RentalApartment> rentalApartment)
-        //{
-
-        //    var rentalApartments = await Database.SearchRentalApartment.GetApartmentsByNumberOfGuests(why);
-        //    if (rentalApartment == null)
-        //    {
-        //        return rentalApartments;
-        //    }
-        //    else
-        //    {
-        //        var filteredApartments = rentalApartments.Where(apartment => apartment.NumberOfGuests >= why).ToList();
-        //        var apartmentIds = filteredApartments.Select(apartment => apartment.Id).ToList();
-        //        var sortedResult = rentalApartment.Where(result => apartmentIds.Contains(result.Id)).ToList();
-        //        return sortedResult;
-        //    }
-        //}
-
-        //public async Task<IEnumerable<RentalApartment>> GetAllByType(Where where)
-        //{
-        //    IEnumerable<RentalApartment> rentalApartment;
-        //    try
-        //    {
-        //        switch (where.Type)
-        //        {
-        //            case "country":
-        //                rentalApartment = await Database.SearchRentalApartment.GetApartmentsByCountryCode(where.CountryCode);
-        //                return rentalApartment;
-        //            default:
-        //                rentalApartment = await Database.SearchRentalApartment.GetApartmentsByCity(where.PlaceId);
-        //                return rentalApartment;
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return Enumerable.Empty<RentalApartment>();
-        //    }
-        //}
-
     }
 }

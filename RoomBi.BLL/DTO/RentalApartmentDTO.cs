@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using RoomBi.DAL;
-using RoomBi.DAL.Entities;
+﻿using RoomBi.DAL;
 using RoomBi.BLL.DTO.New;
 
 namespace RoomBi.BLL.DTO
@@ -32,8 +29,6 @@ namespace RoomBi.BLL.DTO
         public ICollection<GuestСommentsDTO>? GuestComments { get; set; }
         public ICollection<Picture>? Pictures { get; set; }
     }
-
-
     public class TransferDataDTO// для передачи одного элемента
     {
         public string? Title { get; set; }

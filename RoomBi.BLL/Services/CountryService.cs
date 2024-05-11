@@ -3,19 +3,13 @@ using RoomBi.DAL.Interfaces;
 using RoomBi.DAL;
 using RoomBi.BLL.Infrastructure;
 using RoomBi.BLL.Interfaces;
-using RoomBi.BLL.DTO;
 
 namespace RoomBi.BLL.Services
 {
 
-    public class CountryService : IServiceOfAll<CountryDTO>
+    public class CountryService(IUnitOfWork uow) : IServiceOfAll<CountryDTO>
     {
-        IUnitOfWork Database { get; set; }
-
-        public CountryService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        IUnitOfWork Database { get; set; } = uow;
 
         public async Task Create(CountryDTO countryDto)
         {

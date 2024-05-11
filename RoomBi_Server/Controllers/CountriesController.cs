@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using RoomBi.BLL;
-using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
-using RoomBi.BLL.Services;
 using RoomBi.DAL;
-using RoomBi.DAL.EF;
+
 
 
 namespace RoomBi_Server.Controllers

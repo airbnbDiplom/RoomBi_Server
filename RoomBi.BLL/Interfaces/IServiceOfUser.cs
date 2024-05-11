@@ -17,7 +17,6 @@ namespace RoomBi.BLL.Interfaces
     }
     public interface IServiceOfUserGoogle<T>
     {
-    
         Task<T> GetUserByGoogle(RequestUser item);
     }
    

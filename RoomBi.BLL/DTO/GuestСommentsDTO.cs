@@ -1,5 +1,4 @@
-﻿using RoomBi.DAL;
-
+﻿
 namespace RoomBi.BLL.DTO.New
 {
     public class GuestСommentsDTO

@@ -2,7 +2,6 @@
 using RoomBi.BLL.DTO;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography.X509Certificates;
 namespace RoomBi_Server.Token
 {
     public interface IJwtToken

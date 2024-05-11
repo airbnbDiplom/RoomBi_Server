@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
-using RoomBi.BLL.DTO.New;
+using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
-using RoomBi.DAL.Entities;
 using RoomBi_Server.Token;
 using System.Security.Claims;
 

@@ -1,10 +1,5 @@
 ﻿using RoomBi.BLL.DTO;
 using RoomBi.DAL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RoomBi.BLL.DTO
 {
@@ -25,8 +20,8 @@ namespace RoomBi.BLL.DTO
     }
     public class DateBookingAlex
     {
-        public DateTime  Start { get; set; }
-        public DateTime End { get; set; }   
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
     }
     public class DateBooking
     {

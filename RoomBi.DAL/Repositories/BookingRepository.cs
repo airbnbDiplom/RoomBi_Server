@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoomBi.DAL.EF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace RoomBi.DAL.Repositories
 {
@@ -27,11 +23,10 @@ namespace RoomBi.DAL.Repositories
         {
 
             return await context.Bookings.FirstOrDefaultAsync(m => m.ApartmentId == id);
-            //return await context.Bookings.FindAsync(id);
         }
         public async Task Create(Booking item)
         {
-          
+
             await context.Bookings.AddAsync(item);
         }
         public async Task Update(Booking item)

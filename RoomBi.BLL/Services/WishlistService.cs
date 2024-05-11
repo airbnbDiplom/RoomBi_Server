@@ -40,29 +40,7 @@ namespace RoomBi.BLL.Services
         {
                 await Database.GetItemWishlist.DeleteIfWishlistItem(wishlistDTO.UserId, wishlistDTO.ApartmentId);
                 await Database.Save();
-               
-           
         }
-
-        public async Task Delete(int id)
-        {
-            //if (!await Database.GetItemWishlist.CheckIfWishlistItemExists(wishlistDTO.UserId, wishlistDTO.ApartmentId))
-            //{
-            //    var wishlist = new Wishlist
-            //    {
-            //        Id = wishlistDTO.Id,
-            //        UserId = wishlistDTO.UserId,
-            //        ApartmentId = wishlistDTO.ApartmentId
-            //    };
-            //    await Database.Wishlist.Create(wishlist);
-            //    await Database.Save();
-            //    throw new Exception("Ok");
-
-            //}
-            //await Database.Wishlist.Delete(id);
-            //await Database.Save();
-        }
-
         public async Task<WishlistDTO> Get(int id)
         {
             var wishlist = await Database.Wishlist.Get(id);
@@ -86,6 +64,11 @@ namespace RoomBi.BLL.Services
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Wishlist, WishlistDTO>()).CreateMapper();
             return (List<WishlistDTO>)mapper.Map<IEnumerable<Wishlist>, IEnumerable<WishlistDTO>>(await Database.GetItemWishlist.GetAllById(IdUser));
+        }
+
+        public Task Delete(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
