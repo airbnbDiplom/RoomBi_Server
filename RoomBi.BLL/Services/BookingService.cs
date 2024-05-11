@@ -101,7 +101,9 @@ namespace RoomBi.BLL.Services
                         TitleApartment = apartment.Title,
                         CheckInDate = item.CheckInDate,
                         CheckOutDate = item.CheckOutDate,
-                        Pictures = apartment.Pictures
+                        Pictures = apartment.Pictures,
+                        TotalPrice = item.TotalPrice,
+                        CountryApartment = apartment?.Country?.Name
                     };
                     if(apartment.GuestComments != null)
                     {
