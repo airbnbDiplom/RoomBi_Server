@@ -173,11 +173,11 @@ namespace RoomBi_Server.Controllers
             var user = await serviceOfUser.GetUserByEmail(email);
             if (user == null)
             {
-                return BadRequest("Invalid token");
+                return BadRequest("user == null");
             }
             if (user.RefreshToken != authenticationResponseDTO.RefreshToken)
             {
-                return BadRequest("Invalid token");
+                return BadRequest("Invalid Refresh token");
             }
             var newToken = jwtTokenService.GetToken(user);
             var newRefreshToken = jwtTokenService.GenerateRefreshToken();

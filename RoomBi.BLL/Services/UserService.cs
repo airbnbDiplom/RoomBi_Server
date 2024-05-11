@@ -255,7 +255,7 @@ namespace RoomBi.BLL.Services
                     commentsAboutGuestList.Add(commentsAboutGuestDTO);
                 }
             }
-            var rentalApartments = await Database.SearchRentalApartment.GetApartmentsByUser(user.Id);
+            var rentalApartments = await Database.SearchRentalApartment.GetObjectsByUserId(user.Id);
             List<RentalApartmentDTOForStartPage> rentalApartmentList = [];
             foreach (var apartment in rentalApartments)
             {

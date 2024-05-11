@@ -63,7 +63,30 @@ namespace RoomBi.DAL.Repositories
             RentalApartment? item = await context.RentalApartments.FindAsync(id);
             if (item != null)
                 context.RentalApartments.Remove(item);
+        } 
+        public async Task<IEnumerable<RentalApartment>> GetAll()
+        {
+            var temp = await context.RentalApartments
+                 .Include(ra => ra.Country)
+                 .Include(ra => ra.Location)
+                 .Include(ra => ra.House)
+                 .Include(ra => ra.Sport)
+                 .ToListAsync();
+            var bookingRepository = new BookingRepository(context);
+            var pictureRepository = new PictureRepository(context);
+            for (int i = 0; i < temp.Count; i++)
+            {
+                var apartment = temp[i];
+                var bookings = await bookingRepository.GetAllById(apartment.Id);
+                var pictures = await pictureRepository.GetAllById(apartment.Id);
+
+                apartment.Booking = bookings.ToList();
+                apartment.Pictures = pictures.ToList();
+            }
+            return temp.OrderBy(ra => ra.Id);
         }
+
+
         public async Task<IEnumerable<RentalApartment>> Get24(int page, int pageSize)
         {
             var temp = await context.RentalApartments
@@ -88,78 +111,46 @@ namespace RoomBi.DAL.Repositories
 
             return temp.OrderBy(ra => ra.Id);
         }
-        public async Task<IEnumerable<RentalApartment>> GetAll()
+        public async Task<List<RentalApartment>> GetNearestApartments(string ingMap, string latMap)
         {
-            var temp = await context.RentalApartments
-                 .Include(ra => ra.Country)
-                 .Include(ra => ra.Location)
-                 .Include(ra => ra.House)
-                 .Include(ra => ra.Sport)
-                 .ToListAsync();
-            var bookingRepository = new BookingRepository(context);
-            var pictureRepository = new PictureRepository(context);
-            for (int i = 0; i < temp.Count; i++)
+            if (!double.TryParse(ingMap, NumberStyles.Float, CultureInfo.InvariantCulture, out double ing) ||
+                !double.TryParse(latMap, NumberStyles.Float, CultureInfo.InvariantCulture, out double lat))
             {
-                var apartment = temp[i];
-                var bookings = await bookingRepository.GetAllById(apartment.Id);
-                var pictures = await pictureRepository.GetAllById(apartment.Id);
+                throw new ArgumentException("Invalid coordinates format");
+            }
 
-                apartment.Booking = bookings.ToList();
+            var allApartments = await context.RentalApartments.ToListAsync();
+
+            var nearestApartments = allApartments
+                .Select(apartment => new
+                {
+                    Apartment = apartment,
+                    Distance = Math.Sqrt(Math.Pow(double.Parse(apartment.LatMap, CultureInfo.InvariantCulture) - lat, 2) +
+                                         Math.Pow(double.Parse(apartment.IngMap, CultureInfo.InvariantCulture) - ing, 2))
+                })
+                .OrderBy(apartment => apartment.Distance)
+                .Take(10)
+                .Select(apartment => apartment.Apartment)
+                .ToList();
+
+            var pictureRepository = new PictureRepository(context);
+            for (int i = 0; i < nearestApartments.Count; i++)
+            {
+                var apartment = nearestApartments[i];
+                var pictures = await pictureRepository.GetAllById(apartment.Id);
                 apartment.Pictures = pictures.ToList();
             }
-            return temp.OrderBy(ra => ra.Id);
+
+            return nearestApartments;
         }
-
-        //public async Task<IEnumerable<RentalApartment>> GetApartmentsByContinent(string continent)
-        //{
-        //    var continentId = await context.Сontinent
-        //  .Where(c => c.Name == continent)
-        //  .Select(c => c.Id)
-        //  .FirstOrDefaultAsync();
-
-        //    if (continentId == 0)
-        //    {
-        //        return Enumerable.Empty<RentalApartment>();
-        //    }
-        //    return await context.RentalApartments
-        //   .Where(apartment => apartment.СontinentId == continentId)
-        //   .ToListAsync();
-        //}
-        //public async Task<IEnumerable<RentalApartment>> GetApartmentsByCountry(string country)
-        //{
-        //    var countryId = await context.Countries
-        //   .Where(c => c.Name == country)
-        //   .Select(c => c.Id)
-        //   .FirstOrDefaultAsync();
-
-        //    if (countryId == 0)
-        //    {
-        //        return Enumerable.Empty<RentalApartment>();
-        //    }
-        //    return await context.RentalApartments
-        //   .Where(apartment => apartment.CountryId == countryId)
-        //   .ToListAsync();
-        //}
-
-        public async Task<IEnumerable<RentalApartment>> GetApartmentsByCity(int? placeId)
-        {
-            var cityApartments = await context.RentalApartments
-            .Where(apartment => apartment.PlaceId == placeId)
-            .ToListAsync();
-            if (cityApartments.Count == 0)
-            {
-                return Enumerable.Empty<RentalApartment>();
-            }
-            return cityApartments;
-        }
-        public async Task<IEnumerable<RentalApartment>> GetApartmentsByUser(int? userId)
+        public async Task<IEnumerable<RentalApartment>> GetObjectsByUserId(int? userId)
         {
             var cityApartments = await context.RentalApartments
             .Where(apartment => apartment.UserId == userId)
             .ToListAsync();
-           
+
             if (cityApartments.Count == 0)
-            { 
+            {
                 return Enumerable.Empty<RentalApartment>();
             }
             var pictureRepository = new PictureRepository(context);
@@ -174,65 +165,6 @@ namespace RoomBi.DAL.Repositories
             }
             return cityApartments;
         }
-        public async Task<RentalApartment> GetApartmentsByDateBooking(DateTime start, DateTime end, int? idApartment)
-        {
-            var bookings = await context.Bookings
-                .Where(b => b.ApartmentId == idApartment && b.CheckInDate <= end && b.CheckOutDate >= start)
-                .ToListAsync();
-
-            if (bookings.Count == 0)
-            {
-                var apartment = await context.RentalApartments
-                    .Include(a => a.Booking)
-                    .Include(a => a.GuestComments)
-                    .Include(a => a.Pictures)
-                    .Include(a => a.Chats)
-                    .SingleOrDefaultAsync(a => a.Id == idApartment);
-
-                return apartment;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public async Task<IEnumerable<RentalApartment>> GetAllMinForSearch()
-        {
-            var temp = await context.RentalApartments.ToListAsync();
-            var bookingRepository = new BookingRepository(context);
-            for (int i = 0; i < temp.Count; i++)
-            {
-                var apartment = temp[i];
-                var bookings = await bookingRepository.GetAllById(apartment.Id);
-                apartment.Booking = bookings.ToList();
-            }
-            return temp.OrderBy(ra => ra.Id);
-        }
-
-        public async Task<IEnumerable<RentalApartment>> GetApartmentsByNumberOfGuests(int? why)
-        {
-            var whyApartments = await context.RentalApartments
-           .Where(apartment => apartment.NumberOfGuests >= why)
-           .ToListAsync();
-            var bookingRepository = new BookingRepository(context);
-            var pictureRepository = new PictureRepository(context);
-            for (int i = 0; i < whyApartments.Count; i++)
-            {
-                var apartment = whyApartments[i];
-                var bookings = await bookingRepository.GetAllById(apartment.Id);
-                var pictures = await pictureRepository.GetAllById(apartment.Id);
-
-                apartment.Booking = bookings.ToList();
-                apartment.Pictures = pictures.ToList();
-            }
-            if (whyApartments.Count == 0)
-            {
-                return Enumerable.Empty<RentalApartment>();
-            }
-            return whyApartments;
-        }
-
         public async Task<IEnumerable<RentalApartment>> GetFilteredApartments(
             string? typeAccommodation, string[]? typeOfHousing,
             int? minimumPrice, int? maximumPrice, int? bedrooms,
@@ -347,48 +279,198 @@ namespace RoomBi.DAL.Repositories
                     return false;
                 }
             }).ToList();
-            var bookingRepository2 = new BookingRepository(context);
-            var pictureRepository2 = new PictureRepository(context);
-            for (int i = 0; i < result3.Count; i++)
-            {
-                var apartment = result3[i];
-                var bookings = await bookingRepository2.GetAllById(apartment.Id);
-                var pictures = await pictureRepository2.GetAllById(apartment.Id);
+                var bookingRepository2 = new BookingRepository(context);
+                var pictureRepository2 = new PictureRepository(context);
+                for (int i = 0; i < result3.Count; i++)
+                {
+                    var apartment = result3[i];
+                    var bookings = await bookingRepository2.GetAllById(apartment.Id);
+                    var pictures = await pictureRepository2.GetAllById(apartment.Id);
 
-                apartment.Booking = bookings.ToList();
-                apartment.Pictures = pictures.ToList();
-            }
-            return result3;
+                    apartment.Booking = bookings.ToList();
+                    apartment.Pictures = pictures.ToList();
+                }
+                return result3;
             }
         }
-
-
-
-        public async Task<IEnumerable<RentalApartment>> GetApartmentsByCountryCode(string? CountryCode)
+        public async Task<IEnumerable<RentalApartment>> GetObjectByTwoStringAndTwoInt(
+            DateTime start, DateTime end, string? type, string? countryCode, 
+            int? placeId, int? why, int page, int pageSize)
         {
-            var cityApartments = await context.RentalApartments
-             .Where(apartment => apartment.CountryCode == CountryCode)
-             .ToListAsync();
-            var bookingRepository = new BookingRepository(context);
-            var pictureRepository = new PictureRepository(context);
-            for (int i = 0; i < cityApartments.Count; i++)
+            if (type == null)
             {
-                var apartment = cityApartments[i];
-                var bookings = await bookingRepository.GetAllById(apartment.Id);
-                var pictures = await pictureRepository.GetAllById(apartment.Id);
-
-                apartment.Booking = bookings.ToList();
-                apartment.Pictures = pictures.ToList();
+                var rentalApartments = await context.RentalApartments
+            .Include(r => r.Country)
+            .Where(apartment => apartment.NumberOfGuests >= why)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+                var bookingRepository = new BookingRepository(context);
+                var pictureRepository = new PictureRepository(context);
+                for (int i = 0; i < rentalApartments.Count; i++)
+                {
+                    var apartment = rentalApartments[i];
+                    var bookings = await context.Bookings
+                    .Where(b => b.ApartmentId == apartment.Id && b.CheckInDate <= end && b.CheckOutDate >= start).ToListAsync();
+                    if (bookings.Count == 0)
+                    {
+                        apartment.Booking = null;
+                    }
+                    else
+                    {
+                        apartment.Booking = bookings.ToList();
+                    }
+                    var pictures = await pictureRepository.GetAllById(apartment.Id);
+                    apartment.Pictures = pictures.ToList();
+                }
+                if (rentalApartments.Count == 0)
+                {
+                    return Enumerable.Empty<RentalApartment>();
+                }
+                return rentalApartments;
             }
-            if (cityApartments.Count == 0)
+            else if (type == "country")
             {
-                return Enumerable.Empty<RentalApartment>();
+                var rentalApartments = await context.RentalApartments
+            .Include(r => r.Country)
+            .Where(apartment => apartment.NumberOfGuests >= why)
+            .Where(r => r.CountryCode == countryCode)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+                var bookingRepository = new BookingRepository(context);
+                var pictureRepository = new PictureRepository(context);
+                for (int i = 0; i < rentalApartments.Count; i++)
+                {
+                    var apartment = rentalApartments[i];
+                    var bookings = await context.Bookings
+                    .Where(b => b.ApartmentId == apartment.Id && b.CheckInDate <= end && b.CheckOutDate >= start).ToListAsync();
+                    if (bookings.Count == 0)
+                    {
+                        apartment.Booking = null;
+                    }
+                    else
+                    {
+                        apartment.Booking = bookings.ToList();
+                    }
+                    var pictures = await pictureRepository.GetAllById(apartment.Id);
+                    apartment.Pictures = pictures.ToList();
+                }
+                if (rentalApartments.Count == 0)
+                {
+                    return Enumerable.Empty<RentalApartment>();
+                }
+                return rentalApartments;
             }
-            return cityApartments;
+            else
+            {
+                var rentalApartments = await context.RentalApartments
+            .Include(r => r.Country)
+            .Where(apartment => apartment.NumberOfGuests >= why)
+            .Where(r => r.PlaceId == placeId)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+                var bookingRepository = new BookingRepository(context);
+                var pictureRepository = new PictureRepository(context);
+                for (int i = 0; i < rentalApartments.Count; i++)
+                {
+                    var apartment = rentalApartments[i];
+                    var bookings = await context.Bookings
+                    .Where(b => b.ApartmentId == apartment.Id && b.CheckInDate <= end && b.CheckOutDate >= start).ToListAsync();
+                    if (bookings.Count == 0)
+                    {
+                        apartment.Booking = null;
+                    }
+                    else
+                    {
+                        apartment.Booking = bookings.ToList();
+                    }
+                    var pictures = await pictureRepository.GetAllById(apartment.Id);
+                    apartment.Pictures = pictures.ToList();
+                }
+                if (rentalApartments.Count == 0)
+                {
+                    return Enumerable.Empty<RentalApartment>();
+                }
+                return rentalApartments;
+            }
         }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //public async Task<IEnumerable<RentalApartment>> GetApartmentsByNumberOfGuests(int? why)
+        //{
+        //    var whyApartments = await context.RentalApartments
+        //   .Where(apartment => apartment.NumberOfGuests >= why)
+        //   .ToListAsync();
+        //    var bookingRepository = new BookingRepository(context);
+        //    var pictureRepository = new PictureRepository(context);
+        //    for (int i = 0; i < whyApartments.Count; i++)
+        //    {
+        //        var apartment = whyApartments[i];
+        //        var bookings = await bookingRepository.GetAllById(apartment.Id);
+        //        var pictures = await pictureRepository.GetAllById(apartment.Id);
+
+        //        apartment.Booking = bookings.ToList();
+        //        apartment.Pictures = pictures.ToList();
+        //    }
+        //    if (whyApartments.Count == 0)
+        //    {
+        //        return Enumerable.Empty<RentalApartment>();
+        //    }
+        //    return whyApartments;
+        //}
+        //public async Task<IEnumerable<RentalApartment>> GetAllMinForSearch()
+        //{
+        //    var temp = await context.RentalApartments.ToListAsync();
+        //    var bookingRepository = new BookingRepository(context);
+        //    for (int i = 0; i < temp.Count; i++)
+        //    {
+        //        var apartment = temp[i];
+        //        var bookings = await bookingRepository.GetAllById(apartment.Id);
+        //        apartment.Booking = bookings.ToList();
+        //    }
+        //    return temp.OrderBy(ra => ra.Id);
+        //}
+        //public async Task<RentalApartment> GetApartmentsByDateBooking(DateTime start, DateTime end, int? idApartment)
+        //{
+        //    var bookings = await context.Bookings
+        //        .Where(b => b.ApartmentId == idApartment && b.CheckInDate <= end && b.CheckOutDate >= start)
+        //        .ToListAsync();
+
+        //    if (bookings.Count == 0)
+        //    {
+        //        var apartment = await context.RentalApartments
+        //            .Include(a => a.Booking)
+        //            .Include(a => a.GuestComments)
+        //            .Include(a => a.Pictures)
+        //            .Include(a => a.Chats)
+        //            .SingleOrDefaultAsync(a => a.Id == idApartment);
+
+        //        return apartment;
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
         //public async Task<List<RentalApartment>> GetNearestApartments(string ingMap, string latMap)
         //{
         //    if (!double.TryParse(ingMap, out double ing) || !double.TryParse(latMap, out double lat))
@@ -419,39 +501,49 @@ namespace RoomBi.DAL.Repositories
         //}
 
 
-        public async Task<List<RentalApartment>> GetNearestApartments(string ingMap, string latMap)
-        {
-            if (!double.TryParse(ingMap, NumberStyles.Float, CultureInfo.InvariantCulture, out double ing) ||
-                !double.TryParse(latMap, NumberStyles.Float, CultureInfo.InvariantCulture, out double lat))
-            {
-                throw new ArgumentException("Invalid coordinates format");
-            }
 
-            var allApartments = await context.RentalApartments.ToListAsync();
 
-            var nearestApartments = allApartments
-                .Select(apartment => new
-                {
-                    Apartment = apartment,
-                    Distance = Math.Sqrt(Math.Pow(double.Parse(apartment.LatMap, CultureInfo.InvariantCulture) - lat, 2) +
-                                         Math.Pow(double.Parse(apartment.IngMap, CultureInfo.InvariantCulture) - ing, 2))
-                })
-                .OrderBy(apartment => apartment.Distance)
-                .Take(10)
-                .Select(apartment => apartment.Apartment)
-                .ToList();
+        //public async Task<IEnumerable<RentalApartment>> GetApartmentsByCity(int? placeId)
+        //{
+        //    var cityApartments = await context.RentalApartments
+        //    .Where(apartment => apartment.PlaceId == placeId)
+        //    .ToListAsync();
+        //    if (cityApartments.Count == 0)
+        //    {
+        //        return Enumerable.Empty<RentalApartment>();
+        //    }
+        //    return cityApartments;
+        //}
+        //public async Task<IEnumerable<RentalApartment>> GetApartmentsByContinent(string continent)
+        //{
+        //    var continentId = await context.Сontinent
+        //  .Where(c => c.Name == continent)
+        //  .Select(c => c.Id)
+        //  .FirstOrDefaultAsync();
 
-            var pictureRepository = new PictureRepository(context);
-            for (int i = 0; i < nearestApartments.Count; i++)
-            {
-                var apartment = nearestApartments[i];
-                var pictures = await pictureRepository.GetAllById(apartment.Id);
-                apartment.Pictures = pictures.ToList();
-            }
+        //    if (continentId == 0)
+        //    {
+        //        return Enumerable.Empty<RentalApartment>();
+        //    }
+        //    return await context.RentalApartments
+        //   .Where(apartment => apartment.СontinentId == continentId)
+        //   .ToListAsync();
+        //}
+        //public async Task<IEnumerable<RentalApartment>> GetApartmentsByCountry(string country)
+        //{
+        //    var countryId = await context.Countries
+        //   .Where(c => c.Name == country)
+        //   .Select(c => c.Id)
+        //   .FirstOrDefaultAsync();
 
-            return nearestApartments;
-        }
-
+        //    if (countryId == 0)
+        //    {
+        //        return Enumerable.Empty<RentalApartment>();
+        //    }
+        //    return await context.RentalApartments
+        //   .Where(apartment => apartment.CountryId == countryId)
+        //   .ToListAsync();
+        //}
 
     }
 }

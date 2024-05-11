@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using Azure.Core;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.DTO.New;
@@ -21,80 +22,32 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace RoomBi.BLL.Services
 {
     public class DataSearchForSortingServise(IUnitOfWork uow) :
-        IServiceDataSearchForSorting<RentalApartment>,
-        IServiceForSorting<RentalApartmentDTOForStartPage>,
-        IServiceForSorting<RentalApartmentDTOWithBooking>
+        IServiceDataSearchForSorting<RentalApartmentDTOForStartPage>
     {
         IUnitOfWork Database { get; set; } = uow;
-        public async Task<IEnumerable<RentalApartment>> GetAllByType(Where where)
+        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> AlexSearch(DataSearchForSorting dataSearchForSorting, int page, int pageSize)
         {
-            IEnumerable<RentalApartment> rentalApartment;
-            try
+            IEnumerable<RentalApartment> rentalApartments = await Database.SearchRentalApartment.GetObjectByTwoStringAndTwoInt(
+                dataSearchForSorting.When.Start,
+                dataSearchForSorting.When.End,
+                dataSearchForSorting?.Where?.Type,
+                dataSearchForSorting?.Where?.CountryCode,
+                dataSearchForSorting?.Where?.PlaceId,
+                dataSearchForSorting?.Why);
+            var rentalApartmentResult = new List<RentalApartmentDTOForStartPage>();
+            foreach (var item in rentalApartments)
             {
-                switch (where.Type)
+                if (item.Booking == null)
                 {
-                    case "country":
-                        rentalApartment = await Database.SearchRentalApartment.GetApartmentsByCountryCode(where.CountryCode);
-                        return rentalApartment;
-                    default:
-                        rentalApartment = await Database.SearchRentalApartment.GetApartmentsByCity(where.PlaceId);
-                        return rentalApartment;
+                    RentalApartmentDTOForStartPage result = await NewRentalApartmentWithBooking(item);
+                    rentalApartmentResult.Add(result);
                 }
             }
-            catch (Exception)
-            {
-                return Enumerable.Empty<RentalApartment>();
-            }
+            return rentalApartmentResult;
+
         }
-
-
-        public async Task<IEnumerable<RentalApartment>> DateBookingSearch()
+        public async Task<RentalApartmentDTOForStartPage> NewRentalApartmentWithBooking(RentalApartment apartment)
         {
-            IEnumerable <RentalApartment> rentalApartments = await Database.RentalApartment.GetAll();
-
-            //if (rentalApartment == null)
-            //{
-            //    IEnumerable<RentalApartment> rentalApartments = await Database.SearchRentalApartment.GetAllMinForSearch();
-
-            //    foreach (var item in rentalApartments)
-            //    {
-            //        var apartment = await Database.SearchRentalApartment.GetApartmentsByDateBooking(booking.Start, booking.End, item.Id);
-            //        if (apartment != null)
-            //        {
-            //            rentalApartmentResult.Add(apartment);
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    foreach (var item in rentalApartment)
-            //    {
-            //        var apartment = await Database.SearchRentalApartment.GetApartmentsByDateBooking(booking.Start, booking.End, item.Id);
-            //        if (apartment != null)
-            //            rentalApartmentResult.Add(apartment);
-            //    }
-            //}
-            return rentalApartments;
-        }
-        public async Task<IEnumerable<RentalApartment>> GetAllByNumberOfGuests(int? why, IEnumerable<RentalApartment> rentalApartment)
-        {
-
-            var rentalApartments = await Database.SearchRentalApartment.GetApartmentsByNumberOfGuests(why);
-            if (rentalApartment == null)
-            {
-                return rentalApartments;
-            }
-            else
-            {
-                var filteredApartments = rentalApartments.Where(apartment => apartment.NumberOfGuests >= why).ToList();
-                var apartmentIds = filteredApartments.Select(apartment => apartment.Id).ToList();
-                var sortedResult = rentalApartment.Where(result => apartmentIds.Contains(result.Id)).ToList();
-                return sortedResult;
-            }
-        }
-        public async Task<RentalApartmentDTOForStartPage> NewRentalApartment(RentalApartment apartment)
-        {
-            Country country = await Database.Country.Get(apartment.CountryId);
             var rentalApartmentTemp = new RentalApartmentDTOForStartPage
             {
                 Id = apartment.Id,
@@ -103,11 +56,10 @@ namespace RoomBi.BLL.Services
                 LatMap = apartment.LatMap,
                 PricePerNight = apartment.PricePerNight,
                 ObjectRating = apartment.ObjectRating,
-                Country = country.Name,
-                Pictures = apartment.Pictures
+                Country = apartment.Country.Name + " " + apartment.Address,
+                Pictures = apartment.Pictures,
+                BookingFree = FormatDate(apartment)
             };
-            rentalApartmentTemp.Country += ", " + apartment.Address;
-            rentalApartmentTemp.BookingFree = FormatDate(apartment);
             return rentalApartmentTemp;
         }
         public static string FormatDate(RentalApartment rentalApartment)
@@ -155,59 +107,10 @@ namespace RoomBi.BLL.Services
             return formattedDate1;
 
         }
-        public async Task<IEnumerable<RentalApartment>> GetAllByFilter(Filter filter)
+        public async Task<RentalApartmentDTOForStartPage> NewRentalApartment(RentalApartment apartment)
         {
-            if (filter.TypeOfHousing != null && filter.TypeOfHousing.Count() == 0) filter.TypeOfHousing = null;
-            if (filter.OfferedAmenitiesDTO != null && filter.OfferedAmenitiesDTO.Count() == 0) filter.OfferedAmenitiesDTO = null;
-            if (filter.HostsLanguage != null && filter.HostsLanguage.Count() == 0) filter.HostsLanguage = null;
-            if (filter.Bedrooms == 0) filter.Bedrooms = null;
-            if (filter.Beds == 0) filter.Beds = null;
-            if (filter.Bathrooms == 0) filter.Bathrooms = null;
-            //ICollection<RentalApartmentDTOForStartPage> rentalApartmentResult = new List<RentalApartmentDTOForStartPage>();
-            var filteredApartments = await Database.SearchRentalApartment.GetFilteredApartments(
-                filter.TypeAccommodation, filter.TypeOfHousing, filter.MinimumPrice,
-                filter.MaximumPrice, filter.Bedrooms, filter.Beds, filter.Bathrooms, filter.Rating,
-                filter.OfferedAmenitiesDTO, filter.HostsLanguage);
-            //foreach (var item in filteredApartments)
-            //{
-            //    RentalApartmentDTOForStartPage dTOForStartPage = await NewRentalApartment(item);
-            //    rentalApartmentResult.Add(dTOForStartPage);
-            //}
-            return filteredApartments;
-
-        }
-        public async Task<IEnumerable<RentalApartment>> GetNearestRooms(string ingMap, string latMap)
-        {
-
-            //ingMap = ingMap.Replace('.', ',');
-            //latMap = latMap.Replace('.', ',');
-            //ICollection<RentalApartment> rentalApartmentResult = new List<RentalApartment>();
-            var filteredApartments = await Database.SearchRentalApartment.GetNearestApartments(ingMap, latMap);
-            //foreach (var item in filteredApartments)
-            //{
-            //    RentalApartmentDTOForStartPage dTOForStartPage = await NewRentalApartment(item);
-            //    rentalApartmentResult.Add(dTOForStartPage);
-            //}
-            return filteredApartments;
-        }
-
-        async Task<RentalApartmentDTOWithBooking> IServiceForSorting<RentalApartmentDTOWithBooking>.NewRentalApartment(RentalApartment apartment)
-        {
-            List<DateBookingAlex> dateBookingAlex = [];
-            if (apartment.Booking != null)
-            {
-
-                foreach (var item in apartment.Booking)
-                {
-                    DateBookingAlex date = new()
-                    {
-                        Start = item.CheckInDate,
-                        End = item.CheckInDate
-                    };
-                    dateBookingAlex.Add(date);
-                }
-            }
-            var rentalApartmentTemp = new RentalApartmentDTOWithBooking
+            Country country = await Database.Country.Get(apartment.CountryId);
+            var rentalApartmentTemp = new RentalApartmentDTOForStartPage
             {
                 Id = apartment.Id,
                 Title = apartment.Title,
@@ -215,12 +118,85 @@ namespace RoomBi.BLL.Services
                 LatMap = apartment.LatMap,
                 PricePerNight = apartment.PricePerNight,
                 ObjectRating = apartment.ObjectRating,
-                Country = apartment.Country.Name + apartment.Address,
-                Pictures = apartment.Pictures,
-                DateBookingAlex = dateBookingAlex,
-                BookingFree = FormatDate(apartment)
+                Country = country.Name,
+                Pictures = apartment.Pictures
             };
+            rentalApartmentTemp.Country += ", " + apartment.Address;
+            rentalApartmentTemp.BookingFree = FormatDate(apartment);
             return rentalApartmentTemp;
         }
+        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllByFilter(Filter filter)
+        {
+            if (filter.TypeOfHousing != null && filter.TypeOfHousing.Count() == 0) filter.TypeOfHousing = null;
+            if (filter.OfferedAmenitiesDTO != null && filter.OfferedAmenitiesDTO.Count() == 0) filter.OfferedAmenitiesDTO = null;
+            if (filter.HostsLanguage != null && filter.HostsLanguage.Count() == 0) filter.HostsLanguage = null;
+            if (filter.Bedrooms == 0) filter.Bedrooms = null;
+            if (filter.Beds == 0) filter.Beds = null;
+            if (filter.Bathrooms == 0) filter.Bathrooms = null;
+            ICollection<RentalApartmentDTOForStartPage> rentalApartmentResult = new List<RentalApartmentDTOForStartPage>();
+            var filteredApartments = await Database.SearchRentalApartment.GetFilteredApartments(
+                filter.TypeAccommodation, filter.TypeOfHousing, filter.MinimumPrice,
+                filter.MaximumPrice, filter.Bedrooms, filter.Beds, filter.Bathrooms, filter.Rating,
+                filter.OfferedAmenitiesDTO, filter.HostsLanguage);
+            foreach (var item in filteredApartments)
+            {
+                RentalApartmentDTOForStartPage dTOForStartPage = await NewRentalApartment(item);
+                rentalApartmentResult.Add(dTOForStartPage);
+            }
+            return rentalApartmentResult;
+
+        }
+        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetNearestRooms(string ingMap, string latMap)
+        {
+            ICollection<RentalApartmentDTOForStartPage> rentalApartmentResult = new List<RentalApartmentDTOForStartPage>();
+            var filteredApartments = await Database.SearchRentalApartment.GetNearestApartments(ingMap, latMap);
+            foreach (var item in filteredApartments)
+            {
+                RentalApartmentDTOForStartPage dTOForStartPage = await NewRentalApartment(item);
+                rentalApartmentResult.Add(dTOForStartPage);
+            }
+            return rentalApartmentResult;
+        }
+
+
+
+        //public async Task<IEnumerable<RentalApartment>> GetAllByNumberOfGuests(int? why, IEnumerable<RentalApartment> rentalApartment)
+        //{
+
+        //    var rentalApartments = await Database.SearchRentalApartment.GetApartmentsByNumberOfGuests(why);
+        //    if (rentalApartment == null)
+        //    {
+        //        return rentalApartments;
+        //    }
+        //    else
+        //    {
+        //        var filteredApartments = rentalApartments.Where(apartment => apartment.NumberOfGuests >= why).ToList();
+        //        var apartmentIds = filteredApartments.Select(apartment => apartment.Id).ToList();
+        //        var sortedResult = rentalApartment.Where(result => apartmentIds.Contains(result.Id)).ToList();
+        //        return sortedResult;
+        //    }
+        //}
+
+        //public async Task<IEnumerable<RentalApartment>> GetAllByType(Where where)
+        //{
+        //    IEnumerable<RentalApartment> rentalApartment;
+        //    try
+        //    {
+        //        switch (where.Type)
+        //        {
+        //            case "country":
+        //                rentalApartment = await Database.SearchRentalApartment.GetApartmentsByCountryCode(where.CountryCode);
+        //                return rentalApartment;
+        //            default:
+        //                rentalApartment = await Database.SearchRentalApartment.GetApartmentsByCity(where.PlaceId);
+        //                return rentalApartment;
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return Enumerable.Empty<RentalApartment>();
+        //    }
+        //}
+
     }
 }

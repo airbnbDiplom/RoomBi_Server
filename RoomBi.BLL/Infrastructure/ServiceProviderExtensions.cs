@@ -22,11 +22,13 @@ namespace RoomBi.BLL.Infrastructure
         {
             services.AddDbContext<RBContext>();  
             services.AddScoped<IUnitOfWork, EFUnitOfWork>();
+
             services.AddScoped<IServiceOfAll<LanguageDTO>, LanguageService>();
             services.AddScoped<IServiceOfAll<CountryDTO>, CountryService>();
-            services.AddScoped<IServiceChat<ChatForApartmentPageDTO>, ChatService>();
-            services.AddScoped<IServiceGetAllIdUser<MessageObj>, BookingService>();
-            services.AddScoped<IServiceBooking<BookingDTO>, BookingService>();
+            services.AddScoped<IServiceOfAll<UserDTO>, UserService>();
+            services.AddScoped<IServiceOfAll<UserDTOProfile>, UserService>();
+            services.AddScoped<IServiceOfAll<WishlistDTO>, WishlistService>();
+            services.AddScoped<IServiceOfAll<CommentsAboutGuestDTO>, CommentsAboutGuestService>();
             services.AddScoped<IServiceOfAll<EmergencyContactPersonDTO>, EmergencyContactPersonService>();
             services.AddScoped<IServiceOfAll<Payment>, GuestPaymentMethodService>();
             services.AddScoped<IServiceOfAll<GuestCommentsForRentalItemDTO>, GuestСommentsService>();
@@ -36,21 +38,25 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceOfAll<LocationDTO>, LocationService>();
             services.AddScoped<IServiceOfAll<HouseDTO>, HouseService>();
             services.AddScoped<IServiceOfAll<SportDTO>, SportService>();
+
+            services.AddScoped<IServiceChat<ChatForApartmentPageDTO>, ChatService>();
+
+            services.AddScoped<IServiceGetAllIdUser<MessageObj>, BookingService>();
+            services.AddScoped<IServiceBooking<BookingDTO>, BookingService>();
+            services.AddScoped<IServiceGetAllIdUser<BookingDTOWithFoto>, BookingService>();
+
             services.AddScoped<IServiceProfile<ProfileDTO>, ProfileService>();
-            services.AddScoped<IServiceOfAll<UserDTO>, UserService>();
-            services.AddScoped<IServiceOfAll<UserDTOProfile>, UserService>();
-            services.AddScoped<IServiceOfAll<WishlistDTO>, WishlistService>();
-            services.AddScoped<IServiceOfAll<CommentsAboutGuestDTO>, CommentsAboutGuestService>();
+
             services.AddScoped<IServiceForStartPage<RentalApartmentDTOForStartPage>, RentalApartmentService>();
             services.AddScoped<IServiceForMap<RentalApartmentForMap>, RentalApartmentService>();
-            services.AddScoped<IServiceOfUser<UserDTO>, UserService>();
-            services.AddScoped<IServiceDataSearchForSorting<RentalApartment>, DataSearchForSortingServise>();
-            services.AddScoped<IServiceForSorting <RentalApartmentDTOForStartPage>, DataSearchForSortingServise>();
-            services.AddScoped<IServiceForSorting <RentalApartmentDTOWithBooking>, DataSearchForSortingServise>();
             services.AddScoped<IServiceForItem<RentalApartmentDTO>, RentalApartmentService>();
+
             services.AddScoped<IServiceOfUserGoogle<User>, UserService>();
+            services.AddScoped<IServiceOfUser<UserDTO>, UserService>();
+
             services.AddScoped<IServiceGetAllIdUser<WishlistDTO>, WishlistService>();
-            services.AddScoped<IServiceGetAllIdUser<BookingDTOWithFoto>, BookingService>();
+     
+            services.AddScoped<IServiceDataSearchForSorting<RentalApartmentDTOForStartPage>, DataSearchForSortingServise>();
 
 
 

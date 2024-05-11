@@ -8,13 +8,9 @@ namespace RoomBi.DAL.Interfaces
 {
     public interface IRepositorySearch<RentalApartment> 
     {
-        Task<IEnumerable<RentalApartment>> GetApartmentsByCountryCode(string? countryCode);
-        Task<IEnumerable<RentalApartment>> GetApartmentsByCity(int? placeId);
-        Task<IEnumerable<RentalApartment>> GetApartmentsByUser(int? userId);
-        Task<RentalApartment> GetApartmentsByDateBooking(DateTime start, DateTime end, int? idApartment);
-        Task<IEnumerable<RentalApartment>> GetApartmentsByNumberOfGuests(int? why);
-        Task<IEnumerable<RentalApartment>> GetAllMinForSearch();
-        
+        Task<IEnumerable<RentalApartment>> GetObjectByTwoStringAndTwoInt(
+            DateTime start, DateTime end, string? type, string? countryCode, int? placeId, int? why, int page = 1, int pageSize = 8);
+        Task<IEnumerable<RentalApartment>> GetObjectsByUserId(int? userId);
         Task<IEnumerable<RentalApartment>> GetFilteredApartments(string? typeAccommodation, 
             string[]? typeOfHousing, int? minimumPrice, int? maximumPrice,
             int? bedrooms, int? beds, int? bathrooms, bool rating,  string[]? offeredAmenitiesDTO,
@@ -22,3 +18,7 @@ namespace RoomBi.DAL.Interfaces
         Task<List<RentalApartment>> GetNearestApartments(string ingMap, string latMap);
     }
 }
+//Task<RentalApartment> GetApartmentsByDateBooking(DateTime start, DateTime end, int? idApartment);
+//Task<IEnumerable<RentalApartment>> GetApartmentsByNumberOfGuests(int? why);
+//Task<IEnumerable<RentalApartment>> GetAllMinForSearch();
+//Task<IEnumerable<RentalApartment>> GetApartmentsByCity(int? placeId);
