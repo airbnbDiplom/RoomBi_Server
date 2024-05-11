@@ -105,7 +105,6 @@ namespace RoomBi.DAL.Repositories
                 apartment.Booking = bookings.ToList();
                 apartment.Pictures = pictures.ToList();
             }
-
             return temp.OrderBy(ra => ra.Id);
         }
         public async Task<List<RentalApartment>> GetNearestApartments(string ingMap, string latMap)

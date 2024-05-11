@@ -6,12 +6,14 @@ using RoomBi.BLL.DTO;
 
 namespace RoomBi.BLL.Services
 {
-    public class BookingService(IUnitOfWork uow) : IServiceBooking<BookingDTO>,
-        IServiceGetAllIdUser<MessageObj>, IServiceGetAllIdUser<BookingDTOWithFoto>
+    public class BookingService(IUnitOfWork uow) : 
+        IServiceBooking<BookingDTO>,
+        IServiceCreate<BookingDTO>,
+        IServiceGetAllIdUser<MessageObj>,
+        IServiceGetAllIdUser<BookingDTOWithFoto>
     {
         IUnitOfWork Database { get; set; } = uow;
-
-        public async Task CreateBooking(BookingDTO bookingDto)
+        public async Task Create(BookingDTO bookingDto)
         {
             var booking = new Booking
             {
@@ -50,7 +52,6 @@ namespace RoomBi.BLL.Services
             await Database.Booking.Create(booking);
             await Database.Save();
         }
-
         public async Task<List<MessageObj>> GetAllObj(int fromId)
         {
             var temp = await Database.GetAllChat.GetAllChat(fromId);
@@ -84,7 +85,6 @@ namespace RoomBi.BLL.Services
             }
             return messageObjs;
         }
-
         async Task<List<BookingDTOWithFoto>> IServiceGetAllIdUser<BookingDTOWithFoto>.GetAllObj(int IdUser)
         {
             var booking = await Database.Booking.GetAll();

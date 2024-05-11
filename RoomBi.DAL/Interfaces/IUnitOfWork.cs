@@ -37,6 +37,8 @@ namespace RoomBi.DAL.Interfaces
        
        
         IRepositoryGetWishlictitem<Wishlist> GetItemWishlist { get; }
+        IRepositoryGetAllByID<Wishlist> RepositoryGetAllByID { get; }
+
         IRepositoryGetEmailAndPassword<User> UserGetEmailAndPassword { get; }
         IRepositoryGetName<Language> LanguageGetName { get; }
         IRepositoryGetName<Country> CountryGetName { get; }

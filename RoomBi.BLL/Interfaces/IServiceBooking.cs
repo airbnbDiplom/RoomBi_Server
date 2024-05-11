@@ -9,10 +9,9 @@ namespace RoomBi.BLL.Interfaces
 {
     public interface IServiceBooking<T>
     {
-        Task CreateBooking(T item);
         Task CreateBookingWithChat(T item);
     }
-    public interface IServiceChat<T>
+    public interface IServiceCreate<T>
     {
         Task Create(T item);
     }

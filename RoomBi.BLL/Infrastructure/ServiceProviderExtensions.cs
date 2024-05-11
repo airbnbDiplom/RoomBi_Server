@@ -1,4 +1,4 @@
-﻿using Jose;
+﻿
 using Microsoft.Extensions.DependencyInjection;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
@@ -18,26 +18,21 @@ namespace RoomBi.BLL.Infrastructure
             services.AddDbContext<RBContext>();  
             services.AddScoped<IUnitOfWork, EFUnitOfWork>();
 
-            //services.AddScoped<IServiceOfAll<LanguageDTO>, LanguageService>();
             services.AddScoped<IServiceOfAll<CountryDTO>, CountryService>();
             services.AddScoped<IServiceOfAll<UserDTO>, UserService>();
             services.AddScoped<IServiceOfAll<UserDTOProfile>, UserService>();
             services.AddScoped<IServiceOfAll<WishlistDTO>, WishlistService>();
-            //services.AddScoped<IServiceOfAll<CommentsAboutGuestDTO>, CommentsAboutGuestService>();
-            //services.AddScoped<IServiceOfAll<EmergencyContactPersonDTO>, EmergencyContactPersonService>();
             services.AddScoped<IServiceOfAll<Payment>, GuestPaymentMethodService>();
             services.AddScoped<IServiceOfAll<GuestCommentsForRentalItemDTO>, GuestСommentsService>();
-            //services.AddScoped<IServiceOfAll<OfferedAmenitiesDTO>, OfferedAmenitiesService>();
-            //services.AddScoped<IServiceOfAll<PictureDTO>, PictureService>();
             services.AddScoped<IServiceOfAll<ProfileDTO>, ProfileService>();
-            //services.AddScoped<IServiceOfAll<LocationDTO>, LocationService>();
-            //services.AddScoped<IServiceOfAll<HouseDTO>, HouseService>();
-            //services.AddScoped<IServiceOfAll<SportDTO>, SportService>();
 
-            services.AddScoped<IServiceChat<ChatForApartmentPageDTO>, ChatService>();
+
+            services.AddScoped<IServiceCreate<ChatForApartmentPageDTO>, ChatService>();
 
             services.AddScoped<IServiceGetAllIdUser<MessageObj>, BookingService>();
             services.AddScoped<IServiceBooking<BookingDTO>, BookingService>();
+            services.AddScoped<IServiceCreate<BookingDTO>, BookingService>();
+
             services.AddScoped<IServiceGetAllIdUser<BookingDTOWithFoto>, BookingService>();
 
             services.AddScoped<IServiceProfile<ProfileDTO>, ProfileService>();

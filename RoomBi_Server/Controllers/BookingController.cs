@@ -10,7 +10,9 @@ namespace RoomBi_Server.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class BookingsController(IServiceBooking<BookingDTO> bookingService,
-        IJwtToken jwtTokenService, IServiceGetAllIdUser<BookingDTOWithFoto> serviceGetAllIdUser) : ControllerBase
+        IJwtToken jwtTokenService, 
+        IServiceGetAllIdUser<BookingDTOWithFoto> serviceGetAllIdUser,
+        IServiceCreate<BookingDTO> serviceCreate) : ControllerBase
     {
         [Authorize]
         // POST: api/Bookings
@@ -21,7 +23,7 @@ namespace RoomBi_Server.Controllers
             string cleanedToken = token.Replace("Bearer ", "");
             ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
             bookingDto.OwnerId = int.Parse(jwtTokenService.GetIdFromToken(principal));
-            await bookingService.CreateBooking(bookingDto);
+            await serviceCreate.Create(bookingDto);
             return Ok(bookingDto);
         }
 

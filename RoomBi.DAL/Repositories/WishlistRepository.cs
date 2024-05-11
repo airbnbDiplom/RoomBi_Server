@@ -3,8 +3,10 @@ using RoomBi.DAL.EF;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class WishlistRepository(RBContext context) : IRepositoryOfAll<Wishlist>, 
-        IRepositoryGetWishlictitem<Wishlist>
+    public class WishlistRepository(RBContext context) : 
+        IRepositoryOfAll<Wishlist>, 
+        IRepositoryGetWishlictitem<Wishlist>,
+        IRepositoryGetAllByID<Wishlist>
     {
         private readonly RBContext context = context;
 

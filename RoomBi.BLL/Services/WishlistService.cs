@@ -63,7 +63,7 @@ namespace RoomBi.BLL.Services
         public async Task<List<WishlistDTO>> GetAllObj(int IdUser)
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Wishlist, WishlistDTO>()).CreateMapper();
-            return (List<WishlistDTO>)mapper.Map<IEnumerable<Wishlist>, IEnumerable<WishlistDTO>>(await Database.GetItemWishlist.GetAllById(IdUser));
+            return (List<WishlistDTO>)mapper.Map<IEnumerable<Wishlist>, IEnumerable<WishlistDTO>>(await Database.RepositoryGetAllByID.GetAllById(IdUser));
         }
 
         public Task Delete(int id)

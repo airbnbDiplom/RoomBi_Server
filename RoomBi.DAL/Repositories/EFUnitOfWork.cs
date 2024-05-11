@@ -94,7 +94,9 @@ namespace RoomBi.DAL.Repositories
 
         private ChatRepository _chatRepository2;
         public IRepositoryForChat<Chat> GetAllChat => _chatRepository2 ??= new ChatRepository(_context);
-
+       
+        private WishlistRepository wishlistRepository2;
+        public IRepositoryGetAllByID<Wishlist> RepositoryGetAllByID => wishlistRepository2 ??= new WishlistRepository(_context);
 
         public async Task Save()
         {

@@ -13,7 +13,7 @@ namespace RoomBi_Server.Controllers
     [ApiController]
 
     public class ChatController(
-        IServiceChat<ChatForApartmentPageDTO> chatService,
+        IServiceCreate<ChatForApartmentPageDTO> chatService,
         IJwtToken jwtTokenService, 
         IServiceBooking<BookingDTO> serviceBooking,
         IServiceGetAllIdUser<MessageObj> serviceChatGetAll

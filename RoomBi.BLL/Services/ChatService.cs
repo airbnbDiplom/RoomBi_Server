@@ -7,7 +7,7 @@ using RoomBi.BLL.DTO;
 namespace RoomBi.BLL.Services
 {
 
-    public class ChatService : IServiceChat<ChatForApartmentPageDTO>
+    public class ChatService : IServiceCreate<ChatForApartmentPageDTO>
     {
         IUnitOfWork Database { get; set; }
 

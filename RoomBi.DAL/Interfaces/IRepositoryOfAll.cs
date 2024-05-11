@@ -15,12 +15,10 @@ namespace RoomBi.DAL.Repositories
         Task Update(T item);
         Task Delete(int id);
     }
-  
     public interface IRepositoryGetWishlictitem<T> where T : class
     {
         Task<Boolean> CheckIfWishlistItemExists(int userId, int apartId);
         Task DeleteIfWishlistItem(int userId, int apartId);
-        Task<IEnumerable<T>> GetAllById(int Id);
     }
     public interface IRepositoryGetAllByID<T> where T : class
     {

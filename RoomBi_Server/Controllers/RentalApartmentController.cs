@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
+using RoomBi.DAL;
 
 namespace RoomBi_Server.Controllers
 {
@@ -57,17 +58,7 @@ namespace RoomBi_Server.Controllers
             return rentalApartment;
         }
 
-        //// PUT: api/rentalApartments/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutRentalApartment(int id, RentalApartmentDTO rentalApartment)
-        //{
-        //    if (id != rentalApartment.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    await rentalApartmentService.Update(rentalApartment);
-        //    return NoContent();
-        //}
+    
 
         //POST: api/rentalApartments
        [HttpPost("create")]
@@ -83,12 +74,26 @@ namespace RoomBi_Server.Controllers
 
         }
 
-        //// DELETE: api/rentalApartments/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteRentalApartment(int id)
-        //{
-        //    await rentalApartmentService.Delete(id);
-        //    return NoContent();
-        //}
+        // DELETE: api/rentalApartments/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRentalApartment(int id)
+        {
+            await serviceForItem.Delete(id);
+            return NoContent();
+        }
+
+
+
+        //POST: api/rentalApartments
+        [HttpPost("masterobj")]
+        public async Task<ActionResult<IEnumerable<RentalApartmentDTOForStartPage>>> GetAllCardsForMaster(int idMaster)
+        {
+            IEnumerable<RentalApartmentDTOForStartPage> rentalApartments = await serviceForStartPage.GetAllForMaster(idMaster);
+            if (rentalApartments == null || !rentalApartments.Any())
+            {
+                return NotFound();
+            }
+            return Ok(rentalApartments);
+        }
     }
 }

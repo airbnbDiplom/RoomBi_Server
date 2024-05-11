@@ -16,7 +16,7 @@ namespace RoomBi_Server.Controllers
         {
             try
             {
-                IEnumerable<RentalApartmentDTOForStartPage> rentalApartmentQuery = await searchForSorting.AlexSearch(dataSearchForSorting, page = 1, pageSize = 8);
+                IEnumerable<RentalApartmentDTOForStartPage> rentalApartmentQuery = await searchForSorting.AlexSearch(dataSearchForSorting, page, pageSize);
                 if (!rentalApartmentQuery.Any())
                 {
                     return Ok(new List<RentalApartmentDTOForStartPage>());

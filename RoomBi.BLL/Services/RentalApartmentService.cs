@@ -6,11 +6,12 @@ using RoomBi.BLL.Interfaces;
 using RoomBi.BLL.DTO;
 using System.Globalization;
 using RoomBi.BLL.DTO.New;
+using Azure;
 
 
 namespace RoomBi.BLL.Services
 {
-    public class RentalApartmentService(IUnitOfWork uow) : /*IServiceOfAll<RentalApartmentDTO>,*/
+    public class RentalApartmentService(IUnitOfWork uow) : 
         IServiceForItem<RentalApartmentDTO>,
         IServiceForStartPage<RentalApartmentDTOForStartPage>,
         IServiceForMap<RentalApartmentForMap>
@@ -120,7 +121,6 @@ namespace RoomBi.BLL.Services
             return new RentalApartmentDTOForStartPage
             {
                 Id = rentalApartment.Id,
-
                 Title = rentalApartment.Title,
                 IngMap = rentalApartment.IngMap,
                 LatMap = rentalApartment.LatMap,
@@ -250,6 +250,42 @@ namespace RoomBi.BLL.Services
                                     newDate1.ToString("dd MMM", new CultureInfo("uk-UA"));
             return formattedDate1;
 
+        }
+
+        public async Task Delete(int id)
+        {
+            await Database.RentalApartment.Delete(id);
+            await Database.Save();
+        }
+
+        public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllForMaster(int idUser)
+        {
+            var rentalApartments = await Database.SearchRentalApartment.GetObjectsByUserId(idUser);
+            List<RentalApartmentDTOForStartPage> rentalApartmentList = [];
+            foreach (var apartment in rentalApartments)
+            {
+                var rentalApartmentDto = new RentalApartmentDTOForStartPage
+                {
+                    Id = apartment.Id,
+                    Title = apartment.Title,
+                    IngMap = apartment.IngMap,
+                    LatMap = apartment.LatMap,
+                    PricePerNight = apartment.PricePerNight,
+                    ObjectRating = apartment.ObjectRating,
+                    Country = apartment.Country?.Name + ", " + apartment.Address,
+                    Wish = await Database.GetItemWishlist.CheckIfWishlistItemExists(idUser, apartment.Id),
+                    Location = apartment.Location?.Name,
+                    House = apartment.House?.Name,
+                    Sport = apartment.Sport?.Name,
+                    Pictures = apartment.Pictures,
+                    BookingFree = FormatDate(apartment)
+
+                };
+
+                rentalApartmentList.Add(rentalApartmentDto);
+            }
+            return rentalApartmentList;
+           
         }
     }
 }

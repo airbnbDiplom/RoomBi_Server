@@ -262,14 +262,16 @@ namespace RoomBi.BLL.Services
                     LatMap = apartment.LatMap,
                     PricePerNight = apartment.PricePerNight,
                     ObjectRating = apartment.ObjectRating,
-                    Country = apartment.Country?.Name,
+                    Country = apartment.Country?.Name + ", " + apartment.Address,
+                    Wish = await Database.GetItemWishlist.CheckIfWishlistItemExists(user.Id, apartment.Id),
                     Location = apartment.Location?.Name,
                     House = apartment.House?.Name,
                     Sport = apartment.Sport?.Name,
                     Pictures = apartment.Pictures,
+                    BookingFree = FormatDate(apartment)
+
                 };
-                rentalApartmentDto.Country += ", " + apartment.Address;
-                rentalApartmentDto.BookingFree = FormatDate(apartment);
+
                 rentalApartmentList.Add(rentalApartmentDto);
             }
             return new UserDTOProfile
