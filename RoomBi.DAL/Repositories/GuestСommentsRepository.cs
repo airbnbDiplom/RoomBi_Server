@@ -11,7 +11,6 @@ namespace RoomBi.DAL.Repositories
             return await context.GuestComments
                     .Where(guestComment => guestComment.ApartmentId == apartmentId)
                     .ToListAsync();
-
         }
         public async Task<IEnumerable<GuestComments>> GetAll()
         {
@@ -19,9 +18,7 @@ namespace RoomBi.DAL.Repositories
         }
         public async Task<GuestComments> Get(int id)
         {
-
             return await context.GuestComments.FirstOrDefaultAsync(m => m.Id == id);
-            //return await context.GuestСomments.FindAsync(id);
         }
         public async Task Create(GuestComments item)
         {

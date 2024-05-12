@@ -1,42 +1,28 @@
-﻿using AutoMapper;
-using RoomBi.DAL.Interfaces;
-using RoomBi.DAL;
-using RoomBi.BLL.Infrastructure;
+﻿
 using RoomBi.BLL.Interfaces;
-using RoomBi.BLL.DTO;
+using RoomBi.DAL;
+using RoomBi.DAL.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace RoomBi.BLL.Services
 {
 
-    public class GuestСommentsService(IUnitOfWork uow) : IServiceOfAll<GuestCommentsForRentalItemDTO>
+    public class GuestСommentsService(IUnitOfWork uow) : IServiceOfAll<GuestComments>
     {
-        public async Task<IEnumerable<GuestCommentsForRentalItemDTO>> GetAll()
+        public async Task<IEnumerable<GuestComments>> GetAll()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<GuestComments, GuestCommentsForRentalItemDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<GuestComments>, IEnumerable<GuestCommentsForRentalItemDTO>>(await Database.GuestComments.GetAll());
+            return await Database.GuestComments.GetAll();
         }
         IUnitOfWork Database { get; set; } = uow;
 
-        public async Task Create(GuestCommentsForRentalItemDTO guestСommentsDTO)
+        public async Task Create(GuestComments guestСomments)
         {
-            var guestСomments = new GuestComments
-            {
-                Id = guestСommentsDTO.Id,
-                Comment = guestСommentsDTO.Comment,
-                Rating = guestСommentsDTO.Rating
-            };
             await Database.GuestComments.Create(guestСomments);
             await Database.Save();
         }
 
-        public async Task Update(GuestCommentsForRentalItemDTO guestСommentsDTO)
+        public async Task Update(GuestComments guestСomments)
         {
-            var guestСomments = new GuestComments
-            {
-                Id = guestСommentsDTO.Id,
-                Comment = guestСommentsDTO.Comment,
-                Rating = guestСommentsDTO.Rating
-            };
             await Database.GuestComments.Update(guestСomments);
             await Database.Save();
         }
@@ -47,19 +33,14 @@ namespace RoomBi.BLL.Services
             await Database.Save();
         }
 
-        public async Task<GuestCommentsForRentalItemDTO> Get(int id)
+        public async Task<GuestComments> Get(int id)
         {
             var guestСomments = await Database.GuestComments.Get(id);
             if (guestСomments == null)
-                throw new ValidationException("Wrong guestСomments!", "");
-            return new GuestCommentsForRentalItemDTO
-            {
-                Id = guestСomments.Id,
-                Comment = guestСomments.Comment,
-                Rating = guestСomments.Rating
-            };
+                throw new ValidationException("Wrong guestСomments!");
+            return guestСomments;
         }
 
-       
+
     }
 }

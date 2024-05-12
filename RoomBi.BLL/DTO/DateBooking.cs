@@ -60,5 +60,4 @@ public class BookingDTOWithFoto
     public DateTime? CheckOutDate { get; set; }
     public double TotalPrice { get; set; }
     public ICollection<Picture>? Pictures { get; set; }
-
 }

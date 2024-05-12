@@ -23,7 +23,7 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceOfAll<UserDTOProfile>, UserService>();
             services.AddScoped<IServiceOfAll<WishlistDTO>, WishlistService>();
             services.AddScoped<IServiceOfAll<Payment>, GuestPaymentMethodService>();
-            services.AddScoped<IServiceOfAll<GuestCommentsForRentalItemDTO>, GuestСommentsService>();
+            services.AddScoped<IServiceOfAll<GuestComments>, GuestСommentsService>();
             services.AddScoped<IServiceOfAll<ProfileDTO>, ProfileService>();
 
 

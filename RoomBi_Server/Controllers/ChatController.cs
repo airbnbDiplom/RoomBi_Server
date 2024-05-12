@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
+using RoomBi.DAL;
 using RoomBi_Server.Token;
 using System.Security.Claims;
 
@@ -16,7 +17,8 @@ namespace RoomBi_Server.Controllers
         IServiceCreate<ChatForApartmentPageDTO> chatService,
         IJwtToken jwtTokenService, 
         IServiceBooking<BookingDTO> serviceBooking,
-        IServiceGetAllIdUser<MessageObj> serviceChatGetAll
+        IServiceGetAllIdUser<MessageObj> serviceChatGetAll,
+        IServiceOfAll<GuestComments> serviceOfAll
         ) : ControllerBase
     {
         [Authorize]
@@ -70,6 +72,16 @@ namespace RoomBi_Server.Controllers
             return Content("Ok");
 
         }
+
+
+        //POST: api/Chats
+        [HttpPost("guestComments")]
+        public async Task<ActionResult<GuestComments>> PostChat(GuestComments comment)
+        {
+            await serviceOfAll.Create(comment);
+            return Content("Ok");
+        }
+
         //// GET: api/Chats
         //[HttpGet]
         //public async Task<ActionResult<IEnumerable<ChatDTO>>> GetChats()
@@ -93,14 +105,7 @@ namespace RoomBi_Server.Controllers
         //    }
         //    return chat;
         //}
-        // POST: api/Chats
-        //[HttpPost]
-        //public async Task<ActionResult<ChatDTO>> PostChat(ChatDTO chat)
-        //{
-        //    await chatService.Create(chat);
-        //    //return CreatedAtAction("GetChat", new { id = chat .Id }, chat );
-        //    return CreatedAtAction(nameof(GetChat), new { id = chat.Id }, chat);
-        //}
+
 
         // DELETE: api/chat s/5
         //[HttpDelete("{id}")]
