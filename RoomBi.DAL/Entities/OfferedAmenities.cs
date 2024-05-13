@@ -4,7 +4,8 @@ namespace RoomBi.DAL
 {
     public class OfferedAmenities
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
+
 
         // Basic amenities
         public bool WiFi { get; set; } // Вай-Фай

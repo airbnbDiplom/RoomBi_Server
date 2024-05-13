@@ -4,7 +4,9 @@ using RoomBi.DAL.EF;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class OfferedAmenitiesRepository(RBContext context) : IRepositoryOfAll<OfferedAmenities>
+    public class OfferedAmenitiesRepository(RBContext context) : 
+        IRepositoryOfAll<OfferedAmenities>,
+        IRepositoryGetName<OfferedAmenities>
     {
         private readonly RBContext context = context;
 
@@ -16,7 +18,6 @@ namespace RoomBi.DAL.Repositories
         {
 
             return await context.OfferedAmenities.FirstOrDefaultAsync(m => m.Id == id);
-            //return await context.OfferedAmenities.FindAsync(id);
         }
         public async Task Create(OfferedAmenities item)
         {
@@ -32,6 +33,12 @@ namespace RoomBi.DAL.Repositories
             if (item != null)
                 context.OfferedAmenities.Remove(item);
         }
+
+        public async Task<OfferedAmenities> GetByName(string name)
+        {
+            return await context.OfferedAmenities.FirstOrDefaultAsync(m => m.Description == name);
+        }
+
     }
 }
 

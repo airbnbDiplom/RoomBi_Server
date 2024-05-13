@@ -11,6 +11,7 @@ namespace RoomBi.BLL.Interfaces
     {
         Task<T> GetItem(int id, int userId);
         Task Delete(int id);
+
     }
     public interface IServiceForMap<T>
     {

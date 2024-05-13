@@ -5,7 +5,8 @@ using RoomBi.DAL.Entities;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class LocationRepository(RBContext context) : IRepositoryOfAll<Location>
+    public class LocationRepository(RBContext context) : 
+        IRepositoryOfAll<Location>, IRepositoryGetName<Location>
     {
         private readonly RBContext context = context;
 
@@ -32,6 +33,11 @@ namespace RoomBi.DAL.Repositories
             Location? item = await context.Locations.FindAsync(id);
             if (item != null)
                 context.Locations.Remove(item);
+        }
+
+        public async Task<Location> GetByName(string name)
+        {
+            return await context.Locations.FirstOrDefaultAsync(m => m.Name == name);
         }
     }
 }

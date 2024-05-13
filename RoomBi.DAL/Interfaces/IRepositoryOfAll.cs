@@ -28,5 +28,4 @@ namespace RoomBi.DAL.Repositories
     {
         Task<List<List<T>>> GetAllChat(int user);
     }
-   
-}
+ }

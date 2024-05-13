@@ -82,8 +82,6 @@ namespace RoomBi.DAL.Repositories
             }
             return temp.OrderBy(ra => ra.Id);
         }
-
-
         public async Task<IEnumerable<RentalApartment>> Get24(int page, int pageSize)
         {
             var temp = await context.RentalApartments
