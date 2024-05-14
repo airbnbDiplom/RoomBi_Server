@@ -19,18 +19,15 @@ namespace RoomBi.BLL.Services
                 dataSearchForSorting?.Where?.Type,
                 dataSearchForSorting?.Where?.CountryCode,
                 dataSearchForSorting?.Where?.PlaceId,
-                dataSearchForSorting?.Why);
+                dataSearchForSorting?.Why, 
+                page, pageSize);
             var rentalApartmentResult = new List<RentalApartmentDTOForStartPage>();
             foreach (var item in rentalApartments)
             {
-                if (item.Booking == null)
-                {
                     RentalApartmentDTOForStartPage result = await NewRentalApartmentWithBooking(item);
                     rentalApartmentResult.Add(result);
-                }
             }
             return rentalApartmentResult;
-
         }
         public async Task<RentalApartmentDTOForStartPage> NewRentalApartmentWithBooking(RentalApartment apartment)
         {

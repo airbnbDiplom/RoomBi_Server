@@ -296,11 +296,10 @@ namespace RoomBi.DAL.Repositories
                 var rentalApartments = await context.RentalApartments
             .Include(r => r.Country)
             .Where(apartment => apartment.NumberOfGuests >= why)
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
             .ToListAsync();
                 var bookingRepository = new BookingRepository(context);
                 var pictureRepository = new PictureRepository(context);
+                var rentalApartmentResult = new List<RentalApartment>();
                 for (int i = 0; i < rentalApartments.Count; i++)
                 {
                     var apartment = rentalApartments[i];
@@ -308,11 +307,7 @@ namespace RoomBi.DAL.Repositories
                     .Where(b => b.ApartmentId == apartment.Id && b.CheckInDate <= end && b.CheckOutDate >= start).ToListAsync();
                     if (bookings.Count == 0)
                     {
-                        apartment.Booking = null;
-                    }
-                    else
-                    {
-                        apartment.Booking = bookings.ToList();
+                        rentalApartmentResult.Add(apartment);
                     }
                     var pictures = await pictureRepository.GetAllById(apartment.Id);
                     apartment.Pictures = pictures.ToList();
@@ -321,7 +316,17 @@ namespace RoomBi.DAL.Repositories
                 {
                     return Enumerable.Empty<RentalApartment>();
                 }
-                return rentalApartments;
+                int totalItems = rentalApartmentResult.Count;
+                int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+                if (page > totalPages)
+                {
+                    return Enumerable.Empty<RentalApartment>();
+                }
+
+                int startIndex = (page - 1) * pageSize;
+                var pageApartments = rentalApartmentResult.Skip(startIndex).Take(pageSize).ToList();
+                return pageApartments;
             }
             else if (type == "country")
             {
@@ -329,11 +334,10 @@ namespace RoomBi.DAL.Repositories
             .Include(r => r.Country)
             .Where(apartment => apartment.NumberOfGuests >= why)
             .Where(r => r.CountryCode == countryCode)
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
             .ToListAsync();
                 var bookingRepository = new BookingRepository(context);
                 var pictureRepository = new PictureRepository(context);
+                var rentalApartmentResult = new List<RentalApartment>();
                 for (int i = 0; i < rentalApartments.Count; i++)
                 {
                     var apartment = rentalApartments[i];
@@ -341,20 +345,26 @@ namespace RoomBi.DAL.Repositories
                     .Where(b => b.ApartmentId == apartment.Id && b.CheckInDate <= end && b.CheckOutDate >= start).ToListAsync();
                     if (bookings.Count == 0)
                     {
-                        apartment.Booking = null;
-                    }
-                    else
-                    {
-                        apartment.Booking = bookings.ToList();
+                        rentalApartmentResult.Add(apartment);
                     }
                     var pictures = await pictureRepository.GetAllById(apartment.Id);
                     apartment.Pictures = pictures.ToList();
                 }
-                if (rentalApartments.Count == 0)
+                if (rentalApartmentResult.Count == 0)
                 {
                     return Enumerable.Empty<RentalApartment>();
                 }
-                return rentalApartments;
+                int totalItems = rentalApartmentResult.Count;
+                int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+                if (page > totalPages)
+                {
+                    return Enumerable.Empty<RentalApartment>();
+                }
+
+                int startIndex = (page - 1) * pageSize;
+                var pageApartments = rentalApartmentResult.Skip(startIndex).Take(pageSize).ToList();
+                return pageApartments;
             }
             else
             {
@@ -362,11 +372,10 @@ namespace RoomBi.DAL.Repositories
             .Include(r => r.Country)
             .Where(apartment => apartment.NumberOfGuests >= why)
             .Where(r => r.PlaceId == placeId)
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
             .ToListAsync();
                 var bookingRepository = new BookingRepository(context);
                 var pictureRepository = new PictureRepository(context);
+                var rentalApartmentResult = new List<RentalApartment>();
                 for (int i = 0; i < rentalApartments.Count; i++)
                 {
                     var apartment = rentalApartments[i];
@@ -374,11 +383,7 @@ namespace RoomBi.DAL.Repositories
                     .Where(b => b.ApartmentId == apartment.Id && b.CheckInDate <= end && b.CheckOutDate >= start).ToListAsync();
                     if (bookings.Count == 0)
                     {
-                        apartment.Booking = null;
-                    }
-                    else
-                    {
-                        apartment.Booking = bookings.ToList();
+                        rentalApartmentResult.Add(apartment);
                     }
                     var pictures = await pictureRepository.GetAllById(apartment.Id);
                     apartment.Pictures = pictures.ToList();
@@ -387,8 +392,19 @@ namespace RoomBi.DAL.Repositories
                 {
                     return Enumerable.Empty<RentalApartment>();
                 }
-                return rentalApartments;
+                int totalItems = rentalApartmentResult.Count;
+                int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+                if (page > totalPages)
+                {
+                    return Enumerable.Empty<RentalApartment>();
+                }
+
+                int startIndex = (page - 1) * pageSize;
+                var pageApartments = rentalApartmentResult.Skip(startIndex).Take(pageSize).ToList();
+                return pageApartments;
             }
+
         }
     }
 }
