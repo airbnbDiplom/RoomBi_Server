@@ -7,6 +7,7 @@ using RoomBi.BLL.DTO;
 using System.Globalization;
 using RoomBi.BLL.DTO.New;
 using Azure;
+using RoomBi.DAL.Entities;
 
 
 namespace RoomBi.BLL.Services
@@ -14,7 +15,8 @@ namespace RoomBi.BLL.Services
     public class RentalApartmentService(IUnitOfWork uow) : 
         IServiceForItem<RentalApartmentDTO>,
         IServiceForStartPage<RentalApartmentDTOForStartPage>,
-        IServiceForMap<RentalApartmentForMap>
+        IServiceForMap<RentalApartmentForMap>,
+        IServiceCreate<TransferDataDTO>
     {
         private readonly IUnitOfWork Database = uow;
 
@@ -134,7 +136,6 @@ namespace RoomBi.BLL.Services
                 BookingFree = null
             };
         }
-
         public async Task<IEnumerable<RentalApartmentForMap>> GetAllForMap(string map)
         {
             var rentalApartments = await Database.RentalApartment.GetAll();
@@ -251,13 +252,11 @@ namespace RoomBi.BLL.Services
             return formattedDate1;
 
         }
-
         public async Task Delete(int id)
         {
             await Database.RentalApartment.Delete(id);
             await Database.Save();
         }
-
         public async Task<IEnumerable<RentalApartmentDTOForStartPage>> GetAllForMaster(int idUser)
         {
             var rentalApartments = await Database.SearchRentalApartment.GetObjectsByUserId(idUser);
@@ -286,6 +285,64 @@ namespace RoomBi.BLL.Services
             }
             return rentalApartmentList;
            
+        }
+
+        public async Task Create(TransferDataDTO item)
+        {
+            OfferedAmenities offeredAmenities = item.OfferedAmenitiesDTO;
+            if (offeredAmenities != null)
+            {
+                await Database.OfferedAmenities.Create(offeredAmenities);
+            }
+            offeredAmenities = await Database.OfferedAmenities.Get(item.MasterId);
+            var user = await Database.User.Get(item.MasterId);
+            if (user != null)
+            {
+                user.UserStatus = true;
+                await Database.User.Update(user);
+            }
+            var sport = await Database.SportRepositoryGetName.GetByName(item.Sport);
+            var location = await Database.LocationRepositoryGetName.GetByName(item.Location);
+            var house = await Database.HouseRepositoryGetName.GetByName(item.House);
+            RentalApartment rentalApartment = new()
+            {
+                Title = item.Title,
+                Address = item.Address,
+                Bedrooms = item.Bedrooms,
+                Bathrooms = item.Bathrooms,
+                City = item.City,
+                PlaceId = item.CityPlaceId,
+                IngMap = item.IngMap,
+                LatMap = item.LatMap,
+                NumberOfGuests  = item.NumberOfGuests,
+                Beds = item.Beds,
+                PricePerNight = item.PricePerNight,
+                TypeApartment = item.TypeApartment,
+                HouseId = house.Id, 
+                CountryCode = item.CountryCode,
+                OfferedAmenitiesId = offeredAmenities.Id,
+            };
+            if (sport != null)
+            {
+                rentalApartment.SportId = sport.Id;
+            }
+            if (sport != null)
+            {
+                rentalApartment.LocationId = location.Id;
+            }
+            await Database.RentalApartment.Create(rentalApartment);
+            var rentalApartment2 = await Database.RentalApartmentRepositoryGetName.GetByName(item.Title);
+            var pictures = item.Pictures;
+            if (pictures != null)
+            {
+                foreach (var picture in pictures)
+                {
+                    picture.RentalApartmentId = rentalApartment2.Id;
+                    await Database.Picture.Create(picture);
+
+                }
+            }
+            await Database.Save();
         }
     }
 }

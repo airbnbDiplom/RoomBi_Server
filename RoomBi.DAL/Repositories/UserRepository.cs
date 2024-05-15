@@ -3,9 +3,15 @@ using RoomBi.DAL.EF;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class UserRepository(RBContext context) : IRepositoryOfAll<User>, IRepositoryGetEmailAndPassword<User>
+    public class UserRepository: IRepositoryOfAll<User>, IRepositoryGetEmailAndPassword<User>
     {
-        private readonly RBContext context = context;
+        private readonly RBContext context;
+
+        public UserRepository(RBContext context)
+        {
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+        }
+
 
         public async Task<IEnumerable<User>> GetAll()
         {
@@ -13,7 +19,10 @@ namespace RoomBi.DAL.Repositories
         }
         public async Task<User> Get(int id)
         {
-            return await context.Users.FirstOrDefaultAsync(m => m.Id == id);
+            
+ var user =  await context.Users.FirstOrDefaultAsync(m => m.Id == id);
+            return user;
+             
         }
 
         public async Task<User> GetEmail(string email)
@@ -30,7 +39,7 @@ namespace RoomBi.DAL.Repositories
         }
         public async Task Update(User item)
         {
-            context.Users.Update(item);
+            context.Users.Update(item); await context.SaveChangesAsync();
         }
         public async Task Delete(int id)
         {

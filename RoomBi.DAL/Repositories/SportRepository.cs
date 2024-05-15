@@ -4,9 +4,15 @@ using RoomBi.DAL.Entities;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class SportRepository(RBContext context) : IRepositoryOfAll<Sport>
+    public class SportRepository: IRepositoryOfAll<Sport>,
+        IRepositoryGetName<Sport>
     {
-        private readonly RBContext context = context;
+        private readonly RBContext context;
+
+        public SportRepository(RBContext context)
+        {
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+        }
 
         public async Task<IEnumerable<Sport>> GetAll()
         {
@@ -31,6 +37,11 @@ namespace RoomBi.DAL.Repositories
             Sport? item = await context.Sports.FindAsync(id);
             if (item != null)
                 context.Sports.Remove(item);
+        }
+
+        public async Task<Sport> GetByName(string name)
+        {
+            return await context.Sports.FirstOrDefaultAsync(m => m.Name == name);
         }
     }
 }

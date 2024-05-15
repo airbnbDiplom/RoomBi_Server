@@ -47,6 +47,7 @@ namespace RoomBi.BLL.Infrastructure
             services.AddScoped<IServiceGetAllIdUser<WishlistDTO>, WishlistService>();
      
             services.AddScoped<IServiceDataSearchForSorting<RentalApartmentDTOForStartPage>, DataSearchForSortingServise>();
+            services.AddScoped<IServiceCreate<TransferDataDTO>, RentalApartmentService> ();
 
 
 

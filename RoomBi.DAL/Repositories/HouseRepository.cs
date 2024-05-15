@@ -1,11 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoomBi.DAL.EF;
+using RoomBi.DAL.Entities;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class HouseRepository(RBContext context) : IRepositoryOfAll<House>
+    public class HouseRepository: IRepositoryOfAll<House>, IRepositoryGetName<House>
     {
-        private readonly RBContext context = context;
+        private readonly RBContext context;
+
+        public HouseRepository(RBContext context)
+        {
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+        }
 
         public async Task<IEnumerable<House>> GetAll()
         {
@@ -30,6 +36,12 @@ namespace RoomBi.DAL.Repositories
             House? item = await context.Houses.FindAsync(id);
             if (item != null)
                 context.Houses.Remove(item);
+        }
+
+        public async Task<House> GetByName(string name)
+        {
+            
+            return await context.Houses.FirstOrDefaultAsync(m => m.Name == name);
         }
     }
 }

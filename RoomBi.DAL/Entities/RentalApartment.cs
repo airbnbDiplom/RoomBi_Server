@@ -33,26 +33,26 @@ namespace RoomBi.DAL
         public int Bathrooms { get; set; }
         public int Beds { get; set; }
         public double PricePerNight { get; set; }
-        public string? ObjectState { get; set; }
+        public string? ObjectState { get; set; } = "Вільний";
         public double ObjectRating { get; set; }
 
-        public int OfferedAmenitiesId { get; set; }
+        public int OfferedAmenitiesId { get; set; } = 1;
         public OfferedAmenities? OfferedAmenities { get; set; }
 
         public string TypeApartment { get; set; }// Жилье целиком // Комната // Общая комната
-        public int LocationId { get; set; }
+        public int LocationId { get; set; } = 1;
         public Location? Location { get; set; }
-        public int HouseId { get; set; }
+        public int HouseId { get; set; } = 1;
         public House? House { get; set; }
-        public int SportId { get; set; }
+        public int SportId { get; set; } = 1;
         public Sport? Sport { get; set; }
-        public int CountryId { get; set; }
+        public int CountryId { get; set; } = 1;
         public Country? Country { get; set; }/// <summary>
         /// 
         /// </summary>
         //public int СontinentId { get; set; }
         //public Сontinent? Сontinent { get; set; }
-        public int UserId { get; set; }
+        public int UserId { get; set; } = 1;
         public User? User { get; set; }
 
     }

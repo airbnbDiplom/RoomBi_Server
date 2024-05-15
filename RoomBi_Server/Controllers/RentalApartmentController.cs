@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RoomBi.BLL.DTO;
 using RoomBi.BLL.Interfaces;
+using RoomBi.BLL.Services;
 using RoomBi.DAL;
 
 namespace RoomBi_Server.Controllers
@@ -10,7 +11,8 @@ namespace RoomBi_Server.Controllers
     public class RentalApartmentController(
         IServiceForStartPage<RentalApartmentDTOForStartPage> serviceForStartPage,
         IServiceForMap<RentalApartmentForMap> serviceForMap,
-        IServiceForItem<RentalApartmentDTO> serviceForItem) : ControllerBase
+        IServiceForItem<RentalApartmentDTO> serviceForItem,
+        IServiceCreate<TransferDataDTO> serviceCreate ) : ControllerBase
     {
         // GET: api/rentalApartments
         [HttpGet]
@@ -66,12 +68,10 @@ namespace RoomBi_Server.Controllers
         {
             if(transferDataDTO != null)
             {
-                return Content("transferDataDTO != null");
+                await serviceCreate.Create(transferDataDTO);
+                return Content("transferDataDTO");
             }
-            return Content("transferDataDTO == null");
-
-            //await rentalApartmentService.Create(rentalApartment);
-
+            return Content("transferDataDTO");
         }
 
         // DELETE: api/rentalApartments/5

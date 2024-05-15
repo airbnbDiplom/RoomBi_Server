@@ -69,7 +69,7 @@ namespace RoomBi.DAL.Repositories
         public IRepositoryOfAll<Wishlist> Wishlist => _wishlistRepository ??= new WishlistRepository(_context);
 
         private RentalApartmentRepository _rentalApartmentRepository;
-        public IRepositoryOfAll<RentalApartment> RentalApartment => _rentalApartmentRepository ??= new RentalApartmentRepository(_context/*, _bookingRepository, _pictureRepository*/);
+        public IRepositoryOfAll<RentalApartment> RentalApartment => _rentalApartmentRepository ??= new RentalApartmentRepository(_context);
 
 
         private WishlistRepository _wishlistItemRepository;
@@ -97,6 +97,18 @@ namespace RoomBi.DAL.Repositories
        
         private WishlistRepository wishlistRepository2;
         public IRepositoryGetAllByID<Wishlist> RepositoryGetAllByID => wishlistRepository2 ??= new WishlistRepository(_context);
+       
+        private SportRepository sportRepository2;
+        public IRepositoryGetName<Sport> SportRepositoryGetName => sportRepository2 ??= new SportRepository(_context); 
+
+        private LocationRepository locationRepository2;
+        public IRepositoryGetName<Location> LocationRepositoryGetName => locationRepository2 ??= new LocationRepository(_context);
+
+        private HouseRepository houseRepository2;
+        public IRepositoryGetName<House> HouseRepositoryGetName => houseRepository2 ??= new HouseRepository(_context);
+       
+        private RentalApartmentRepository rentalApartmentRepository2;
+        public IRepositoryGetName<RentalApartment> RentalApartmentRepositoryGetName => rentalApartmentRepository2 ??= new RentalApartmentRepository(_context);
 
         public async Task Save()
         {

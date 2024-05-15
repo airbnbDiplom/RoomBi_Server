@@ -1,24 +1,23 @@
-﻿using Azure;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RoomBi.DAL.EF;
-using RoomBi.DAL.Entities;
-using RoomBi.DAL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+
 
 namespace RoomBi.DAL.Repositories
 {
-    public class RentalApartmentRepository(RBContext context) :
+    public class RentalApartmentRepository :
         IRepositoryOfAll<RentalApartment>,
         IRepositoryGet24<RentalApartment>,
-        IRepositorySearch<RentalApartment>
+        IRepositorySearch<RentalApartment>, 
+        IRepositoryGetName<RentalApartment>
     {
-        private readonly RBContext context = context;
+        private readonly RBContext context;
+
+        public RentalApartmentRepository(RBContext context)
+        {
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+        }
 
         public async Task<RentalApartment> Get(int id)
         {
@@ -49,7 +48,9 @@ namespace RoomBi.DAL.Repositories
         }
         public async Task Create(RentalApartment item)
         {
-            await context.RentalApartments.AddAsync(item);
+         
+            try {  await context.RentalApartments.AddAsync(item);  await context.SaveChangesAsync();} catch (Exception ex) { }
+           
         }
         public async Task Update(RentalApartment item)
         {
@@ -405,6 +406,11 @@ namespace RoomBi.DAL.Repositories
                 return pageApartments;
             }
 
+        }
+
+        public async Task<RentalApartment> GetByName(string name)
+        {
+            return await context.RentalApartments.FirstOrDefaultAsync(m => m.Title == name);
         }
     }
 }

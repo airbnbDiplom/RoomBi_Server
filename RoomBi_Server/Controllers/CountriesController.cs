@@ -46,14 +46,14 @@ namespace RoomBi_Server.Controllers
         //    return NoContent();
         //}
 
-        //// POST: api/Countries
-        //[HttpPost]
-        //public async Task<ActionResult<CountryDTO>> PostCountry(CountryDTO country)
-        //{
-        //    await countryService.Create(country);
-        //    //return CreatedAtAction("GetLanguage", new { id = language.Id }, language);
-        //    return CreatedAtAction(nameof(GetCountry), new { id = country.Id }, country);
-        //}
+        // POST: api/Countries
+        [HttpPost]
+        public async Task<ActionResult<CountryDTO>> PostCountry(CountryDTO country)
+        {
+            await countryService.Create(country);
+            //return CreatedAtAction("GetLanguage", new { id = language.Id }, language);
+            return NoContent();
+        }
 
         //// DELETE: api/Countries/5
         //[HttpDelete("{id}")]

@@ -4,9 +4,13 @@ using RoomBi.DAL.EF;
 
 namespace RoomBi.DAL.Repositories
 {
-    public class PictureRepository(RBContext context) : IRepositoryOfAll<Picture>, IRepositoryGetAllByID<Picture>
+    public class PictureRepository : IRepositoryOfAll<Picture>, IRepositoryGetAllByID<Picture>
     {
-        private readonly RBContext context = context;
+        private readonly RBContext context;
+        public PictureRepository(RBContext context)
+        {
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
+        }
         public async Task<IEnumerable<Picture>> GetAllById(int apartmentId)// коллекция для определенной квартиры
         {
             return await context.Pictures
@@ -25,7 +29,7 @@ namespace RoomBi.DAL.Repositories
         }
         public async Task Create(Picture item)
         {
-            await context.Pictures.AddAsync(item);
+            await context.Pictures.AddAsync(item); await context.SaveChangesAsync();
         }
         public async Task Update(Picture item)
         {

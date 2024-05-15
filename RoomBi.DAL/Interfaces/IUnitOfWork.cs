@@ -1,10 +1,6 @@
 ﻿using RoomBi.DAL.Entities;
 using RoomBi.DAL.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace RoomBi.DAL.Interfaces
 {
@@ -18,7 +14,7 @@ namespace RoomBi.DAL.Interfaces
         IRepositoryOfAll<Country> Country { get; }
         IRepositoryOfAll<Сontinent> Сontinent { get; }
         IRepositoryOfAll<Booking> Booking { get; }
-        IRepositoryOfAll<OfferedAmenities> OfferedAmenities { get; }
+       
         IRepositoryOfAll<Picture> Picture { get; }
         IRepositoryOfAll<Profile> Profile { get; }
         IRepositoryOfAll<House> House { get; }
@@ -29,6 +25,7 @@ namespace RoomBi.DAL.Interfaces
         IRepositoryOfAll<Wishlist> Wishlist { get; }
 
         IRepositoryOfAll<RentalApartment> RentalApartment { get; }
+        IRepositoryOfAll<OfferedAmenities> OfferedAmenities { get; }
         IRepositoryGet24<RentalApartment> Apartment24 { get; }
         IRepositorySearch<RentalApartment> SearchRentalApartment { get; }
        
@@ -44,6 +41,11 @@ namespace RoomBi.DAL.Interfaces
         IRepositoryGetName<Country> CountryGetName { get; }
         IRepositoryGetName<Сontinent> СontinentGetName { get; }
         IRepositoryForChat<Chat> GetAllChat { get; }
+
+        IRepositoryGetName<Sport> SportRepositoryGetName { get; }
+        IRepositoryGetName<Location> LocationRepositoryGetName { get; }
+        IRepositoryGetName<House> HouseRepositoryGetName { get; }
+        IRepositoryGetName<RentalApartment> RentalApartmentRepositoryGetName { get; }
         Task Save();
     }
 }
