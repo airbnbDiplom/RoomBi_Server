@@ -289,7 +289,7 @@ namespace RoomBi.BLL.Services
 
         public async Task Create(TransferDataDTO item)
         {
-            var offeredAmenities = item.OfferedAmenitiesDTO;
+            var offeredAmenities = item.OfferedAmenities;
             if (offeredAmenities != null)
             {
                 await Database.OfferedAmenities.Create(offeredAmenities);
