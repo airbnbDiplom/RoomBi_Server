@@ -289,12 +289,12 @@ namespace RoomBi.BLL.Services
 
         public async Task Create(TransferDataDTO item)
         {
-            OfferedAmenities offeredAmenities = item.OfferedAmenitiesDTO;
+            var offeredAmenities = item.OfferedAmenitiesDTO;
             if (offeredAmenities != null)
             {
                 await Database.OfferedAmenities.Create(offeredAmenities);
             }
-            offeredAmenities = await Database.OfferedAmenities.Get(item.MasterId);
+            offeredAmenities = await Database.OfferedAmenitiesRepositoryGetName.GetByName(item.OfferedAmenities.Description);
             var user = await Database.User.Get(item.MasterId);
             if (user != null)
             {
@@ -321,6 +321,7 @@ namespace RoomBi.BLL.Services
                 HouseId = house.Id, 
                 CountryCode = item.CountryCode,
                 OfferedAmenitiesId = offeredAmenities.Id,
+                UserId = item.MasterId
             };
             if (sport != null)
             {

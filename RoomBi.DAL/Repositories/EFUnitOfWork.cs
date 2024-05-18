@@ -109,6 +109,8 @@ namespace RoomBi.DAL.Repositories
        
         private RentalApartmentRepository rentalApartmentRepository2;
         public IRepositoryGetName<RentalApartment> RentalApartmentRepositoryGetName => rentalApartmentRepository2 ??= new RentalApartmentRepository(_context);
+        private OfferedAmenitiesRepository offeredAmenitiesRepository2;
+       public IRepositoryGetName<OfferedAmenities> OfferedAmenitiesRepositoryGetName => offeredAmenitiesRepository2 ??= new OfferedAmenitiesRepository(_context);
 
         public async Task Save()
         {

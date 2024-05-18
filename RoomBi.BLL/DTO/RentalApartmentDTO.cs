@@ -50,6 +50,6 @@ namespace RoomBi.BLL.DTO
         public string? City { get; set; }
         public Int64 CityPlaceId { get; set; }
         public string? CountryCode { get; set; }
-        public OfferedAmenities? OfferedAmenitiesDTO { get; set; }
+        public OfferedAmenities? OfferedAmenities { get; set; }
     }
 }

@@ -46,6 +46,7 @@ namespace RoomBi.DAL.Interfaces
         IRepositoryGetName<Location> LocationRepositoryGetName { get; }
         IRepositoryGetName<House> HouseRepositoryGetName { get; }
         IRepositoryGetName<RentalApartment> RentalApartmentRepositoryGetName { get; }
+        IRepositoryGetName<OfferedAmenities> OfferedAmenitiesRepositoryGetName { get; }
         Task Save();
     }
 }
