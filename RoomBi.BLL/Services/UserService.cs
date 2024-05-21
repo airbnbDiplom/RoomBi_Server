@@ -274,7 +274,7 @@ namespace RoomBi.BLL.Services
 
                 rentalApartmentList.Add(rentalApartmentDto);
             }
-            return new UserDTOProfile
+            var result = new UserDTOProfile
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -286,24 +286,35 @@ namespace RoomBi.BLL.Services
                 ProfilePicture = user.ProfilePicture,
                 CurrentStatus = user.CurrentStatus,
                 UserStatus = user.UserStatus,
-                Language = language.Name,
-                Country = contry.Name,
-                SchoolYears = profile.SchoolYears,
-                Pets = profile.Pets,
-                Job = profile.Job,
-                MyLocation = profile.MyLocation,
-                MyLanguages = profile.MyLanguages,
-                Generation = profile.Generation,
-                FavoriteSchoolSong = profile.FavoriteSchoolSong,
-                Passion = profile.Passion,
-                InterestingFact = profile.InterestingFact,
-                UselessSkill = profile.UselessSkill,
-                BiographyTitle = profile.BiographyTitle,
-                DailyActivity = profile.DailyActivity,
-                AboutMe = profile.AboutMe,
                 CommentsAboutGuestDTO = commentsAboutGuestList,
                 RentalApartments = rentalApartmentList
             };
+            if (language != null)
+            {
+                result.Language = language.Name;
+            }
+            if (contry != null)
+            {
+                result.Country = contry.Name;
+            }
+            if (profile != null)
+            {
+                result.SchoolYears = profile.SchoolYears;
+                result.Pets = profile.Pets;
+                result.Job = profile.Job;
+                result.MyLocation = profile.MyLocation;
+                result.MyLanguages = profile.MyLanguages;
+                result.Generation = profile.Generation;
+                result.FavoriteSchoolSong = profile.FavoriteSchoolSong;
+                result.Passion = profile.Passion;
+                result.InterestingFact = profile.InterestingFact;
+                result.UselessSkill = profile.UselessSkill;
+                result.BiographyTitle = profile.BiographyTitle;
+                result.DailyActivity = profile.DailyActivity;
+                result.AboutMe = profile.AboutMe;
+            }
+            return result;
+ 
         }
         public static string FormatDate(RentalApartment rentalApartment)
         {

@@ -20,7 +20,7 @@ namespace RoomBi.DAL.Repositories
         public async Task<User> Get(int id)
         {
             
- var user =  await context.Users.FirstOrDefaultAsync(m => m.Id == id);
+            var user =  await context.Users.FirstOrDefaultAsync(m => m.Id == id);
             return user;
              
         }

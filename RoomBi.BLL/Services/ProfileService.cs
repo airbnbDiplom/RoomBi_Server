@@ -45,51 +45,20 @@ namespace RoomBi.BLL.Services
             {
                 return;
             }
-            switch (fieldName)
-            {
-                case nameof(profileDTO.SchoolYears):
-                    profile.SchoolYears = profileDTO.SchoolYears;
-                    break;
-                case nameof(profileDTO.Pets):
-                    profile.Pets = profileDTO.Pets;
-                    break;
-                case nameof(profileDTO.Job):
-                    profile.Job = profileDTO.Job;
-                    break;
-                case nameof(profileDTO.MyLanguages):
-                    profile.MyLanguages = profileDTO.MyLanguages;
-                    break;
-                case nameof(profileDTO.MyLocation):
-                    profile.MyLocation = profileDTO.MyLocation;
-                    break;
-                case nameof(profileDTO.Generation):
-                    profile.Generation = profileDTO.Generation;
-                    break;
-                case nameof(profileDTO.FavoriteSchoolSong):
-                    profile.FavoriteSchoolSong = profileDTO.FavoriteSchoolSong;
-                    break;
-                case nameof(profileDTO.Passion):
-                    profile.Passion = profileDTO.Passion;
-                    break;
-                case nameof(profileDTO.InterestingFact):
-                    profile.InterestingFact = profileDTO.InterestingFact;
-                    break;
-                case nameof(profileDTO.UselessSkill):
-                    profile.UselessSkill = profileDTO.UselessSkill;
-                    break;
-                case nameof(profileDTO.BiographyTitle):
-                    profile.BiographyTitle = profileDTO.BiographyTitle;
-                    break;
-                case nameof(profileDTO.DailyActivity):
-                    profile.DailyActivity = profileDTO.DailyActivity;
-                    break;
-                case nameof(profileDTO.AboutMe):
-                    profile.AboutMe = profileDTO.AboutMe;
-                    break;
-                default:
-                    break;
-            }
-
+            if (!string.IsNullOrEmpty(profileDTO.SchoolYears)) profile.SchoolYears = profileDTO.SchoolYears;
+            if (!string.IsNullOrEmpty(profileDTO.Pets)) profile.Pets = profileDTO.Pets;
+            if (!string.IsNullOrEmpty(profileDTO.Job))profile.Job = profileDTO.Job;  
+            if (!string.IsNullOrEmpty(profileDTO.MyLocation)) profile.MyLocation = profileDTO.MyLocation; 
+            if (!string.IsNullOrEmpty(profileDTO.MyLanguages)) profile.MyLanguages = profileDTO.MyLanguages; 
+            if (!string.IsNullOrEmpty(profileDTO.Generation)) profile.Generation = profileDTO.Generation;
+            if (!string.IsNullOrEmpty(profileDTO.FavoriteSchoolSong))profile.FavoriteSchoolSong = profileDTO.FavoriteSchoolSong;  
+            if (!string.IsNullOrEmpty(profileDTO.Passion)) profile.Passion = profileDTO.Passion; 
+            if (!string.IsNullOrEmpty(profileDTO.InterestingFact))  profile.InterestingFact = profileDTO.InterestingFact;  
+            if (!string.IsNullOrEmpty(profileDTO.UselessSkill)) profile.UselessSkill = profileDTO.UselessSkill; 
+            if (!string.IsNullOrEmpty(profileDTO.BiographyTitle)) profile.BiographyTitle = profileDTO.BiographyTitle;
+            if (!string.IsNullOrEmpty(profileDTO.DailyActivity)) profile.DailyActivity = profileDTO.DailyActivity; 
+            if (!string.IsNullOrEmpty(profileDTO.AboutMe)) profile.AboutMe = profileDTO.AboutMe;  
+ 
             await Database.Profile.Update(profile);
             await Database.Save();
         }
