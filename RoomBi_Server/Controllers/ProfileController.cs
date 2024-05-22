@@ -32,17 +32,17 @@ namespace RoomBi_Server.Controllers
             return null;
         }
 
-        //[Authorize]
+        [Authorize]
         //POST: api/profiles
         [HttpPost("profile")]
         public async Task<ActionResult<ProfileDTO>> PostProfile([FromBody] ProfileDTO profile)
         {
-            var test = 3;
-            //string token = HttpContext.Request.Headers.Authorization; // id из токена
-            //string cleanedToken = token.Replace("Bearer ", "");
-            //ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
-            //profile.IdUser = int.Parse(jwtTokenService.GetIdFromToken(principal));
-             profile.IdUser = 14;
+          
+            string token = HttpContext.Request.Headers.Authorization; // id из токена
+            string cleanedToken = token.Replace("Bearer ", "");
+            ClaimsPrincipal principal = jwtTokenService.GetPrincipalFromExpiredToken(cleanedToken);
+            profile.IdUser = int.Parse(jwtTokenService.GetIdFromToken(principal));
+            //profile.IdUser = 14;
             var item = await profileService.Get(profile.IdUser); // проверяем наличие profile
             if (item == null)                        // если нет
             {
