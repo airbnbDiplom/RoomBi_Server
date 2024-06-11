@@ -101,7 +101,7 @@ namespace RoomBi.BLL.Services
                 LatMap = apartment.LatMap,
                 PricePerNight = apartment.PricePerNight,
                 ObjectRating = apartment.ObjectRating,
-                Country = apartment.Country.Name + " " + apartment.Address,
+                Country =  apartment.Address,
                 Pictures = apartment.Pictures,
                 BookingFree = FormatDate(apartment)
             };

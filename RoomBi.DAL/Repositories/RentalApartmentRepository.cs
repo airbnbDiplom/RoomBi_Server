@@ -111,18 +111,20 @@ namespace RoomBi.DAL.Repositories
             if (!double.TryParse(ingMap, NumberStyles.Float, CultureInfo.InvariantCulture, out double ing) ||
                 !double.TryParse(latMap, NumberStyles.Float, CultureInfo.InvariantCulture, out double lat))
             {
-                throw new ArgumentException("Invalid coordinates format");
+                return null;
             }
 
             var allApartments = await context.RentalApartments.ToListAsync();
 
             var nearestApartments = allApartments
+               
                 .Select(apartment => new
                 {
                     Apartment = apartment,
                     Distance = Math.Sqrt(Math.Pow(double.Parse(apartment.LatMap, CultureInfo.InvariantCulture) - lat, 2) +
                                          Math.Pow(double.Parse(apartment.IngMap, CultureInfo.InvariantCulture) - ing, 2))
                 })
+       
                 .OrderBy(apartment => apartment.Distance)
                 .Take(10)
                 .Select(apartment => apartment.Apartment)
