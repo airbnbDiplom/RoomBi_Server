@@ -12,7 +12,7 @@ namespace RoomBi_Server.Controllers
     public class BookingsController(IServiceBooking<BookingDTO> bookingService,
         IJwtToken jwtTokenService, 
         IServiceGetAllIdUser<BookingDTOWithFoto> serviceGetAllIdUser,
-        IServiceCreate<BookingDTO> serviceCreate) : ControllerBase
+        IServiceCreate<BookingDTO> serviceCreate): ControllerBase
     {
         [Authorize]
         // POST: api/Bookings
