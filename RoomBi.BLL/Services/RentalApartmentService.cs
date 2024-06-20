@@ -6,17 +6,17 @@ using RoomBi.BLL.Interfaces;
 using RoomBi.BLL.DTO;
 using System.Globalization;
 using RoomBi.BLL.DTO.New;
-using Azure;
-using RoomBi.DAL.Entities;
+
 
 
 namespace RoomBi.BLL.Services
 {
-    public class RentalApartmentService(IUnitOfWork uow) : 
+    public class RentalApartmentService(IUnitOfWork uow) :
         IServiceForItem<RentalApartmentDTO>,
         IServiceForStartPage<RentalApartmentDTOForStartPage>,
         IServiceForMap<RentalApartmentForMap>,
-        IServiceCreate<TransferDataDTO>
+        IServiceCreate<TransferDataDTO>,
+        IServiceUpdate<TransferDataWithDate>
     {
         private readonly IUnitOfWork Database = uow;
 
@@ -81,7 +81,6 @@ namespace RoomBi.BLL.Services
         public static List<DateBooking> ConvertBookingsToDates(ICollection<Booking> bookings)
         {
             var dateBookings = new List<DateBooking>();
-
             foreach (var booking in bookings)
             {
                 if (booking.PaymentStatus)
@@ -90,7 +89,6 @@ namespace RoomBi.BLL.Services
                     dateBookings.Add(dateBooking);
                 }
             }
-
             return dateBookings;
         }
         public static MasterForApartmentPage MapUserToMaster(User user, Language language, Country country)
@@ -170,7 +168,7 @@ namespace RoomBi.BLL.Services
                         Location = apartment.Location?.Name,
                         House = apartment.House?.Name,
                         Sport = apartment.Sport?.Name,
-                        Pictures = apartment.Pictures, 
+                        Pictures = apartment.Pictures,
                         BookingFree = FormatDate(apartment)
 
                     };
@@ -284,9 +282,78 @@ namespace RoomBi.BLL.Services
                 rentalApartmentList.Add(rentalApartmentDto);
             }
             return rentalApartmentList;
-           
+
         }
 
+        public async Task Update(TransferDataWithDate item)
+        {
+            var offeredAmenities = item.OfferedAmenities;
+            if (offeredAmenities != null)
+            {
+                await Database.OfferedAmenities.Update(offeredAmenities);
+            }
+            var rentalApartmenttemp = await Database.RentalApartmentRepositoryGetName.GetByName(item.Title);
+            var rentalApartment =  await Database.RentalApartment.Get(rentalApartmenttemp.Id);
+            if (item.Sport != null)
+            {
+                var sport = await Database.SportRepositoryGetName.GetByName(item.Sport);
+                rentalApartment.SportId = sport.Id;
+
+            }
+            if (item.Location != null)
+            {
+                var location = await Database.LocationRepositoryGetName.GetByName(item.Location);
+                rentalApartment.LocationId = location.Id;
+
+            }
+            if (item.House != null)
+            {
+                var house = await Database.HouseRepositoryGetName.GetByName(item.House);
+                rentalApartment.HouseId = house.Id;
+            }
+            rentalApartment.Title = item.Title;
+            rentalApartment.Address = item.Address;
+            rentalApartment.Bedrooms = item.Bedrooms;
+            rentalApartment.Bathrooms = item.Bathrooms;
+            rentalApartment.City = item.City;
+            rentalApartment.PlaceId = item.CityPlaceId;
+            rentalApartment.IngMap = item.IngMap;
+            rentalApartment.LatMap = item.LatMap;
+            rentalApartment.NumberOfGuests = item.NumberOfGuests;
+            rentalApartment.Beds = item.Beds;
+            rentalApartment.PricePerNight = item.PricePerNight;
+            rentalApartment.TypeApartment = item.TypeApartment;
+            rentalApartment.CountryCode = item.CountryCode;
+            rentalApartment.OfferedAmenitiesId = offeredAmenities.Id;
+            if (item.Pictures != null)
+            {
+                var pictures = item.Pictures;
+                foreach (var picture in pictures)
+                {
+                    picture.RentalApartmentId = rentalApartment.Id;
+                    await Database.Picture.Create(picture);
+                }
+            }
+            await Database.RentalApartment.Update(rentalApartment);
+            await Database.Save();
+            if (item.DateBooking!= null)
+            {
+                var bookings = item.DateBooking;
+                foreach (var book in bookings)
+                {
+                    var booking = new Booking
+                    {
+                        OwnerId = rentalApartment.UserId,
+                        ApartmentId = rentalApartment.Id,
+                        CheckInDate = new DateTime(book.Start.Year, book.Start.Month, book.Start.Day),
+                        CheckOutDate = new DateTime(book.End.Year, book.End.Month, book.End.Day),
+                        TotalPrice = 0,
+
+                    };
+                    await Database.Booking.Create(booking); await Database.Save();
+                }
+            }
+        }
         public async Task Create(TransferDataDTO item)
         {
             var offeredAmenities = item.OfferedAmenities;
@@ -314,11 +381,11 @@ namespace RoomBi.BLL.Services
                 PlaceId = item.CityPlaceId,
                 IngMap = item.IngMap,
                 LatMap = item.LatMap,
-                NumberOfGuests  = item.NumberOfGuests,
+                NumberOfGuests = item.NumberOfGuests,
                 Beds = item.Beds,
                 PricePerNight = item.PricePerNight,
                 TypeApartment = item.TypeApartment,
-                HouseId = house.Id, 
+                HouseId = house.Id,
                 CountryCode = item.CountryCode,
                 OfferedAmenitiesId = offeredAmenities.Id,
                 UserId = item.MasterId

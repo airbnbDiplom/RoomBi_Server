@@ -15,6 +15,10 @@ namespace RoomBi.BLL.Interfaces
     {
         Task Create(T item);
     }
+    public interface IServiceUpdate<T>
+    {
+        Task Update(T item);
+    }
     public interface IServiceGetAllIdUser<T>
     {
         Task<List<T>> GetAllObj(int IdUser);

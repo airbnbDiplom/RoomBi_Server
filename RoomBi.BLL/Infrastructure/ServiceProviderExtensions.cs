@@ -29,6 +29,7 @@ namespace RoomBi.BLL.Infrastructure
 
             services.AddScoped<IServiceCreate<ChatForApartmentPageDTO>, ChatService>();
 
+
             services.AddScoped<IServiceGetAllIdUser<MessageObj>, BookingService>();
             services.AddScoped<IServiceBooking<BookingDTO>, BookingService>();
             services.AddScoped<IServiceCreate<BookingDTO>, BookingService>();
@@ -48,6 +49,7 @@ namespace RoomBi.BLL.Infrastructure
      
             services.AddScoped<IServiceDataSearchForSorting<RentalApartmentDTOForStartPage>, DataSearchForSortingServise>();
             services.AddScoped<IServiceCreate<TransferDataDTO>, RentalApartmentService> ();
+            services.AddScoped<IServiceUpdate<TransferDataWithDate>, RentalApartmentService > ();
 
 
 
