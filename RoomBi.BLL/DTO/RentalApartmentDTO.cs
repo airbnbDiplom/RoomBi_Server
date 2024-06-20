@@ -55,6 +55,7 @@ namespace RoomBi.BLL.DTO
     }
     public class TransferDataWithDate// для update одного элемента
     {
+        public int ApartmentId { get; set; }
         public string? Title { get; set; }
         public string? Address { get; set; }
         public int MasterId { get; set; }

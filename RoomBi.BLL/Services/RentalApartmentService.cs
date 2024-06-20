@@ -22,6 +22,7 @@ namespace RoomBi.BLL.Services
 
         public async Task<RentalApartmentDTO> GetItem(int id, int userId)
         {
+            
             var rentalApartment = await Database.RentalApartment.Get(id);
             if (rentalApartment == null)
                 throw new ValidationException("Wrong rentalApartment!", "");
@@ -284,7 +285,6 @@ namespace RoomBi.BLL.Services
             return rentalApartmentList;
 
         }
-
         public async Task Update(TransferDataWithDate item)
         {
             var offeredAmenities = item.OfferedAmenities;
@@ -292,8 +292,7 @@ namespace RoomBi.BLL.Services
             {
                 await Database.OfferedAmenities.Update(offeredAmenities);
             }
-            var rentalApartmenttemp = await Database.RentalApartmentRepositoryGetName.GetByName(item.Title);
-            var rentalApartment =  await Database.RentalApartment.Get(rentalApartmenttemp.Id);
+            var rentalApartment =  await Database.RentalApartment.Get(item.ApartmentId);
             if (item.Sport != null)
             {
                 var sport = await Database.SportRepositoryGetName.GetByName(item.Sport);
