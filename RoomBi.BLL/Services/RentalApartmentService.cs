@@ -324,8 +324,17 @@ namespace RoomBi.BLL.Services
             rentalApartment.TypeApartment = item.TypeApartment;
             rentalApartment.CountryCode = item.CountryCode;
             rentalApartment.OfferedAmenitiesId = offeredAmenities.Id;
+            var ps = await Database.Booking.GetAll();
+            if(ps != null)
+            {
+                foreach (var p  in ps)
+                {
+                    await Database.Booking.Delete(p.Id);
+                }
+            }
             if (item.Pictures != null)
             {
+
                 var pictures = item.Pictures;
                 foreach (var picture in pictures)
                 {
@@ -347,7 +356,7 @@ namespace RoomBi.BLL.Services
                         CheckInDate = new DateTime(book.Start.Year, book.Start.Month, book.Start.Day),
                         CheckOutDate = new DateTime(book.End.Year, book.End.Month, book.End.Day),
                         TotalPrice = 0,
-
+                        PaymentStatus = true
                     };
                     await Database.Booking.Create(booking); await Database.Save();
                 }
