@@ -22,7 +22,7 @@ namespace RoomBi.BLL.Services
 
         public async Task<RentalApartmentDTO> GetItem(int id, int userId)
         {
-            
+
             var rentalApartment = await Database.RentalApartment.Get(id);
             if (rentalApartment == null)
                 throw new ValidationException("Wrong rentalApartment!", "");
@@ -292,7 +292,7 @@ namespace RoomBi.BLL.Services
             {
                 //await Database.OfferedAmenities.Update(offeredAmenities);
             }
-            var rentalApartment =  await Database.RentalApartment.Get(item.ApartmentId);
+            var rentalApartment = await Database.RentalApartment.Get(item.ApartmentId);
             //if (item.Sport != null)
             //{
             //    var sport = await Database.SportRepositoryGetName.GetByName(item.Sport);
@@ -325,11 +325,15 @@ namespace RoomBi.BLL.Services
             rentalApartment.CountryCode = item.CountryCode;
             rentalApartment.OfferedAmenitiesId = offeredAmenities.Id;
             var ps = await Database.Picture.GetAll();
-            if(ps != null)
+            if (ps != null)
             {
-                foreach (var p  in ps)
+                foreach (var p in ps)
                 {
-                    await Database.Picture.Delete(p.Id);
+                    if (p.RentalApartmentId == rentalApartment.Id)
+                    {
+                        await Database.Picture.Delete(p.Id);
+                    }
+
                 }
             }
             if (item.Pictures != null)
@@ -344,7 +348,7 @@ namespace RoomBi.BLL.Services
             }
             await Database.RentalApartment.Update(rentalApartment);
             await Database.Save();
-            if (item.DateBooking!= null)
+            if (item.DateBooking != null)
             {
                 var bookings = item.DateBooking;
                 foreach (var book in bookings)
