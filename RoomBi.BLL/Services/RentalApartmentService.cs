@@ -290,26 +290,26 @@ namespace RoomBi.BLL.Services
             var offeredAmenities = item.OfferedAmenities;
             if (offeredAmenities != null)
             {
-                await Database.OfferedAmenities.Update(offeredAmenities);
+                //await Database.OfferedAmenities.Update(offeredAmenities);
             }
             var rentalApartment =  await Database.RentalApartment.Get(item.ApartmentId);
-            if (item.Sport != null)
-            {
-                var sport = await Database.SportRepositoryGetName.GetByName(item.Sport);
-                rentalApartment.SportId = sport.Id;
+            //if (item.Sport != null)
+            //{
+            //    var sport = await Database.SportRepositoryGetName.GetByName(item.Sport);
+            //    rentalApartment.SportId = sport.Id;
 
-            }
-            if (item.Location != null)
-            {
-                var location = await Database.LocationRepositoryGetName.GetByName(item.Location);
-                rentalApartment.LocationId = location.Id;
+            //}
+            //if (item.Location != null)
+            //{
+            //    var location = await Database.LocationRepositoryGetName.GetByName(item.Location);
+            //    rentalApartment.LocationId = location.Id;
 
-            }
-            if (item.House != null)
-            {
-                var house = await Database.HouseRepositoryGetName.GetByName(item.House);
-                rentalApartment.HouseId = house.Id;
-            }
+            //}
+            //if (item.House != null)
+            //{
+            //    var house = await Database.HouseRepositoryGetName.GetByName(item.House);
+            //    rentalApartment.HouseId = house.Id;
+            //}
             rentalApartment.Title = item.Title;
             rentalApartment.Address = item.Address;
             rentalApartment.Bedrooms = item.Bedrooms;
@@ -324,12 +324,12 @@ namespace RoomBi.BLL.Services
             rentalApartment.TypeApartment = item.TypeApartment;
             rentalApartment.CountryCode = item.CountryCode;
             rentalApartment.OfferedAmenitiesId = offeredAmenities.Id;
-            var ps = await Database.Booking.GetAll();
+            var ps = await Database.Picture.GetAll();
             if(ps != null)
             {
                 foreach (var p  in ps)
                 {
-                    await Database.Booking.Delete(p.Id);
+                    await Database.Picture.Delete(p.Id);
                 }
             }
             if (item.Pictures != null)
